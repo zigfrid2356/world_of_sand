@@ -33,6 +33,8 @@ hp,mp,exp,lvl:integer;
 //+10.08.2015
 dmg,ign_dmg,veapon,armor,attak,defense:integer;
 gold:integer;
+//+15.08.2015
+stren,intel,agility,sex,race,init,masking,obser:integer;
 end;
 erath =record
 x,y:byte;
@@ -44,6 +46,7 @@ hero:body;
 monster:body;
 menu_key:char;
 i,j,n,m:integer;//áçñâç¨ª¨{счётчики}
+s:string;//temp
 lang: text;
 monster_name:text;
 text:array[0..100] of string;
@@ -70,6 +73,38 @@ name_generate:=text_name[random(m)];
 end;
 procedure hero_generate(h:string);//+12.08.2015
 begin
+if h='hero_new' then begin //0
+writeln(text[20]);readln(s);
+hero.name:=s;
+writeln(text[21]);
+repeat begin//0.1
+menu_key:=readkey;
+case menu_key of//0.2
+'1': hero.sex:=1;//М
+'2':hero.sex:=2;//Ж
+else
+writeln(text[24]);
+end;//0.2
+
+
+
+
+stren,intel,agility,sex,race,init,masking,obser:integer;
+hero.lvl:=1;
+
+hero.hp:=10*hero.lvl;
+hero.mp:=10*hero.lvl;
+hero.exp:=0;
+
+
+hero.veapon:=3;
+hero.armor:=3;
+hero.attak:=1;
+hero.defense:=1;
+hero.dmg:=hero.veapon*hero.attak;
+hero.ign_dmg:=hero.armor*hero.defense;
+hero.gold:=1;
+end;//0
 if h='hero' then begin //1
 hero.name:='@sub_name';
 hero.lvl:=1;

@@ -73,7 +73,7 @@ name_generate:=text_name[random(m)];
 end;
 procedure hero_generate(h:string);//+12.08.2015
 begin
-if h='hero_new' then begin //0
+if h='hero_new' then begin //0//+15.08.2015
 writeln(text[20]);readln(s);
 hero.name:=s;
 writeln(text[21]);
@@ -85,11 +85,11 @@ case menu_key of//0.2
 else
 writeln(text[24]);
 end;//0.2
+end;//0.1
 
 
 
-
-stren,intel,agility,sex,race,init,masking,obser:integer;
+stren,intel,agility,race,init,masking,obser:integer;
 hero.lvl:=1;
 
 hero.hp:=10*hero.lvl;

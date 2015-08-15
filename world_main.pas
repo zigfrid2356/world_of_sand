@@ -136,6 +136,8 @@ for i:=0 to 255 do begin//1.1
 write(map_save,map[i,j]);
 end;end;//1.1//1.2
 close(map_save);
+writeln(text[18]);
+readln();
 end;
 procedure load;
 begin
@@ -151,6 +153,8 @@ for i:=0 to 255 do begin//1.1
 read(map_save,map[i,j]);
 end;end;//1.1//1.2
 close(map_save);
+writeln(text[19]);
+readln();
 end;
 procedure lvlup;
 begin
@@ -217,6 +221,17 @@ writeln(text[7],hero.exp );
 writeln(text[8],hero.lvl );
 writeln(text[12],hero.dmg );
 writeln(text[13],hero.ign_dmg );
+
+writeln('       __');
+writeln('      |  |  ');
+writeln('  __  |__|  __');
+writeln(' |  |  __  |  |');
+writeln(' |  | |  | |  |');
+writeln(' |__| |  | |__| ');
+writeln('      |__|');
+writeln('       __');
+writeln('      |  |');
+writeln('      |__|');
 readln();
 end;
 

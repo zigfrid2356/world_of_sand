@@ -327,17 +327,26 @@ end;
 
 
 procedure map_output(x,y:byte);
+var
+temp_char:char;
 begin
+temp_char:=map[x,y].structure;
+map[x,y].structure:='@';
+if (x-1>=6) and(x+1<=249) and (y-1>=11) and (y+1<=244) then begin//2.00
+
 repeat begin//2.0
 clrscr;
-
+writeln(' _____________________');//top
 for i:=x-5 to x+5 do begin//2.1
- for j:=y-5 to y+5 do begin//2.2
+write('|');//left
+ for j:=y-10 to y+10 do begin//2.2
  write(map[i,j].structure);
  end;//2.2
- writeln('');
+ writeln('|');//right
 end;//2.1
-writeln(x,' ',y);
+ writeln(' ---------------------');
+map[x,y].structure:=temp_char;//+16.08.2015 
+writeln(text[34],' ',x,' : ',y);
 writeln	('1- ->');
 writeln	('2- <-');
 writeln	('3- /\');
@@ -349,23 +358,28 @@ end;//2.0
 
 case menu_key of//3.0
 '1':begin//3.1 
-x:=x;y:=y+1; 
+x:=x;
+if y+1<=244 then y:=y+1 else y:=y;
 map_output(x,y);
 end;//3.1
 '2':begin//3.2
-x:=x;y:=y-1; 
+x:=x;
+if y-1>=11 then y:=y-1 else y:=y;
 map_output(x,y);
  end;//3.2
 '3':begin//3.3
-x:=x-1;y:=y; 
+if x-1>=6 then x:=x-1 else x:=x;
+y:=y; 
 map_output(x,y);
  end;//3.3
 '4':begin//3.4
-x:=x+1;y:=y;  
+if x+1<=249 then x:=x+1 else x:=x;
+y:=y;  
 map_output(x,y);
  end;//3.4
 end;//3.0
 until menu_key='5';
+end;//2.00 else mapgenerate(new,'/\')
 end;
 
 procedure main_menu;
@@ -396,6 +410,7 @@ end//1.4
 end;
 end;//2 
 until menu_key='5';
+
 end;
 
 BEGIN

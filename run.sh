@@ -1,5 +1,6 @@
 
 #!/bin/bash 
+git pull
 git init
 git add .
 git commit -a -m 'first commit'

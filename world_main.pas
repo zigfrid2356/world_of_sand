@@ -118,8 +118,8 @@ hero.exp:=0;
 
 hero.veapon:=3;
 hero.armor:=3;
-hero.attak:=1;
-hero.defense:=1;
+hero.attak:=3;
+hero.defense:=3;
 hero.dmg:=hero.veapon*hero.attak;
 hero.ign_dmg:=hero.armor*hero.defense;
 hero.gold:=1;
@@ -155,15 +155,15 @@ if h='monster_human' then begin//2
 monster.name:=name_generate('human');
 monster.lvl:=(hero.lvl-1)+random(3);
 
-monster.hp:=5*monster.lvl;
+monster.hp:=(5+random(monster.lvl))*monster.lvl;
 monster.mp:=5*monster.lvl;
 monster.exp:=monster.lvl+random(monster.lvl);
 
 
 monster.veapon:=1+random(monster.lvl);
 monster.armor:=1+random(monster.lvl);
-monster.attak:=1;
-monster.defense:=1;
+monster.attak:=1+random(monster.lvl);
+monster.defense:=1+random(monster.lvl);
 monster.dmg:=monster.veapon*monster.attak;
 monster.ign_dmg:=monster.armor*monster.defense;
 monster.gold:=monster.lvl+random(monster.lvl);
@@ -186,10 +186,10 @@ monster.mp:=5*monster.lvl;
 monster.exp:=monster.lvl+random(monster.lvl)+5;
 
 
-monster.veapon:=1;
-monster.armor:=1;
-monster.attak:=1;
-monster.defense:=1;
+monster.veapon:=1+random(monster.lvl+1);
+monster.armor:=2+random(monster.lvl+1);
+monster.attak:=1+random(monster.lvl+1);
+monster.defense:=1+random(monster.lvl+1);
 monster.dmg:=monster.veapon*monster.attak;
 monster.ign_dmg:=monster.armor*monster.defense;
 monster.gold:=0;
@@ -245,24 +245,30 @@ if hero.exp>=hero.lvl*5 then begin//1
 hero.exp:=hero.exp-hero.lvl*5;
 hero.lvl:=hero.lvl+1;
 
-hero.hp:=10*hero.lvl;
+hero.hp:=abs(hero.hp)+(10*hero.lvl)+random(hero.lvl);
 hero.mp:=10*hero.lvl;
 
-hero.veapon:=3;
-hero.armor:=3;
-hero.attak:=1;
-hero.defense:=1;
-hero.dmg:=hero.veapon*hero.attak;
+hero.veapon:={hero.veapon+}random(hero.lvl);
+hero.armor:=hero.armor+random(hero.lvl);
+hero.attak:=hero.attak+(1*hero.lvl);
+hero.defense:=hero.defense+(1*hero.lvl);
+hero.dmg:=hero.veapon+hero.attak;
 hero.ign_dmg:=hero.armor*hero.defense;
 end;//1
 end;
 procedure battle;
+var i0:integer;
 begin
+i0:=0;
+repeat begin//0
+
 hero_generate('monster_beast');
 i:=1;
 repeat begin//1
 clrscr;
-
+writeln(text[36], i0);
+i0:=i0+1;
+writeln(text[35]);
 writeln(text[14],': ',i);
 writeln('-------------------------');
 writeln('|',hero.name,'                    ', monster.name,'|');
@@ -277,9 +283,13 @@ writeln('-------------------------');
 writeln(text[7],hero.exp );
 writeln(text[8],hero.lvl );
 i:=i+1;
-hero.hp:=hero.hp-abs(monster.dmg-hero.ign_dmg);
+if monster.dmg>=hero.ign_dmg then hero.hp:=hero.hp-abs(monster.dmg-hero.ign_dmg) else hero.hp:=hero.hp-(monster.dmg div 4);
 monster.hp:=monster.hp-abs(hero.dmg-monster.ign_dmg);
-
+//writeln('-------------------');
+//writeln(text[37],abs(monster.dmg-hero.ign_dmg));
+//writeln(text[38],abs(hero.dmg-monster.ign_dmg));
+//writeln('-------------------');
+//readln();
 delay(500);
 end;//1
 until (hero.hp<=0) or(monster.hp<=0);
@@ -290,13 +300,18 @@ hero.exp:=hero.exp+monster.exp;
 lvlup;
 
 writeln(text[15]);
-readln();
+delay(500);
+
+//readln();
 
 end;//2 
+end;//0
+until readkey='1';
 end;
 procedure hero_output;
 begin
 clrscr;
+writeln();
 writeln(text[5],' ',hero.hp );
 writeln(text[6],hero.mp );
 writeln(text[7],hero.exp );
@@ -313,14 +328,12 @@ writeln(text[32],' ',hero.masking ); //маскировка
 writeln(text[33],' ',hero.obser );// наблюдательность
 
 writeln('       __');
-writeln('      |  |  ');
-writeln('  __  |__|  __');
-writeln(' |  |  __  |  |');
+writeln('      |__|  ');
+writeln('  __   __   __');
 writeln(' |  | |  | |  |');
 writeln(' |__| |  | |__| ');
 writeln('      |__|');
 writeln('       __');
-writeln('      |  |');
 writeln('      |__|');
 readln();
 end;

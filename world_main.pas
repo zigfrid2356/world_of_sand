@@ -77,19 +77,38 @@ if h='hero_new' then begin //0//+15.08.2015
 writeln(text[20]);readln(s);
 hero.name:=s;
 writeln(text[21]);
+m:=0;
 repeat begin//0.1
 menu_key:=readkey;
 case menu_key of//0.2
-'1': hero.sex:=1;//М
-'2':hero.sex:=2;//Ж
+'1': begin hero.sex:=1;m:=1;end;//М
+'2':begin hero.sex:=2;m:=1;end;//Ж
 else
 writeln(text[24]);
 end;//0.2
 end;//0.1
+until m=1;
+m:=0;
+writeln(text[22]);
+writeln(text[25]);
+repeat begin//0.11
+menu_key:=readkey;
+case menu_key of//0.21
+'1':begin  hero.race:=1;m:=1;end;//human
+'2':begin hero.race:=2;m:=1;end;//not human
+else
+writeln(text[24]);
+end;//0.21
+end;//0.11
+until m=1;
 
+hero.stren:=1;
+hero.intel:=1;
+hero.agility:=1;
+hero.init:=1;
+hero.masking:=1;
+hero.obser:=1;
 
-
-stren,intel,agility,race,init,masking,obser:integer;
 hero.lvl:=1;
 
 hero.hp:=10*hero.lvl;
@@ -105,6 +124,7 @@ hero.dmg:=hero.veapon*hero.attak;
 hero.ign_dmg:=hero.armor*hero.defense;
 hero.gold:=1;
 end;//0
+
 if h='hero' then begin //1
 hero.name:='@sub_name';
 hero.lvl:=1;
@@ -121,6 +141,15 @@ hero.defense:=1;
 hero.dmg:=hero.veapon*hero.attak;
 hero.ign_dmg:=hero.armor*hero.defense;
 hero.gold:=1;
+//+16.08.2015
+hero.sex:=1;
+hero.race:=1;
+hero.stren:=1;
+hero.intel:=1;
+hero.agility:=1;
+hero.init:=1;
+hero.masking:=1;
+hero.obser:=1;
 end;//1
 if h='monster_human' then begin//2
 monster.name:=name_generate('human');
@@ -138,6 +167,15 @@ monster.defense:=1;
 monster.dmg:=monster.veapon*monster.attak;
 monster.ign_dmg:=monster.armor*monster.defense;
 monster.gold:=monster.lvl+random(monster.lvl);
+//+16.08.2015
+monster.sex:=1;
+monster.race:=1;
+monster.stren:=1;
+monster.intel:=1;
+monster.agility:=1;
+monster.init:=1;
+monster.masking:=1;
+monster.obser:=1;
 end;//2
 if h='monster_beast' then begin //3
 monster.name:=name_generate('beast');
@@ -155,6 +193,15 @@ monster.defense:=1;
 monster.dmg:=monster.veapon*monster.attak;
 monster.ign_dmg:=monster.armor*monster.defense;
 monster.gold:=0;
+//+16.08.2015
+monster.sex:=1;
+monster.race:=2;
+monster.stren:=1;
+monster.intel:=1;
+monster.agility:=1;
+monster.init:=1;
+monster.masking:=1;
+monster.obser:=1;
 end;//3
 end;
 procedure save;
@@ -256,6 +303,14 @@ writeln(text[7],hero.exp );
 writeln(text[8],hero.lvl );
 writeln(text[12],hero.dmg );
 writeln(text[13],hero.ign_dmg );
+writeln(text[26],' ',hero.stren );// сила
+writeln(text[27],' ',hero.intel );// интиллект
+writeln(text[28],' ',hero.agility );// ловкость
+writeln(text[29],' ',hero.sex );// пол
+writeln(text[30],' ',hero.race );// расса
+writeln(text[31],' ',hero.init );// инициатива
+writeln(text[32],' ',hero.masking ); //маскировка
+writeln(text[33],' ',hero.obser );// наблюдательность
 
 writeln('       __');
 writeln('      |  |  ');
@@ -366,7 +421,7 @@ menu_key:=readkey;
 case menu_key of
 '1': begin 
 //â¥áâ®¢ ï £¥­¥à æ¨ï £¥à®ï генерация персонажа {~ 12.08.2015}
-hero_generate('hero');
+hero_generate('hero_new');
 //â¥áâ®¢ ï £¥­¥à æ¨ï ª àâë {генерация карты }
 simbol[0]:='.';
 simbol[1]:='.';

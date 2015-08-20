@@ -24,7 +24,7 @@
 
 program world_of_sand;
 
-uses crt,sysutils;
+uses crt,sysutils,windows;
 
 type
 body =record
@@ -425,13 +425,20 @@ end;//2
 until menu_key='5';
 
 end;
-
+//-------------------------
+//+20.08.2015
+{
+win cp866 text_win.lang
+unix utf-8 text.lang
+}
+//--------------------------------
 BEGIN
 i:=0;
-assign(lang,'text.lang');
+assign(lang,'text_win.lang');
 reset(lang);
 while not eof(lang) do begin
 readln(lang,text[i]);
+
 delete(text[i],1,3);
 i:=i+1;
 end;

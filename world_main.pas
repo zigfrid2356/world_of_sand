@@ -26,7 +26,14 @@ program world_of_sand;
 
 uses crt,sysutils,windows;
 
-type
+type//+21.08.2015
+inventory =record
+equip:byte;
+types:byte;
+name:string;
+quality:integer;
+cost:integer;
+end;
 body =record
 name:string;
 hp,mp,exp,lvl:integer;
@@ -35,6 +42,8 @@ dmg,ign_dmg,veapon,armor,attak,defense:integer;
 gold:integer;
 //+15.08.2015
 stren,intel,agility,sex,race,init,masking,obser:integer;
+//+21.08.2015
+slot_1,slot_2,slot_3,slot_4,slot_5:inventory;//inventory
 end;
 erath =record
 x,y:byte;
@@ -55,6 +64,37 @@ hero_save:file of body;
 map_save:file of erath;
 
 simbol: array [0..4] of char;
+function inventory_generation(command:string;lvl:integer):inventory;
+begin
+if command='weapon' then begin //1
+inventory_generation.equip:=0;
+inventory_generation.types:=1;
+inventory_generation.name:='weapon';
+inventory_generation.quality:=10*lvl;
+inventory_generation.cost:=1+lvl;
+end;//1
+if command='armor' then begin//2 
+inventory_generation.equip:=0;
+inventory_generation.types:=2;
+inventory_generation.name:='armor';
+inventory_generation.quality:=10*lvl;
+inventory_generation.cost:=1+lvl;
+end;//2
+if command='jewel' then begin//3
+inventory_generation.equip:=0;
+inventory_generation.types:=3;
+inventory_generation.name:='jewel';
+inventory_generation.quality:=10*lvl;
+inventory_generation.cost:=1+lvl;
+ end;//3
+if command='ingredient' then begin//4
+inventory_generation.equip:=0;
+inventory_generation.types:=4;
+inventory_generation.name:='ingredient';
+inventory_generation.quality:=10*lvl;
+inventory_generation.cost:=1+lvl;
+ end;//4
+end;
 function name_generate(command:string):string;//+12.08.2015
 var
 s:string;
@@ -123,6 +163,12 @@ hero.defense:=3;
 hero.dmg:=hero.veapon*hero.attak;
 hero.ign_dmg:=hero.armor*hero.defense;
 hero.gold:=1;
+//
+hero.slot_1:=inventory_generation('armor',hero.lvl);
+hero.slot_2:=inventory_generation('armor',hero.lvl);;
+hero.slot_3:=inventory_generation('armor',hero.lvl);;
+hero.slot_4:=inventory_generation('weapon',hero.lvl);;
+hero.slot_5:=inventory_generation('armor',hero.lvl);;
 end;//0
 
 if h='hero' then begin //1
@@ -150,6 +196,12 @@ hero.agility:=1;
 hero.init:=1;
 hero.masking:=1;
 hero.obser:=1;
+//+21.08.2015
+hero.slot_1:=inventory_generation('armor',hero.lvl);
+hero.slot_2:=inventory_generation('armor',hero.lvl);;
+hero.slot_3:=inventory_generation('armor',hero.lvl);;
+hero.slot_4:=inventory_generation('weapon',hero.lvl);;
+hero.slot_5:=inventory_generation('armor',hero.lvl);
 end;//1
 if h='monster_human' then begin//2
 monster.name:=name_generate('human');
@@ -176,6 +228,12 @@ monster.agility:=1;
 monster.init:=1;
 monster.masking:=1;
 monster.obser:=1;
+//+21.08.2015
+monster.slot_1:=inventory_generation('armor',monster.lvl);
+monster.slot_2:=inventory_generation('armor',monster.lvl);
+monster.slot_3:=inventory_generation('armor',monster.lvl);
+monster.slot_4:=inventory_generation('weapon',monster.lvl);
+monster.slot_5:=inventory_generation('armor',monster.lvl);
 end;//2
 if h='monster_beast' then begin //3
 monster.name:=name_generate('beast');
@@ -202,6 +260,12 @@ monster.agility:=1;
 monster.init:=1;
 monster.masking:=1;
 monster.obser:=1;
+//+21.08.2015
+monster.slot_1:=inventory_generation('armor',monster.lvl);
+monster.slot_2:=inventory_generation('armor',monster.lvl);
+monster.slot_3:=inventory_generation('armor',monster.lvl);
+monster.slot_4:=inventory_generation('weapon',monster.lvl);
+monster.slot_5:=inventory_generation('armor',monster.lvl);
 end;//3
 end;
 procedure save;

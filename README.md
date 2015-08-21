@@ -1,4 +1,11 @@
 # world_of_sand
+============
+- Мир песка - кроссплатформенная игра с открытым миром в сеттинге техно магического пост аппокалипсис РПГ.
+- World of sand - a cross-platform open world game in the setting of post techno magic appokalipsis RPG.
+============
+* Автор/Author: [Zigfrid2356](https://github.com/zigfrid2356)
+* Вопросы и предложения/Support can be obtained via [Email](mailto:b09052015@yandex.ru)
+============
 Журнал разработки будет вестись здесь.
 26-07-15
 создание проекта на гитхабе

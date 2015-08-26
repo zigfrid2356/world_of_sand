@@ -33,6 +33,12 @@ types:byte;
 name:string;
 quality:integer;
 cost:integer;
+//+26.08.2015
+i_name:string;
+i_hp,i_mp:integer;
+i_dmg,i_ign_dmg,i_veapon,i_armor,i_attak,i_defense:integer;
+i_gold:integer;
+i_stren,i_intel,i_agility,i_init,i_masking,i_obser:integer;
 end;
 body =record
 name:string;

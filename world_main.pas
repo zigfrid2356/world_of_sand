@@ -70,6 +70,12 @@ hero_save:file of body;
 map_save:file of erath;
 
 simbol: array [0..4] of char;
+//+27.08.2015
+procedure equip (command:string);
+begin
+end;
+
+
 function inventory_generation(command:string;lvl:integer):inventory;
 begin
 if command='weapon' then begin //1

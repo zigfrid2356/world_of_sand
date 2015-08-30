@@ -73,31 +73,31 @@ simbol: array [0..4] of char;
 //+27.08.2015
 procedure equip (command:string;inv:inventory);
 begin//+30.08.2015
-if command='slot_01' then begin //1
+if command='slot_1' then begin //1
 hero.veapon:=hero.veapon+inv.i_veapon;
 hero.armor:=hero.armor+inv.i_armor;
 hero.attak:=hero.attak+inv.i_attak;
 hero.defense:=hero.defense+inv.i_defense;
 end;//1
-if command='slot_02' then begin //2
+if command='slot_2' then begin //2
 hero.veapon:=hero.veapon+inv.i_veapon;
 hero.armor:=hero.armor+inv.i_armor;
 hero.attak:=hero.attak+inv.i_attak;
 hero.defense:=hero.defense+inv.i_defense;
 end;//2
-if command='slot_03' then begin //3
+if command='slot_3' then begin //3
 hero.veapon:=hero.veapon+inv.i_veapon;
 hero.armor:=hero.armor+inv.i_armor;
 hero.attak:=hero.attak+inv.i_attak;
 hero.defense:=hero.defense+inv.i_defense;
 end;//3
-if command='slot_04' then begin //4
+if command='slot_4' then begin //4
 hero.veapon:=hero.veapon+inv.i_veapon;
 hero.armor:=hero.armor+inv.i_armor;
 hero.attak:=hero.attak+inv.i_attak;
 hero.defense:=hero.defense+inv.i_defense;
 end;//4
-if command='slot_05' then begin //5
+if command='slot_5' then begin //5
 hero.veapon:=hero.veapon+inv.i_veapon;
 hero.armor:=hero.armor+inv.i_armor;
 hero.attak:=hero.attak+inv.i_attak;
@@ -108,12 +108,17 @@ end;
 
 function inventory_generation(command:string;lvl:integer):inventory;
 begin
-if command='weapon' then begin //1
+if command='veapon' then begin //1
 inventory_generation.equip:=0;
 inventory_generation.types:=1;
-inventory_generation.name:='weapon';
+inventory_generation.name:='veapon';
 inventory_generation.quality:=10*lvl;
 inventory_generation.cost:=1+lvl;
+//+30.08.2015
+inventory_generation.i_veapon:=random(lvl)+random(lvl)+1;
+inventory_generation.i_armor:=0;
+inventory_generation.i_attak:=random(lvl)+1;
+inventory_generation.i_defense:=0;
 end;//1
 if command='armor' then begin//2 
 inventory_generation.equip:=0;
@@ -121,6 +126,11 @@ inventory_generation.types:=2;
 inventory_generation.name:='armor';
 inventory_generation.quality:=10*lvl;
 inventory_generation.cost:=1+lvl;
+//+30.08.2015
+inventory_generation.i_veapon:=0;
+inventory_generation.i_armor:=random(lvl)+random(lvl)+1;
+inventory_generation.i_attak:=0;
+inventory_generation.i_defense:=random(lvl)+1;
 end;//2
 if command='jewel' then begin//3
 inventory_generation.equip:=0;
@@ -128,6 +138,11 @@ inventory_generation.types:=3;
 inventory_generation.name:='jewel';
 inventory_generation.quality:=10*lvl;
 inventory_generation.cost:=1+lvl;
+//+30.08.2015
+inventory_generation.i_veapon:=0;
+inventory_generation.i_armor:=0;
+inventory_generation.i_attak:=0;
+inventory_generation.i_defense:=0;
  end;//3
 if command='ingredient' then begin//4
 inventory_generation.equip:=0;
@@ -135,6 +150,11 @@ inventory_generation.types:=4;
 inventory_generation.name:='ingredient';
 inventory_generation.quality:=10*lvl;
 inventory_generation.cost:=1+lvl;
+//+30.08.2015
+inventory_generation.i_veapon:=0;
+inventory_generation.i_armor:=0;
+inventory_generation.i_attak:=0;
+inventory_generation.i_defense:=0;
  end;//4
 end;
 function name_generate(command:string):string;//+12.08.2015
@@ -207,10 +227,16 @@ hero.ign_dmg:=hero.armor*hero.defense;
 hero.gold:=1;
 //
 hero.slot_1:=inventory_generation('armor',hero.lvl);
-hero.slot_2:=inventory_generation('armor',hero.lvl);;
-hero.slot_3:=inventory_generation('armor',hero.lvl);;
-hero.slot_4:=inventory_generation('weapon',hero.lvl);;
-hero.slot_5:=inventory_generation('armor',hero.lvl);;
+hero.slot_2:=inventory_generation('armor',hero.lvl);
+hero.slot_3:=inventory_generation('armor',hero.lvl);
+hero.slot_4:=inventory_generation('veapon',hero.lvl);
+hero.slot_5:=inventory_generation('armor',hero.lvl);
+//+30.08.2015
+equip ('slot_1',hero.slot_1);
+equip ('slot_2',hero.slot_2);
+equip ('slot_3',hero.slot_3);
+equip ('slot_4',hero.slot_4);
+equip ('slot_5',hero.slot_5);
 end;//0
 
 if h='hero' then begin //1
@@ -242,7 +268,7 @@ hero.obser:=1;
 hero.slot_1:=inventory_generation('armor',hero.lvl);
 hero.slot_2:=inventory_generation('armor',hero.lvl);;
 hero.slot_3:=inventory_generation('armor',hero.lvl);;
-hero.slot_4:=inventory_generation('weapon',hero.lvl);;
+hero.slot_4:=inventory_generation('veapon',hero.lvl);;
 hero.slot_5:=inventory_generation('armor',hero.lvl);
 end;//1
 if h='monster_human' then begin//2
@@ -274,7 +300,7 @@ monster.obser:=1;
 monster.slot_1:=inventory_generation('armor',monster.lvl);
 monster.slot_2:=inventory_generation('armor',monster.lvl);
 monster.slot_3:=inventory_generation('armor',monster.lvl);
-monster.slot_4:=inventory_generation('weapon',monster.lvl);
+monster.slot_4:=inventory_generation('veapon',monster.lvl);
 monster.slot_5:=inventory_generation('armor',monster.lvl);
 end;//2
 if h='monster_beast' then begin //3
@@ -306,7 +332,7 @@ monster.obser:=1;
 monster.slot_1:=inventory_generation('armor',monster.lvl);
 monster.slot_2:=inventory_generation('armor',monster.lvl);
 monster.slot_3:=inventory_generation('armor',monster.lvl);
-monster.slot_4:=inventory_generation('weapon',monster.lvl);
+monster.slot_4:=inventory_generation('veapon',monster.lvl);
 monster.slot_5:=inventory_generation('armor',monster.lvl);
 end;//3
 end;
@@ -511,6 +537,7 @@ writeln	('2- ',text[9]);
 writeln	('3- ',text[11]);
 writeln	('4- ',text[17]);
 writeln	('5- ',text[2]);
+writeln	('6- ',text[42]);
 //readln(menu_key);
 menu_key:=readkey;
 case menu_key of
@@ -525,7 +552,21 @@ battle;
 end;//1.3
 '4': begin//1.4
 save;
-end//1.4
+end;//1.4
+'6':begin//1.5
+//+30.08.2015
+hero.slot_1:=inventory_generation('armor',hero.lvl);
+hero.slot_2:=inventory_generation('armor',hero.lvl);
+hero.slot_3:=inventory_generation('armor',hero.lvl);
+hero.slot_4:=inventory_generation('veapon',hero.lvl);
+hero.slot_5:=inventory_generation('armor',hero.lvl);
+
+equip ('slot_1',hero.slot_1);
+equip ('slot_2',hero.slot_2);
+equip ('slot_3',hero.slot_3);
+equip ('slot_4',hero.slot_4);
+equip ('slot_5',hero.slot_5);
+end;//1.5
 end;
 end;//2 
 until menu_key='5';

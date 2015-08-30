@@ -71,8 +71,38 @@ map_save:file of erath;
 
 simbol: array [0..4] of char;
 //+27.08.2015
-procedure equip (command:string);
-begin
+procedure equip (command:string;inv:inventory);
+begin//+30.08.2015
+if command='slot_01' then begin //1
+hero.veapon:=hero.veapon+inv.i_veapon;
+hero.armor:=hero.armor+inv.i_armor;
+hero.attak:=hero.attak+inv.i_attak;
+hero.defense:=hero.defense+inv.i_defense;
+end;//1
+if command='slot_02' then begin //2
+hero.veapon:=hero.veapon+inv.i_veapon;
+hero.armor:=hero.armor+inv.i_armor;
+hero.attak:=hero.attak+inv.i_attak;
+hero.defense:=hero.defense+inv.i_defense;
+end;//2
+if command='slot_03' then begin //3
+hero.veapon:=hero.veapon+inv.i_veapon;
+hero.armor:=hero.armor+inv.i_armor;
+hero.attak:=hero.attak+inv.i_attak;
+hero.defense:=hero.defense+inv.i_defense;
+end;//3
+if command='slot_04' then begin //4
+hero.veapon:=hero.veapon+inv.i_veapon;
+hero.armor:=hero.armor+inv.i_armor;
+hero.attak:=hero.attak+inv.i_attak;
+hero.defense:=hero.defense+inv.i_defense;
+end;//4
+if command='slot_05' then begin //5
+hero.veapon:=hero.veapon+inv.i_veapon;
+hero.armor:=hero.armor+inv.i_armor;
+hero.attak:=hero.attak+inv.i_attak;
+hero.defense:=hero.defense+inv.i_defense;
+end;//5
 end;
 
 
@@ -403,14 +433,14 @@ writeln(text[31],' ',hero.init );// инициатива
 writeln(text[32],' ',hero.masking ); //маскировка
 writeln(text[33],' ',hero.obser );// наблюдательность
 
-writeln('       __');
-writeln('      |__|  ');
-writeln('  __   __   __');
-writeln(' |  | |  | |  |');
-writeln(' |__| |  | |__| ');
-writeln('      |__|');
-writeln('       __');
-writeln('      |__|');
+writeln('        ___');
+writeln('       |_1_|  ',text[40],' ',hero.slot_1.i_armor);
+writeln('  ___   ___   __',text[40],' ',hero.slot_2.i_armor);
+writeln(' | 4 | |   | | 5 |',text[41],' ',hero.slot_4.i_veapon);
+writeln(' |___| | 2 | |___| ',text[40],' ',hero.slot_5.i_armor);
+writeln('       |___|');
+writeln('        ___');
+writeln('       |_3_|',text[40],' ',hero.slot_3.i_armor);
 readln();
 end;
 

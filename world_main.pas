@@ -64,8 +64,13 @@ i,j,n,m:integer;//áçñâç¨ª¨{счётчики}
 s:string;//temp
 lang: text;
 monster_name:text;
+color,har:text;
 text:array[0..100] of string;
 text_name:array[0..100] of string;
+//+31.08.2015
+color_name:array[0..1002] of string;
+har_name:array[0..1000] of string;
+
 hero_save:file of body;
 map_save:file of erath;
 
@@ -171,7 +176,26 @@ readln(monster_name,text_name[m]);
 m:=m+1;
 end;//1.1
 close(monster_name);
-name_generate:=text_name[random(m)];
+//+31.08.2015
+assign(color,'color');
+reset(color);
+n:=1;
+while not eof(color) do begin//1.1
+readln(color,color_name[n]);
+n:=n+1;
+end;//1.1
+close(color);
+//
+assign(har,'har');
+reset(har);
+i:=1;
+while not eof(har) do begin//1.1
+readln(har,har_name[i]);
+i:=i+1;
+end;//1.1
+close(har);
+
+name_generate:=har_name[random(i)]+' '+text_name[random(m)]+' '+color_name[random(n)];
 end;
 procedure hero_generate(h:string);//+12.08.2015
 begin

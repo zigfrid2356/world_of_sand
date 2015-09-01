@@ -166,7 +166,7 @@ function name_generate(command:string):string;//+12.08.2015
 var
 s:string;
 begin
-s:='monster_'+command+'.name';
+s:='monster_'+command+'_win.name';//+01.09.2015
 
 assign(monster_name,s);
 reset(monster_name);

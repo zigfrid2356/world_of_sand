@@ -481,6 +481,10 @@ end;//2
 end;//0
 until readkey='1';
 end;
+procedure bag_info;
+begin
+writeln('
+end;
 procedure hero_output;
 begin
 clrscr;
@@ -508,7 +512,18 @@ writeln(' |___| | 2 | |___| 5',text[40],' ',hero.slot_5.i_armor);
 writeln('       |___|');
 writeln('        ___');
 writeln('       |_3_|       3',text[40],' ',hero.slot_3.i_armor);
-readln();
+//+06.09.2015
+writeln(text[43]);
+writeln(text[35]);
+repeat begin//1
+menu_key:=readkey;
+
+case menu_key of
+'2':bag_info;
+end;//2
+end;
+until menu_key='1';
+
 end;
 
 

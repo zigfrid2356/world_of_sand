@@ -50,6 +50,8 @@ gold:integer;
 stren,intel,agility,sex,race,init,masking,obser:integer;
 //+21.08.2015
 slot_1,slot_2,slot_3,slot_4,slot_5:inventory;//inventory
+//+06.09.2015
+bag:array [0..9] of inventory;
 end;
 erath =record
 x,y:byte;
@@ -161,6 +163,18 @@ inventory_generation.i_armor:=0;
 inventory_generation.i_attak:=0;
 inventory_generation.i_defense:=0;
  end;//4
+ //+06.09.2015
+ if command='nul' then begin//4
+inventory_generation.equip:=0;
+inventory_generation.types:=0;
+inventory_generation.name:='';
+inventory_generation.quality:=0;
+inventory_generation.cost:=0;
+inventory_generation.i_veapon:=0;
+inventory_generation.i_armor:=0;
+inventory_generation.i_attak:=0;
+inventory_generation.i_defense:=0;
+ end;//4
 end;
 function name_generate(command:string):string;//+12.08.2015
 var
@@ -261,6 +275,9 @@ equip ('slot_2',hero.slot_2);
 equip ('slot_3',hero.slot_3);
 equip ('slot_4',hero.slot_4);
 equip ('slot_5',hero.slot_5);
+//+06.09.2015
+for n:=0 to 9 do begin//0.1
+hero.bag[n]:=inventory_generation('nul',hero.lvl);end;//0.1
 end;//0
 
 if h='hero' then begin //1
@@ -427,13 +444,13 @@ i0:=i0+1;
 writeln(text[35]);
 writeln(text[14],': ',i);
 writeln('-------------------------');
-writeln('|',hero.name,'                    ', monster.name,'|');
-writeln('|',text[5],'    ', text[5],'|');
-writeln('|',hero.hp,'                    ', monster.hp,'|');
-writeln('|',text[6],'          ', text[6],'|');
-writeln('|',hero.mp,'                   ', monster.mp,'|');
-writeln('|',text[12],'          ', text[12],'|');
-writeln('|',hero.dmg ,'                    ',monster.dmg,'|');
+writeln('|',hero.name,'           ', monster.name,'|');
+writeln('|',text[5],'             ', text[5],'|');
+writeln('|',hero.hp,'             ', monster.hp,'|');
+writeln('|',text[6],'             ', text[6],'|');
+writeln('|',hero.mp,'             ', monster.mp,'|');
+writeln('|',text[12],'            ', text[12],'|');
+writeln('|',hero.dmg ,'           ',monster.dmg,'|');
 writeln('-------------------------');
 //writeln(text[13],hero.ign_dmg,'    ',monster.ign_dmg );
 writeln(text[7],hero.exp );
@@ -484,13 +501,13 @@ writeln(text[32],' ',hero.masking ); //маскировка
 writeln(text[33],' ',hero.obser );// наблюдательность
 
 writeln('        ___');
-writeln('       |_1_|  ',text[40],' ',hero.slot_1.i_armor);
-writeln('  ___   ___   __',text[40],' ',hero.slot_2.i_armor);
-writeln(' | 4 | |   | | 5 |',text[41],' ',hero.slot_4.i_veapon);
-writeln(' |___| | 2 | |___| ',text[40],' ',hero.slot_5.i_armor);
+writeln('       |_1_|       1',text[40],' ',hero.slot_1.i_armor);
+writeln('  ___   ___   ___  2',text[40],' ',hero.slot_2.i_armor);
+writeln(' | 4 | |   | | 5 | 4',text[41],' ',hero.slot_4.i_veapon);
+writeln(' |___| | 2 | |___| 5',text[40],' ',hero.slot_5.i_armor);
 writeln('       |___|');
 writeln('        ___');
-writeln('       |_3_|',text[40],' ',hero.slot_3.i_armor);
+writeln('       |_3_|       3',text[40],' ',hero.slot_3.i_armor);
 readln();
 end;
 

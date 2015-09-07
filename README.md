@@ -6,6 +6,17 @@
 * Автор/Author: [Zigfrid2356](https://github.com/zigfrid2356)
 * Вопросы и предложения/Support can be obtained via [Email](mailto:b09052015@yandex.ru)
 
+What is supported?
+----------------
+
+Compilers:
+* FPC 2.6.2 and up
+* Delphi 7
+
+Platforms:
+* Windows
+* Linux
+
 * Журнал разработки будет вестись здесь.
 ----------------
 

@@ -76,7 +76,7 @@ har_name:array[0..1000] of string;
 hero_save:file of body;
 map_save:file of erath;
 
-simbol: array [0..4] of char;
+simbol: array [0..12] of char;
 
 //+27.08.2015
 procedure equip (command:string;inv:inventory);
@@ -568,6 +568,9 @@ writeln(' _____________________');//top
 for i:=x-5 to x+5 do begin//2.1
 write('|');//left
  for j:=y-10 to y+10 do begin//2.2
+ if write(map[i,j].structure)='.' 
+ then 
+ textcolor(yellow);
  write(map[i,j].structure);
  end;//2.2
  writeln('|');//right
@@ -686,18 +689,29 @@ menu_key:=readkey;
 case menu_key of
 '1': begin 
 //â¥áâ®¢ ï £¥­¥à æ¨ï £¥à®ï генерация персонажа {~ 12.08.2015}
+//������� ���ᮭ���
 hero_generate('hero_new');
 //â¥áâ®¢ ï £¥­¥à æ¨ï ª àâë {генерация карты }
+//������� �����
 simbol[0]:='.';
-simbol[1]:='.';
-simbol[2]:='#';
-simbol[3]:='|';
-simbol[4]:='.';
+simbol[1]:=':';
+simbol[2]:=';';
+simbol[3]:='#';
+simbol[4]:='/';
+simbol[5]:='"';
+simbol[6]:='0';
+simbol[7]:='~';
+simbol[8]:='!';
+simbol[9]:='_';
+simbol[10]:='-';
+simbol[11]:='=';
+simbol[12]:='^';
+
 for i:=0 to 255 do begin//1.1
 	for j:=0 to 255 do begin//1.2
 	map[i,j].x:=i;
 	map[i,j].y:=j;
-	map[i,j].structure:=simbol[random(5)];
+	map[i,j].structure:=simbol[random(12)+1];
 	end;//1.2
 end;//1.1
 

@@ -103,7 +103,10 @@ for i:=0 to 255 do begin//1.1
 	map[i,j].y:=j;
 	n:=random(13);
 	map[i,j].structure:=simbol[n];
-	if n=0 then map[i,j].color:=  
+	if (n=0) or (n=1) or (n=2) or (n=3) then map[i,j].color:=14;
+	if n=4 then map[i,j].color:=6;
+	if (n=5) or (n=8) then map[i,j].color:=2;
+	if (n=6) or (n=7) then map[i,j].color:=1;  
 	end;//1.2
 end;//1.1
 end;//2
@@ -723,7 +726,7 @@ case menu_key of
 hero_generate('hero_new');
 //â¥áâ®¢ ï £¥­¥à æ¨ï ª àâë {генерация карты }
 //������� �����
-
+map_generate('map_new_generate');
 
 
 main_menu; 

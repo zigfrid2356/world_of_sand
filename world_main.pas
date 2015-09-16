@@ -593,9 +593,13 @@ end;
 procedure map_output(x,y:byte);
 var
 temp_char:char;
+temp_color:integer;
 begin
+
 temp_char:=map[x,y].structure;
+temp_color:=map[x,y].color;
 map[x,y].structure:='@';
+map[x,y].color:=4;
 if (x-1>=6) and(x+1<=249) and (y-1>=11) and (y+1<=244) then begin//2.00
 
 repeat begin//2.0
@@ -613,6 +617,7 @@ write('|');//left
 end;//2.1
  writeln(' ---------------------');
 map[x,y].structure:=temp_char;//+16.08.2015 
+map[x,y].color:=temp_color;//+16.09.2015
 writeln(text[34],' ',x,' : ',y);
 writeln	('1- ->');
 writeln	('2- <-');
@@ -712,8 +717,9 @@ delete(text[i],1,3);
 i:=i+1;
 end;
 close(lang);
-
+textcolor(yellow);
 writeln	(text[1]);
+textcolor(white);
 readln();
  ClrScr;
 writeln	(text[3]);

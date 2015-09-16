@@ -106,7 +106,9 @@ for i:=0 to 255 do begin//1.1
 	if (n=0) or (n=1) or (n=2) or (n=3) then map[i,j].color:=14;
 	if n=4 then map[i,j].color:=6;
 	if (n=5) or (n=8) then map[i,j].color:=2;
-	if (n=6) or (n=7) then map[i,j].color:=1;  
+	if (n=6) or (n=7) then map[i,j].color:=1;
+	if (n=9) or (n=10) or (n=11) then map[i,j].color:=7;
+	if n=12 then map[i,j].color:=8;  
 	end;//1.2
 end;//1.1
 end;//2
@@ -598,13 +600,14 @@ if (x-1>=6) and(x+1<=249) and (y-1>=11) and (y+1<=244) then begin//2.00
 
 repeat begin//2.0
 clrscr;
+textcolor(white);
 writeln(' _____________________');//top
 for i:=x-5 to x+5 do begin//2.1
 write('|');//left
  for j:=y-10 to y+10 do begin//2.2
- if map[i,j].structure='.' then textcolor(yellow);
+ textcolor(map[i,j].color);
  write(map[i,j].structure);
- textcolor(white)
+ textcolor(white);
  end;//2.2
  writeln('|');//right
 end;//2.1

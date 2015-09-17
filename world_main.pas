@@ -124,6 +124,7 @@ for i:=0 to 255 do begin//2.1
 		end;//2.2
 end;//2.1
 //---------------
+for i:=0 to 100 do begin//3 
 n:=random(255);
 m:=random(255);
 map[n,m].structure:=simbol[6];
@@ -146,6 +147,7 @@ map[n,m+1].color:=14;
 map[n+1,m-1].color:=14;
 map[n+1,m].color:=14;
 map[n+1,m+1].color:=14;
+end;//3
 end;//2
 end;
 
@@ -641,9 +643,9 @@ repeat begin//2.0
 clrscr;
 textcolor(white);
 writeln(' _____________________');//top
-for i:=x-5 to x+5 do begin//2.1
+for i:=x-5 to x+5 do begin//2.1//5
 write('|');//left
- for j:=y-10 to y+10 do begin//2.2
+ for j:=y-10 to y+10 do begin//2.2//10
  textcolor(map[i,j].color);
  write(map[i,j].structure);
  textcolor(white);

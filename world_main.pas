@@ -111,6 +111,25 @@ for i:=0 to 255 do begin//1.1
 	if n=12 then map[i,j].color:=8;  
 	end;//1.2
 end;//1.1
+end;//1
+if command='map_test_generate' then begin//2
+//+17.09.2015
+//§ αλ―ͺ  ―₯αͺ®¬
+//---------------
+for i:=0 to 255 do begin//2.1
+	for j:=0 to 255 do begin//2.2
+	map[i,j].x:=i;
+	map[i,j].y:=j;	
+	map[i,j].structure:=simbol[0];
+	map[i,j].color:=14;
+		end;//2.2
+end;//2.1
+//---------------
+n:=random(255);
+m:=random(255);
+map[n,m].structure:=simbol[6];
+map[n-1,m-1]
+
 end;//2
 end;
 

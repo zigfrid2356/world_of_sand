@@ -82,7 +82,6 @@ simbol: array [0..12] of char;
 
 procedure map_generate(command:string);
 begin
-if command='map_new_generate' then begin//1
 simbol[0]:='.';//colore[0]:=1;colore[13]:=13;
 simbol[1]:=':';//colore[1]:=1;colore[14]:=14;
 simbol[2]:=';';//colore[2]:=2;colore[15]:=15;
@@ -96,7 +95,7 @@ simbol[9]:='_';//colore[9]:=9;
 simbol[10]:='-';
 simbol[11]:='=';
 simbol[12]:='^';
-
+if command='map_new_generate' then begin//1
 for i:=0 to 255 do begin//1.1
 	for j:=0 to 255 do begin//1.2
 	map[i,j].x:=i;
@@ -128,8 +127,25 @@ end;//2.1
 n:=random(255);
 m:=random(255);
 map[n,m].structure:=simbol[6];
-map[n-1,m-1]
+map[n,m].color:=1;
 
+map[n-1,m-1].structure:=simbol[3];
+map[n-1,m].structure:=simbol[3];
+map[n-1,m+1].structure:=simbol[3];
+map[n,m-1].structure:=simbol[3];
+map[n,m+1].structure:=simbol[3];
+map[n+1,m-1].structure:=simbol[3];
+map[n+1,m].structure:=simbol[3];
+map[n+1,m+1].structure:=simbol[3];
+//
+map[n-1,m-1].color:=14;
+map[n-1,m].color:=14;
+map[n-1,m+1].color:=14;
+map[n,m-1].color:=14;
+map[n,m+1].color:=14;
+map[n+1,m-1].color:=14;
+map[n+1,m].color:=14;
+map[n+1,m+1].color:=14;
 end;//2
 end;
 
@@ -754,8 +770,8 @@ case menu_key of
 hero_generate('hero_new');
 //â¥áâ®¢ ï £¥­¥à æ¨ï ª àâë {генерация карты }
 //������� �����
-map_generate('map_new_generate');
-
+//map_generate('map_new_generate');
+map_generate('map_test_generate');
 
 main_menu; 
 end;

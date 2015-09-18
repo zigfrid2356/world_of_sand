@@ -63,7 +63,7 @@ map:array[0..255,0..255] of erath;
 hero:body;
 monster:body;
 menu_key:char;
-i,j,n,m:integer;//├б├з├▒├в├з┬и┬к┬и{╤Б╤З╤С╤В╤З╨╕╨║╨╕}
+i,j,n,m,l,k:integer;//├б├з├▒├в├з┬и┬к┬и{╤Б╤З╤С╤В╤З╨╕╨║╨╕}
 s:string;//temp
 lang: text;
 monster_name:text;
@@ -125,11 +125,14 @@ for i:=0 to 255 do begin//2.1
 end;//2.1
 //---------------
 for i:=0 to 100 do begin//3 
+//+18.09.2015
+//биом колодец
+
 n:=random(255);
 m:=random(255);
 map[n,m].structure:=simbol[6];
 map[n,m].color:=1;
-
+//1 круг
 map[n-1,m-1].structure:=simbol[3];
 map[n-1,m].structure:=simbol[3];
 map[n-1,m+1].structure:=simbol[3];
@@ -147,6 +150,38 @@ map[n,m+1].color:=14;
 map[n+1,m-1].color:=14;
 map[n+1,m].color:=14;
 map[n+1,m+1].color:=14;
+//2 круг
+for l:=m-2 to m+2 do begin//3.1
+k:=random(100);
+if k<50 then begin//3.1.1
+map[n-2,l].structure:=simbol[3];
+map[n-2,l].color:=14;
+end;//3.1.1
+end;//3.1 
+//--
+for l:=m-2 to m+2 do begin//3.2
+k:=random(100);
+if k<50 then begin//3.2.1
+map[n+2,l].structure:=simbol[3];
+map[n+2,l].color:=14;
+end;//3.2.1
+end;//3.2
+//--
+for l:=n-2 to n+2 do begin//3.3
+k:=random(100);
+if k<50 then begin//3.3.1
+map[l,m+2].structure:=simbol[3];
+map[l,m+2].color:=14;
+end;//3.3.1
+end;//3.3
+//--
+for l:=n-2 to n+2 do begin//3.4
+k:=random(100);
+if k<50 then begin//3.4.1
+map[l,m-2].structure:=simbol[3];
+map[l,m-2].color:=14;
+end;//3.4.1
+end;//3.4  
 end;//3
 end;//2
 end;

@@ -207,8 +207,70 @@ map[l,m-2].structure:=simbol[4];
 map[l,m-2].color:=6;
 end;//3.4.3
 end;//3.4
-//3 круг
-  
+//3 круг----------------------------------------
+for l:=m-3 to m+3 do begin//4.1
+k:=random(100);
+if k<30 then begin//4.1.1
+map[n-3,l].structure:=simbol[3];
+map[n-3,l].color:=14;
+end;//4.1.1
+if (k>30) and (k<43) then begin//4.1.2
+map[n-3,l].structure:=simbol[4];
+map[n-3,l].color:=6;
+end;//4.1.2
+if (k>43)and (k<45) then begin//4.1.3
+map[n-3,l].structure:=simbol[10];
+map[n-3,l].color:=7;
+end;//4.1.3
+end;//4.1 
+//--
+for l:=m-3 to m+3 do begin//4.2
+k:=random(100);
+if k<30 then begin//4.2.1
+map[n+3,l].structure:=simbol[3];
+map[n+3,l].color:=14;
+end;//4.2.1
+if (k>30) and (k<43) then begin//4.2.2
+map[n+3,l].structure:=simbol[4];
+map[n+3,l].color:=6;
+end;//4.2.2
+if (k>43)and (k<45) then begin//4.2.3
+map[n+3,l].structure:=simbol[10];
+map[n+3,l].color:=7;
+end;//4.2.3
+end;//4.2
+//--
+for l:=n-3 to n+3 do begin//4.3
+k:=random(100);
+if k<30 then begin//4.3.1
+map[l,m+3].structure:=simbol[3];
+map[l,m+3].color:=14;
+end;//4.3.1
+if (k>30) and (k<43) then begin//4.3.2
+map[l,m+3].structure:=simbol[4];
+map[l,m+3].color:=6;
+end;//4.3.2
+if (k>43)and (k<45) then begin//4.3.3
+map[l,m+3].structure:=simbol[10];
+map[l,m+3].color:=7;
+end;//4.3.3
+end;//4.3
+//--
+for l:=n-3 to n+3 do begin//4.4
+k:=random(100);
+if k<30 then begin//4.4.1
+map[l,m-3].structure:=simbol[3];
+map[l,m-3].color:=14;
+end;//4.4.1
+if (k>30) and (k<43) then begin//4.4.2
+map[l,m-3].structure:=simbol[5];
+map[l,m-3].color:=2;
+end;//4.4.2
+if (k>43)and (k<45) then begin//4.4.3
+map[l,m-3].structure:=simbol[10];
+map[l,m-3].color:=7;
+end;//4.4.3
+end;//4.4  
 end;//3
 end;//2
 end;

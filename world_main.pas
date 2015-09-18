@@ -150,6 +150,7 @@ map[n,m+1].color:=14;
 map[n+1,m-1].color:=14;
 map[n+1,m].color:=14;
 map[n+1,m+1].color:=14;
+
 //2 круг
 for l:=m-2 to m+2 do begin//3.1
 k:=random(100);
@@ -181,7 +182,9 @@ if k<50 then begin//3.4.1
 map[l,m-2].structure:=simbol[3];
 map[l,m-2].color:=14;
 end;//3.4.1
-end;//3.4  
+end;//3.4
+//3 круг
+  
 end;//3
 end;//2
 end;

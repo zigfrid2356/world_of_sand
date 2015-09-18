@@ -137,10 +137,10 @@ k:=random(113); if k<13 then begin map[n-1,m-1].structure:=simbol[8];map[n-1,m-1
 k:=random(113); if k<13 then begin map[n-1,m].structure:=simbol[8];map[n-1,m].color:=2;end; if (k>13) and (k<38) then begin map[n-1,m].structure:=simbol[5];map[n-1,m].color:=2; end else begin map[n-1,m].structure:=simbol[3];map[n-1,m].color:=14; end;
 k:=random(113); if k<13 then begin map[n-1,m+1].structure:=simbol[8];map[n-1,m+1].color:=2;end; if (k>13) and (k<38) then begin map[n-1,m+1].structure:=simbol[5];map[n-1,m+1].color:=2; end else begin map[n-1,m+1].structure:=simbol[3];map[n-1,m+1].color:=14;end;
 k:=random(113); if k<13 then begin map[n,m-1].structure:=simbol[8];map[n,m-1].color:=2;end; if (k>13) and (k<38) then begin map[n,m-1].structure:=simbol[5];map[n,m-1].color:=2; end else begin map[n,m-1].structure:=simbol[3];map[n,m-1].color:=14;end;
-k:=random(113); if k<13 then begin map[n-1,m-1].structure:=simbol[8];map[n-1,m-1].color:=2;end; if (k>13) and (k<38) then begin map[n-1,m-1].structure:=simbol[5];map[n-1,m-1].color:=2; end else begin map[n,m+1].structure:=simbol[3];map[n,m+1].color:=14;end;
-k:=random(113); if k<13 then begin map[n-1,m-1].structure:=simbol[8];map[n-1,m-1].color:=2;end; if (k>13) and (k<38) then begin map[n-1,m-1].structure:=simbol[5];map[n-1,m-1].color:=2; end else begin map[n+1,m-1].structure:=simbol[3];map[n+1,m-1].color:=14;end;
-k:=random(113); if k<13 then begin map[n-1,m-1].structure:=simbol[8];map[n-1,m-1].color:=2;end; if (k>13) and (k<38) then begin map[n-1,m-1].structure:=simbol[5];map[n-1,m-1].color:=2; end else begin map[n+1,m].structure:=simbol[3];map[n+1,m].color:=14;end;
-k:=random(113); if k<13 then begin map[n-1,m-1].structure:=simbol[8];map[n-1,m-1].color:=2;end; if (k>13) and (k<38) then begin map[n-1,m-1].structure:=simbol[5];map[n-1,m-1].color:=2; end else begin map[n+1,m+1].structure:=simbol[3];map[n+1,m+1].color:=14;end;
+k:=random(113); if k<13 then begin map[n,m+1].structure:=simbol[8];map[n,m+1].color:=2;end; if (k>13) and (k<38) then begin map[n,m+1].structure:=simbol[5];map[n,m+1].color:=2; end else begin map[n,m+1].structure:=simbol[3];map[n,m+1].color:=14;end;
+k:=random(113); if k<13 then begin map[n+1,m-1].structure:=simbol[8];map[n+1,m-1].color:=2;end; if (k>13) and (k<38) then begin map[n+1,m-1].structure:=simbol[5];map[n+1,m-1].color:=2; end else begin map[n+1,m-1].structure:=simbol[3];map[n+1,m-1].color:=14;end;
+k:=random(113); if k<13 then begin map[n+1,m].structure:=simbol[8];map[n+1,m].color:=2;end; if (k>13) and (k<38) then begin map[n+1,m].structure:=simbol[5];map[n+1,m].color:=2; end else begin map[n+1,m].structure:=simbol[3];map[n+1,m].color:=14;end;
+k:=random(113); if k<13 then begin map[n+1,m+1].structure:=simbol[8];map[n+1,m+1].color:=2;end; if (k>13) and (k<38) then begin map[n+1,m+1].structure:=simbol[5];map[n+1,m+1].color:=2; end else begin map[n+1,m+1].structure:=simbol[3];map[n+1,m+1].color:=14;end;
 //
 
 //2 круг
@@ -150,6 +150,14 @@ if k<50 then begin//3.1.1
 map[n-2,l].structure:=simbol[3];
 map[n-2,l].color:=14;
 end;//3.1.1
+if (k>50) and (k<57) then begin//3.1.2
+map[n-2,l].structure:=simbol[5];
+map[n-2,l].color:=2;
+end;//3.1.2
+if (k>57)and (k<86) then begin//3.1.3
+map[n-2,l].structure:=simbol[4];
+map[n-2,l].color:=6;
+end;//3.1.3
 end;//3.1 
 //--
 for l:=m-2 to m+2 do begin//3.2
@@ -158,6 +166,14 @@ if k<50 then begin//3.2.1
 map[n+2,l].structure:=simbol[3];
 map[n+2,l].color:=14;
 end;//3.2.1
+if (k>50) and (k<57) then begin//3.2.2
+map[n+2,l].structure:=simbol[5];
+map[n+2,l].color:=2;
+end;//3.2.2
+if (k>57)and (k<86) then begin//3.2.3
+map[n+2,l].structure:=simbol[4];
+map[n+2,l].color:=6;
+end;//3.2.3
 end;//3.2
 //--
 for l:=n-2 to n+2 do begin//3.3
@@ -166,6 +182,14 @@ if k<50 then begin//3.3.1
 map[l,m+2].structure:=simbol[3];
 map[l,m+2].color:=14;
 end;//3.3.1
+if (k>50) and (k<57) then begin//3.3.2
+map[l,m+2].structure:=simbol[5];
+map[l,m+2].color:=2;
+end;//3.3.2
+if (k>57)and (k<86) then begin//3.3.3
+map[l,m+2].structure:=simbol[4];
+map[l,m+2].color:=6;
+end;//3.3.3
 end;//3.3
 //--
 for l:=n-2 to n+2 do begin//3.4
@@ -174,6 +198,14 @@ if k<50 then begin//3.4.1
 map[l,m-2].structure:=simbol[3];
 map[l,m-2].color:=14;
 end;//3.4.1
+if (k>50) and (k<57) then begin//3.4.2
+map[l,m-2].structure:=simbol[5];
+map[l,m-2].color:=2;
+end;//3.4.2
+if (k>57)and (k<86) then begin//3.4.3
+map[l,m-2].structure:=simbol[4];
+map[l,m-2].color:=6;
+end;//3.4.3
 end;//3.4
 //3 круг
   

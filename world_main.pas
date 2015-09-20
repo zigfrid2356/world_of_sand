@@ -54,12 +54,12 @@ slot_1,slot_2,slot_3,slot_4,slot_5:inventory;//inventory
 bag:array [0..9] of inventory;
 end;
 erath =record
-x,y:byte;
+x,y:integer;
 structure:char;
 color:integer;
 end;
 var
-map:array[0..255,0..255] of erath;
+map:array[0..2048,0..2048] of erath;
 hero:body;
 monster:body;
 menu_key:char;
@@ -96,8 +96,8 @@ simbol[10]:='-';
 simbol[11]:='=';
 simbol[12]:='^';
 if command='map_new_generate' then begin//1
-for i:=0 to 255 do begin//1.1
-	for j:=0 to 255 do begin//1.2
+for i:=0 to 2048 do begin//1.1
+	for j:=0 to 2048 do begin//1.2
 	map[i,j].x:=i;
 	map[i,j].y:=j;
 	n:=random(13);
@@ -115,8 +115,8 @@ if command='map_test_generate' then begin//2
 //+17.09.2015
 //засыпка песком
 //---------------
-for i:=0 to 255 do begin//2.1
-	for j:=0 to 255 do begin//2.2
+for i:=0 to 2048 do begin//2.1
+	for j:=0 to 2048 do begin//2.2
 	map[i,j].x:=i;
 	map[i,j].y:=j;	
 	map[i,j].structure:=simbol[0];
@@ -128,8 +128,8 @@ for i:=0 to 100 do begin//3
 //+18.09.2015
 //биом колодец
 
-n:=random(255);
-m:=random(255);
+n:=random(2048);
+m:=random(2048);
 map[n,m].structure:=simbol[6];
 map[n,m].color:=1;
 //1 круг
@@ -595,8 +595,8 @@ close(hero_save);
 
 assign(map_save,'map.save');
 rewrite(map_save);
-for i:=0 to 255 do begin//1.1
-	for j:=0 to 255 do begin//1.2
+for i:=0 to 2048 do begin//1.1
+	for j:=0 to 2048 do begin//1.2
 write(map_save,map[i,j]);
 end;end;//1.1//1.2
 close(map_save);
@@ -612,8 +612,8 @@ close(hero_save);
 
 assign(map_save,'map.save');
 reset(map_save);
-for i:=0 to 255 do begin//1.1
-	for j:=0 to 255 do begin//1.2
+for i:=0 to 2048 do begin//1.1
+	for j:=0 to 2048 do begin//1.2
 read(map_save,map[i,j]);
 end;end;//1.1//1.2
 close(map_save);
@@ -761,7 +761,7 @@ temp_char:=map[x,y].structure;
 temp_color:=map[x,y].color;
 map[x,y].structure:='@';
 map[x,y].color:=4;
-if (x-1>=6) and(x+1<=249) and (y-1>=11) and (y+1<=244) then begin//2.00
+if (x-1>=6) and(x+1<={249}2042) and (y-1>=11) and (y+1<={244}2037) then begin//2.00
 
 repeat begin//2.0
 clrscr;
@@ -792,7 +792,7 @@ end;//2.0
 case menu_key of//3.0
 '1':begin//3.1 
 x:=x;
-if y+1<=244 then y:=y+1 else y:=y;
+if y+1<={244}2037 then y:=y+1 else y:=y;
 map_output(x,y);
 end;//3.1
 '2':begin//3.2
@@ -806,7 +806,7 @@ y:=y;
 map_output(x,y);
  end;//3.3
 '4':begin//3.4
-if x+1<=249 then x:=x+1 else x:=x;
+if x+1<={249}2042 then x:=x+1 else x:=x;
 y:=y;  
 map_output(x,y);
  end;//3.4

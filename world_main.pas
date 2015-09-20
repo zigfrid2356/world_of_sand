@@ -751,7 +751,7 @@ until menu_key='1';
 end;
 
 
-procedure map_output(x,y:byte);
+procedure map_output(x,y:integer);
 var
 temp_char:char;
 temp_color:integer;

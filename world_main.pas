@@ -78,6 +78,10 @@ hero_save:file of body;
 map_save:file of erath;
 
 simbol: array [0..12] of char;
+//+24.09.2015
+const 
+x_map = 2048;
+y_map = 2048;
 //+16.09.2015
 
 procedure map_generate(command:string);
@@ -96,8 +100,8 @@ simbol[10]:='-';
 simbol[11]:='=';
 simbol[12]:='^';
 if command='map_new_generate' then begin//1
-for i:=0 to 2048 do begin//1.1
-	for j:=0 to 2048 do begin//1.2
+for i:=0 to x_map do begin//1.1
+	for j:=0 to y_map do begin//1.2
 	map[i,j].x:=i;
 	map[i,j].y:=j;
 	n:=random(13);
@@ -115,8 +119,8 @@ if command='map_test_generate' then begin//2
 //+17.09.2015
 //§ áë¯ª  ¯¥áª®¬
 //---------------
-for i:=0 to 2048 do begin//2.1
-	for j:=0 to 2048 do begin//2.2
+for i:=0 to x_map do begin//2.1
+	for j:=0 to y_map do begin//2.2
 	map[i,j].x:=i;
 	map[i,j].y:=j;	
 	map[i,j].structure:=simbol[0];
@@ -128,8 +132,8 @@ for i:=0 to 100 do begin//3
 //+18.09.2015
 //¡¨®¬ ª®«®¤¥æ
 
-n:=random(2048);
-m:=random(2048);
+n:=random(x_map);
+m:=random(y_map);
 map[n,m].structure:=simbol[6];
 map[n,m].color:=1;
 //1 ªàã£
@@ -273,6 +277,30 @@ end;//4.4.3
 end;//4.4  
 end;//3
 end;//2
+if command='map_story_generate' then begin//3
+//§ «¨¢ ¥¬ ¢®¤®©
+//+24.09.2015
+for i:=0 to x_map do begin//3.1
+	for j:=0 to y_map do begin//3.2
+	map[i,j].x:=i;
+	map[i,j].y:=j;	
+	map[i,j].structure:=simbol[7];
+	map[i,j].color:=1;
+		end;//3.2
+	end;//3.1
+for n:=0 to random(3)+1 do begin//3.3
+repeat l:=random(x_map); until (l>400) and (l<x_map-400);
+repeat k:=random(y_map); until (k>400) and (k<y_map-400);
+for i:=l-300 to l+300 do begin//3.3.1
+	for j:=k-300 to k+300 do begin//3.3.2
+	map[i,j].x:=i;
+	map[i,j].y:=j;	
+	map[i,j].structure:=simbol[3];
+	map[i,j].color:=14;
+		end;//3.3.2
+	end;//3.3.1
+end;//3.3
+end;//3
 end;
 
 //+27.08.2015
@@ -595,8 +623,8 @@ close(hero_save);
 
 assign(map_save,'map.save');
 rewrite(map_save);
-for i:=0 to 2048 do begin//1.1
-	for j:=0 to 2048 do begin//1.2
+for i:=0 to x_map do begin//1.1
+	for j:=0 to y_map do begin//1.2
 write(map_save,map[i,j]);
 end;end;//1.1//1.2
 close(map_save);
@@ -612,8 +640,8 @@ close(hero_save);
 
 assign(map_save,'map.save');
 reset(map_save);
-for i:=0 to 2048 do begin//1.1
-	for j:=0 to 2048 do begin//1.2
+for i:=0 to x_map do begin//1.1
+	for j:=0 to y_map do begin//1.2
 read(map_save,map[i,j]);
 end;end;//1.1//1.2
 close(map_save);
@@ -761,7 +789,7 @@ temp_char:=map[x,y].structure;
 temp_color:=map[x,y].color;
 map[x,y].structure:='@';
 map[x,y].color:=4;
-if (x-1>=6) and(x+1<={249}2042) and (y-1>=11) and (y+1<={244}2037) then begin//2.00
+if (x-1>=6) and(x+1<=x_map-6) and (y-1>=11) and (y+1<=y_map-11) then begin//2.00
 
 repeat begin//2.0
 clrscr;
@@ -897,7 +925,7 @@ hero_generate('hero_new');
 //Ã¢Â¥Ã¡Ã¢Â®Â¢Â Ã¯ Â£Â¥Â­Â¥Ã Â Ã¦Â¨Ã¯ ÂªÂ Ã Ã¢Ã« {Ğ³ĞµĞ½ĞµÑ€Ğ°Ñ†Ğ¸Ñ ĞºĞ°Ñ€Ñ‚Ñ‹ }
 //£¥­¥à æ¨ï ª àâë
 //map_generate('map_new_generate');
-map_generate('map_test_generate');
+map_generate('map_story_generate');
 
 main_menu; 
 end;

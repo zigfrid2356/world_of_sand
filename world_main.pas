@@ -88,8 +88,15 @@ y_map = 2048;
 procedure log_generate(command:string;text:string);
 begin;
 if command='log_new_generate' then begin//1
-assign(f_log,formatdatetime(fmt,now)+'.log');
+assign(f_log,'log.txt');
 rewrite(f_log);
+writeln(f_log,formatdatetime(fmt,now)+' '+text);
+close(f_log);
+end;//1
+if command='log_old_generate' then begin//1
+assign(f_log,'log.txt');
+append(f_log);
+writeln(f_log,formatdatetime(fmt,now)+' '+text);
 close(f_log);
 end;//1
 end;
@@ -291,6 +298,7 @@ end;//2
 if command='map_story_generate' then begin//3
 //заливаем водой
 //+24.09.2015
+log_generate('log_new_generate','~ \/ (water)');
 for i:=0 to x_map do begin//3.1
 	for j:=0 to y_map do begin//3.2
 	map[i,j].x:=i;
@@ -299,9 +307,12 @@ for i:=0 to x_map do begin//3.1
 	map[i,j].color:=1;
 		end;//3.2
 	end;//3.1
-for n:=0 to random(3)+1 do begin//3.3
-repeat l:=random(x_map); until (l>400) and (l<x_map-400);
-repeat k:=random(y_map); until (k>400) and (k<y_map-400);
+	m:=random(3)+1;
+	log_generate('log_old_generate',inttostr(m)+' # (land)');
+for n:=0 to m do begin//3.3
+
+repeat l:=random(x_map); until (l>400) and (l<x_map-400); log_generate('log_old_generate',inttostr(l)+' x (land)');
+repeat k:=random(y_map); until (k>400) and (k<y_map-400); log_generate('log_old_generate',inttostr(k)+' y (land)');
 for i:=l-300 to l+300 do begin//3.3.1
 	for j:=k-300 to k+300 do begin//3.3.2
 	map[i,j].x:=i;

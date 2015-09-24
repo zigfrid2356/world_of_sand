@@ -24,7 +24,7 @@
 
 program world_of_sand;
 
-uses crt,sysutils,windows;
+uses crt,sysutils,windows,dateutils;
 
 type//+21.08.2015
 inventory =record
@@ -68,6 +68,7 @@ s:string;//temp
 lang: text;
 monster_name:text;
 color,har:text;
+f_log:text;
 text:array[0..100] of string;
 text_name:array[0..100] of string;
 //+31.08.2015
@@ -78,10 +79,20 @@ hero_save:file of body;
 map_save:file of erath;
 
 simbol: array [0..12] of char;
+fmt:string='dd/mm/yyyy hh:nn:ss.zzz';
 //+24.09.2015
 const 
 x_map = 2048;
 y_map = 2048;
+
+procedure log_generate(command:string;text:string);
+begin;
+if command='log_new_generate' then begin//1
+assign(f_log,formatdatetime(fmt,now)+'.log');
+rewrite(f_log);
+close(f_log);
+end;//1
+end;
 //+16.09.2015
 
 procedure map_generate(command:string);

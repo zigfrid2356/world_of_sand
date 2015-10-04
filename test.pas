@@ -60,5 +60,6 @@ close(map_save);
 readln();
    readln; 
    closegraph;
+   
 end.
 

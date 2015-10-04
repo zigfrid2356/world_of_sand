@@ -24,13 +24,41 @@
 
 program GetMax;
  
-uses graph;
-var  gd,gm: integer;
+uses graph,crt,sysutils,windows,dateutils;
+type
+erath =record
+x,y:integer;
+structure:char;
+color:integer;
+end;
+var
+map:array[0..2048,0..2048] of erath;
+gd,gm: integer;
+map_save:file of erath;
+i,j:integer;
+const 
+x_map = 2048;
+y_map = 2048;
 begin
    gd:=VGA;   {адаптер VGA}
    gm:=VGAHi; {режим 640*480пикс.*16 цветов}
    initgraph(gd,gm,'');
-   line (0,0,getmaxx,getmaxy); 
-   readln; closegraph;
+   //line (0,0,getmaxx,getmaxy);
+   //setcolor(15);
+    
+   //putpixel(20,10,15);
+   
+   assign(map_save,'map.save');
+reset(map_save);
+for i:=0 to x_map do begin//1.1
+	for j:=0 to y_map do begin//1.2
+read(map_save,map[i,j]);
+putpixel(i,j,map[i,j].color);
+end;end;//1.1//1.2
+close(map_save);
+
+readln();
+   readln; 
+   closegraph;
 end.
 

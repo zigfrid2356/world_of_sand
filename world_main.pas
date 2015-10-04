@@ -146,7 +146,7 @@ for i:=0 to x_map do begin//2.1
 		end;//2.2
 end;//2.1
 //---------------
-for i:=0 to 100 do begin//3 
+for i:=0 to 1000 do begin//3 
 //+18.09.2015
 //биом колодец
 
@@ -947,7 +947,7 @@ hero_generate('hero_new');
 //├в┬е├б├в┬о┬в┬а├п ┬г┬е┬н┬е├а┬а├ж┬и├п ┬к┬а├а├в├л {╨│╨╡╨╜╨╡╤А╨░╤Ж╨╕╤П ╨║╨░╤А╤В╤Л }
 //генерация карты
 //map_generate('map_new_generate');
-map_generate('map_story_generate');
+map_generate('map_test_generate');
 
 main_menu; 
 end;

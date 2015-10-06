@@ -40,8 +40,10 @@ const
 x_map = 2048;
 y_map = 2048;
 begin
-   gd:=VGA;   {адаптер VGA}
-   gm:=VGAHi; {режим 640*480пикс.*16 цветов}
+gd:=detect;
+gm:=0;
+  // gd:=VGA;   {адаптер VGA}
+  // gm:=VGAHi; {режим 640*480пикс.*16 цветов}
    initgraph(gd,gm,'');
    //line (0,0,getmaxx,getmaxy);
    //setcolor(15);

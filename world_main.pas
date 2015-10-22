@@ -575,10 +575,10 @@ hero.mp:=10*hero.lvl;
 hero.exp:=0;
 
 
-hero.veapon:=3;
-hero.armor:=3;
-hero.attak:=3;
-hero.defense:=3;
+hero.veapon:=4;
+hero.armor:=4;
+hero.attak:=4;
+hero.defense:=4;
 hero.dmg:=hero.veapon*hero.attak;
 hero.ign_dmg:=hero.armor*hero.defense;
 hero.gold:=1;
@@ -771,12 +771,14 @@ writeln('|',hero.mp,'             ', monster.mp,'|');
 writeln('|',text[12],'            ', text[12],'|');
 writeln('|',hero.dmg ,'           ',monster.dmg,'|');log_generate('log_old_generate','monster.dmg '+inttostr(monster.dmg));
 writeln('-------------------------');
-//writeln(text[13],hero.ign_dmg,'    ',monster.ign_dmg );
+writeln(text[13],hero.ign_dmg,'    ',monster.ign_dmg );
 writeln(text[7],hero.exp );
 writeln(text[8],hero.lvl );
 i:=i+1;
 if monster.dmg>=hero.ign_dmg then hero.hp:=hero.hp-abs(monster.dmg-hero.ign_dmg) else hero.hp:=hero.hp-(monster.dmg div 4);
-monster.hp:=monster.hp-abs(hero.dmg-monster.ign_dmg);
+
+if hero.dmg>=monster.ign_dmg then monster.hp:=monster.hp-abs(hero.dmg-monster.ign_dmg) else monster.hp:=monster.hp-(hero.dmg div 4);
+//monster.hp:=monster.hp-abs(hero.dmg-monster.ign_dmg);
 writeln('-------------------');
 writeln(text[37],abs(monster.dmg-hero.ign_dmg));
 writeln(text[38],abs(hero.dmg-monster.ign_dmg));
@@ -787,6 +789,7 @@ end;//1
 until (hero.hp<=0) or(monster.hp<=0);
 if hero.hp<=0 then exit;
 if monster.hp<=0 then begin//2
+hero.hp:=10*hero.lvl;///-------------test----------------------
 hero.gold:=hero.gold+monster.gold;
 hero.exp:=hero.exp+monster.exp;
 drop('monster_beast',monster.name);

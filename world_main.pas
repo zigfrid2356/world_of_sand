@@ -63,7 +63,7 @@ map:array[0..2048,0..2048] of erath;
 hero:body;
 monster:body;
 menu_key:char;
-i,j,n,m,l,k:integer;//Ã¡Ã§Ã±Ã¢Ã§Â¨ÂªÂ¨{ÑÑ‡Ñ‘Ñ‚Ñ‡Ğ¸ĞºĞ¸}
+i,j,n,m,l,k,k0,k1:integer;//Ã¡Ã§Ã±Ã¢Ã§Â¨ÂªÂ¨{ÑÑ‡Ñ‘Ñ‚Ñ‡Ğ¸ĞºĞ¸}
 s:string;//temp
 lang: text;
 monster_name:text;
@@ -294,6 +294,60 @@ map[l,m-3].color:=7;
 end;//4.4.3
 end;//4.4  
 end;//3
+for l:=0 to 1000 do begin//5 
+//+22.10.2015
+//¡¨®¬ ¯ãáâë­­ ï à ¢­¨­ 
+repeat
+begin
+n:=random(x_map);
+m:=random(y_map);
+end;
+until (n>8)and(n<x_map-8)and(m>8)and(m<y_map-8);
+
+//4-ªàã£
+for i:=n-8 to n+8 do begin//5.1
+	for j:=m-8 to m+8 do begin//5.2
+	k:=random(1);
+	k0:=random(10);
+	if k0=3 then begin //5.2.1
+	map[i,j].structure:=simbol[4];
+	map[i,j].color:=6;
+	end;//5.2.1 
+	if k=0 then begin //5.2.2
+	map[i,j].structure:=simbol[3];
+	map[i,j].color:=14;
+	end//5.2.2 
+	else begin//5.2.2.1
+	map[i,j].structure:=simbol[0];
+	map[i,j].color:=14;	
+	end;//5.2.2.1
+	end;//5.1
+	end;//5.2
+//3-cryg
+for i:=n-6 to n+6 do begin//5.1
+	for j:=m-6 to m+6 do begin//5.2
+	k:=random(10);
+	k0:=random(10);
+	if (k0=3)or (k0=4)  then begin //5.2.1
+	map[i,j].structure:=simbol[4];
+	map[i,j].color:=6;
+	end;//5.2.1 
+	if k0=5 then begin //5.3.1
+	map[i,j].structure:=simbol[5];
+	map[i,j].color:=2;
+	end;//5.3.1 	
+	if k<8 then begin //5.2.2
+	map[i,j].structure:=simbol[3];
+	map[i,j].color:=14;
+	end//5.2.2 
+	else begin//5.2.2.1
+	map[i,j].structure:=simbol[0];
+	map[i,j].color:=14;	
+	end;//5.2.2.1
+	end;//5.1
+	end;//5.2
+
+end;//5
 end;//2
 if command='map_story_generate' then begin//3
 //§ «¨¢ ¥¬ ¢®¤®©
@@ -703,13 +757,13 @@ i0:=i0+1;
 writeln(text[35]);
 writeln(text[14],': ',i);
 writeln('-------------------------');
-writeln('|',hero.name,'           ', monster.name,'|');
+writeln('|',hero.name,'           ', monster.name,'|');log_generate('log_old_generate','monster.name '+monster.name);
 writeln('|',text[5],'             ', text[5],'|');
-writeln('|',hero.hp,'             ', monster.hp,'|');
+writeln('|',hero.hp,'             ', monster.hp,'|');log_generate('log_old_generate','monster.hp '+inttostr(monster.hp));
 writeln('|',text[6],'             ', text[6],'|');
 writeln('|',hero.mp,'             ', monster.mp,'|');
 writeln('|',text[12],'            ', text[12],'|');
-writeln('|',hero.dmg ,'           ',monster.dmg,'|');
+writeln('|',hero.dmg ,'           ',monster.dmg,'|');log_generate('log_old_generate','monster.dmg '+inttostr(monster.dmg));
 writeln('-------------------------');
 //writeln(text[13],hero.ign_dmg,'    ',monster.ign_dmg );
 writeln(text[7],hero.exp );

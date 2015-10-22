@@ -50,7 +50,7 @@ gm:=0;
     
    //putpixel(20,10,15);
    
-   assign(map_save,'map.save');
+   assign(map_save,'res\save\map.save');
 reset(map_save);
 for i:=0 to x_map do begin//1.1
 	for j:=0 to y_map do begin//1.2

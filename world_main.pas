@@ -643,7 +643,7 @@ rewrite(hero_save);
 write(hero_save,hero);
 close(hero_save);
 
-assign(map_save,'map.save');
+assign(map_save,'res\save\map.save');
 rewrite(map_save);
 for i:=0 to x_map do begin//1.1
 	for j:=0 to y_map do begin//1.2
@@ -660,7 +660,7 @@ reset(hero_save);
 read(hero_save,hero);
 close(hero_save);
 
-assign(map_save,'map.save');
+assign(map_save,'res\save\map.save');
 reset(map_save);
 for i:=0 to x_map do begin//1.1
 	for j:=0 to y_map do begin//1.2
@@ -919,7 +919,7 @@ unix utf-8 text.lang
 //--------------------------------
 BEGIN
 i:=0;
-assign(lang,'text_win.lang');
+assign(lang,'res\lang\rus\text_win.lang');
 reset(lang);
 while not eof(lang) do begin
 readln(lang,text[i]);

@@ -149,9 +149,14 @@ end;//2.1
 for i:=0 to 1000 do begin//3 
 //+18.09.2015
 //биом колодец
-
+repeat
+begin
 n:=random(x_map);
 m:=random(y_map);
+end;
+until (n>8)and(n<x_map-8)and(m>8)and(m<y_map-8);
+//n:=random(x_map);
+//m:=random(y_map);
 map[n,m].structure:=simbol[6];
 map[n,m].color:=1;
 //1 круг
@@ -346,7 +351,8 @@ for i:=n-6 to n+6 do begin//5.1
 	end;//5.2.2.1
 	end;//5.1
 	end;//5.2
-
+map[n,m].structure:=simbol[4];
+map[n,m].color:=6;
 end;//5
 end;//2
 if command='map_story_generate' then begin//3
@@ -771,10 +777,10 @@ writeln(text[8],hero.lvl );
 i:=i+1;
 if monster.dmg>=hero.ign_dmg then hero.hp:=hero.hp-abs(monster.dmg-hero.ign_dmg) else hero.hp:=hero.hp-(monster.dmg div 4);
 monster.hp:=monster.hp-abs(hero.dmg-monster.ign_dmg);
-//writeln('-------------------');
-//writeln(text[37],abs(monster.dmg-hero.ign_dmg));
-//writeln(text[38],abs(hero.dmg-monster.ign_dmg));
-//writeln('-------------------');
+writeln('-------------------');
+writeln(text[37],abs(monster.dmg-hero.ign_dmg));
+writeln(text[38],abs(hero.dmg-monster.ign_dmg));
+writeln('-------------------');
 //readln();
 delay(500);
 end;//1
@@ -972,6 +978,7 @@ unix utf-8 text.lang
 }
 //--------------------------------
 BEGIN
+Randomize;
 i:=0;
 assign(lang,'res\lang\rus\text_win.lang');
 reset(lang);

@@ -638,7 +638,7 @@ end;//3
 end;
 procedure save;
 begin
-assign(hero_save,'hero.save');
+assign(hero_save,'res\save\hero.save');
 rewrite(hero_save);
 write(hero_save,hero);
 close(hero_save);
@@ -655,7 +655,7 @@ readln();
 end;
 procedure load;
 begin
-assign(hero_save,'hero.save');
+assign(hero_save,'res\save\hero.save');
 reset(hero_save);
 read(hero_save,hero);
 close(hero_save);

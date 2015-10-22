@@ -439,7 +439,7 @@ function name_generate(command:string):string;//+12.08.2015
 var
 s:string;
 begin
-s:='monster_'+command+'_win.name';//+01.09.2015
+s:='res\mob\monster_'+command+'_win.name';//+01.09.2015
 
 assign(monster_name,s);
 reset(monster_name);
@@ -450,7 +450,7 @@ m:=m+1;
 end;//1.1
 close(monster_name);
 //+31.08.2015
-assign(color,'color');
+assign(color,'res\har\color');
 reset(color);
 n:=1;
 while not eof(color) do begin//1.1
@@ -459,7 +459,7 @@ n:=n+1;
 end;//1.1
 close(color);
 //
-assign(har,'har');
+assign(har,'res\har\har');
 reset(har);
 i:=1;
 while not eof(har) do begin//1.1

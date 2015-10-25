@@ -54,7 +54,7 @@ slot_1,slot_2,slot_3,slot_4,slot_5:inventory;//inventory
 bag:array [0..9] of inventory;
 //+25.10.2015
 typ,clas,podclas,podtyp:byte;
-s_typ,s_clas,s_podclas,s_podtyp:array[0..9]of string;
+
 end;
 erath =record
 x,y:integer;
@@ -72,6 +72,7 @@ lang: text;
 monster_name:text;
 color,har:text;
 f_log:text;
+f_typ:text;//+25.10.2015
 text:array[0..100] of string;
 text_name:array[0..100] of string;
 //+31.08.2015
@@ -83,6 +84,8 @@ map_save:file of erath;
 
 simbol: array [0..12] of char;
 fmt:string='dd/mm/yyyy hh:nn:ss.zzz';
+//+25.10.2015
+s_typ,s_clas,s_podclas,s_podtyp:array[0..9]of string;
 //+24.09.2015
 const 
 x_map = 2048;
@@ -534,6 +537,29 @@ close(har);
 name_generate:=har_name[random(i)]+' '+text_name[random(m)]+' '+color_name[random(n)];
 end;
 
+procedure typ_generate(command:string);//+25.10.2015
+var
+s:string;
+
+begin
+s:='res\mob\typ.type';
+
+assign(f_typ,s);
+reset(f_typ);
+for m:=0 to  4 do begin //1
+read(f_typ,s_typ[m]);
+
+for n:=0 to 9 do begin//2
+read(f_typ,s_podtyp[n]);
+end;//2
+end;//1
+
+close(f_typ);
+
+
+//typ_generate:='';
+end;
+
 procedure hero_generate(h:string);//+12.08.2015
 begin
 if h='hero_new' then begin //0//+15.08.2015
@@ -667,7 +693,9 @@ monster.slot_3:=inventory_generation('armor','',monster.lvl);
 monster.slot_4:=inventory_generation('veapon','',monster.lvl);
 monster.slot_5:=inventory_generation('armor','',monster.lvl);
 //+25.10.2015
-
+typ_generate('');
+monster.typ:=random(4);
+monster.podtyp:=random(9);
 end;//2
 if h='monster_beast' then begin //3
 monster.name:=name_generate('beast');
@@ -762,7 +790,7 @@ begin
 i0:=0;
 repeat begin//0
 
-hero_generate('monster_beast');
+hero_generate('monster_human');
 i:=1;
 repeat begin//1
 clrscr;
@@ -771,7 +799,9 @@ i0:=i0+1;
 writeln(text[35]);
 writeln(text[14],': ',i);
 writeln('-------------------------');
-writeln('|',hero.name,'           ', monster.name,'|');log_generate('log_old_generate','monster.name '+monster.name);
+writeln('|',hero.name,'           ', s_typ[monster.typ],' ',s_podtyp[monster.podtyp],'|');
+writeln('|','     ',monster.name,'|');
+log_generate('log_old_generate','monster.name '+monster.name+' type '+s_typ[monster.typ]+' podtype '+s_podtyp[monster.podtyp]);
 writeln('|',text[5],'             ', text[5],'|');
 writeln('|',hero.hp,'             ', monster.hp,'|');log_generate('log_old_generate','monster.hp '+inttostr(monster.hp));
 writeln('|',text[6],'             ', text[6],'|');

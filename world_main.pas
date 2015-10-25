@@ -52,6 +52,8 @@ stren,intel,agility,sex,race,init,masking,obser:integer;
 slot_1,slot_2,slot_3,slot_4,slot_5:inventory;//inventory
 //+06.09.2015
 bag:array [0..9] of inventory;
+//+25.10.2015
+typ,clas,podclas,podtyp:byte;
 end;
 erath =record
 x,y:integer;

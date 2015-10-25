@@ -548,9 +548,10 @@ assign(f_typ,s);
 reset(f_typ);
 for m:=0 to  4 do begin //1
 read(f_typ,s_typ[m]);
-
+delete(s_typ[m],0,8);
 for n:=0 to 9 do begin//2
 read(f_typ,s_podtyp[n]);
+delete(s_podtyp[n],0,11);
 end;//2
 end;//1
 

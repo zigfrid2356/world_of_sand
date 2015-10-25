@@ -54,6 +54,7 @@ slot_1,slot_2,slot_3,slot_4,slot_5:inventory;//inventory
 bag:array [0..9] of inventory;
 //+25.10.2015
 typ,clas,podclas,podtyp:byte;
+s_typ,s_clas,s_podclas,s_podtyp:array[0..9]of string;
 end;
 erath =record
 x,y:integer;
@@ -532,6 +533,7 @@ close(har);
 
 name_generate:=har_name[random(i)]+' '+text_name[random(m)]+' '+color_name[random(n)];
 end;
+
 procedure hero_generate(h:string);//+12.08.2015
 begin
 if h='hero_new' then begin //0//+15.08.2015
@@ -664,6 +666,8 @@ monster.slot_2:=inventory_generation('armor','',monster.lvl);
 monster.slot_3:=inventory_generation('armor','',monster.lvl);
 monster.slot_4:=inventory_generation('veapon','',monster.lvl);
 monster.slot_5:=inventory_generation('armor','',monster.lvl);
+//+25.10.2015
+
 end;//2
 if h='monster_beast' then begin //3
 monster.name:=name_generate('beast');
@@ -697,6 +701,8 @@ monster.slot_3:=inventory_generation('armor','',monster.lvl);
 monster.slot_4:=inventory_generation('veapon','',monster.lvl);
 monster.slot_5:=inventory_generation('armor','',monster.lvl);
 end;//3
+
+
 end;
 procedure save;
 begin

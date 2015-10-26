@@ -86,7 +86,7 @@ simbol: array [0..12] of char;
 fmt:string='dd/mm/yyyy hh:nn:ss.zzz';
 //+25.10.2015
 s_typ,s_clas,s_podclas:array[0..9]of string;
-s_podtyp:array[0..39]of string;
+s_podtyp:array[0..50]of string;
 //+24.09.2015
 const 
 x_map = 2048;
@@ -558,7 +558,7 @@ delete(s_podtyp[k1],1,11);
 k1:=k1+1;
 end;//2
 end;//1
-
+log_generate('log_old_generate','k1 '+inttostr(k1));
 close(f_typ);
 
 
@@ -700,7 +700,7 @@ monster.slot_5:=inventory_generation('armor','',monster.lvl);
 //+25.10.2015
 
 monster.typ:=random(4);
-monster.podtyp:=random(39);
+monster.podtyp:=random(50);
 end;//2
 if h='monster_beast' then begin //3
 monster.name:=name_generate('beast');

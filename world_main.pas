@@ -85,7 +85,8 @@ map_save:file of erath;
 simbol: array [0..12] of char;
 fmt:string='dd/mm/yyyy hh:nn:ss.zzz';
 //+25.10.2015
-s_typ,s_clas,s_podclas,s_podtyp:array[0..9]of string;
+s_typ,s_clas,s_podclas:array[0..9]of string;
+s_podtyp:array[0..39]of string;
 //+24.09.2015
 const 
 x_map = 2048;
@@ -546,12 +547,15 @@ s:='res\mob\typ.type';
 
 assign(f_typ,s);
 reset(f_typ);
+readln(f_typ,s_typ[0]);
+k1:=0;
 for m:=0 to  4 do begin //1
-read(f_typ,s_typ[m]);
-delete(s_typ[m],0,8);
+readln(f_typ,s_typ[m]);
+delete(s_typ[m],1,8);
 for n:=0 to 9 do begin//2
-read(f_typ,s_podtyp[n]);
-delete(s_podtyp[n],0,11);
+readln(f_typ,s_podtyp[k1]);
+delete(s_podtyp[k1],1,11);
+k1:=k1+1;
 end;//2
 end;//1
 
@@ -696,7 +700,7 @@ monster.slot_5:=inventory_generation('armor','',monster.lvl);
 //+25.10.2015
 typ_generate('');
 monster.typ:=random(4);
-monster.podtyp:=random(9);
+monster.podtyp:=random(39);
 end;//2
 if h='monster_beast' then begin //3
 monster.name:=name_generate('beast');

@@ -698,7 +698,7 @@ monster.slot_3:=inventory_generation('armor','',monster.lvl);
 monster.slot_4:=inventory_generation('veapon','',monster.lvl);
 monster.slot_5:=inventory_generation('armor','',monster.lvl);
 //+25.10.2015
-typ_generate('');
+
 monster.typ:=random(4);
 monster.podtyp:=random(39);
 end;//2
@@ -1025,6 +1025,7 @@ unix utf-8 text.lang
 //--------------------------------
 BEGIN
 Randomize;
+typ_generate('');
 i:=0;
 assign(lang,'res\lang\rus\text_win.lang');
 reset(lang);

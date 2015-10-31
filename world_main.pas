@@ -316,51 +316,184 @@ m:=random(y_map);
 end;
 until (n>8)and(n<x_map-8)and(m>8)and(m<y_map-8);
 
-//4-ªàã£
+//4-ªàã£//++31.10.2015
 for i:=n-8 to n+8 do begin//5.1
 	for j:=m-8 to m+8 do begin//5.2
-	k:=random(1);
-	k0:=random(10);
-	if k=0 then begin //5.2.1
-	map[i,j].structure:=simbol[4];
-	map[i,j].color:=6;
-	end;//5.2.1 
-	if (k0>0) and (k0<3) then begin //5.2.2
+	
+	k0:=random(100);
+	if k0<20 then begin //5.2.1
 	map[i,j].structure:=simbol[3];
 	map[i,j].color:=14;
-	end//5.2.2 
-	else begin//5.2.2.1
+	end;//5.2.1 
+	if (k0>20) and (k0<95) then begin //5.2.2
 	map[i,j].structure:=simbol[0];
-	map[i,j].color:=14;	
+	map[i,j].color:=14;
+	end;//5.2.2 
+	if (k0>95) and (k0<100)then begin//5.2.2.1
+	map[i,j].structure:=simbol[4];
+	map[i,j].color:=6;	
 	end;//5.2.2.1
 	end;//5.1
 	end;//5.2
-//3-cryg
+//3-cryg//++31.10.2015
 for i:=n-6 to n+6 do begin//5.1
 	for j:=m-6 to m+6 do begin//5.2
-	k:=random(10);
-	k0:=random(10);
-	if (k0=3)or (k0=4)  then begin //5.2.1
-	map[i,j].structure:=simbol[4];
-	map[i,j].color:=6;
-	end;//5.2.1 
-	if k0=5 then begin //5.3.1
-	map[i,j].structure:=simbol[5];
-	map[i,j].color:=2;
-	end;//5.3.1 	
-	if k<8 then begin //5.2.2
+	
+	k0:=random(100);
+	if (k0<50)  then begin //5.2.1
 	map[i,j].structure:=simbol[3];
 	map[i,j].color:=14;
-	end//5.2.2 
-	else begin//5.2.2.1
+	end;//5.2.1 
+	if (k0>50) and(k0<85) then begin //5.3.1
 	map[i,j].structure:=simbol[0];
-	map[i,j].color:=14;	
+	map[i,j].color:=14;
+	end;//5.3.1 	
+	if(k0>85) and(k0<95) then begin //5.2.2
+	map[i,j].structure:=simbol[4];
+	map[i,j].color:=6;
+	end;//5.2.2 
+	if(k0>95) and(k0<100) then begin//5.2.2.1
+	map[i,j].structure:=simbol[5];
+	map[i,j].color:=2;	
 	end;//5.2.2.1
 	end;//5.1
 	end;//5.2
 map[n,m].structure:=simbol[4];
 map[n,m].color:=6;
 end;//5
+//+31.10.2015
+//¨®¬ ® §¨á
+for l:=0 to 1000 do begin//6
+repeat
+begin
+n:=random(x_map);
+m:=random(y_map);
+end;
+//---------(6)
+until (n>30)and(n<x_map-30)and(m>30)and(m<y_map-30);
+for i:=n-15 to n+15 do begin//6.1
+	for j:=m-15 to m+15 do begin//6.2
+	
+	k0:=random(100);
+	if k0<20  then begin //6.2.1
+	map[i,j].structure:=simbol[3];//log_generate('log_old_generate',inttostr(k0)+' ---- (6.1)----');
+	map[i,j].color:=14;
+	end;//6.2.1 
+	if (k0>20) and(k0<90) then begin //6.3.1
+	map[i,j].structure:=simbol[0];//log_generate('log_old_generate',inttostr(k0)+' ---- (6.2)----');
+	map[i,j].color:=14;
+	end;//6.3.1 	
+	if (k0>90)and(k0<95) then begin //6.2.2
+	map[i,j].structure:=simbol[5];//log_generate('log_old_generate',inttostr(k0)+' ---- (6.3)----');
+	map[i,j].color:=2;
+	end;//6.2.2 
+	if (k0>95)and(k0<100) then begin//6.2.2.1
+	map[i,j].structure:=simbol[4];//log_generate('log_old_generate',inttostr(k0)+' ---- (6.4)----');
+	map[i,j].color:=6;	
+	end;//6.2.2.1
+	end;//6.1
+	end;//6.2
+//-----------(5)
+for i:=n-10 to n+10 do begin//6.1
+	for j:=m-10 to m+10 do begin//6.2
+	
+	k0:=random(100);
+	if k0<30  then begin //6.2.1
+	map[i,j].structure:=simbol[5];
+	map[i,j].color:=2;
+	end;//6.2.1 
+	if (k0>30) and(k0<60) then begin //6.3.1
+	map[i,j].structure:=simbol[4];
+	map[i,j].color:=6;
+	end;//6.3.1 	
+	if (k0>60)and(k0<90) then begin //6.2.2
+	map[i,j].structure:=simbol[3];
+	map[i,j].color:=14;
+	end;//6.2.2 
+	if (k0>90)and(k0<100) then begin//6.2.2.1
+	map[i,j].structure:=simbol[0];
+	map[i,j].color:=14;	
+	end;//6.2.2.1
+	end;//6.1
+	end;//6.2
+
+//------------(4)
+for i:=n-8 to n+8 do begin//6.1
+	for j:=m-8 to m+8 do begin//6.2
+	
+	k0:=random(100);
+	if k0<20  then begin //6.2.1
+	map[i,j].structure:=simbol[8];
+	map[i,j].color:=2;
+	end;//6.2.1 
+	if (k0>20) and(k0<30) then begin //6.3.1
+	map[i,j].structure:=simbol[5];
+	map[i,j].color:=2;
+	end;
+	if (k0>30) and(k0<50) then begin //6.3.1
+	map[i,j].structure:=simbol[0];
+	map[i,j].color:=14;
+	end;
+	if (k0>50)and(k0<100) then begin//6.2.2.1
+	map[i,j].structure:=simbol[3];
+	map[i,j].color:=14;	
+	end;//6.2.2.1
+	end;//6.1
+	end;//6.2
+//------------(3)
+for i:=n-6 to n+6 do begin//6.1
+	for j:=m-6 to m+6 do begin//6.2
+	
+	k0:=random(100);
+	if k0<30  then begin //6.2.1
+	map[i,j].structure:=simbol[5];
+	map[i,j].color:=2;
+	end;//6.2.1 
+	if (k0>30) and(k0<90) then begin //6.3.1
+	map[i,j].structure:=simbol[3];
+	map[i,j].color:=14;
+	end;
+	if (k0>90)and(k0<100) then begin//6.2.2.1
+	map[i,j].structure:=simbol[12];
+	map[i,j].color:=8;	
+	end;//6.2.2.1
+	end;//6.1
+	end;//6.2
+//------------(2)
+for i:=n-3 to n+3 do begin//6.1
+	for j:=m-3 to m+3 do begin//6.2
+	
+	k0:=random(100);
+	if k0<90  then begin //6.2.1
+	map[i,j].structure:=simbol[3];
+	map[i,j].color:=14;
+	end;
+	if (k0>90)and(k0<100) then begin//6.2.2.1
+	map[i,j].structure:=simbol[7];
+	map[i,j].color:=1;	
+	end;//6.2.2.1
+	end;//6.1
+	end;//6.2
+
+//------------(1)
+for i:=n-2 to n+2 do begin//6.1
+	for j:=m-2 to m+2 do begin//6.2
+	
+	k0:=random(100);
+	if k0<70  then begin //6.2.1
+	map[i,j].structure:=simbol[7];
+	map[i,j].color:=1;
+	end;
+	if (k0>70)and(k0<100) then begin//6.2.2.1
+	map[i,j].structure:=simbol[3];
+	map[i,j].color:=14;	
+	end;//6.2.2.1
+	end;//6.1
+	end;//6.2
+//------------(0)
+map[n,m].structure:=simbol[7];
+map[n,m].color:=1;
+end;//6
 end;//2
 if command='map_story_generate' then begin//3
 //§ «¨¢ ¥¬ ¢®¤®©

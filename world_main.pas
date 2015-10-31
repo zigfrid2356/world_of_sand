@@ -321,11 +321,11 @@ for i:=n-8 to n+8 do begin//5.1
 	for j:=m-8 to m+8 do begin//5.2
 	k:=random(1);
 	k0:=random(10);
-	if k0=3 then begin //5.2.1
+	if k=0 then begin //5.2.1
 	map[i,j].structure:=simbol[4];
 	map[i,j].color:=6;
 	end;//5.2.1 
-	if k=0 then begin //5.2.2
+	if (k0>0) and (k0<3) then begin //5.2.2
 	map[i,j].structure:=simbol[3];
 	map[i,j].color:=14;
 	end//5.2.2 

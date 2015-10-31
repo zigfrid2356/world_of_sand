@@ -363,7 +363,7 @@ map[n,m].color:=6;
 end;//5
 //+31.10.2015
 //Биом оазис
-for l:=0 to 1000 do begin//6
+for l:=0 to 100 do begin//6
 repeat
 begin
 n:=random(x_map);

@@ -1039,7 +1039,22 @@ until menu_key='1';
 
 end;
 
-
+function map_info(m_i:char):string;
+begin
+if m_i='.' then map_info:=text[51];
+if m_i=':'then map_info:=text[52];
+if m_i=';'then map_info:=text[53];
+if m_i='#'then map_info:=text[54];
+if m_i='/'then map_info:=text[55];
+if m_i='"'then map_info:=text[56];
+if m_i='0'then map_info:=text[57];
+if m_i='~'then map_info:=text[58];
+if m_i='!'then map_info:=text[59];
+if m_i='_'then map_info:=text[60];
+if m_i='-'then map_info:=text[61];
+if m_i='='then map_info:=text[62];
+if m_i='^'then map_info:=text[63];
+end;
 procedure map_output(x,y:integer);
 var
 temp_char:char;
@@ -1069,10 +1084,10 @@ end;//2.1
 map[x,y].structure:=temp_char;//+16.08.2015 
 map[x,y].color:=temp_color;//+16.09.2015
 writeln(text[34],' ',x,' : ',y);
-writeln	('1- ->');
-writeln	('2- <-');
-writeln	('3- /\');
-writeln	('4- \/');
+writeln	('1- -> '+text[64]+map_info(map[x,y+1].structure) );
+writeln	('2- <- '+text[65]+map_info(map[x,y-1].structure) );
+writeln	('3- /\ '+text[67]+map_info(map[x-1,y].structure) );
+writeln	('4- \/ '+text[66]+map_info(map[x+1,y].structure) );
 writeln	('5- ',text[2]);
 //readln(menu_key);
 menu_key:=readkey;

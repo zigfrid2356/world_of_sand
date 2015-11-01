@@ -1038,7 +1038,7 @@ end;
 until menu_key='1';
 
 end;
-
+//01.11.2015
 function map_info(m_i:char):string;
 begin
 if m_i='.' then map_info:=text[51];

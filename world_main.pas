@@ -1119,6 +1119,27 @@ until menu_key='5';
 end;//2.00 else mapgenerate(new,'/\')
 end;
 
+//02.11.2015
+procedure trade;
+begin
+repeat begin//1
+ClrScr;
+writeln	('1- ',text[68]);
+writeln	('2- ',text[69]);
+writeln	('3- ',text[2]);
+menu_key:=readkey;
+case menu_key of
+'1': begin //1.1
+	
+	end;//1.1
+'2':	begin//1.2
+	
+	end;//1.2
+end;//1
+end; 
+until menu_key='3';
+end;
+
 procedure main_menu;
 begin
 
@@ -1130,6 +1151,7 @@ writeln	('3- ',text[11]);
 writeln	('4- ',text[17]);
 writeln	('5- ',text[2]);
 writeln	('6- ',text[42]);
+writeln	('7- ',text[70]);
 //readln(menu_key);
 menu_key:=readkey;
 case menu_key of
@@ -1159,6 +1181,9 @@ equip ('slot_3',hero.slot_3);
 equip ('slot_4',hero.slot_4);
 equip ('slot_5',hero.slot_5);
 end;//1.5
+'7': begin//1.4
+trade;
+end;//1.4
 end;
 end;//2 
 until menu_key='5';

@@ -55,7 +55,7 @@ reset(map_save);
 for i:=0 to x_map do begin//1.1
 	for j:=0 to y_map do begin//1.2
 read(map_save,map[i,j]);
-putpixel(i,j,map[i,j].color);
+if map[i,j].structure='#' then putpixel(i,j,15) else putpixel(i,j,map[i,j].color);
 end;end;//1.1//1.2
 close(map_save);
 

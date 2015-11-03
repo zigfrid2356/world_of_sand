@@ -113,7 +113,7 @@ procedure map_generate(command:string);
 begin
 simbol[0]:='.';//colore[0]:=1;colore[13]:=13;
 simbol[1]:=':';//colore[1]:=1;colore[14]:=14;
-simbol[2]:=';';//colore[2]:=2;colore[15]:=15;
+simbol[2]:=';';//colore[2]:=2;
 simbol[3]:='#';//colore[3]:=3;
 simbol[4]:='/';//colore[4]:=4;
 simbol[5]:='"';//colore[5]:=5;
@@ -314,41 +314,41 @@ begin
 n:=random(x_map);
 m:=random(y_map);
 end;
-until (n>8)and(n<x_map-8)and(m>8)and(m<y_map-8);
+until (n>32)and(n<x_map-32)and(m>32)and(m<y_map-32);
 
 //4-круг//++31.10.2015
-for i:=n-8 to n+8 do begin//5.1
-	for j:=m-8 to m+8 do begin//5.2
+for i:=n-32 to n+32 do begin//5.1
+	for j:=m-32 to m+32 do begin//5.2
 	
 	k0:=random(100);
-	if k0<20 then begin //5.2.1
+	if k0<10 then begin //5.2.1
 	map[i,j].structure:=simbol[3];
 	map[i,j].color:=14;
 	end;//5.2.1 
-	if (k0>20) and (k0<95) then begin //5.2.2
+	if (k0>10) and (k0<98) then begin //5.2.2
 	map[i,j].structure:=simbol[0];
 	map[i,j].color:=14;
 	end;//5.2.2 
-	if (k0>95) and (k0<100)then begin//5.2.2.1
+	if (k0>98) and (k0<100)then begin//5.2.2.1
 	map[i,j].structure:=simbol[4];
 	map[i,j].color:=6;	
 	end;//5.2.2.1
 	end;//5.1
 	end;//5.2
 //3-cryg//++31.10.2015
-for i:=n-6 to n+6 do begin//5.1
-	for j:=m-6 to m+6 do begin//5.2
+for i:=n-8 to n+8 do begin//5.1
+	for j:=m-8 to m+8 do begin//5.2
 	
 	k0:=random(100);
-	if (k0<50)  then begin //5.2.1
+	if (k0<30)  then begin //5.2.1
 	map[i,j].structure:=simbol[3];
 	map[i,j].color:=14;
 	end;//5.2.1 
-	if (k0>50) and(k0<85) then begin //5.3.1
+	if (k0>30) and(k0<90) then begin //5.3.1
 	map[i,j].structure:=simbol[0];
 	map[i,j].color:=14;
 	end;//5.3.1 	
-	if(k0>85) and(k0<95) then begin //5.2.2
+	if(k0>90) and(k0<95) then begin //5.2.2
 	map[i,j].structure:=simbol[4];
 	map[i,j].color:=6;
 	end;//5.2.2 
@@ -370,9 +370,9 @@ n:=random(x_map);
 m:=random(y_map);
 end;
 //---------(6)
-until (n>30)and(n<x_map-30)and(m>30)and(m<y_map-30);
-for i:=n-15 to n+15 do begin//6.1
-	for j:=m-15 to m+15 do begin//6.2
+until (n>32)and(n<x_map-32)and(m>32)and(m<y_map-32);
+for i:=n-32 to n+32 do begin//6.1
+	for j:=m-32 to m+32 do begin//6.2
 	
 	k0:=random(100);
 	if k0<20  then begin //6.2.1
@@ -383,34 +383,34 @@ for i:=n-15 to n+15 do begin//6.1
 	map[i,j].structure:=simbol[0];//log_generate('log_old_generate',inttostr(k0)+' ---- (6.2)----');
 	map[i,j].color:=14;
 	end;//6.3.1 	
-	if (k0>90)and(k0<95) then begin //6.2.2
+	if (k0>90)and(k0<98) then begin //6.2.2
 	map[i,j].structure:=simbol[5];//log_generate('log_old_generate',inttostr(k0)+' ---- (6.3)----');
 	map[i,j].color:=2;
 	end;//6.2.2 
-	if (k0>95)and(k0<100) then begin//6.2.2.1
+	if (k0>98)and(k0<100) then begin//6.2.2.1
 	map[i,j].structure:=simbol[4];//log_generate('log_old_generate',inttostr(k0)+' ---- (6.4)----');
 	map[i,j].color:=6;	
 	end;//6.2.2.1
 	end;//6.1
 	end;//6.2
 //-----------(5)
-for i:=n-10 to n+10 do begin//6.1
-	for j:=m-10 to m+10 do begin//6.2
+for i:=n-16 to n+16 do begin//6.1
+	for j:=m-16 to m+16 do begin//6.2
 	
 	k0:=random(100);
-	if k0<30  then begin //6.2.1
+	if k0<20  then begin //6.2.1
 	map[i,j].structure:=simbol[5];
 	map[i,j].color:=2;
 	end;//6.2.1 
-	if (k0>30) and(k0<60) then begin //6.3.1
+	if (k0>20) and(k0<30) then begin //6.3.1
 	map[i,j].structure:=simbol[4];
 	map[i,j].color:=6;
 	end;//6.3.1 	
-	if (k0>60)and(k0<90) then begin //6.2.2
+	if (k0>30)and(k0<70) then begin //6.2.2
 	map[i,j].structure:=simbol[3];
 	map[i,j].color:=14;
 	end;//6.2.2 
-	if (k0>90)and(k0<100) then begin//6.2.2.1
+	if (k0>70)and(k0<100) then begin//6.2.2.1
 	map[i,j].structure:=simbol[0];
 	map[i,j].color:=14;	
 	end;//6.2.2.1

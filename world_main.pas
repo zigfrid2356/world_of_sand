@@ -1083,7 +1083,7 @@ end;//2.1
  writeln(' ---------------------');
 map[x,y].structure:=temp_char;//+16.08.2015 
 map[x,y].color:=temp_color;//+16.09.2015
-writeln(text[34],' ',x,' : ',y);
+writeln(text[34],' ',x,' : ',y,text[71]+map_info(map[x,y].structure));
 writeln	('1- -> '+text[64]+map_info(map[x,y+1].structure) );
 writeln	('2- <- '+text[65]+map_info(map[x,y-1].structure) );
 writeln	('3- /\ '+text[67]+map_info(map[x-1,y].structure) );

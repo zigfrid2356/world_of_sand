@@ -67,7 +67,7 @@ map:array[0..2048,0..2048] of erath;
 hero:body;
 monster:body;
 menu_key:char;
-i,j,n,m,l,k,k0,k1:integer;//áçñâç¨ª¨{счётчики}
+i,j,n,m,l,k,k0,k1,k_oz:integer;//áçñâç¨ª¨{счётчики}
 s:string;//temp
 lang: text;
 monster_name,map_oz:text;
@@ -79,6 +79,8 @@ text_name:array[0..100] of string;
 //+31.08.2015
 color_name:array[0..1002] of string;
 har_name:array[0..1000] of string;
+//+03.11.2015
+map_name:array[0..1000] of string;
 
 hero_save:file of body;
 map_save:file of erath;
@@ -112,6 +114,17 @@ end;
 
 procedure map_generate(command:string);
 begin
+//+03.11.2015
+k_oz:=0;
+assign(map_oz,'res\map\oz.name');
+reset(map_oz);
+while not eof(map_oz) do begin
+readln(map_oz,map_name[k_oz]);
+k_oz:=k_oz+1;
+end;
+close(map_oz);
+
+
 simbol[0]:='.';//colore[0]:=1;colore[13]:=13;
 simbol[1]:=':';//colore[1]:=1;colore[14]:=14;
 simbol[2]:=';';//colore[2]:=2;
@@ -365,6 +378,7 @@ end;//5
 //+31.10.2015
 //���� �����
 for l:=0 to 100 do begin//6
+k:=random(k_oz);
 repeat
 begin
 n:=random(x_map);
@@ -374,7 +388,7 @@ end;
 until (n>32)and(n<x_map-32)and(m>32)and(m<y_map-32);
 for i:=n-32 to n+32 do begin//6.1
 	for j:=m-32 to m+32 do begin//6.2
-	
+	map[i,j].name:=map_name[k];
 	k0:=random(100);
 	if k0<20  then begin //6.2.1
 	map[i,j].structure:=simbol[3];//log_generate('log_old_generate',inttostr(k0)+' ---- (6.1)----');
@@ -1071,6 +1085,7 @@ if (x-1>=6) and(x+1<=x_map-6) and (y-1>=11) and (y+1<=y_map-11) then begin//2.00
 repeat begin//2.0
 clrscr;
 textcolor(white);
+writeln(map[i,j].name);
 writeln(' _____________________');//top
 for i:=x-5 to x+5 do begin//2.1//5
 write('|');//left

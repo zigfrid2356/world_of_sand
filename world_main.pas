@@ -60,6 +60,7 @@ erath =record
 x,y:integer;
 structure:char;
 color:integer;
+name:string;
 end;
 var
 map:array[0..2048,0..2048] of erath;
@@ -69,7 +70,7 @@ menu_key:char;
 i,j,n,m,l,k,k0,k1:integer;//áçñâç¨ª¨{счётчики}
 s:string;//temp
 lang: text;
-monster_name:text;
+monster_name,map_oz:text;
 color,har:text;
 f_log:text;
 f_typ:text;//+25.10.2015

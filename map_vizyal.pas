@@ -30,6 +30,7 @@ erath =record
 x,y:integer;
 structure:char;
 color:integer;
+name:string;
 end;
 var
 map:array[0..2048,0..2048] of erath;

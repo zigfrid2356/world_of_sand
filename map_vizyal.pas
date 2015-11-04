@@ -29,8 +29,9 @@ type
 erath =record
 x,y:word;
 structure:char;
-color:integer;
+color:byte;
 name:string[25];
+tip:byte;
 end;
 var
 map:array[0..2048,0..2048] of erath;

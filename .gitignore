@@ -5,6 +5,7 @@
 # They can not be viewed as text or compared by diff-tools. Consider replacing them with .rc files.
 #*.res
 *.save
+log.txt
 #
 # Type library file (binary). In old Delphi versions it should be stored.
 # Since Delphi 2009 it is produced from .ridl file and can safely be ignored.

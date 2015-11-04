@@ -47,7 +47,7 @@ hp,mp,exp,lvl:integer;
 dmg,ign_dmg,veapon,armor,attak,defense:integer;
 gold:integer;
 //+15.08.2015
-stren,intel,agility,sex,race,init,masking,obser:integer;
+stren,intel,agility,sex,race,init,masking,obser:word;
 //+21.08.2015
 slot_1,slot_2,slot_3,slot_4,slot_5:inventory;//inventory
 //+06.09.2015

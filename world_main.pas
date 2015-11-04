@@ -57,10 +57,10 @@ typ,clas,podclas,podtyp:byte;
 
 end;
 erath =record
-x,y:integer;
+x,y:word;
 structure:char;
 color:integer;
-name:string;
+name:string[25];
 end;
 var
 map:array[0..2048,0..2048] of erath;

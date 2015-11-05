@@ -56,6 +56,18 @@ bag:array [0..9] of inventory;
 typ,clas,podclas,podtyp:byte;
 
 end;
+new_body =record//+05.11.2015
+//ocnov
+name:string;
+stren,intel,agility,sex,race:word;
+//vichisl
+hp,mp,attak,defense,ves:integer;
+//obnov
+exp,lvl,gold,x,y:integer;
+init,masking,obser:word;
+//boev
+dmg,ign_dmg:integer;
+end;
 erath =record
 x,y:word;
 structure:char;

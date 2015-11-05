@@ -56,6 +56,11 @@ bag:array [0..9] of inventory;
 typ,clas,podclas,podtyp:byte;
 
 end;
+subject=record//+05.11.2015
+name:string;
+base_dmg,base_defense,ves,cost,slot,tip:word;
+init,masking,obser:word;
+end;
 new_body =record//+05.11.2015
 //ocnov
 name:string;
@@ -67,6 +72,10 @@ exp,lvl,gold,x,y:integer;
 init,masking,obser:word;
 //boev
 dmg,ign_dmg:integer;
+//invent
+s1,s2,sl,s4,s5:subject;
+//bag
+bag:array[0..9] of subject;
 end;
 erath =record
 x,y:word;

@@ -78,7 +78,7 @@ s1,s2,sl,s4,s5:subject;
 bag:array[0..9] of subject;
 end;
 erath =record
-x,y:word;
+x,y,npc_index:word;
 structure:char;
 color:byte;
 name:string[25];
@@ -88,6 +88,8 @@ var
 map:array[0..2048,0..2048] of erath;
 hero:body;
 monster:body;
+nps:array[0..1024] of new_body;
+
 menu_key:char;
 i,j,n,m,l,k,k0,k1,k_oz:integer;//áçñâç¨ª¨{счётчики}
 s:string;//temp
@@ -117,6 +119,11 @@ const
 x_map = 2048;
 y_map = 2048;
 
+//07.11.2015
+function npc_generate(i:word):new_body;
+begin
+
+end;
 procedure log_generate(command:string;text:string);
 begin;
 if command='log_new_generate' then begin//1

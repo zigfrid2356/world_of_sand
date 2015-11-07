@@ -91,7 +91,7 @@ monster:body;
 npc:array[0..17000] of new_body;
 
 menu_key:char;
-i,j,n,m,l,k,k0,k1,k_oz:integer;//áçñâç¨ª¨{счётчики}
+i,j,n,m,l,k,k0,k1,k_oz,i_oz,j_oz:integer;//áçñâç¨ª¨{счётчики}
 s:string;//temp
 lang: text;
 monster_name,map_oz:text;
@@ -173,7 +173,7 @@ name_generate:=har_name[random(i)]+' '+text_name[random(m)]+' '+color_name[rando
 end;
 
 //07.11.2015
-function npc_generate(i_n,j_n:word):new_body;
+function npc_generate(i_n,j_n:integer):new_body;
 begin
 
 npc_generate.lvl:=random(50)+1;
@@ -203,7 +203,7 @@ npc_generate.obser:=random(50)+1;
 npc_generate.dmg:=random(50)+1;
 npc_generate.ign_dmg:=random(50)+1;
 
-log_generate('log_old_generate',inttostr(npc_generate.lvl)+' '+inttostr(i_n)+':'+inttostr(j_n)+'-'+npc[k1].name);
+//log_generate('log_old_generate','NPC '+inttostr(npc_generate.lvl)+' '+inttostr(i_n)+':'+inttostr(j_n)+'-'+npc_generate.name);
 {
 //invent
 s1,s2,sl,s4,s5:subject;
@@ -562,26 +562,28 @@ for i:=n-8 to n+8 do begin//6.1
 	end;//6.1
 	end;//6.2
 //------------(3)
-for i:=n-6 to n+6 do begin//6.1
-	for j:=m-6 to m+6 do begin//6.2
+for i_oz:=n-6 to n+6 do begin//6.1
+	for j_oz:=m-6 to m+6 do begin//6.2
 	
 	k0:=random(100);
 	if k0<30  then begin //6.2.1
-	map[i,j].structure:=simbol[5];
-	map[i,j].color:=2;
+	map[i_oz,j_oz].structure:=simbol[5];
+	map[i_oz,j_oz].color:=2;
 	end;//6.2.1 
 	if (k0>30) and(k0<90) then begin //6.3.1
-	map[i,j].structure:=simbol[3];
-	map[i,j].color:=14;
+	map[i_oz,j_oz].structure:=simbol[3];
+	map[i_oz,j_oz].color:=14;
 	end;
 	if (k0>90)and(k0<100) then begin//6.2.2.1
-	map[i,j].structure:=simbol[12];
-	map[i,j].color:=8;
-	map[i,j].npc_index:=k1;
+	map[i_oz,j_oz].structure:=simbol[12];
+	map[i_oz,j_oz].color:=8;
+	map[i_oz,j_oz].npc_index:=k1;
+	map[i_oz,j_oz].x:=i_oz;
+	map[i_oz,j_oz].y:=j_oz;
 	//-----------------------------------------------------------------------------------------
 	
-	npc[map[i,j].npc_index]:=npc_generate(i,j);
-	log_generate('log_old_generate',inttostr(k1)+' '+inttostr(npc[k1].x)+':'+inttostr(npc[k1].y)+'-'+npc[k1].name);
+	npc[k1]:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y);
+	//log_generate('log_old_generate',inttostr(k1)+' '+inttostr(map[i_oz,j_oz].x)+':'+inttostr(map[i_oz,j_oz].y)+'-'+npc[k1].name);
 	k1:=k1+1;
 		
 	end;//6.2.2.1

@@ -88,7 +88,7 @@ var
 map:array[0..2048,0..2048] of erath;
 hero:body;
 monster:body;
-nps:array[0..1024] of new_body;
+npc:array[0..1024] of new_body;
 
 menu_key:char;
 i,j,n,m,l,k,k0,k1,k_oz:integer;//áçñâç¨ª¨{счётчики}
@@ -108,7 +108,7 @@ map_name:array[0..1000] of string;
 
 hero_save:file of body;
 map_save:file of erath;
-
+npc_save:file of new_body;
 simbol: array [0..12] of char;
 fmt:string='dd/mm/yyyy hh:nn:ss.zzz';
 //+25.10.2015
@@ -120,9 +120,39 @@ x_map = 2048;
 y_map = 2048;
 
 //07.11.2015
-function npc_generate(i:word):new_body;
+function npc_generate(i,j:word):new_body;
 begin
+npc_generate.lvl:=random(50)+1;
+//ocnov
+npc_generate.name:='test';
+npc_generate.stren:=random(npc_generate.lvl)+5;
+npc_generate.intel:=random(npc_generate.lvl)+5;
+npc_generate.agility:=random(npc_generate.lvl)+5;
+npc_generate.sex:=1;
+npc_generate.race:=1;
+//vichisl
+npc_generate.hp:=random(npc_generate.lvl)+50;
+npc_generate.mp:=random(npc_generate.lvl)+50;
+npc_generate.attak:=random(npc_generate.lvl)+50;
+npc_generate.defense:=random(npc_generate.lvl)+50;
+npc_generate.ves:=random(npc_generate.lvl)+50;
+//obnov
+npc_generate.exp:=1;
 
+npc_generate.gold:=random(50)+1;
+npc_generate.x:=i;
+npc_generate.y:=j;
+npc_generate.init:=random(50)+1;
+npc_generate.masking:=random(50)+1;
+npc_generate.obser:=random(50)+1;
+//boev
+npc_generate.dmg:=random(50)+1;
+npc_generate.ign_dmg:=random(50)+1;
+{
+//invent
+s1,s2,sl,s4,s5:subject;
+//bag
+bag:array[0..9] of subject;}
 end;
 procedure log_generate(command:string;text:string);
 begin;
@@ -920,6 +950,13 @@ assign(hero_save,'res\save\hero.save');
 rewrite(hero_save);
 write(hero_save,hero);
 close(hero_save);
+
+assign(npc_save,'res\save\npc.save');
+rewrite(npc_save);
+for i:=0 to 1024 do begin//1.1
+write(npc_save,npc[i]);
+end;//1.1
+close(npc_save);
 
 assign(map_save,'res\save\map.save');
 rewrite(map_save);

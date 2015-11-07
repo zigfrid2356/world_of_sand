@@ -120,6 +120,13 @@ x_map = 2048;
 y_map = 2048;
 npc_max =32768;
 
+//+07.11.2015
+function dialog(s_in:string):string;
+begin
+
+end;
+
+
 procedure log_generate(command:string;text:string);
 begin;
 if command='log_new_generate' then begin//1
@@ -492,6 +499,7 @@ m:=random(y_map);
 n_oz:=n;
 m_oz:=m;
 end;
+log_generate('log_old_generate',inttostr(n_oz)+':'+inttostr(m_oz)+map_name[k]);
 //---------(6)
 until (n>32)and(n<x_map-32)and(m>32)and(m<y_map-32);
 for i:=n-32 to n+32 do begin//6.1

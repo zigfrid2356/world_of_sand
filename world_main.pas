@@ -91,7 +91,7 @@ monster:body;
 npc:array[0..17000] of new_body;
 
 menu_key:char;
-i,j,n,m,l,k,k0,k1,k_oz,i_oz,j_oz:integer;//áçñâç¨ª¨{счётчики}
+i,j,n,m,l,k,k0,k1,k_oz,i_oz,j_oz,n_oz,m_oz:integer;//áçñâç¨ª¨{счётчики}
 s:string;//temp
 lang: text;
 monster_name,map_oz:text;
@@ -489,6 +489,8 @@ repeat
 begin
 n:=random(x_map);
 m:=random(y_map);
+n_oz:=n;
+m_oz:=m;
 end;
 //---------(6)
 until (n>32)and(n<x_map-32)and(m>32)and(m<y_map-32);
@@ -562,8 +564,8 @@ for i:=n-8 to n+8 do begin//6.1
 	end;//6.1
 	end;//6.2
 //------------(3)
-for i_oz:=n-6 to n+6 do begin//6.1
-	for j_oz:=m-6 to m+6 do begin//6.2
+for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
+	for j_oz:=m_oz-6 to m_oz+6 do begin//6.2
 	
 	k0:=random(100);
 	if k0<30  then begin //6.2.1
@@ -590,39 +592,39 @@ for i_oz:=n-6 to n+6 do begin//6.1
 	end;//6.1
 	end;//6.2
 //------------(2)
-for i:=n-3 to n+3 do begin//6.1
-	for j:=m-3 to m+3 do begin//6.2
+for i_oz:=n_oz-3 to n_oz+3 do begin//6.1
+	for j_oz:=m_oz-3 to m_oz+3 do begin//6.2
 	
 	k0:=random(100);
 	if k0<90  then begin //6.2.1
-	map[i,j].structure:=simbol[3];
-	map[i,j].color:=14;
+	map[i_oz,j_oz].structure:=simbol[3];
+	map[i_oz,j_oz].color:=14;
 	end;
 	if (k0>90)and(k0<100) then begin//6.2.2.1
-	map[i,j].structure:=simbol[7];
-	map[i,j].color:=1;	
+	map[i_oz,j_oz].structure:=simbol[7];
+	map[i_oz,j_oz].color:=1;	
 	end;//6.2.2.1
 	end;//6.1
 	end;//6.2
 
 //------------(1)
-for i:=n-2 to n+2 do begin//6.1
-	for j:=m-2 to m+2 do begin//6.2
+for i_oz:=n_oz-2 to n_oz+2 do begin//6.1
+	for j_oz:=m_oz-2 to m_oz+2 do begin//6.2
 	
 	k0:=random(100);
 	if k0<70  then begin //6.2.1
-	map[i,j].structure:=simbol[7];
-	map[i,j].color:=1;
+	map[i_oz,j_oz].structure:=simbol[7];
+	map[i_oz,j_oz].color:=1;
 	end;
 	if (k0>70)and(k0<100) then begin//6.2.2.1
-	map[i,j].structure:=simbol[3];
-	map[i,j].color:=14;	
+	map[i_oz,j_oz].structure:=simbol[3];
+	map[i_oz,j_oz].color:=14;	
 	end;//6.2.2.1
 	end;//6.1
 	end;//6.2
 //------------(0)
-map[n,m].structure:=simbol[7];
-map[n,m].color:=1;
+map[n_oz,m_oz].structure:=simbol[7];
+map[n_oz,m_oz].color:=1;
 end;//6
 end;//2
 if command='map_story_generate' then begin//3
@@ -1179,7 +1181,7 @@ if (x-1>=6) and(x+1<=x_map-6) and (y-1>=11) and (y+1<=y_map-11) then begin//2.00
 repeat begin//2.0
 clrscr;
 textcolor(white);
-writeln(map[i,j].name);
+writeln(map[i,j].name); //if map[i,j].npc_index<>0 then begin write(text[76]+npc[map[i,j].npc_index].name); writeln(); end;
 writeln(' _____________________');//top
 for i:=x-5 to x+5 do begin//2.1//5
 write('|');//left
@@ -1193,7 +1195,7 @@ end;//2.1
  writeln(' ---------------------');
 map[x,y].structure:=temp_char;//+16.08.2015 
 map[x,y].color:=temp_color;//+16.09.2015
-writeln(text[34],' ',x,' : ',y,text[71]+map_info(map[x,y].structure));
+writeln(text[34],' ',x,' : ',y,text[71]+map_info(map[x,y].structure));if map[x,y].npc_index<>0 then begin write(text[76]+npc[map[x,y].npc_index].name);writeln(); end;
 writeln	('1- -> '+text[64]+map_info(map[x,y+1].structure) );
 writeln	('2- <- '+text[65]+map_info(map[x,y-1].structure) );
 writeln	('3- /\ '+text[67]+map_info(map[x-1,y].structure) );

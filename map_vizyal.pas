@@ -27,7 +27,7 @@ program GetMax;
 uses graph,crt,sysutils,windows,dateutils;
 type
 erath =record
-x,y:word;
+x,y,npc_index:word;
 structure:char;
 color:byte;
 name:string[25];

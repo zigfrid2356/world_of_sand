@@ -173,8 +173,9 @@ name_generate:=har_name[random(i)]+' '+text_name[random(m)]+' '+color_name[rando
 end;
 
 //07.11.2015
-function npc_generate(i,j:word):new_body;
+function npc_generate(i_n,j_n:word):new_body;
 begin
+
 npc_generate.lvl:=random(50)+1;
 //ocnov
 npc_generate.name:=name_generate('human');
@@ -193,14 +194,16 @@ npc_generate.ves:=random(npc_generate.lvl)+50;
 npc_generate.exp:=1;
 
 npc_generate.gold:=random(50)+1;
-npc_generate.x:=i;
-npc_generate.y:=j;
+npc_generate.x:=i_n;
+npc_generate.y:=j_n;
 npc_generate.init:=random(50)+1;
 npc_generate.masking:=random(50)+1;
 npc_generate.obser:=random(50)+1;
 //boev
 npc_generate.dmg:=random(50)+1;
 npc_generate.ign_dmg:=random(50)+1;
+
+log_generate('log_old_generate',inttostr(npc_generate.lvl)+' '+inttostr(i_n)+':'+inttostr(j_n)+'-'+npc[k1].name);
 {
 //invent
 s1,s2,sl,s4,s5:subject;
@@ -577,8 +580,8 @@ for i:=n-6 to n+6 do begin//6.1
 	map[i,j].npc_index:=k1;
 	//-----------------------------------------------------------------------------------------
 	
-	npc[k1]:=npc_generate(i,j);
-	log_generate('log_old_generate',inttostr(k1)+' '+inttostr(i)+':'+inttostr(j)+'-'+npc[k1].name);
+	npc[map[i,j].npc_index]:=npc_generate(i,j);
+	log_generate('log_old_generate',inttostr(k1)+' '+inttostr(npc[k1].x)+':'+inttostr(npc[k1].y)+'-'+npc[k1].name);
 	k1:=k1+1;
 		
 	end;//6.2.2.1

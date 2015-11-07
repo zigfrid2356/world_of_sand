@@ -88,7 +88,7 @@ var
 map:array[0..2048,0..2048] of erath;
 hero:body;
 monster:body;
-npc:array[0..1024] of new_body;
+npc:array[0..17000] of new_body;
 
 menu_key:char;
 i,j,n,m,l,k,k0,k1,k_oz:integer;//Ã¡Ã§Ã±Ã¢Ã§Â¨ÂªÂ¨{ÑÑ‡Ñ‘Ñ‚Ñ‡Ğ¸ĞºĞ¸}
@@ -118,13 +118,66 @@ s_podtyp:array[0..50]of string;
 const 
 x_map = 2048;
 y_map = 2048;
+npc_max =32768;
+
+procedure log_generate(command:string;text:string);
+begin;
+if command='log_new_generate' then begin//1
+assign(f_log,'log.txt');
+rewrite(f_log);
+writeln(f_log,formatdatetime(fmt,now)+' '+text);
+close(f_log);
+end;//1
+if command='log_old_generate' then begin//1
+assign(f_log,'log.txt');
+append(f_log);
+writeln(f_log,formatdatetime(fmt,now)+' '+text);
+close(f_log);
+end;//1
+end;
+
+function name_generate(command:string):string;//+12.08.2015
+var
+s:string;
+begin
+s:='res\mob\monster_'+command+'_win.name';//+01.09.2015
+
+assign(monster_name,s);
+reset(monster_name);
+m:=1;
+while not eof(monster_name) do begin//1.1
+readln(monster_name,text_name[m]);
+m:=m+1;
+end;//1.1
+close(monster_name);
+//+31.08.2015
+assign(color,'res\har\color');
+reset(color);
+n:=1;
+while not eof(color) do begin//1.1
+readln(color,color_name[n]);
+n:=n+1;
+end;//1.1
+close(color);
+//
+assign(har,'res\har\har');
+reset(har);
+i:=1;
+while not eof(har) do begin//1.1
+readln(har,har_name[i]);
+i:=i+1;
+end;//1.1
+close(har);
+
+name_generate:=har_name[random(i)]+' '+text_name[random(m)]+' '+color_name[random(n)];
+end;
 
 //07.11.2015
 function npc_generate(i,j:word):new_body;
 begin
 npc_generate.lvl:=random(50)+1;
 //ocnov
-npc_generate.name:='test';
+npc_generate.name:=name_generate('human');
 npc_generate.stren:=random(npc_generate.lvl)+5;
 npc_generate.intel:=random(npc_generate.lvl)+5;
 npc_generate.agility:=random(npc_generate.lvl)+5;
@@ -154,21 +207,8 @@ s1,s2,sl,s4,s5:subject;
 //bag
 bag:array[0..9] of subject;}
 end;
-procedure log_generate(command:string;text:string);
-begin;
-if command='log_new_generate' then begin//1
-assign(f_log,'log.txt');
-rewrite(f_log);
-writeln(f_log,formatdatetime(fmt,now)+' '+text);
-close(f_log);
-end;//1
-if command='log_old_generate' then begin//1
-assign(f_log,'log.txt');
-append(f_log);
-writeln(f_log,formatdatetime(fmt,now)+' '+text);
-close(f_log);
-end;//1
-end;
+
+
 //+16.09.2015
 
 procedure map_generate(command:string);
@@ -226,6 +266,7 @@ for i:=0 to x_map do begin//2.1
 		end;//2.2
 end;//2.1
 //---------------
+writeln(text[72],text[73]);
 for i:=0 to 1000 do begin//3 
 //+18.09.2015
 //¡¨®¬ ª®«®¤¥æ
@@ -379,6 +420,7 @@ map[l,m-3].color:=7;
 end;//4.4.3
 end;//4.4  
 end;//3
+writeln(text[72],text[74]);
 for l:=0 to 1000 do begin//5 
 //+22.10.2015
 //¡¨®¬ ¯ãáâë­­ ï à ¢­¨­ 
@@ -434,8 +476,10 @@ for i:=n-8 to n+8 do begin//5.1
 map[n,m].structure:=simbol[4];
 map[n,m].color:=6;
 end;//5
+writeln(text[72],text[75]);
 //+31.10.2015
-//¨®¬ ® §¨á
+//¨®¬ ® §¨á-------------------------------------------------------
+k1:=0;
 for l:=0 to 100 do begin//6
 k:=random(k_oz);
 repeat
@@ -529,7 +573,14 @@ for i:=n-6 to n+6 do begin//6.1
 	end;
 	if (k0>90)and(k0<100) then begin//6.2.2.1
 	map[i,j].structure:=simbol[12];
-	map[i,j].color:=8;	
+	map[i,j].color:=8;
+	map[i,j].npc_index:=k1;
+	//-----------------------------------------------------------------------------------------
+	
+	npc[k1]:=npc_generate(i,j);
+	log_generate('log_old_generate',inttostr(k1)+' '+inttostr(i)+':'+inttostr(j)+'-'+npc[k1].name);
+	k1:=k1+1;
+		
 	end;//6.2.2.1
 	end;//6.1
 	end;//6.2
@@ -708,41 +759,6 @@ if hero.bag[i].types=0 then begin hero.bag[i]:=inventory_generation('ingredient'
 
 end;//2
 end;//1
-end;
-function name_generate(command:string):string;//+12.08.2015
-var
-s:string;
-begin
-s:='res\mob\monster_'+command+'_win.name';//+01.09.2015
-
-assign(monster_name,s);
-reset(monster_name);
-m:=1;
-while not eof(monster_name) do begin//1.1
-readln(monster_name,text_name[m]);
-m:=m+1;
-end;//1.1
-close(monster_name);
-//+31.08.2015
-assign(color,'res\har\color');
-reset(color);
-n:=1;
-while not eof(color) do begin//1.1
-readln(color,color_name[n]);
-n:=n+1;
-end;//1.1
-close(color);
-//
-assign(har,'res\har\har');
-reset(har);
-i:=1;
-while not eof(har) do begin//1.1
-readln(har,har_name[i]);
-i:=i+1;
-end;//1.1
-close(har);
-
-name_generate:=har_name[random(i)]+' '+text_name[random(m)]+' '+color_name[random(n)];
 end;
 
 procedure typ_generate(command:string);//+25.10.2015
@@ -953,7 +969,7 @@ close(hero_save);
 
 assign(npc_save,'res\save\npc.save');
 rewrite(npc_save);
-for i:=0 to 1024 do begin//1.1
+for i:=0 to 17000 do begin//1.1
 write(npc_save,npc[i]);
 end;//1.1
 close(npc_save);
@@ -974,6 +990,13 @@ assign(hero_save,'res\save\hero.save');
 reset(hero_save);
 read(hero_save,hero);
 close(hero_save);
+
+assign(npc_save,'res\save\npc.save');
+reset(npc_save);
+for i:=0 to 17000 do begin//1.1
+read(npc_save,npc[i]);
+end;//1.1
+close(npc_save);
 
 assign(map_save,'res\save\map.save');
 reset(map_save);

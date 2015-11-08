@@ -42,7 +42,7 @@ i_stren,i_intel,i_agility,i_init,i_masking,i_obser:integer;
 end;
 body =record
 name:string;
-hp,mp,exp,lvl:integer;
+hp,mp,exp,lvl,x,y:integer;
 //+10.08.2015
 dmg,ign_dmg,veapon,armor,attak,defense:integer;
 gold:integer;
@@ -76,6 +76,8 @@ dmg,ign_dmg:integer;
 s1,s2,sl,s4,s5:subject;
 //bag
 bag:array[0..9] of subject;
+//story
+st0,st1,st2,st3:string;
 end;
 erath =record
 x,y,npc_index:word;
@@ -130,7 +132,13 @@ function dialog(s_in:string):string;
 begin
 
 end;
-
+//+08.11.2015
+function story_npc(command:char):string;
+begin
+if command='0' then begin//1
+story_npc:=text[77]+oz_list[random(100)].oz_name;
+end;//1
+end;
 
 procedure log_generate(command:string;text:string);
 begin;
@@ -845,6 +853,10 @@ end;//0.21
 end;//0.11
 until m=1;
 
+//08.11.2015
+hero.x:=128;
+hero.y:=128;
+
 hero.stren:=1;
 hero.intel:=1;
 hero.agility:=1;
@@ -1200,7 +1212,7 @@ if (x-1>=6) and(x+1<=x_map-6) and (y-1>=11) and (y+1<=y_map-11) then begin//2.00
 repeat begin//2.0
 clrscr;
 textcolor(white);
-writeln(map[i,j].name); //if map[i,j].npc_index<>0 then begin write(text[76]+npc[map[i,j].npc_index].name); writeln(); end;
+writeln(map[i,j].name); 
 writeln(' _____________________');//top
 for i:=x-5 to x+5 do begin//2.1//5
 write('|');//left
@@ -1229,21 +1241,26 @@ case menu_key of//3.0
 x:=x;
 if y+1<={244}2037 then y:=y+1 else y:=y;
 map_output(x,y);
+hero.y:=y;
+
 end;//3.1
 '2':begin//3.2
 x:=x;
 if y-1>=11 then y:=y-1 else y:=y;
 map_output(x,y);
+hero.y:=y;
  end;//3.2
 '3':begin//3.3
 if x-1>=6 then x:=x-1 else x:=x;
 y:=y; 
 map_output(x,y);
+hero.x:=x;
  end;//3.3
 '4':begin//3.4
 if x+1<={249}2042 then x:=x+1 else x:=x;
 y:=y;  
 map_output(x,y);
+hero.x:=x;
  end;//3.4
 end;//3.0
 until menu_key='5';
@@ -1290,7 +1307,7 @@ case menu_key of
 	hero_output;
 	end;//1.1
 '2':	begin//1.2
-	map_output(128,128); main_menu;
+	map_output(hero.x,hero.y); main_menu;
 	end;//1.2
 '3':begin //1.3
 battle;

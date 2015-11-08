@@ -1240,27 +1240,32 @@ case menu_key of//3.0
 '1':begin//3.1 
 x:=x;
 if y+1<={244}2037 then y:=y+1 else y:=y;
-map_output(x,y);
 hero.y:=y;
+map_output(x,y);
+
 
 end;//3.1
 '2':begin//3.2
 x:=x;
 if y-1>=11 then y:=y-1 else y:=y;
-map_output(x,y);
+
 hero.y:=y;
+map_output(x,y);
+
  end;//3.2
 '3':begin//3.3
 if x-1>=6 then x:=x-1 else x:=x;
 y:=y; 
-map_output(x,y);
 hero.x:=x;
+map_output(x,y);
+
  end;//3.3
 '4':begin//3.4
 if x+1<={249}2042 then x:=x+1 else x:=x;
-y:=y;  
+y:=y; 
+hero.x:=x; 
 map_output(x,y);
-hero.x:=x;
+
  end;//3.4
 end;//3.0
 until menu_key='5';

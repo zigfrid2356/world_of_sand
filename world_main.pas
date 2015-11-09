@@ -614,6 +614,8 @@ for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
 	//-----------------------------------------------------------------------------------------
 	
 	npc[k1]:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y);
+	npc[k1].st0:=story_npc('0');
+	npc[k1].st3:=story_npc('3');
 	//log_generate('log_old_generate',inttostr(k1)+' '+inttostr(map[i_oz,j_oz].x)+':'+inttostr(map[i_oz,j_oz].y)+'-'+npc[k1].name);
 	k1:=k1+1;
 		
@@ -1234,6 +1236,7 @@ writeln	('2- <- '+text[65]+map_info(map[x,y-1].structure) );
 writeln	('3- /\ '+text[67]+map_info(map[x-1,y].structure) );
 writeln	('4- \/ '+text[66]+map_info(map[x+1,y].structure) );
 writeln	('5- ',text[2]);
+if map[x,y].npc_index<>0 then writeln	('6- ',text[79]);
 //readln(menu_key);
 menu_key:=readkey;
 end;//2.0
@@ -1267,8 +1270,16 @@ if x+1<={249}2042 then x:=x+1 else x:=x;
 y:=y; 
 hero.x:=x; 
 map_output(x,y);
-
  end;//3.4
+ 
+'6':begin//3.5//+09.11.2015
+if map[x,y].npc_index<>0 then begin//3.5.1
+writeln(npc[map[x,y].npc_index].st0);
+writeln(npc[map[x,y].npc_index].st3);
+end;//3.5.1
+
+ end;//3.5
+ 
 end;//3.0
 until menu_key='5';
 end;//2.00 else mapgenerate(new,'/\')

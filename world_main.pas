@@ -135,9 +135,11 @@ end;
 //+08.11.2015
 function story_npc(command:char):string;
 begin
-if command='0' then begin//1
-story_npc:=text[77]+oz_list[random(100)].oz_name;
-end;//1
+if command='0' then story_npc:=text[77]+oz_list[random(100)].oz_name;
+
+if command='3' then begin//2
+story_npc:=text[78];
+end;//2
 end;
 
 procedure log_generate(command:string;text:string);

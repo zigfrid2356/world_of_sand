@@ -1274,8 +1274,13 @@ map_output(x,y);
  
 '6':begin//3.5//+09.11.2015
 if map[x,y].npc_index<>0 then begin//3.5.1
+clrscr;
+writeln(npc[map[x,y].npc_index].name);
 writeln(npc[map[x,y].npc_index].st0);
 writeln(npc[map[x,y].npc_index].st3);
+writeln('');
+writeln	(text[35]);
+readln();
 end;//3.5.1
 
  end;//3.5

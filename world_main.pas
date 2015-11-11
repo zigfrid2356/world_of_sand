@@ -134,6 +134,30 @@ function dialog(s_in:string):string;
 begin
 
 end;
+//+11.11.2015
+function map_muve(input:erath):erath;
+begin
+if input.progress>=progress_max then begin//1
+if input.structure='"' then begin//1.1
+ map_muve.structure:='/';
+ map_muve.progress:=0;
+end;//1.1
+if input.structure='/' then begin//1.1
+ map_muve.structure:='.';
+ map_muve.progress:=0;
+end;//1.1
+map_muve.progress:=input.progress+1;
+end;//1
+end;
+
+procedure muve;
+begin
+for i:=0 to x_map do begin//1.1
+	for j:=0 to y_map do begin//1.2
+map_muve(map[i,j]);
+end;end;//1.1//1.2
+end;
+
 //+08.11.2015
 function story_npc(command:char):string;
 begin
@@ -1253,7 +1277,7 @@ x:=x;
 if y+1<={244}2037 then y:=y+1 else y:=y;
 hero.y:=y;
 map_output(x,y);
-
+muve;
 
 end;//3.1
 '2':begin//3.2
@@ -1262,20 +1286,21 @@ if y-1>=11 then y:=y-1 else y:=y;
 
 hero.y:=y;
 map_output(x,y);
-
+muve;
  end;//3.2
 '3':begin//3.3
 if x-1>=6 then x:=x-1 else x:=x;
 y:=y; 
 hero.x:=x;
 map_output(x,y);
-
+muve;
  end;//3.3
 '4':begin//3.4
 if x+1<={249}2042 then x:=x+1 else x:=x;
 y:=y; 
 hero.x:=x; 
 map_output(x,y);
+muve;
  end;//3.4
  
 '6':begin//3.5//+09.11.2015

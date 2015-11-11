@@ -85,6 +85,7 @@ structure:char;
 color:byte;
 name:string[25];
 tip:byte;
+progress:word;
 end;
 oz_index=record
 x,y:word;
@@ -126,6 +127,7 @@ const
 x_map = 2048;
 y_map = 2048;
 npc_max =32768;
+progress_max=10;
 
 //+07.11.2015
 function dialog(s_in:string):string;
@@ -471,7 +473,8 @@ for i:=n-32 to n+32 do begin//5.1
 	end;//5.2.2 
 	if (k0>98) and (k0<100)then begin//5.2.2.1
 	map[i,j].structure:=simbol[4];
-	map[i,j].color:=6;	
+	map[i,j].color:=6;
+	map[i,j].progress:=random(progress_max);	
 	end;//5.2.2.1
 	end;//5.1
 	end;//5.2
@@ -491,15 +494,18 @@ for i:=n-8 to n+8 do begin//5.1
 	if(k0>90) and(k0<95) then begin //5.2.2
 	map[i,j].structure:=simbol[4];
 	map[i,j].color:=6;
+	map[i,j].progress:=random(progress_max);
 	end;//5.2.2 
 	if(k0>95) and(k0<100) then begin//5.2.2.1
 	map[i,j].structure:=simbol[5];
-	map[i,j].color:=2;	
+	map[i,j].color:=2;
+	map[i,j].progress:=random(progress_max);	
 	end;//5.2.2.1
 	end;//5.1
 	end;//5.2
 map[n,m].structure:=simbol[4];
 map[n,m].color:=6;
+map[n,m].progress:=random(progress_max);
 end;//5
 writeln(text[72],text[75]);
 //+31.10.2015

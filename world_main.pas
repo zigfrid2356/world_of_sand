@@ -98,7 +98,7 @@ monster:body;
 npc:array[0..17000] of new_body;
 
 menu_key:char;
-i,j,n,m,l,k,k0,k1,k_oz,i_oz,j_oz,n_oz,m_oz:integer;//áçñâç¨ª¨{счётчики}
+i,j,n,m,l,k,k0,k1,k2,k_oz,i_oz,j_oz,n_oz,m_oz:integer;//áçñâç¨ª¨{счётчики}
 s:string;//temp
 lang: text;
 monster_name,map_oz:text;
@@ -134,29 +134,7 @@ function dialog(s_in:string):string;
 begin
 
 end;
-//+11.11.2015
-function map_muve(input:erath):erath;
-begin
-if input.progress>=progress_max then begin//1
-if input.structure='"' then begin//1.1
- map_muve.structure:='/';
- map_muve.progress:=0;
-end;//1.1
-if input.structure='/' then begin//1.1
- map_muve.structure:='.';
- map_muve.progress:=0;
-end;//1.1
-map_muve.progress:=input.progress+1;
-end;//1
-end;
 
-procedure muve;
-begin
-for i:=0 to x_map do begin//1.1
-	for j:=0 to y_map do begin//1.2
-map_muve(map[i,j]);
-end;end;//1.1//1.2
-end;
 
 //+08.11.2015
 function story_npc(command:char):string;
@@ -182,6 +160,39 @@ append(f_log);
 writeln(f_log,formatdatetime(fmt,now)+' '+text);
 close(f_log);
 end;//1
+end;
+
+//+11.11.2015
+
+procedure muve;
+var
+i_muv,j_muv,rr:word;
+begin
+for i_muv:=0 to x_map do begin//0.1
+	for j_muv:=0 to y_map do begin//0.2
+if map[i_muv,j_muv].progress>=progress_max then begin//1
+if map[i_muv,j_muv].structure='"' then begin//1.1
+rr:=random(3);
+if (rr=0)and (i_muv<x_map-1) then begin map[i_muv+1,j_muv].structure:='"';map[i_muv+1,j_muv].color:=2;map[i_muv+1,j_muv].progress:=0;end;
+if (rr=1)and (i_muv>0) then begin map[i_muv-1,j_muv].structure:='"';map[i_muv+1,j_muv].color:=2;map[i_muv+1,j_muv].progress:=0;end;
+if (rr=2)and (j_muv<y_map-1) then begin map[i_muv,j_muv+1].structure:='"';map[i_muv+1,j_muv].color:=2;map[i_muv+1,j_muv].progress:=0;end;
+if (rr=3)and (j_muv>0) then begin map[i_muv,j_muv-1].structure:='"';map[i_muv+1,j_muv].color:=2;map[i_muv+1,j_muv].progress:=0;end;
+ map[i_muv,j_muv].structure:='/';
+ map[i_muv,j_muv].color:=6;
+ map[i_muv,j_muv].progress:=0;
+ log_generate('log_old_generate',inttostr(map[i_muv,j_muv].progress)+' progress "');
+end;//1.1	
+if map[i_muv,j_muv].structure='/' then begin//1.2
+ map[i_muv,j_muv].structure:='.';
+ map[i_muv,j_muv].progress:=0;
+ log_generate('log_old_generate',inttostr(map[i_muv,j_muv].progress)+' progress /');
+end;//1.2	
+//map[i,j]:=map_muve(map[i,j]);
+
+end;//1
+map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
+end;end;//0.1//0.2
+
 end;
 
 function name_generate(command:string):string;//+12.08.2015
@@ -1246,7 +1257,8 @@ if (x-1>=6) and(x+1<=x_map-6) and (y-1>=11) and (y+1<=y_map-11) then begin//2.00
 repeat begin//2.0
 clrscr;
 textcolor(white);
-writeln(map[i,j].name); 
+writeln(map[x,y].name);{i,j}
+writeln(inttostr(map[x,y].progress));
 writeln(' _____________________');//top
 for i:=x-5 to x+5 do begin//2.1//5
 write('|');//left
@@ -1276,8 +1288,9 @@ case menu_key of//3.0
 x:=x;
 if y+1<={244}2037 then y:=y+1 else y:=y;
 hero.y:=y;
-map_output(x,y);
 muve;
+map_output(x,y);
+
 
 end;//3.1
 '2':begin//3.2
@@ -1285,22 +1298,25 @@ x:=x;
 if y-1>=11 then y:=y-1 else y:=y;
 
 hero.y:=y;
-map_output(x,y);
 muve;
+map_output(x,y);
+
  end;//3.2
 '3':begin//3.3
 if x-1>=6 then x:=x-1 else x:=x;
 y:=y; 
 hero.x:=x;
-map_output(x,y);
 muve;
+map_output(x,y);
+
  end;//3.3
 '4':begin//3.4
 if x+1<={249}2042 then x:=x+1 else x:=x;
 y:=y; 
 hero.x:=x; 
-map_output(x,y);
 muve;
+map_output(x,y);
+
  end;//3.4
  
 '6':begin//3.5//+09.11.2015
@@ -1315,10 +1331,10 @@ readln();
 map_output(x,y);
 end;//3.5.1
  end;//3.5
- 
- '7':begin//3.6
-for  k1:=0 to 10 do  begin muve; map_output(x,y); end;
- end;//3.6
+ {
+'7':begin//3.6
+for  k2:=0 to 20 do  begin muve; map_output(x,y); end;
+ end;//3.6}
  
 end;//3.0
 until menu_key='5';

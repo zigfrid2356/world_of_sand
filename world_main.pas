@@ -1312,9 +1312,13 @@ writeln(npc[map[x,y].npc_index].st3);
 writeln('');
 writeln	(text[35]);
 readln();
+map_output(x,y);
 end;//3.5.1
-
  end;//3.5
+ 
+ '7':begin//3.6
+for  k1:=0 to 10 do  begin muve; map_output(x,y); end;
+ end;//3.6
  
 end;//3.0
 until menu_key='5';

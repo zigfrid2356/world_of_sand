@@ -170,28 +170,49 @@ i_muv,j_muv,rr:word;
 begin
 for i_muv:=i_m-5 to i_m+5 do begin//0.1
 	for j_muv:=j_m-10 to j_m+10 do begin//0.2
+	
 if map[i_muv,j_muv].progress>=progress_max then begin//1
-if map[i_muv,j_muv].structure='"' then begin//1.1
-rr:=random(3);
-if (rr=0)and (i_muv<x_map-1) then begin map[i_muv+1,j_muv].structure:='"';map[i_muv+1,j_muv].color:=2;map[i_muv+1,j_muv].progress:=0;end;
-if (rr=1)and (i_muv>0) then begin map[i_muv-1,j_muv].structure:='"';map[i_muv+1,j_muv].color:=2;map[i_muv+1,j_muv].progress:=0;end;
-if (rr=2)and (j_muv<y_map-1) then begin map[i_muv,j_muv+1].structure:='"';map[i_muv+1,j_muv].color:=2;map[i_muv+1,j_muv].progress:=0;end;
-if (rr=3)and (j_muv>0) then begin map[i_muv,j_muv-1].structure:='"';map[i_muv+1,j_muv].color:=2;map[i_muv+1,j_muv].progress:=0;end;
- map[i_muv,j_muv].structure:='/';
- map[i_muv,j_muv].color:=6;
- map[i_muv,j_muv].progress:=0;
- //log_generate('log_old_generate',inttostr(map[i_muv,j_muv].progress)+' progress "');
-end;//1.1	
+
 if map[i_muv,j_muv].structure='/' then begin//1.2
  map[i_muv,j_muv].structure:='.';
  map[i_muv,j_muv].color:=14;
  map[i_muv,j_muv].progress:=0;
-//log_generate('log_old_generate',inttostr(map[i_muv,j_muv].progress)+' progress /');
-end;//1.2	
-//map[i,j]:=map_muve(map[i,j]);
+
+end;//1.2
+
+if map[i_muv,j_muv].structure='"' then begin//1.1
+rr:=random(3);
+if (rr=0)and (i_muv<x_map-1) then begin //1.1.1
+map[i_muv+1,j_muv].structure:='"';
+map[i_muv+1,j_muv].color:=2;
+map[i_muv+1,j_muv].progress:=0;
+end;//1.1.1
+if (rr=1)and (i_muv>0) then begin //1.1.2
+map[i_muv-1,j_muv].structure:='"';
+map[i_muv+1,j_muv].color:=2;
+map[i_muv+1,j_muv].progress:=0;
+end;//1.1.2
+if (rr=2)and (j_muv<y_map-1) then begin//1.1.3
+ map[i_muv,j_muv+1].structure:='"';
+ map[i_muv+1,j_muv].color:=2;
+ map[i_muv+1,j_muv].progress:=0;
+ end;//1.1.3
+if (rr=3)and (j_muv>0) then begin //1.1.4
+map[i_muv,j_muv-1].structure:='"';
+map[i_muv+1,j_muv].color:=2;
+map[i_muv+1,j_muv].progress:=0;
+end;//1.1.4
+
+ map[i_muv,j_muv].structure:='/';
+ map[i_muv,j_muv].color:=6;
+ map[i_muv,j_muv].progress:=0;
+
+end;//1.1	
+	
+
 
 end;//1
-map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
+if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
 end;end;//0.1//0.2
 
 end;
@@ -326,6 +347,7 @@ for i:=0 to x_map do begin//2.1
 	map[i,j].y:=j;	
 	map[i,j].structure:=simbol[0];
 	map[i,j].color:=14;
+	map[i,j].progress:=0;
 		end;//2.2
 end;//2.1
 //---------------
@@ -1332,10 +1354,10 @@ readln();
 map_output(x,y);
 end;//3.5.1
  end;//3.5
- 
+ {
 '7':begin//3.6
-for  k2:=0 to 20 do  begin muve(x,y);sleep(100); map_output(x,y); end;
- end;//3.6
+for  k2:=0 to 5 do  begin muve(x,y);sleep(100); map_output(x,y); end;
+ end;//3.6}
  
 end;//3.0
 until menu_key='5';

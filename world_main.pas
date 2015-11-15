@@ -154,12 +154,17 @@ rewrite(f_log);
 writeln(f_log,formatdatetime(fmt,now)+' '+text);
 close(f_log);
 end;//1
-if command='log_old_generate' then begin//1
+if command='log_old_generate' then begin//2
 assign(f_log,'log.txt');
 append(f_log);
 writeln(f_log,formatdatetime(fmt,now)+' '+text);
 close(f_log);
-end;//1
+end;//2
+if command='log_drop_generate' then begin//3
+assign(f_log,'log.txt');
+erase(f_log);
+close(f_log);
+end;//3
 end;
 
 //+11.11.2015

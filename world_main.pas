@@ -160,11 +160,12 @@ append(f_log);
 writeln(f_log,formatdatetime(fmt,now)+' '+text);
 close(f_log);
 end;//2
+{
 if command='log_drop_generate' then begin//3
 assign(f_log,'log.txt');
 erase(f_log);
-close(f_log);
-end;//3
+
+end;//3}
 end;
 
 //+11.11.2015
@@ -1450,6 +1451,7 @@ BEGIN
 Randomize;
 typ_generate('');
 i:=0;
+log_generate('log_new_generate','1-1');
 assign(lang,'res\lang\rus\text_win.lang');
 reset(lang);
 while not eof(lang) do begin
@@ -1459,6 +1461,8 @@ delete(text[i],1,3);
 i:=i+1;
 end;
 close(lang);
+log_generate('log_old_generate','1-2');
+log_generate('log_drop_generate','');
 textcolor(yellow);
 writeln	(text[1]);
 textcolor(white);

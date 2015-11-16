@@ -79,6 +79,14 @@ bag:array[0..9] of subject;
 //story
 st0,st1,st2,st3:string;
 end;
+beast_body=record
+hp,dmg,ign_dmg:integer;
+name:string;
+flag_life:byte;
+x,y:word;
+inv:subject;
+end;
+
 erath =record
 x,y,npc_index:word;
 structure:char;
@@ -928,8 +936,9 @@ end;//0.11
 until m=1;
 
 //08.11.2015
-hero.x:=128;
-hero.y:=128;
+//+16.11.2015
+hero.x:=oz_list[1].x;
+hero.y:=oz_list[1].y;
 
 hero.stren:=1;
 hero.intel:=1;

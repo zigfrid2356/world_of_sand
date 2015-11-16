@@ -88,11 +88,11 @@ inv:subject;
 end;
 
 erath =record
-x,y,npc_index:word;
+x,y,npc_index,beast_index:word;
 structure:char;
 color:byte;
 name:string[25];
-tip:byte;
+tip:byte;//flag_life__beast(1/2)_human(3/4)_not_life(0)
 progress:word;
 end;
 oz_index=record
@@ -122,6 +122,8 @@ har_name:array[0..1000] of string;
 map_name:array[0..1000] of string;
 //+08.11.2015
 oz_list:array [0..100] of oz_index;
+//+16.11.2015
+beast_list:array[0..100000]of beast_body;
 hero_save:file of body;
 map_save:file of erath;
 npc_save:file of new_body;
@@ -267,6 +269,20 @@ close(har);
 name_generate:=har_name[random(i)]+' '+text_name[random(m)]+' '+color_name[random(n)];
 end;
 
+//16.11.2015
+function beast_generate(i_b,j_b:word):beast_body;
+begin
+beast_generate.hp:=100;
+beast_generate.dmg:=1;
+beast_generate.ign_dmg:=1;
+beast_generate.name:=name_generate('beast');
+beast_generate.flag_life:=1;
+beast_generate.x:=i_b;
+beast_generate.y:=j_b;
+//beast_generate.inv:
+log_generate('log_old_generate',inttostr(i_b)+':'+inttostr(j_b)+' '+beast_generate.name);
+end;
+
 //07.11.2015
 function npc_generate(i_n,j_n:integer):new_body;
 begin
@@ -310,9 +326,13 @@ end;
 //+16.09.2015
 
 procedure map_generate(command:string);
+var
+bl:integer;
 begin
 //+03.11.2015
 k_oz:=0;
+//+16.11.2015
+bl:=0;
 assign(map_oz,'res\map\oz.name');
 reset(map_oz);
 while not eof(map_oz) do begin
@@ -362,6 +382,7 @@ for i:=0 to x_map do begin//2.1
 	map[i,j].structure:=simbol[0];
 	map[i,j].color:=14;
 	map[i,j].progress:=0;
+	map[i,j].tip:=0;
 		end;//2.2
 end;//2.1
 //---------------
@@ -612,10 +633,12 @@ for i:=n-32 to n+32 do begin//6.1
 	if (k0>20) and(k0<90) then begin //6.3.1
 	map[i,j].structure:=simbol[0];//log_generate('log_old_generate',inttostr(k0)+' ---- (6.2)----');
 	map[i,j].color:=14;
+
 	end;//6.3.1 	
 	if (k0>90)and(k0<98) then begin //6.2.2
 	map[i,j].structure:=simbol[5];//log_generate('log_old_generate',inttostr(k0)+' ---- (6.3)----');
 	map[i,j].color:=2;
+
 	end;//6.2.2 
 	if (k0>98)and(k0<100) then begin//6.2.2.1
 	map[i,j].structure:=simbol[4];//log_generate('log_old_generate',inttostr(k0)+' ---- (6.4)----');
@@ -678,6 +701,10 @@ for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
 	if k0<30  then begin //6.2.1
 	map[i_oz,j_oz].structure:=simbol[5];
 	map[i_oz,j_oz].color:=2;
+	map[i_oz,j_oz].beast_index:=bl;
+	map[i_oz,j_oz].tip:=1;
+	beast_list[bl]:=beast_generate(i,j);
+	bl:=bl+1;
 	end;//6.2.1 
 	if (k0>30) and(k0<90) then begin //6.3.1
 	map[i_oz,j_oz].structure:=simbol[3];
@@ -937,7 +964,7 @@ until m=1;
 
 //08.11.2015
 //+16.11.2015
-hero.x:=oz_list[1].x;
+hero.x:=oz_list[1].x+10;
 hero.y:=oz_list[1].y;
 
 hero.stren:=1;
@@ -1301,16 +1328,25 @@ writeln(' _____________________');//top
 for i:=x-5 to x+5 do begin//2.1//5
 write('|');//left
  for j:=y-10 to y+10 do begin//2.2//10
+ if map[i,j].tip=1 then begin//2.3
+ textcolor(10);
+ write('@');
+ textcolor(white);
+ end;//2.3
+ if map[i,j].tip=0 then begin//2.4
  textcolor(map[i,j].color);
  write(map[i,j].structure);
  textcolor(white);
+ end;//2.4
  end;//2.2
  writeln('|');//right
 end;//2.1
  writeln(' ---------------------');
 map[x,y].structure:=temp_char;//+16.08.2015 
 map[x,y].color:=temp_color;//+16.09.2015
-writeln(text[34],' ',x,' : ',y,text[71]+map_info(map[x,y].structure));if map[x,y].npc_index<>0 then begin write(text[76]+npc[map[x,y].npc_index].name);writeln(); end;
+writeln(text[34],' ',x,' : ',y,text[71]+map_info(map[x,y].structure));
+if map[x,y].npc_index<>0 then begin write(text[76]+npc[map[x,y].npc_index].name);writeln(); end;
+if map[x,y].tip<>0 then begin write(text[80]+beast_list[map[x,y].beast_index].name);writeln(); end;
 writeln	('1- -> '+text[64]+map_info(map[x,y+1].structure) );
 writeln	('2- <- '+text[65]+map_info(map[x,y-1].structure) );
 writeln	('3- /\ '+text[67]+map_info(map[x-1,y].structure) );
@@ -1485,13 +1521,14 @@ writeln	('3-',text[2]);
 menu_key:=readkey;
 case menu_key of
 '1': begin 
-//â¥áâ®¢ ï £¥­¥à æ¨ï £¥à®ï генерация персонажа {~ 12.08.2015}
-//������� ���ᮭ���
-hero_generate('hero_new');
 //â¥áâ®¢ ï £¥­¥à æ¨ï ª àâë {генерация карты }
 //������� �����
 //map_generate('map_new_generate');
 map_generate('map_test_generate');
+//â¥áâ®¢ ï £¥­¥à æ¨ï £¥à®ï генерация персонажа {~ 12.08.2015}
+//������� ���ᮭ���
+hero_generate('hero_new');
+
 
 main_menu; 
 end;

@@ -82,7 +82,7 @@ end;
 beast_body=record
 hp,dmg,ign_dmg:integer;
 name:string;
-flag_life:byte;
+flag_life,flag_hishn:byte;
 x,y:word;
 inv:subject;
 end;

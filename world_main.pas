@@ -99,6 +99,11 @@ oz_index=record
 x,y:word;
 oz_name:string[25];
 end;
+//19.11.2015
+pyst_index=record
+x,y:word;
+end;
+
 var
 map:array[0..2048,0..2048] of erath;
 hero:body;
@@ -122,6 +127,8 @@ har_name:array[0..1000] of string;
 map_name:array[0..1000] of string;
 //+08.11.2015
 oz_list:array [0..100] of oz_index;
+//+19.11.2015
+pyst_list:array[0..1000] of pyst_index;
 //+16.11.2015
 beast_list:array[0..100000]of beast_body;
 hero_save:file of body;
@@ -550,7 +557,8 @@ n:=random(x_map);
 m:=random(y_map);
 end;
 until (n>32)and(n<x_map-32)and(m>32)and(m<y_map-32);
-
+pyst_list[l].x:=n;
+pyst_list[l].y:=m;
 //4-круг//++31.10.2015
 for i:=n-32 to n+32 do begin//5.1
 	for j:=m-32 to m+32 do begin//5.2

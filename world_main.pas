@@ -284,6 +284,7 @@ beast_generate.dmg:=1;
 beast_generate.ign_dmg:=1;
 beast_generate.name:=name_generate('beast');
 beast_generate.flag_life:=1;
+beast_generate.flag_hishn:=1;
 beast_generate.x:=i_b;
 beast_generate.y:=j_b;
 //beast_generate.inv:
@@ -709,10 +710,10 @@ for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
 	if k0<30  then begin //6.2.1
 	map[i_oz,j_oz].structure:=simbol[5];
 	map[i_oz,j_oz].color:=2;
-	map[i_oz,j_oz].beast_index:=bl;
+	{map[i_oz,j_oz].beast_index:=bl;
 	map[i_oz,j_oz].tip:=1;
 	beast_list[bl]:=beast_generate(i,j);
-	bl:=bl+1;
+	bl:=bl+1;}
 	end;//6.2.1 
 	if (k0>30) and(k0<90) then begin //6.3.1
 	map[i_oz,j_oz].structure:=simbol[3];

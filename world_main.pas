@@ -284,9 +284,9 @@ beast_generate.dmg:=1;
 beast_generate.ign_dmg:=1;
 beast_generate.name:=name_generate('beast');
 beast_generate.flag_life:=1;
-beast_generate.flag_hishn:=1;
-beast_generate.x:=i_b;
-beast_generate.y:=j_b;
+beast_generate.flag_hishn:=random(1);
+beast_generate.x:=i_b+random(10);
+beast_generate.y:=j_b+random(10);
 //beast_generate.inv:
 log_generate('log_old_generate',inttostr(i_b)+':'+inttostr(j_b)+' '+beast_generate.name);
 end;
@@ -771,6 +771,14 @@ for i_oz:=n_oz-2 to n_oz+2 do begin//6.1
 map[n_oz,m_oz].structure:=simbol[7];
 map[n_oz,m_oz].color:=1;
 end;//6
+for bl:=0 to 1000 do begin//7
+//	map[i_oz,j_oz].beast_index:=bl;
+//	map[i_oz,j_oz].tip:=1;
+	beast_list[bl]:=beast_generate(pyst_list[bl].x,pyst_list[bl].y);
+	map[beast_list[bl].x,beast_list[bl].y].tip:=1;
+//	bl:=bl+1;
+//beast_generate()
+end;//7
 end;//2
 if command='map_story_generate' then begin//3
 //заливаем водой

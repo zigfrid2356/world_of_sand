@@ -187,10 +187,11 @@ end;
 
 //+11.11.2015
 
-procedure muve(i_m,j_m:word);
+procedure muve(i_m,j_m:word; command:string);
 var
 i_muv,j_muv,rr:word;
 begin
+if command='start' then begin//00
 for i_muv:=i_m-5 to i_m+5 do begin//0.1
 	for j_muv:=j_m-10 to j_m+10 do begin//0.2
 	
@@ -237,7 +238,57 @@ end;//1.1
 end;//1
 if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
 end;end;//0.1//0.2
+end;//00
+if command='test' then begin//000------------------------000-----------------
+log_generate('log_old_generate','start_muve');
+for i_muv:=1 to x_map-1 do begin//0.1
+	for j_muv:=1 to y_map-1 do begin//0.2
+	
+if map[i_muv,j_muv].progress>=2 then begin//1
 
+if map[i_muv,j_muv].structure='/' then begin//1.2
+ map[i_muv,j_muv].structure:='.';
+ map[i_muv,j_muv].color:=14;
+ map[i_muv,j_muv].progress:=0;
+
+end;//1.2
+
+if map[i_muv,j_muv].structure='"' then begin//1.1
+rr:=random(3);
+if (rr=0)and (i_muv<x_map-1) then begin //1.1.1
+map[i_muv+1,j_muv].structure:='"';
+map[i_muv+1,j_muv].color:=2;
+map[i_muv+1,j_muv].progress:=0;
+end;//1.1.1
+if (rr=1)and (i_muv>0) then begin //1.1.2
+map[i_muv-1,j_muv].structure:='"';
+map[i_muv-1,j_muv].color:=2;
+map[i_muv-1,j_muv].progress:=0;
+end;//1.1.2
+if (rr=2)and (j_muv<y_map-1) then begin//1.1.3
+ map[i_muv,j_muv+1].structure:='"';
+ map[i_muv,j_muv+1].color:=2;
+ map[i_muv,j_muv+1].progress:=0;
+ end;//1.1.3
+if (rr=3)and (j_muv>0) then begin //1.1.4
+map[i_muv,j_muv-1].structure:='"';
+map[i_muv,j_muv-1].color:=2;
+map[i_muv,j_muv-1].progress:=0;
+end;//1.1.4
+
+ map[i_muv,j_muv].structure:='/';
+ map[i_muv,j_muv].color:=6;
+ map[i_muv,j_muv].progress:=0;
+
+end;//1.1	
+	
+
+
+end;//1
+if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
+end;end;//0.1//0.2
+log_generate('log_old_generate','stop_muve');
+end;//000
 end;
 
 function name_generate(command:string):string;//+12.08.2015
@@ -574,8 +625,8 @@ for i:=n-32 to n+32 do begin//5.1
 	map[i,j].color:=14;
 	end;//5.2.2 
 	if (k0>98) and (k0<100)then begin//5.2.2.1
-	map[i,j].structure:=simbol[4];
-	map[i,j].color:=6;
+	map[i,j].structure:=simbol[5];
+	map[i,j].color:=2;
 	map[i,j].progress:=random(progress_max);	
 	end;//5.2.2.1
 	end;//5.1
@@ -594,19 +645,19 @@ for i:=n-8 to n+8 do begin//5.1
 	map[i,j].color:=14;
 	end;//5.3.1 	
 	if(k0>90) and(k0<95) then begin //5.2.2
-	map[i,j].structure:=simbol[4];
-	map[i,j].color:=6;
+	map[i,j].structure:=simbol[5];
+	map[i,j].color:=2;
 	map[i,j].progress:=random(progress_max);
 	end;//5.2.2 
 	if(k0>95) and(k0<100) then begin//5.2.2.1
-	map[i,j].structure:=simbol[5];
-	map[i,j].color:=2;
+	map[i,j].structure:=simbol[4];
+	map[i,j].color:=6;
 	map[i,j].progress:=random(progress_max);	
 	end;//5.2.2.1
 	end;//5.1
 	end;//5.2
-map[n,m].structure:=simbol[4];
-map[n,m].color:=6;
+map[n,m].structure:=simbol[5];
+map[n,m].color:=2;
 map[n,m].progress:=random(progress_max);
 end;//5
 writeln(text[72],text[75]);
@@ -1385,7 +1436,7 @@ case menu_key of//3.0
 x:=x;
 if y+1<={244}2037 then y:=y+1 else y:=y;
 hero.y:=y;
-muve(x,y);
+muve(x,y,'start');
 map_output(x,y);
 
 
@@ -1395,7 +1446,7 @@ x:=x;
 if y-1>=11 then y:=y-1 else y:=y;
 
 hero.y:=y;
-muve(x,y);
+muve(x,y,'start');
 map_output(x,y);
 
  end;//3.2
@@ -1403,7 +1454,7 @@ map_output(x,y);
 if x-1>=6 then x:=x-1 else x:=x;
 y:=y; 
 hero.x:=x;
-muve(x,y);
+muve(x,y,'start');
 map_output(x,y);
 
  end;//3.3
@@ -1411,7 +1462,7 @@ map_output(x,y);
 if x+1<={249}2042 then x:=x+1 else x:=x;
 y:=y; 
 hero.x:=x; 
-muve(x,y);
+muve(x,y,'start');
 map_output(x,y);
 
  end;//3.4
@@ -1471,6 +1522,7 @@ writeln	('4- ',text[17]);
 writeln	('5- ',text[2]);
 writeln	('6- ',text[42]);
 writeln	('7- ',text[70]);
+writeln	('8- ',text[81]);
 //readln(menu_key);
 menu_key:=readkey;
 case menu_key of
@@ -1503,6 +1555,9 @@ end;//1.5
 '7': begin//1.4
 trade;
 end;//1.4
+'8': begin//1.5
+for i:=0 to 10 do muve(128,126,'test')
+end;//1.5
 end;
 end;//2 
 until menu_key='5';

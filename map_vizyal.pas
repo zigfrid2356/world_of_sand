@@ -27,11 +27,12 @@ program GetMax;
 uses graph,crt,sysutils,windows,dateutils;
 type
 erath =record
-x,y,npc_index:word;
+x,y,npc_index,beast_index:word;
 structure:char;
 color:byte;
 name:string[25];
-tip:byte;
+tip:byte;//flag_life__beast(1/2)_human(3/4)_not_life(0)
+progress:word;
 end;
 var
 map:array[0..2048,0..2048] of erath;

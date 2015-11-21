@@ -240,7 +240,7 @@ if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[
 end;end;//0.1//0.2
 end;//00
 if command='test' then begin//000------------------------000-----------------
-log_generate('log_old_generate','start_muve');
+//log_generate('log_old_generate','start_muve');
 for i_muv:=1 to x_map-1 do begin//0.1
 	for j_muv:=1 to y_map-1 do begin//0.2
 	
@@ -311,7 +311,7 @@ end;//1.1
 end;//1
 if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
 end;end;//0.1//0.2
-log_generate('log_old_generate','stop_muve');
+//log_generate('log_old_generate','stop_muve');
 end;//000
 end;
 
@@ -1441,22 +1441,22 @@ write(text[34],' ',x,' : ',y,text[71]+map_info(map[x,y].structure));
 if map[x,y].tip<>0 then begin write(text[80]+beast_list[map[x,y].beast_index].name);end;writeln(); 
 if map[x,y].npc_index<>0 then begin write(text[76]+npc[map[x,y].npc_index].name);writeln(); end;
 
-write	('1- -> '+text[64]+map_info(map[x,y+1].structure) );
+write	('6- -> '+text[64]+map_info(map[x,y+1].structure) );
 if map[x,y+1].tip<>0 then begin write(text[80]+beast_list[map[x,y+1].beast_index].name);end;writeln(); 
-write	('2- <- '+text[65]+map_info(map[x,y-1].structure) );
+write	('4- <- '+text[65]+map_info(map[x,y-1].structure) );
 if map[x,y-1].tip<>0 then begin write(text[80]+beast_list[map[x,y-1].beast_index].name);end;writeln(); 
-write	('3- /\ '+text[67]+map_info(map[x-1,y].structure) );
+write	('8- /\ '+text[67]+map_info(map[x-1,y].structure) );
 if map[x-1,y].tip<>0 then begin write(text[80]+beast_list[map[x-1,y].beast_index].name);end;writeln(); 
-write	('4- \/ '+text[66]+map_info(map[x+1,y].structure) );
+write	('2- \/ '+text[66]+map_info(map[x+1,y].structure) );
 if map[x+1,y].tip<>0 then begin write(text[80]+beast_list[map[x+1,y].beast_index].name);end;writeln(); 
 writeln	('5- ',text[2]);
-if map[x,y].npc_index<>0 then writeln	('6- ',text[79]);
+if map[x,y].npc_index<>0 then writeln	('9- ',text[79]);
 //readln(menu_key);
 menu_key:=readkey;
 end;//2.0
 
 case menu_key of//3.0
-'1':begin//3.1 
+'6':begin//3.1 
 x:=x;
 if y+1<={244}2037 then y:=y+1 else y:=y;
 hero.y:=y;
@@ -1465,7 +1465,7 @@ map_output(x,y);
 
 
 end;//3.1
-'2':begin//3.2
+'4':begin//3.2
 x:=x;
 if y-1>=11 then y:=y-1 else y:=y;
 
@@ -1474,7 +1474,7 @@ muve(x,y,'test');
 map_output(x,y);
 
  end;//3.2
-'3':begin//3.3
+'8':begin//3.3
 if x-1>=6 then x:=x-1 else x:=x;
 y:=y; 
 hero.x:=x;
@@ -1482,7 +1482,7 @@ muve(x,y,'test');
 map_output(x,y);
 
  end;//3.3
-'4':begin//3.4
+'2':begin//3.4
 if x+1<={249}2042 then x:=x+1 else x:=x;
 y:=y; 
 hero.x:=x; 
@@ -1491,7 +1491,7 @@ map_output(x,y);
 
  end;//3.4
  
-'6':begin//3.5//+09.11.2015
+'9':begin//3.5//+09.11.2015
 if map[x,y].npc_index<>0 then begin//3.5.1
 clrscr;
 writeln(npc[map[x,y].npc_index].name);

@@ -1359,15 +1359,21 @@ write('|');//left
  writeln('|');//right
 end;//2.1
  writeln(' ---------------------');
+ //writeln();
 map[x,y].structure:=temp_char;//+16.08.2015 
 map[x,y].color:=temp_color;//+16.09.2015
-writeln(text[34],' ',x,' : ',y,text[71]+map_info(map[x,y].structure));
+write(text[34],' ',x,' : ',y,text[71]+map_info(map[x,y].structure));
+if map[x,y].tip<>0 then begin write(text[80]+beast_list[map[x,y].beast_index].name);end;writeln(); 
 if map[x,y].npc_index<>0 then begin write(text[76]+npc[map[x,y].npc_index].name);writeln(); end;
-if map[x,y].tip<>0 then begin write(text[80]+beast_list[map[x,y].beast_index].name);writeln(); end;
-writeln	('1- -> '+text[64]+map_info(map[x,y+1].structure) );
-writeln	('2- <- '+text[65]+map_info(map[x,y-1].structure) );
-writeln	('3- /\ '+text[67]+map_info(map[x-1,y].structure) );
-writeln	('4- \/ '+text[66]+map_info(map[x+1,y].structure) );
+
+write	('1- -> '+text[64]+map_info(map[x,y+1].structure) );
+if map[x,y+1].tip<>0 then begin write(text[80]+beast_list[map[x,y+1].beast_index].name);end;writeln(); 
+write	('2- <- '+text[65]+map_info(map[x,y-1].structure) );
+if map[x,y-1].tip<>0 then begin write(text[80]+beast_list[map[x,y-1].beast_index].name);end;writeln(); 
+write	('3- /\ '+text[67]+map_info(map[x-1,y].structure) );
+if map[x-1,y].tip<>0 then begin write(text[80]+beast_list[map[x-1,y].beast_index].name);end;writeln(); 
+write	('4- \/ '+text[66]+map_info(map[x+1,y].structure) );
+if map[x+1,y].tip<>0 then begin write(text[80]+beast_list[map[x+1,y].beast_index].name);end;writeln(); 
 writeln	('5- ',text[2]);
 if map[x,y].npc_index<>0 then writeln	('6- ',text[79]);
 //readln(menu_key);

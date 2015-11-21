@@ -254,23 +254,27 @@ if map[i_muv,j_muv].structure='/' then begin//1.2
 end;//1.2
 
 if map[i_muv,j_muv].structure='"' then begin//1.1
-rr:=random(3);
+rr:=random(4);
 if (rr=0)and (i_muv<x_map-1) then begin //1.1.1
+//log_generate('log_old_generate','muve 0');
 map[i_muv+1,j_muv].structure:='"';
 map[i_muv+1,j_muv].color:=2;
 map[i_muv+1,j_muv].progress:=0;
 end;//1.1.1
 if (rr=1)and (i_muv>0) then begin //1.1.2
+//log_generate('log_old_generate','muve 1');
 map[i_muv-1,j_muv].structure:='"';
 map[i_muv-1,j_muv].color:=2;
 map[i_muv-1,j_muv].progress:=0;
 end;//1.1.2
 if (rr=2)and (j_muv<y_map-1) then begin//1.1.3
+//log_generate('log_old_generate','muve 2');
  map[i_muv,j_muv+1].structure:='"';
  map[i_muv,j_muv+1].color:=2;
  map[i_muv,j_muv+1].progress:=0;
  end;//1.1.3
 if (rr=3)and (j_muv>0) then begin //1.1.4
+//log_generate('log_old_generate','muve 3');
 map[i_muv,j_muv-1].structure:='"';
 map[i_muv,j_muv-1].color:=2;
 map[i_muv,j_muv-1].progress:=0;
@@ -1436,7 +1440,7 @@ case menu_key of//3.0
 x:=x;
 if y+1<={244}2037 then y:=y+1 else y:=y;
 hero.y:=y;
-muve(x,y,'start');
+muve(x,y,'test');
 map_output(x,y);
 
 
@@ -1446,7 +1450,7 @@ x:=x;
 if y-1>=11 then y:=y-1 else y:=y;
 
 hero.y:=y;
-muve(x,y,'start');
+muve(x,y,'test');
 map_output(x,y);
 
  end;//3.2
@@ -1454,7 +1458,7 @@ map_output(x,y);
 if x-1>=6 then x:=x-1 else x:=x;
 y:=y; 
 hero.x:=x;
-muve(x,y,'start');
+muve(x,y,'test');
 map_output(x,y);
 
  end;//3.3
@@ -1462,7 +1466,7 @@ map_output(x,y);
 if x+1<={249}2042 then x:=x+1 else x:=x;
 y:=y; 
 hero.x:=x; 
-muve(x,y,'start');
+muve(x,y,'test');
 map_output(x,y);
 
  end;//3.4

@@ -189,7 +189,7 @@ end;
 function beast_muve(bb:beast_body;command:string):beast_body;
 
 var
-r_bm:word;
+r_bm:byte;
 begin
 if command='start' then begin//00
 
@@ -222,7 +222,7 @@ end;
 procedure muve(i_m,j_m:word; command:string);
 var
 i_muv,j_muv,rr:word;
-bm:integer;
+b_m:integer;
 begin
 if command='start' then begin//00
 for i_muv:=i_m-5 to i_m+5 do begin//0.1
@@ -346,7 +346,12 @@ end;//1
 if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
 end;end;//0.1//0.2
 //log_generate('log_old_generate','stop_muve');
-for bm:=0 to 100000 do beast_list[bm]:=beast_muve(beast_list[bm],'start');
+{
+for i:=0 to 10000 do begin //2
+//log_generate('log_old_generate',inttostr(i));
+beast_list[i]:=beast_muve(beast_list[i],'start'); 
+end;//2
+}
 end;//000
 end;
 

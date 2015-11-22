@@ -196,15 +196,23 @@ if command='start' then begin//00
 r_bm:=random(4);
 if (r_bm=0)and (bb.x<x_map-1) then begin //1.1.1
 beast_muve.x:=bb.x+1;
+map[bb.x,bb.y].tip:=0;
+map[bb.x+1,bb.y].tip:=1;
 end;//1.1.1
 if (r_bm=1)and (bb.x>0) then begin //1.1.2
 beast_muve.x:=bb.x-1;
+map[bb.x,bb.y].tip:=0;
+map[bb.x-1,bb.y].tip:=1;
 end;//1.1.2
 if (r_bm=2)and (bb.y<y_map-1) then begin//1.1.3
-beast_muve.x:=bb.y+1;
+beast_muve.y:=bb.y+1;
+map[bb.x,bb.y].tip:=0;
+map[bb.x,bb.y+1].tip:=1;
  end;//1.1.3
 if (r_bm=3)and (bb.y>0) then begin //1.1.4
-beast_muve.x:=bb.y-1;
+beast_muve.y:=bb.y-1;
+map[bb.x,bb.y].tip:=0;
+map[bb.x,bb.y-1].tip:=1;
 end;//1.1.4
 
 end;//00
@@ -214,6 +222,7 @@ end;
 procedure muve(i_m,j_m:word; command:string);
 var
 i_muv,j_muv,rr:word;
+bm:integer;
 begin
 if command='start' then begin//00
 for i_muv:=i_m-5 to i_m+5 do begin//0.1
@@ -337,6 +346,7 @@ end;//1
 if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
 end;end;//0.1//0.2
 //log_generate('log_old_generate','stop_muve');
+for bm:=0 to 100000 do beast_list[bm]:=beast_muve(beast_list[bm],'start');
 end;//000
 end;
 

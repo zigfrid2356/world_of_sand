@@ -244,7 +244,7 @@ if command='test' then begin//000------------------------000-----------------
 for i_muv:=1 to x_map-1 do begin//0.1
 	for j_muv:=1 to y_map-1 do begin//0.2
 	
-if map[i_muv,j_muv].progress>=2 then begin//1
+if map[i_muv,j_muv].progress>=2 then begin//1--------------!!!!2->100!!!!--------------
 
 if map[i_muv,j_muv].structure='/' then begin//1.2
  map[i_muv,j_muv].structure:='.';

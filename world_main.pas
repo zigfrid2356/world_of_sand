@@ -185,8 +185,32 @@ erase(f_log);
 end;//3}
 end;
 
-//+11.11.2015
+//22.11.2015
+function beast_muve(bb:beast_body;command:string):beast_body;
 
+var
+r_bm:word;
+begin
+if command='start' then begin//00
+
+r_bm:=random(4);
+if (r_bm=0)and (bb.x<x_map-1) then begin //1.1.1
+beast_muve.x:=bb.x+1;
+end;//1.1.1
+if (r_bm=1)and (bb.x>0) then begin //1.1.2
+beast_muve.x:=bb.x-1;
+end;//1.1.2
+if (r_bm=2)and (bb.y<y_map-1) then begin//1.1.3
+beast_muve.x:=bb.y+1;
+ end;//1.1.3
+if (r_bm=3)and (bb.y>0) then begin //1.1.4
+beast_muve.x:=bb.y-1;
+end;//1.1.4
+
+end;//00
+end;
+
+//+11.11.2015
 procedure muve(i_m,j_m:word; command:string);
 var
 i_muv,j_muv,rr:word;
@@ -205,7 +229,7 @@ if map[i_muv,j_muv].structure='/' then begin//1.2
 end;//1.2
 
 if map[i_muv,j_muv].structure='"' then begin//1.1
-rr:=random(3);
+rr:=random(4);
 if (rr=0)and (i_muv<x_map-1) then begin //1.1.1
 map[i_muv+1,j_muv].structure:='"';
 map[i_muv+1,j_muv].color:=2;
@@ -240,6 +264,7 @@ if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[
 end;end;//0.1//0.2
 end;//00
 if command='test' then begin//000------------------------000-----------------
+
 //log_generate('log_old_generate','start_muve');
 for i_muv:=1 to x_map-1 do begin//0.1
 	for j_muv:=1 to y_map-1 do begin//0.2

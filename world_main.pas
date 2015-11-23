@@ -58,7 +58,7 @@ typ,clas,podclas,podtyp:byte;
 end;
 subject=record//+05.11.2015
 name:string;
-base_dmg,base_defense,ves,cost,slot,tip:word;
+base_dmg,base_defense,ves,cost,tip:word;{tip=1-weapon,2-armor...}
 init,masking,obser:word;
 end;
 new_body =record//+05.11.2015
@@ -84,7 +84,7 @@ hp,dmg,ign_dmg:integer;
 name:string;
 flag_life,flag_hishn:byte;
 x,y:word;
-inv:subject;
+skin,meat,teeth,bones,clutches:subject;
 end;
 
 erath =record
@@ -389,6 +389,27 @@ end;//1.1
 close(har);
 
 name_generate:=har_name[random(i)]+' '+text_name[random(m)]+' '+color_name[random(n)];
+end;
+
+//23.11.2015
+function beast_inv_generate(command:string):subject;
+{
+skin
+meat
+teeth
+bones
+clutches
+ }
+begin
+if command='skin' then begin//1
+beast_inv_generate.name:string;
+.base_dmg,
+.base_defense,
+.ves,
+.cost,
+tip:word;
+init,masking,obser:word;
+end;//1
 end;
 
 //16.11.2015

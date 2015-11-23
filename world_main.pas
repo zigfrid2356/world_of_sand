@@ -469,6 +469,11 @@ beast_generate.flag_life:=1;
 beast_generate.flag_hishn:=random(1);
 beast_generate.x:=i_b+random(10);
 beast_generate.y:=j_b+random(10);
+beast_generate.skin:=beast_inv_generate('skin');
+beast_generate.meat:=beast_inv_generate('meat');
+beast_generate.teeth:=beast_inv_generate('teeth');
+beast_generate.bones:=beast_inv_generate('bones');
+beast_generate.clutches:=beast_inv_generate('clutches');
 //beast_generate.inv:
 //log_generate('log_old_generate',inttostr(i_b)+':'+inttostr(j_b)+' '+beast_generate.name);
 end;

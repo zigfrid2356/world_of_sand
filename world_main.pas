@@ -412,6 +412,50 @@ beast_inv_generate.init:=1;
 beast_inv_generate.masking:=1;
 beast_inv_generate.obser:=1;
 end;//1
+if command='meat' then begin//1
+beast_inv_generate.name:=text[83];
+beast_inv_generate.base_dmg:=0;
+beast_inv_generate.base_defense:=1;
+beast_inv_generate.ves:=1;
+beast_inv_generate.cost:=1;
+beast_inv_generate.tip:=3;
+beast_inv_generate.init:=1;
+beast_inv_generate.masking:=1;
+beast_inv_generate.obser:=1;
+end;//1
+if command='teeth' then begin//1
+beast_inv_generate.name:=text[84];
+beast_inv_generate.base_dmg:=1;
+beast_inv_generate.base_defense:=2;
+beast_inv_generate.ves:=1;
+beast_inv_generate.cost:=1;
+beast_inv_generate.tip:=1;
+beast_inv_generate.init:=1;
+beast_inv_generate.masking:=1;
+beast_inv_generate.obser:=1;
+end;//1
+if command='bones' then begin//1
+beast_inv_generate.name:=text[85];
+beast_inv_generate.base_dmg:=0;
+beast_inv_generate.base_defense:=1;
+beast_inv_generate.ves:=1;
+beast_inv_generate.cost:=1;
+beast_inv_generate.tip:=4;
+beast_inv_generate.init:=1;
+beast_inv_generate.masking:=1;
+beast_inv_generate.obser:=1;
+end;//1
+if command='clutches' then begin//1
+beast_inv_generate.name:=text[86];
+beast_inv_generate.base_dmg:=1;
+beast_inv_generate.base_defense:=0;
+beast_inv_generate.ves:=1;
+beast_inv_generate.cost:=1;
+beast_inv_generate.tip:=1;
+beast_inv_generate.init:=1;
+beast_inv_generate.masking:=1;
+beast_inv_generate.obser:=1;
+end;//1
 end;
 
 //16.11.2015

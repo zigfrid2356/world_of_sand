@@ -130,7 +130,7 @@ oz_list:array [0..100] of oz_index;
 //+19.11.2015
 pyst_list:array[0..1000] of pyst_index;
 //+16.11.2015
-beast_list:array[0..100000]of beast_body;
+beast_list:array[0..1000]of beast_body;
 hero_save:file of body;
 map_save:file of erath;
 npc_save:file of new_body;
@@ -191,8 +191,8 @@ function beast_muve(bb:beast_body;command:string):beast_body;
 var
 r_bm:byte;
 begin
-if command='start' then begin//00
-
+if (command='start')and (bb.x<x_map-1)and (bb.y<y_map-1) then begin//00
+//log_generate('log_old_generate','muve 1 '+inttostr(bb.x)+':'+inttostr(bb.y));
 r_bm:=random(4);
 if (r_bm=0)and (bb.x<x_map-1) then begin //1.1.1
 beast_muve.x:=bb.x+1;
@@ -347,7 +347,7 @@ if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[
 end;end;//0.1//0.2
 //log_generate('log_old_generate','stop_muve');
 {
-for i:=0 to 10000 do begin //2
+for i:=0 to 1000 do begin //2
 //log_generate('log_old_generate',inttostr(i));
 beast_list[i]:=beast_muve(beast_list[i],'start'); 
 end;//2
@@ -403,7 +403,7 @@ beast_generate.flag_hishn:=random(1);
 beast_generate.x:=i_b+random(10);
 beast_generate.y:=j_b+random(10);
 //beast_generate.inv:
-log_generate('log_old_generate',inttostr(i_b)+':'+inttostr(j_b)+' '+beast_generate.name);
+//log_generate('log_old_generate',inttostr(i_b)+':'+inttostr(j_b)+' '+beast_generate.name);
 end;
 
 //07.11.2015
@@ -739,8 +739,8 @@ m_oz:=m;
 end;
 //---------(6)
 until (n>32)and(n<x_map-32)and(m>32)and(m<y_map-32);
-	log_generate('log_old_generate',inttostr(n_oz)+':'+inttostr(m_oz)+map_name[k]);
-	log_generate('log_old_generate',inttostr(l));
+	//log_generate('log_old_generate',inttostr(n_oz)+':'+inttostr(m_oz)+map_name[k]);
+	//log_generate('log_old_generate',inttostr(l));
 	//+08.11.2015
 	oz_list[l].x:=n_oz;
 	oz_list[l].y:=m_oz;

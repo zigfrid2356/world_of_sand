@@ -186,7 +186,7 @@ end;//3}
 end;
 
 //22.11.2015
-function beast_muve(bb:beast_body;command:string):beast_body;
+function beast_muve(bb:beast_body;command:string;bi:word):beast_body;
 
 var
 r_bm:byte;
@@ -198,21 +198,29 @@ if (r_bm=0)and (bb.x<x_map-1) then begin //1.1.1
 beast_muve.x:=bb.x+1;
 map[bb.x,bb.y].tip:=0;
 map[bb.x+1,bb.y].tip:=1;
+map[bb.x,bb.y].beast_index:=0;
+map[bb.x+1,bb.y].beast_index:=bi;
 end;//1.1.1
 if (r_bm=1)and (bb.x>0) then begin //1.1.2
 beast_muve.x:=bb.x-1;
 map[bb.x,bb.y].tip:=0;
 map[bb.x-1,bb.y].tip:=1;
+map[bb.x,bb.y].beast_index:=0;
+map[bb.x+1,bb.y].beast_index:=bi;
 end;//1.1.2
 if (r_bm=2)and (bb.y<y_map-1) then begin//1.1.3
 beast_muve.y:=bb.y+1;
 map[bb.x,bb.y].tip:=0;
 map[bb.x,bb.y+1].tip:=1;
+map[bb.x,bb.y].beast_index:=0;
+map[bb.x+1,bb.y].beast_index:=bi;
  end;//1.1.3
 if (r_bm=3)and (bb.y>0) then begin //1.1.4
 beast_muve.y:=bb.y-1;
 map[bb.x,bb.y].tip:=0;
 map[bb.x,bb.y-1].tip:=1;
+map[bb.x,bb.y].beast_index:=0;
+map[bb.x+1,bb.y].beast_index:=bi;
 end;//1.1.4
 
 end;//00
@@ -346,12 +354,12 @@ end;//1
 if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
 end;end;//0.1//0.2
 //log_generate('log_old_generate','stop_muve');
-{
+
 for i:=0 to 1000 do begin //2
 //log_generate('log_old_generate',inttostr(i));
-beast_list[i]:=beast_muve(beast_list[i],'start'); 
+beast_list[i]:=beast_muve(beast_list[i],'start',i); 
 end;//2
-}
+
 end;//000
 end;
 

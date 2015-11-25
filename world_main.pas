@@ -200,29 +200,33 @@ if (command='start')and (bb.x<x_map-1)and (bb.y<y_map-1) then begin//00
 r_bm:=random(4);
 if (r_bm=0)and (bb.x<x_map-1) then begin //1.1.1
 beast_muve.x:=bb.x+1;
+beast_muve.y:=bb.y;
 map[bb.x,bb.y].tip:=0;
-map[bb.x+1,bb.y].tip:=1;
+map[beast_muve.x,beast_muve.y].tip:=1;
 map[bb.x,bb.y].beast_index:=0;
 map[beast_muve.x,beast_muve.y].beast_index:=bi;
 end;//1.1.1
-if (r_bm=1)and (bb.x>0) then begin //1.1.2
+if (r_bm=1)and (bb.x>1) then begin //1.1.2
 beast_muve.x:=bb.x-1;
+beast_muve.y:=bb.y;
 map[bb.x,bb.y].tip:=0;
-map[bb.x-1,bb.y].tip:=1;
+map[beast_muve.x,beast_muve.y].tip:=1;
 map[bb.x,bb.y].beast_index:=0;
 map[beast_muve.x,beast_muve.y].beast_index:=bi;
 end;//1.1.2
 if (r_bm=2)and (bb.y<y_map-1) then begin//1.1.3
 beast_muve.y:=bb.y+1;
+beast_muve.x:=bb.x;
 map[bb.x,bb.y].tip:=0;
-map[bb.x,bb.y+1].tip:=1;
+map[beast_muve.x,beast_muve.y].tip:=1;
 map[bb.x,bb.y].beast_index:=0;
 map[beast_muve.x,beast_muve.y].beast_index:=bi;
  end;//1.1.3
-if (r_bm=3)and (bb.y>0) then begin //1.1.4
+if (r_bm=3)and (bb.y>1) then begin //1.1.4
 beast_muve.y:=bb.y-1;
+beast_muve.x:=bb.x;
 map[bb.x,bb.y].tip:=0;
-map[bb.x,bb.y-1].tip:=1;
+map[beast_muve.x,beast_muve.y].tip:=1;
 map[bb.x,bb.y].beast_index:=0;
 map[beast_muve.x,beast_muve.y].beast_index:=bi;
 end;//1.1.4
@@ -238,7 +242,7 @@ end;
 procedure muve(i_m,j_m:word; command:string);
 var
 i_muv,j_muv,rr:word;
-b_m:integer;
+b_m,bm_i:integer;
 begin
 if command='start' then begin//00
 for i_muv:=i_m-5 to i_m+5 do begin//0.1
@@ -363,9 +367,14 @@ if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[
 end;end;//0.1//0.2
 //log_generate('log_old_generate','stop_muve');
 
-for i:=0 to 1000 do begin //2
-//log_generate('log_old_generate',inttostr(i));
-beast_list[i]:=beast_muve(beast_list[i],'start',i); 
+for bm_i:=0 to 1000 do begin //2
+if bm_i=10 then begin//0   
+log_generate('log_old_generate','muve 9-1 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' tip '+inttostr(map[beast_list[bm_i].x,beast_list[bm_i].y].tip));
+end;//0
+beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i); 
+if bm_i=10 then begin//0   
+log_generate('log_old_generate','muve 9-2 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' tip '+inttostr(map[beast_list[bm_i].x,beast_list[bm_i].y].tip));
+end;//0
 end;//2
 
 end;//000

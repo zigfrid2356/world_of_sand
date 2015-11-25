@@ -192,7 +192,7 @@ var
 r_bm:byte;
 begin
 if bi=10 then begin//0   
-log_generate('log_old_generate','muve 10 '+inttostr(bb.x)+':'+inttostr(bb.y)+' tip '+inttostr(map[bb.x,bb.y].tip));
+log_generate('log_old_generate','muve 10-1 '+inttostr(bb.x)+':'+inttostr(bb.y)+' tip '+inttostr(map[bb.x,bb.y].tip));
 end;//0
 
 if (command='start')and (bb.x<x_map-1)and (bb.y<y_map-1) then begin//00
@@ -230,7 +230,7 @@ end;//1.1.4
 end;//00
 
 if bi=10 then begin//000   
-log_generate('log_old_generate','muve 10 '+inttostr(beast_muve.x)+':'+inttostr(beast_muve.y)+' tip '+inttostr(map[bb.x,bb.y].tip));
+log_generate('log_old_generate','muve 10-2 '+inttostr(beast_muve.x)+':'+inttostr(beast_muve.y)+' tip '+inttostr(map[beast_muve.x,beast_muve.y].tip));
 end;//000
 end;
 
@@ -977,8 +977,12 @@ end;//6
 for bl:=0 to 1000 do begin//7
 //	map[i_oz,j_oz].beast_index:=bl;
 //	map[i_oz,j_oz].tip:=1;
-	beast_list[bl]:=beast_generate(pyst_list[bl].x,pyst_list[bl].y);
+	beast_list[bl]:=beast_generate(pyst_list[bl].x,pyst_list[bl].y);//--------------------------------------BEAST--------
 	map[beast_list[bl].x,beast_list[bl].y].tip:=1;
+	map[beast_list[bl].x,beast_list[bl].y].beast_index:=bl;
+if bl=10 then begin//0   
+log_generate('log_old_generate','generate '+inttostr(beast_list[bl].x)+':'+inttostr(beast_list[bl].y)+' tip '+inttostr(map[beast_list[bl].x,beast_list[bl].y].tip));
+end;//0	
 //	bl:=bl+1;
 //beast_generate()
 end;//7

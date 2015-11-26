@@ -192,7 +192,7 @@ var
 r_bm:byte;
 begin
 if bi=10 then begin//0   
-log_generate('log_old_generate','muve 10-1 '+inttostr(bb.x)+':'+inttostr(bb.y)+' tip '+inttostr(map[bb.x,bb.y].tip));
+log_generate('log_old_generate','muve 10-1 '+inttostr(bb.x)+':'+inttostr(bb.y)+' tip '+inttostr(map[bb.x,bb.y].beast_index));
 end;//0
 
 if (command='start')and (bb.x<x_map-1)and (bb.y<y_map-1) then begin//00
@@ -234,7 +234,7 @@ end;//1.1.4
 end;//00
 
 if bi=10 then begin//000   
-log_generate('log_old_generate','muve 10-2 '+inttostr(beast_muve.x)+':'+inttostr(beast_muve.y)+' tip '+inttostr(map[beast_muve.x,beast_muve.y].tip));
+log_generate('log_old_generate','muve 10-2 '+inttostr(beast_muve.x)+':'+inttostr(beast_muve.y)+' tip '+inttostr(map[beast_muve.x,beast_muve.y].beast_index));
 end;//000
 end;
 

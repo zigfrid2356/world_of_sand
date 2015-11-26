@@ -369,11 +369,11 @@ end;end;//0.1//0.2
 
 for bm_i:=0 to 1000 do begin //2
 if bm_i=10 then begin//0   
-log_generate('log_old_generate','muve 9-1 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' tip '+inttostr(map[beast_list[bm_i].x,beast_list[bm_i].y].tip));
+log_generate('log_old_generate','muve 9-1 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' tip '+inttostr(map[beast_list[bm_i].x,beast_list[bm_i].y].beast_index));
 end;//0
 beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i); 
 if bm_i=10 then begin//0   
-log_generate('log_old_generate','muve 9-2 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' tip '+inttostr(map[beast_list[bm_i].x,beast_list[bm_i].y].tip));
+log_generate('log_old_generate','muve 9-2 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' tip '+inttostr(map[beast_list[bm_i].x,beast_list[bm_i].y].beast_index));
 end;//0
 end;//2
 

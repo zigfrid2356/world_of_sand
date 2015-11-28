@@ -130,7 +130,7 @@ oz_list:array [0..100] of oz_index;
 //+19.11.2015
 pyst_list:array[0..1000] of pyst_index;
 //+16.11.2015
-beast_list:array[0..1000]of beast_body;
+beast_list:array[0..1001]of beast_body;
 hero_save:file of body;
 map_save:file of erath;
 npc_save:file of new_body;
@@ -191,8 +191,21 @@ function beast_muve(bb:beast_body;command:string;bi:word):beast_body;
 var
 r_bm:byte;
 begin
+//
+beast_muve.hp:=bb.hp;
+beast_muve.dmg:=bb.dmg;
+beast_muve.ign_dmg:=bb.ign_dmg;
+beast_muve.name:=bb.name;
+beast_muve.flag_life:=bb.flag_life;
+beast_muve.flag_hishn:=bb.flag_hishn;
+beast_muve.skin:=bb.skin;
+beast_muve.meat:=bb.meat;
+beast_muve.teeth:=bb.teeth;
+beast_muve.bones:=bb.bones;
+beast_muve.clutches:=bb.clutches;
+//
 if bi=10 then begin//0   
-log_generate('log_old_generate','muve 10-1 '+inttostr(bb.x)+':'+inttostr(bb.y)+' tip '+inttostr(map[bb.x,bb.y].beast_index));
+log_generate('log_old_generate','muve 10-1 '+inttostr(bb.x)+':'+inttostr(bb.y)+' name '+beast_list[map[bb.x,bb.y].beast_index].name);
 end;//0
 
 if (command='start')and (bb.x<x_map-1)and (bb.y<y_map-1) then begin//00
@@ -201,6 +214,7 @@ r_bm:=random(4);
 if (r_bm=0)and (bb.x<x_map-1) then begin //1.1.1
 beast_muve.x:=bb.x+1;
 beast_muve.y:=bb.y;
+
 map[bb.x,bb.y].tip:=0;
 map[beast_muve.x,beast_muve.y].tip:=1;
 map[bb.x,bb.y].beast_index:=0;
@@ -234,7 +248,7 @@ end;//1.1.4
 end;//00
 
 if bi=10 then begin//000   
-log_generate('log_old_generate','muve 10-2 '+inttostr(beast_muve.x)+':'+inttostr(beast_muve.y)+' tip '+inttostr(map[beast_muve.x,beast_muve.y].beast_index));
+log_generate('log_old_generate','muve 10-2 '+inttostr(beast_muve.x)+':'+inttostr(beast_muve.y)+' name '+beast_list[map[beast_muve.x,beast_muve.y].beast_index].name);
 end;//000
 end;
 
@@ -367,13 +381,13 @@ if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[
 end;end;//0.1//0.2
 //log_generate('log_old_generate','stop_muve');
 
-for bm_i:=0 to 1000 do begin //2
+for bm_i:=1 to 1001 do begin //2
 if bm_i=10 then begin//0   
-log_generate('log_old_generate','muve 9-1 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' tip '+inttostr(map[beast_list[bm_i].x,beast_list[bm_i].y].beast_index));
+log_generate('log_old_generate','muve 9-1 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' name '+beast_list[map[beast_list[bm_i].x,beast_list[bm_i].y].beast_index].name);
 end;//0
 beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i); 
 if bm_i=10 then begin//0   
-log_generate('log_old_generate','muve 9-2 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' tip '+inttostr(map[beast_list[bm_i].x,beast_list[bm_i].y].beast_index));
+log_generate('log_old_generate','muve 9-2 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' mame '+beast_list[bm_i].name);
 end;//0
 end;//2
 
@@ -983,14 +997,14 @@ for i_oz:=n_oz-2 to n_oz+2 do begin//6.1
 map[n_oz,m_oz].structure:=simbol[7];
 map[n_oz,m_oz].color:=1;
 end;//6
-for bl:=0 to 1000 do begin//7
+for bl:=1 to 1001 do begin//7
 //	map[i_oz,j_oz].beast_index:=bl;
 //	map[i_oz,j_oz].tip:=1;
 	beast_list[bl]:=beast_generate(pyst_list[bl].x,pyst_list[bl].y);//--------------------------------------BEAST--------
 	map[beast_list[bl].x,beast_list[bl].y].tip:=1;
 	map[beast_list[bl].x,beast_list[bl].y].beast_index:=bl;
 if bl=10 then begin//0   
-log_generate('log_old_generate','generate '+inttostr(beast_list[bl].x)+':'+inttostr(beast_list[bl].y)+' tip '+inttostr(map[beast_list[bl].x,beast_list[bl].y].tip));
+log_generate('log_old_generate','generate '+inttostr(beast_list[bl].x)+':'+inttostr(beast_list[bl].y)+' name1 '+beast_list[map[beast_list[bl].x,beast_list[bl].y].beast_index].name);
 end;//0	
 //	bl:=bl+1;
 //beast_generate()

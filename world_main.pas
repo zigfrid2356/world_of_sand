@@ -1422,6 +1422,67 @@ hero.dmg:=hero.veapon+hero.attak;
 hero.ign_dmg:=hero.armor*hero.defense;
 end;//1
 end;
+
+//29.11.2015
+function hunt(bb:beast_body):byte;
+var i0:integer;
+begin
+i0:=0;
+repeat begin//0
+
+
+i:=1;
+repeat begin//1
+clrscr;
+writeln(text[36], i0);
+i0:=i0+1;
+writeln(text[35]);
+writeln(text[14],': ',i);
+writeln('-------------------------');
+writeln('|',hero.name,'           |');
+writeln('|','     ',bb.name,'|');
+writeln('|',text[5],'             ', text[5],'|');
+writeln('|',hero.hp,'             ', bb.hp,'|');
+writeln('|',text[6],'             ', text[6],'|');
+//writeln('|',hero.mp,'             ', bb.mp,'|');
+writeln('|',text[12],'            ', text[12],'|');
+writeln('|',hero.dmg ,'           ',bb.dmg,'|');
+writeln('-------------------------');
+writeln(text[13],hero.ign_dmg,'    ',bb.ign_dmg );
+writeln(text[7],hero.exp );
+writeln(text[8],hero.lvl );
+i:=i+1;
+if monster.dmg>=hero.ign_dmg then hero.hp:=hero.hp-abs(bb.dmg-hero.ign_dmg) else hero.hp:=hero.hp-(bb.dmg div 4);
+
+if hero.dmg>=bb.ign_dmg then bb.hp:=monster.hp-abs(hero.dmg-bb.ign_dmg) else bb.hp:=bb.hp-(hero.dmg div 4);
+//monster.hp:=monster.hp-abs(hero.dmg-monster.ign_dmg);
+writeln('-------------------');
+writeln(text[37],abs(bb.dmg-hero.ign_dmg));
+writeln(text[38],abs(hero.dmg-bb.ign_dmg));
+writeln('-------------------');
+//readln();
+delay(500);
+end;//1
+until (hero.hp<=0) or(bb.hp<=0);
+if hero.hp<=0 then exit;
+if bb.hp<=0 then begin//2
+map[bb.x,bb.y].tip:=0;
+hero.hp:=10*hero.lvl;///-------------test----------------------
+hero.gold:=hero.gold+10;//bb.gold;
+hero.exp:=hero.exp+10;//bb.exp;
+//drop('monster_beast',bb.name);
+lvlup;
+
+writeln(text[15]);
+delay(500);
+
+//readln();
+
+end;//2 
+end;//0
+until readkey='1';
+end;
+
 procedure battle;
 var i0:integer;
 begin
@@ -1607,6 +1668,9 @@ write	('2- \/ '+text[66]+map_info(map[x+1,y].structure) );
 if map[x+1,y].tip<>0 then begin write(text[80]+beast_list[map[x+1,y].beast_index].name);end;writeln(); 
 writeln	('5- ',text[2]);
 if map[x,y].npc_index<>0 then writeln	('9- ',text[79]);
+
+if (map[x,y+1].tip<>0)or(map[x,y-1].tip<>0)or(map[x-1,y].tip<>0)or(map[x+1,y].tip<>0) then writeln	('7- ',text[87]);
+
 //readln(menu_key);
 menu_key:=readkey;
 end;//2.0
@@ -1659,6 +1723,14 @@ readln();
 map_output(x,y);
 end;//3.5.1
  end;//3.5
+ 
+'7':begin//3.6
+if (map[x,y+1].tip<>0)or
+if (map[x,y-1].tip<>0)or
+if (map[x-1,y].tip<>0)then
+if (map[x+1,y].tip<>0) then
+
+ end;//3.6
  {
 '7':begin//3.6
 for  k2:=0 to 5 do  begin muve(x,y);sleep(100); map_output(x,y); end;

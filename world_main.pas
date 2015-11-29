@@ -204,9 +204,10 @@ beast_muve.teeth:=bb.teeth;
 beast_muve.bones:=bb.bones;
 beast_muve.clutches:=bb.clutches;
 //
+{
 if bi=10 then begin//0   
 log_generate('log_old_generate','muve 10-1 '+inttostr(bb.x)+':'+inttostr(bb.y)+' name '+beast_list[map[bb.x,bb.y].beast_index].name);
-end;//0
+end;}//0
 
 if (command='start')and (bb.x<x_map-1)and (bb.y<y_map-1) then begin//00
 //log_generate('log_old_generate','muve 1 '+inttostr(bb.x)+':'+inttostr(bb.y));
@@ -246,10 +247,10 @@ map[beast_muve.x,beast_muve.y].beast_index:=bi;
 end;//1.1.4
 
 end;//00
-
+{
 if bi=10 then begin//000   
 log_generate('log_old_generate','muve 10-2 '+inttostr(beast_muve.x)+':'+inttostr(beast_muve.y)+' name '+beast_list[map[beast_muve.x,beast_muve.y].beast_index].name);
-end;//000
+end;}//000
 end;
 
 //+11.11.2015
@@ -382,13 +383,13 @@ end;end;//0.1//0.2
 //log_generate('log_old_generate','stop_muve');
 
 for bm_i:=1 to 1001 do begin //2
-if bm_i=10 then begin//0   
+{if bm_i=10 then begin//0   
 log_generate('log_old_generate','muve 9-1 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' name '+beast_list[map[beast_list[bm_i].x,beast_list[bm_i].y].beast_index].name);
-end;//0
+end;}//0
 beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i); 
-if bm_i=10 then begin//0   
+{if bm_i=10 then begin//0   
 log_generate('log_old_generate','muve 9-2 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' mame '+beast_list[bm_i].name);
-end;//0
+end;}//0
 end;//2
 
 end;//000
@@ -513,7 +514,7 @@ beast_generate.meat:=beast_inv_generate('meat');
 beast_generate.teeth:=beast_inv_generate('teeth');
 beast_generate.bones:=beast_inv_generate('bones');
 beast_generate.clutches:=beast_inv_generate('clutches');
-//beast_generate.inv:
+
 //log_generate('log_old_generate',inttostr(i_b)+':'+inttostr(j_b)+' '+beast_generate.name);
 end;
 

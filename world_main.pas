@@ -1669,7 +1669,7 @@ if map[x+1,y].tip<>0 then begin write(text[80]+beast_list[map[x+1,y].beast_index
 writeln	('5- ',text[2]);
 if map[x,y].npc_index<>0 then writeln	('9- ',text[79]);
 
-if (map[x,y+1].tip<>0)or(map[x,y-1].tip<>0)or(map[x-1,y].tip<>0)or(map[x+1,y].tip<>0) then writeln	('7- ',text[87]);
+if (map[x,y+1].tip<>0)or(map[x,y-1].tip<>0)or(map[x-1,y].tip<>0)or(map[x+1,y].tip<>0)or(map[x,y].tip<>0)  then writeln	('7- ',text[87]);
 
 //readln(menu_key);
 menu_key:=readkey;
@@ -1725,11 +1725,11 @@ end;//3.5.1
  end;//3.5
  
 '7':begin//3.6
-if (map[x,y+1].tip<>0)or
-if (map[x,y-1].tip<>0)or
-if (map[x-1,y].tip<>0)then
-if (map[x+1,y].tip<>0) then
-
+if (map[x,y+1].tip<>0) then hunt(beast_list[map[x,y+1].beast_index]);
+if (map[x,y-1].tip<>0) then hunt(beast_list[map[x,y-1].beast_index]);
+if (map[x-1,y].tip<>0) then hunt(beast_list[map[x-1,y].beast_index]);
+if (map[x+1,y].tip<>0) then hunt(beast_list[map[x+1,y].beast_index]);
+if (map[x,y].tip<>0) then hunt(beast_list[map[x,y].beast_index]);
  end;//3.6
  {
 '7':begin//3.6

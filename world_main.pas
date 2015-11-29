@@ -1424,11 +1424,11 @@ end;//1
 end;
 
 //29.11.2015
-function hunt(bb:beast_body):byte;
+function hunt(bb:beast_body):beast_body;
 var i0:integer;
 begin
 i0:=0;
-repeat begin//0
+//repeat begin//0
 
 
 i:=1;
@@ -1443,7 +1443,7 @@ writeln('|',hero.name,'           |');
 writeln('|','     ',bb.name,'|');
 writeln('|',text[5],'             ', text[5],'|');
 writeln('|',hero.hp,'             ', bb.hp,'|');
-writeln('|',text[6],'             ', text[6],'|');
+//writeln('|',text[6],'             ', text[6],'|');
 //writeln('|',hero.mp,'             ', bb.mp,'|');
 writeln('|',text[12],'            ', text[12],'|');
 writeln('|',hero.dmg ,'           ',bb.dmg,'|');
@@ -1466,6 +1466,8 @@ end;//1
 until (hero.hp<=0) or(bb.hp<=0);
 if hero.hp<=0 then exit;
 if bb.hp<=0 then begin//2
+hunt.flag_life:=0;
+hunt.hp:=0;
 map[bb.x,bb.y].tip:=0;
 hero.hp:=10*hero.lvl;///-------------test----------------------
 hero.gold:=hero.gold+10;//bb.gold;
@@ -1476,11 +1478,22 @@ lvlup;
 writeln(text[15]);
 delay(500);
 
-//readln();
+readln();
 
 end;//2 
-end;//0
-until readkey='1';
+
+hunt.dmg:=bb.dmg;
+hunt.ign_dmg:=bb.ign_dmg;
+hunt.name:=bb.name;
+//hunt.flag_life:=bb.flag_life;
+hunt.flag_hishn:=bb.flag_hishn;
+hunt.skin:=bb.skin;
+hunt.meat:=bb.meat;
+hunt.teeth:=bb.teeth;
+hunt.bones:=bb.bones;
+hunt.clutches:=bb.clutches;
+//end;//0
+//until readkey='1';
 end;
 
 procedure battle;
@@ -1725,11 +1738,11 @@ end;//3.5.1
  end;//3.5
  
 '7':begin//3.6
-if (map[x,y+1].tip<>0) then hunt(beast_list[map[x,y+1].beast_index]);
-if (map[x,y-1].tip<>0) then hunt(beast_list[map[x,y-1].beast_index]);
-if (map[x-1,y].tip<>0) then hunt(beast_list[map[x-1,y].beast_index]);
-if (map[x+1,y].tip<>0) then hunt(beast_list[map[x+1,y].beast_index]);
-if (map[x,y].tip<>0) then hunt(beast_list[map[x,y].beast_index]);
+if (map[x,y+1].tip<>0) then beast_list[map[x,y+1].beast_index]:=hunt(beast_list[map[x,y+1].beast_index]);
+if (map[x,y-1].tip<>0) then beast_list[map[x,y-1].beast_index]:=hunt(beast_list[map[x,y-1].beast_index]);
+if (map[x-1,y].tip<>0) then beast_list[map[x-1,y].beast_index]:=hunt(beast_list[map[x-1,y].beast_index]);
+if (map[x+1,y].tip<>0) then beast_list[map[x+1,y].beast_index]:=hunt(beast_list[map[x+1,y].beast_index]);
+if (map[x,y].tip<>0) then beast_list[map[x,y].beast_index]:=hunt(beast_list[map[x,y].beast_index]);
  end;//3.6
  {
 '7':begin//3.6

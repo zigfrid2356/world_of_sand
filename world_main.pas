@@ -1697,9 +1697,11 @@ writeln();
 writeln	('5- ',text[2]);
 if map[x,y].npc_index<>0 then writeln	('9- ',text[79]);
 
-if (map[x,y+1].tip<>0)or(map[x,y-1].tip<>0)or(map[x-1,y].tip<>0)or(map[x+1,y].tip<>0)or(map[x,y].tip<>0)
-	and (map[x,y+1].tip<>5)and(map[x,y-1].tip<>5)and(map[x-1,y].tip<>5)and(map[x+1,y].tip<>5)and(map[x,y].tip<>5)
-  then writeln	('7- ',text[87]);
+if (map[x,y+1].tip<>0)and (map[x,y+1].tip<>5)then writeln	('7- ',text[87]);
+if (map[x,y-1].tip<>0)and(map[x,y-1].tip<>5)then writeln	('7- ',text[87]);
+if (map[x-1,y].tip<>0)and(map[x-1,y].tip<>5)then writeln	('7- ',text[87]);
+if (map[x+1,y].tip<>0)and(map[x+1,y].tip<>5)then writeln	('7- ',text[87]);
+if (map[x,y].tip<>0)and(map[x,y].tip<>5)then writeln	('7- ',text[87]);
 
 //readln(menu_key);
 menu_key:=readkey;

@@ -1668,17 +1668,27 @@ end;//2.1
 map[x,y].structure:=temp_char;//+16.08.2015 
 map[x,y].color:=temp_color;//+16.09.2015
 write(text[34],' ',x,' : ',y,text[71]+map_info(map[x,y].structure));
-if map[x,y].tip<>0 then begin write(text[80]+beast_list[map[x,y].beast_index].name);end;writeln(); 
+if map[x,y].tip<>0 then begin write(text[80]+beast_list[map[x,y].beast_index].name);end;
+if map[x,y].tip=5 then begin write(text[88]+beast_list[map[x,y].beast_index].name);end;
+writeln(); 
 if map[x,y].npc_index<>0 then begin write(text[76]+npc[map[x,y].npc_index].name);writeln(); end;
 
 write	('6- -> '+text[64]+map_info(map[x,y+1].structure) );
-if map[x,y+1].tip<>0 then begin write(text[80]+beast_list[map[x,y+1].beast_index].name);end;writeln(); 
+if map[x,y+1].tip<>0 then begin write(text[80]+beast_list[map[x,y+1].beast_index].name);end;
+if map[x,y+1].tip=5 then begin write(text[88]+beast_list[map[x,y+1].beast_index].name);end;
+writeln(); 
 write	('4- <- '+text[65]+map_info(map[x,y-1].structure) );
-if map[x,y-1].tip<>0 then begin write(text[80]+beast_list[map[x,y-1].beast_index].name);end;writeln(); 
+if map[x,y-1].tip<>0 then begin write(text[80]+beast_list[map[x,y-1].beast_index].name);end;
+if map[x,y-1].tip=5 then begin write(text[88]+beast_list[map[x,y-1].beast_index].name);end;
+writeln(); 
 write	('8- /\ '+text[67]+map_info(map[x-1,y].structure) );
-if map[x-1,y].tip<>0 then begin write(text[80]+beast_list[map[x-1,y].beast_index].name);end;writeln(); 
+if map[x-1,y].tip<>0 then begin write(text[80]+beast_list[map[x-1,y].beast_index].name);end;
+if map[x-1,y].tip=5 then begin write(text[88]+beast_list[map[x-1,y].beast_index].name);end;
+writeln(); 
 write	('2- \/ '+text[66]+map_info(map[x+1,y].structure) );
-if map[x+1,y].tip<>0 then begin write(text[80]+beast_list[map[x+1,y].beast_index].name);end;writeln(); 
+if map[x+1,y].tip<>0 then begin write(text[80]+beast_list[map[x+1,y].beast_index].name);end;
+if map[x+1,y].tip=5 then begin write(text[88]+beast_list[map[x+1,y].beast_index].name);end;
+writeln(); 
 writeln	('5- ',text[2]);
 if map[x,y].npc_index<>0 then writeln	('9- ',text[79]);
 

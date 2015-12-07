@@ -92,7 +92,7 @@ x,y,npc_index,beast_index:word;
 structure:char;
 color:byte;
 name:string[25];
-tip:byte;//flag_life__beast(1/2)_human(3/4)_not_life(0)
+tip:byte;//flag_life__beast(1/2)_human(3/4)_not_life(0)_dead(5)
 progress:word;
 end;
 oz_index=record
@@ -1468,7 +1468,7 @@ if hero.hp<=0 then exit;
 if bb.hp<=0 then begin//2
 hunt.flag_life:=0;
 hunt.hp:=0;
-map[bb.x,bb.y].tip:=0;
+map[bb.x,bb.y].tip:=5;
 hero.hp:=10*hero.lvl;///-------------test----------------------
 hero.gold:=hero.gold+10;//bb.gold;
 hero.exp:=hero.exp+10;//bb.exp;

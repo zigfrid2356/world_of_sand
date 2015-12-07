@@ -209,7 +209,7 @@ if bi=10 then begin//0
 log_generate('log_old_generate','muve 10-1 '+inttostr(bb.x)+':'+inttostr(bb.y)+' name '+beast_list[map[bb.x,bb.y].beast_index].name);
 end;}//0
 
-if (command='start')and (bb.x<x_map-1)and (bb.y<y_map-1) then begin//00
+if (command='start')and (bb.x<x_map-1)and (bb.y<y_map-1)and(bb.flag_life<>0)and(bb.flag_life<>5) then begin//00
 //log_generate('log_old_generate','muve 1 '+inttostr(bb.x)+':'+inttostr(bb.y));
 r_bm:=random(4);
 if (r_bm=0)and (bb.x<x_map-1) then begin //1.1.1

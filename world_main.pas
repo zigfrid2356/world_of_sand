@@ -402,8 +402,7 @@ nig:byte;
 item_m_name:array[1..100]of string[15];
 begin
 if command='helm' then begin//1
-
-assign(item_name,s);
+assign(item_name,'res\mob\'+command);
 reset(item_name);
 nig:=1;
 while not eof(item_name) do begin//1.1
@@ -413,6 +412,17 @@ end;//1.1
 close(item_name);
 name_item_generate:=item_m_name[random(nig)];
 end;//1
+if command='skin' then begin//2
+assign(item_name,'res\mob\'+command);
+reset(item_name);
+nig:=1;
+while not eof(item_name) do begin//1.1
+readln(item_name,item_m_name[nig]);
+nig:=nig+1;
+end;//1.1
+close(item_name);
+name_item_generate:=item_m_name[random(nig)];
+end;//2
 end;
 
 
@@ -463,7 +473,7 @@ clutches
  }
 begin
 if command='skin' then begin//1
-beast_inv_generate.name:=text[82];
+beast_inv_generate.name:=name_item_generate(command);//text[82];
 beast_inv_generate.type_subject:='skin';
 beast_inv_generate.base_dmg:=0;
 beast_inv_generate.base_defense:=1;
@@ -1466,7 +1476,7 @@ writeln(text[35]);
 writeln(text[14],': ',i);
 writeln('-------------------------');
 writeln('|',hero.name,'           |');
-writeln('|','     ',bb.name,'|');
+writeln('|','     ',bb.skin.name,'|');
 writeln('|',text[5],'             ', text[5],'|');
 writeln('|',hero.hp,'             ', bb.hp,'|');
 //writeln('|',text[6],'             ', text[6],'|');

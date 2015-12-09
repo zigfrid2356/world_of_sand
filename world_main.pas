@@ -399,7 +399,7 @@ function name_item_generate(command:string):string;//+09.12.2015
 var
 nig:byte;
 
-item_m_name:array[1..100]of string[15];
+item_m_name:array[1..100]of string[20];
 begin
 if command='helm' then begin//1
 assign(item_name,'res\har\'+command);

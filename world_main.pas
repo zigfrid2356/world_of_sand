@@ -1476,7 +1476,7 @@ writeln(text[35]);
 writeln(text[14],': ',i);
 writeln('-------------------------');
 writeln('|',hero.name,'           |');
-writeln('|','     ',bb.skin.name,'|');
+writeln('|','     ',bb.name,'|');
 writeln('|',text[5],'             ', text[5],'|');
 writeln('|',hero.hp,'             ', bb.hp,'|');
 //writeln('|',text[6],'             ', text[6],'|');

@@ -57,7 +57,7 @@ typ,clas,podclas,podtyp:byte;
 
 end;
 subject=record//+05.11.2015
-name:string;
+name,type_subject:string;
 base_dmg,base_defense,ves,cost,tip:word;{tip=1-weapon,2-armor...}
 init,masking,obser:word;
 end;
@@ -115,7 +115,7 @@ i,j,n,m,l,k,k0,k1,k2,k_oz,i_oz,j_oz,n_oz,m_oz:integer;//áçñâç¨ª¨{счё�
 s:string;//temp
 lang: text;
 monster_name,map_oz:text;
-color,har:text;
+color,har,item_name:text;
 f_log:text;
 f_typ:text;//+25.10.2015
 text:array[0..100] of string;
@@ -395,6 +395,27 @@ end;//2
 end;//000
 end;
 
+function name_item_generate(command:string):string;//+09.12.2015
+var
+nig:byte;
+
+item_m_name:array[1..100]of string[15];
+begin
+if command='helm' then begin//1
+
+assign(item_name,s);
+reset(item_name);
+nig:=1;
+while not eof(item_name) do begin//1.1
+readln(item_name,item_m_name[nig]);
+nig:=nig+1;
+end;//1.1
+close(item_name);
+name_item_generate:=item_m_name[random(nig)];
+end;//1
+end;
+
+
 function name_generate(command:string):string;//+12.08.2015
 var
 s:string;
@@ -443,6 +464,7 @@ clutches
 begin
 if command='skin' then begin//1
 beast_inv_generate.name:=text[82];
+beast_inv_generate.type_subject:='skin';
 beast_inv_generate.base_dmg:=0;
 beast_inv_generate.base_defense:=1;
 beast_inv_generate.ves:=1;
@@ -454,6 +476,7 @@ beast_inv_generate.obser:=1;
 end;//1
 if command='meat' then begin//1
 beast_inv_generate.name:=text[83];
+beast_inv_generate.type_subject:='meat';
 beast_inv_generate.base_dmg:=0;
 beast_inv_generate.base_defense:=1;
 beast_inv_generate.ves:=1;
@@ -465,6 +488,7 @@ beast_inv_generate.obser:=1;
 end;//1
 if command='teeth' then begin//1
 beast_inv_generate.name:=text[84];
+beast_inv_generate.type_subject:='teeth';
 beast_inv_generate.base_dmg:=1;
 beast_inv_generate.base_defense:=2;
 beast_inv_generate.ves:=1;
@@ -476,6 +500,7 @@ beast_inv_generate.obser:=1;
 end;//1
 if command='bones' then begin//1
 beast_inv_generate.name:=text[85];
+beast_inv_generate.type_subject:='bones';
 beast_inv_generate.base_dmg:=0;
 beast_inv_generate.base_defense:=1;
 beast_inv_generate.ves:=1;
@@ -487,6 +512,7 @@ beast_inv_generate.obser:=1;
 end;//1
 if command='clutches' then begin//1
 beast_inv_generate.name:=text[86];
+beast_inv_generate.type_subject:='clutches';
 beast_inv_generate.base_dmg:=1;
 beast_inv_generate.base_defense:=0;
 beast_inv_generate.ves:=1;

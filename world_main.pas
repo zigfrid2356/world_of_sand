@@ -402,7 +402,7 @@ nig:byte;
 item_m_name:array[1..100]of string[15];
 begin
 if command='helm' then begin//1
-assign(item_name,'res\mob\'+command);
+assign(item_name,'res\har\'+command);
 reset(item_name);
 nig:=1;
 while not eof(item_name) do begin//1.1
@@ -413,7 +413,7 @@ close(item_name);
 name_item_generate:=item_m_name[random(nig)];
 end;//1
 if command='skin' then begin//2
-assign(item_name,'res\mob\'+command);
+assign(item_name,'res\har\'+command);
 reset(item_name);
 nig:=1;
 while not eof(item_name) do begin//1.1

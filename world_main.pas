@@ -401,7 +401,7 @@ nig:byte;
 
 item_m_name:array[1..100]of string[20];
 begin
-if command='helm' then begin//1
+//if command='helm' then begin//1
 assign(item_name,'res\har\'+command);
 reset(item_name);
 nig:=1;
@@ -411,8 +411,8 @@ nig:=nig+1;
 end;//1.1
 close(item_name);
 name_item_generate:=item_m_name[random(nig)];
-end;//1
-if command='skin' then begin//2
+//end;//1
+{if command='skin' then begin//2
 assign(item_name,'res\har\'+command);
 reset(item_name);
 nig:=1;
@@ -422,7 +422,8 @@ nig:=nig+1;
 end;//1.1
 close(item_name);
 name_item_generate:=item_m_name[random(nig)];
-end;//2
+end;//2}
+
 end;
 
 
@@ -485,7 +486,7 @@ beast_inv_generate.masking:=1;
 beast_inv_generate.obser:=1;
 end;//1
 if command='meat' then begin//1
-beast_inv_generate.name:=text[83];
+beast_inv_generate.name:=name_item_generate(command);//text[83];
 beast_inv_generate.type_subject:='meat';
 beast_inv_generate.base_dmg:=0;
 beast_inv_generate.base_defense:=1;

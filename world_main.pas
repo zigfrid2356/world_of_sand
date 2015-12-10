@@ -510,7 +510,7 @@ beast_inv_generate.masking:=1;
 beast_inv_generate.obser:=1;
 end;//1
 if command='bones' then begin//1
-beast_inv_generate.name:=text[85];
+beast_inv_generate.name:=name_item_generate(command);//text[85];
 beast_inv_generate.type_subject:='bones';
 beast_inv_generate.base_dmg:=0;
 beast_inv_generate.base_defense:=1;
@@ -522,7 +522,7 @@ beast_inv_generate.masking:=1;
 beast_inv_generate.obser:=1;
 end;//1
 if command='clutches' then begin//1
-beast_inv_generate.name:=text[86];
+beast_inv_generate.name:=name_item_generate(command);//text[86];
 beast_inv_generate.type_subject:='clutches';
 beast_inv_generate.base_dmg:=1;
 beast_inv_generate.base_defense:=0;

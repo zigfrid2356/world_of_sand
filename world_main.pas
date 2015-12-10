@@ -498,7 +498,7 @@ beast_inv_generate.masking:=1;
 beast_inv_generate.obser:=1;
 end;//1
 if command='teeth' then begin//1
-beast_inv_generate.name:=text[84];
+beast_inv_generate.name:=name_item_generate(command);//text[84];
 beast_inv_generate.type_subject:='teeth';
 beast_inv_generate.base_dmg:=1;
 beast_inv_generate.base_defense:=2;

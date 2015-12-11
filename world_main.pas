@@ -397,8 +397,7 @@ end;
 
 function name_item_generate(command:string):string;//+09.12.2015
 var
-nig:byte;
-
+nig,r:byte;
 item_m_name:array[1..100]of string[20];
 begin
 //if command='helm' then begin//1
@@ -410,7 +409,8 @@ readln(item_name,item_m_name[nig]);
 nig:=nig+1;
 end;//1.1
 close(item_name);
-name_item_generate:=item_m_name[random(nig)];
+repeat r:=random(nig) until (r>0)and(r<nig);
+name_item_generate:=item_m_name[r];
 //end;//1
 {if command='skin' then begin//2
 assign(item_name,'res\har\'+command);
@@ -469,10 +469,15 @@ begin
 clrscr;
 writeln(text[45]+bd.name);
 repeat begin//1
+
+writeln('|'+text[91]+'         |'+text[12]+'|'+text[92]+'|'+text[93]+'|');
+writeln('|'+bd.skin.name+'|'+inttostr(bd.skin.base_dmg)+'|'+inttostr(bd.skin.base_defense)+'|'+inttostr(bd.skin.ves)+'|');
+writeln('|'+bd.meat.name+'|'+inttostr(bd.meat.base_dmg)+'|'+inttostr(bd.meat.base_defense)+'|'+inttostr(bd.meat.ves)+'|');
+writeln('|'+bd.teeth.name+'|'+inttostr(bd.teeth.base_dmg)+'|'+inttostr(bd.teeth.base_defense)+'|'+inttostr(bd.teeth.ves)+'|');
+writeln('|'+bd.bones.name+'|'+inttostr(bd.bones.base_dmg)+'|'+inttostr(bd.bones.base_defense)+'|'+inttostr(bd.bones.ves)+'|');
+writeln('|'+bd.clutches.name+'|'+inttostr(bd.clutches.base_dmg)+'|'+inttostr(bd.clutches.base_defense)+'|'+inttostr(bd.clutches.ves)+'|');
 menu_key:=readkey;
 writeln(text[90]);
-writeln('|'+text[91]+'         |'+text[12]+'|'+text[92]+'|'+text[93]+'|');
-
 end;//1
 until menu_key='1';
 end;
@@ -1753,6 +1758,8 @@ if (map[x,y-1].tip<>0)and(map[x,y-1].tip<>5)then writeln	('7- ',text[87]);
 if (map[x-1,y].tip<>0)and(map[x-1,y].tip<>5)then writeln	('7- ',text[87]);
 if (map[x+1,y].tip<>0)and(map[x+1,y].tip<>5)then writeln	('7- ',text[87]);
 if (map[x,y].tip<>0)and(map[x,y].tip<>5)then writeln	('7- ',text[87]);
+if (map[x,y].tip=5)then  writeln	('3- ',text[89]);
+
 
 //readln(menu_key);
 menu_key:=readkey;
@@ -1814,10 +1821,10 @@ if (map[x-1,y].tip<>0) then beast_list[map[x-1,y].beast_index]:=hunt(beast_list[
 if (map[x+1,y].tip<>0) then beast_list[map[x+1,y].beast_index]:=hunt(beast_list[map[x+1,y].beast_index]);
 if (map[x,y].tip<>0) then beast_list[map[x,y].beast_index]:=hunt(beast_list[map[x,y].beast_index]);
  end;//3.6
- {
-'7':begin//3.6
-for  k2:=0 to 5 do  begin muve(x,y);sleep(100); map_output(x,y); end;
- end;//3.6}
+ 
+'3':begin//3.7
+beast_drop(beast_list[map[x,y].beast_index]);
+ end;//3.7
  
 end;//3.0
 until menu_key='5';

@@ -463,6 +463,18 @@ close(har);
 name_generate:=har_name[random(i)]+' '+text_name[random(m)]+' '+color_name[random(n)];
 end;
 
+//11.12.2015
+procedure beast_drop(bd:beast_body);
+begin
+clrscr;
+repeat begin//1
+menu_key:=readkey;
+writeln(text[35]);
+
+end;//1
+until menu_key='1';
+end;
+
 //23.11.2015
 function beast_inv_generate(command:string):subject;
 {

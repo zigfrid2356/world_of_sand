@@ -464,22 +464,35 @@ name_generate:=har_name[random(i)]+' '+text_name[random(m)]+' '+color_name[rando
 end;
 
 //11.12.2015
+function name_tab(s:string;i:byte):string;
+var
+ss:string;
+begin
+ss:=s;
+while length(ss)<i do begin
+ss:=ss+' ';
+end;
+name_tab:=ss;
+end;
+
+
+//11.12.2015
 procedure beast_drop(bd:beast_body);
 begin
 clrscr;
 writeln(text[45]+bd.name);
 repeat begin//1
 
-writeln('|'+text[91]+'         |'+text[12]+'|'+text[92]+'|'+text[93]+'|');
-writeln('|'+bd.skin.name+'|'+inttostr(bd.skin.base_dmg)+'|'+inttostr(bd.skin.base_defense)+'|'+inttostr(bd.skin.ves)+'|');
-writeln('|'+bd.meat.name+'|'+inttostr(bd.meat.base_dmg)+'|'+inttostr(bd.meat.base_defense)+'|'+inttostr(bd.meat.ves)+'|');
-writeln('|'+bd.teeth.name+'|'+inttostr(bd.teeth.base_dmg)+'|'+inttostr(bd.teeth.base_defense)+'|'+inttostr(bd.teeth.ves)+'|');
-writeln('|'+bd.bones.name+'|'+inttostr(bd.bones.base_dmg)+'|'+inttostr(bd.bones.base_defense)+'|'+inttostr(bd.bones.ves)+'|');
-writeln('|'+bd.clutches.name+'|'+inttostr(bd.clutches.base_dmg)+'|'+inttostr(bd.clutches.base_defense)+'|'+inttostr(bd.clutches.ves)+'|');
-menu_key:=readkey;
+writeln('|'+text[91]+'       |'+text[12]+'|'+text[92]+'|'+text[93]+'|');
+writeln('|'+name_tab(bd.skin.name,16)+'|'+name_tab(inttostr(bd.skin.base_dmg),5)+'|'+name_tab(inttostr(bd.skin.base_defense),6)+'|'+name_tab(inttostr(bd.skin.ves),4)+'|');
+writeln('|'+name_tab(bd.meat.name,16)+'|'+name_tab(inttostr(bd.meat.base_dmg),5)+'|'+name_tab(inttostr(bd.meat.base_defense),6)+'|'+name_tab(inttostr(bd.meat.ves),4)+'|');
+writeln('|'+name_tab(bd.teeth.name,16)+'|'+name_tab(inttostr(bd.teeth.base_dmg),5)+'|'+name_tab(inttostr(bd.teeth.base_defense),6)+'|'+name_tab(inttostr(bd.teeth.ves),4)+'|');
+writeln('|'+name_tab(bd.bones.name,16)+'|'+name_tab(inttostr(bd.bones.base_dmg),5)+'|'+name_tab(inttostr(bd.bones.base_defense),6)+'|'+name_tab(inttostr(bd.bones.ves),4)+'|');
+writeln('|'+name_tab(bd.clutches.name,16)+'|'+name_tab(inttostr(bd.clutches.base_dmg),5)+'|'+name_tab(inttostr(bd.clutches.base_defense),6)+'|'+name_tab(inttostr(bd.clutches.ves),4)+'|');
 writeln(text[90]);
+menu_key:=readkey;
 end;//1
-until menu_key='1';
+until menu_key='0';
 end;
 
 //23.11.2015
@@ -1494,16 +1507,15 @@ writeln(text[36], i0);
 i0:=i0+1;
 writeln(text[35]);
 writeln(text[14],': ',i);
-writeln('-------------------------');
-writeln('|',hero.name,'           |');
-writeln('|','     ',bb.name,'|');
-writeln('|',text[5],'             ', text[5],'|');
-writeln('|',hero.hp,'             ', bb.hp,'|');
+writeln('----------------------------------------');
+writeln('|',name_tab(hero.name,20),name_tab(bb.name,20),'|');
+writeln('|',name_tab(text[5],20),name_tab(text[5],20),'|');
+writeln('|',name_tab(inttostr(hero.hp),20), name_tab(inttostr(bb.hp),20),'|');
 //writeln('|',text[6],'             ', text[6],'|');
 //writeln('|',hero.mp,'             ', bb.mp,'|');
-writeln('|',text[12],'            ', text[12],'|');
-writeln('|',hero.dmg ,'           ',bb.dmg,'|');
-writeln('-------------------------');
+writeln('|',name_tab(text[12],20), name_tab(text[12],20),'|');
+writeln('|',name_tab(inttostr(hero.dmg),20),name_tab(inttostr(bb.dmg),20),'|');
+writeln('--------------------------------------');
 writeln(text[13],hero.ign_dmg,'    ',bb.ign_dmg );
 writeln(text[7],hero.exp );
 writeln(text[8],hero.lvl );

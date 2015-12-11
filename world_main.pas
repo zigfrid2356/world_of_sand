@@ -467,9 +467,11 @@ end;
 procedure beast_drop(bd:beast_body);
 begin
 clrscr;
+writeln(text[45]+bd.name);
 repeat begin//1
 menu_key:=readkey;
-writeln(text[35]);
+writeln(text[90]);
+writeln('|'+text[91]+'         |'+text[12]+'|'+text[92]+'|'+text[93]+'|');
 
 end;//1
 until menu_key='1';

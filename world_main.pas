@@ -20,7 +20,7 @@
    
    
 }
-{v.0.023a}{10.09.2015}
+{v.0.12a}{12.12.2015}
 
 program world_of_sand;
 
@@ -75,7 +75,7 @@ dmg,ign_dmg:integer;
 //invent
 s1,s2,sl,s4,s5:subject;
 //bag
-bag:array[0..9] of subject;
+bag:array[0..99] of subject;
 //story
 st0,st1,st2,st3:string;
 end;
@@ -107,6 +107,7 @@ end;
 var
 map:array[0..2048,0..2048] of erath;
 hero:body;
+super:new_body;
 monster:body;
 npc:array[0..17000] of new_body;
 
@@ -1244,7 +1245,6 @@ end;//1
 log_generate('log_old_generate','k1 '+inttostr(k1));
 close(f_typ);
 
-
 //typ_generate:='';
 end;
 
@@ -1321,6 +1321,80 @@ equip ('slot_5',hero.slot_5);
 for n:=0 to 9 do begin//0.1
 hero.bag[n]:=inventory_generation('nul','',hero.lvl);end;//0.1
 end;//0
+
+//-------------------------------------------12.12.2015-------------------
+if h='hero_new' then begin //0
+writeln(text[20]);readln(s);
+hero.name:=s;
+writeln(text[21]);
+m:=0;
+repeat begin//0.1
+menu_key:=readkey;
+case menu_key of//0.2
+'1': begin hero.sex:=1;m:=1;end;//М
+'2':begin hero.sex:=2;m:=1;end;//Ж
+else
+writeln(text[24]);
+end;//0.2
+end;//0.1
+until m=1;
+m:=0;
+writeln(text[22]);
+writeln(text[25]);
+repeat begin//0.11
+menu_key:=readkey;
+case menu_key of//0.21
+'1':begin  hero.race:=1;m:=1;end;//human
+'2':begin hero.race:=2;m:=1;end;//not human
+else
+writeln(text[24]);
+end;//0.21
+end;//0.11
+until m=1;
+
+//08.11.2015
+//+16.11.2015
+hero.x:=oz_list[1].x+10;
+hero.y:=oz_list[1].y;
+
+hero.stren:=1;
+hero.intel:=1;
+hero.agility:=1;
+hero.init:=1;
+hero.masking:=1;
+hero.obser:=1;
+
+hero.lvl:=1;
+
+hero.hp:=10*hero.lvl;
+hero.mp:=10*hero.lvl;
+hero.exp:=0;
+
+
+hero.veapon:=4;
+hero.armor:=4;
+hero.attak:=4;
+hero.defense:=4;
+hero.dmg:=hero.veapon*hero.attak;
+hero.ign_dmg:=hero.armor*hero.defense;
+hero.gold:=1;
+//
+hero.slot_1:=inventory_generation('armor','',hero.lvl);
+hero.slot_2:=inventory_generation('armor','',hero.lvl);
+hero.slot_3:=inventory_generation('armor','',hero.lvl);
+hero.slot_4:=inventory_generation('veapon','',hero.lvl);
+hero.slot_5:=inventory_generation('armor','',hero.lvl);
+//+30.08.2015
+equip ('slot_1',hero.slot_1);
+equip ('slot_2',hero.slot_2);
+equip ('slot_3',hero.slot_3);
+equip ('slot_4',hero.slot_4);
+equip ('slot_5',hero.slot_5);
+//+06.09.2015
+for n:=0 to 9 do begin//0.1
+hero.bag[n]:=inventory_generation('nul','',hero.lvl);end;//0.1
+end;//0
+//------------------------------------------------------------------------
 
 if h='hero' then begin //1
 hero.name:='@sub_name';

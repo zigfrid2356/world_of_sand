@@ -1502,18 +1502,19 @@ end;//3
 end;
 procedure save;
 begin
+writeln(text[17],' ',hero.name);
 assign(hero_save,'res\save\hero.save');
 rewrite(hero_save);
 write(hero_save,hero);
 close(hero_save);
-
+writeln(text[17],' ',text[76]);
 assign(npc_save,'res\save\npc.save');
 rewrite(npc_save);
 for i:=0 to 17000 do begin//1.1
 write(npc_save,npc[i]);
 end;//1.1
 close(npc_save);
-
+writeln(text[17],' ',text[9]);
 assign(map_save,'res\save\map.save');
 rewrite(map_save);
 for i:=0 to x_map do begin//1.1
@@ -1946,12 +1947,12 @@ repeat begin//1
 ClrScr;
 writeln	('1- ',text[10]);
 writeln	('2- ',text[9]);
-writeln	('3- ',text[11]);
+//writeln	('3- ',text[11]);
 writeln	('4- ',text[17]);
 writeln	('5- ',text[2]);
-writeln	('6- ',text[42]);
-writeln	('7- ',text[70]);
-writeln	('8- ',text[81]);
+//writeln	('6- ',text[42]);
+//writeln	('7- ',text[70]);
+//writeln	('8- ',text[81]);
 //readln(menu_key);
 menu_key:=readkey;
 case menu_key of
@@ -1961,15 +1962,15 @@ case menu_key of
 '2':	begin//1.2
 	map_output(hero.x,hero.y); main_menu;
 	end;//1.2
-'3':begin //1.3
+{'3':begin //1.3
 battle;
-end;//1.3
+end;//1.3}
 '4': begin//1.4
 save;
 end;//1.4
-'6':begin//1.5
+{'6':begin//1.5
 //+30.08.2015
-{hero.slot_1:=inventory_generation('armor','',hero.lvl);
+hero.slot_1:=inventory_generation('armor','',hero.lvl);
 hero.slot_2:=inventory_generation('armor','',hero.lvl);
 hero.slot_3:=inventory_generation('armor','',hero.lvl);
 hero.slot_4:=inventory_generation('veapon','',hero.lvl);
@@ -1979,14 +1980,14 @@ equip ('slot_1',hero.slot_1);
 equip ('slot_2',hero.slot_2);
 equip ('slot_3',hero.slot_3);
 equip ('slot_4',hero.slot_4);
-equip ('slot_5',hero.slot_5);}
-end;//1.5
-'7': begin//1.4
+equip ('slot_5',hero.slot_5);
+end;//1.5}
+{'7': begin//1.4
 trade;
-end;//1.4
-'8': begin//1.5
+end;//1.4}
+{'8': begin//1.5
 for i:=0 to 10 do muve(128,126,'test')
-end;//1.5
+end;//1.5}
 end;
 end;//2 
 until menu_key='5';

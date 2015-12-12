@@ -24,7 +24,7 @@
 
 program world_of_sand;
 
-uses crt,sysutils,windows,dateutils;
+uses crt,sysutils,windows,dateutils,Zipper;
 
 type//+21.08.2015
 inventory =record
@@ -1501,6 +1501,9 @@ end;//3
 
 end;
 procedure save;
+var
+Zip: TZipper;
+F:TZipFileEntries;
 begin
 writeln(text[17],' ',hero.name);
 assign(hero_save,'res\save\hero.save');
@@ -1523,6 +1526,17 @@ write(map_save,map[i,j]);
 end;end;//1.1//1.2
 close(map_save);
 writeln(text[18]);
+writeln(text[94]);
+ F:=TZipFileEntries.Create(TZipFileEntry);
+ F.AddFileEntry('res\save\hero.save','hero.save');
+ F.AddFileEntry('res\save\npc.save','npc.save');
+ F.AddFileEntry('res\save\map.save','map.save');
+ zip:=TZipper.Create;
+ zip.FileName:='res\save\save.zip';
+ zip.ZipFiles(F);
+ Zip.Free;
+ F.Free;
+writeln(text[94],' ',text[2]); 
 readln();
 end;
 procedure load;

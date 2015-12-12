@@ -1323,16 +1323,16 @@ hero.bag[n]:=inventory_generation('nul','',hero.lvl);end;//0.1
 end;//0
 
 //-------------------------------------------12.12.2015-------------------
-if h='hero_new' then begin //0
+if h='super' then begin //0
 writeln(text[20]);readln(s);
-hero.name:=s;
+super.name:=s;
 writeln(text[21]);
 m:=0;
 repeat begin//0.1
 menu_key:=readkey;
 case menu_key of//0.2
-'1': begin hero.sex:=1;m:=1;end;//М
-'2':begin hero.sex:=2;m:=1;end;//Ж
+'1': begin super.sex:=1;m:=1;end;//М
+'2':begin super.sex:=2;m:=1;end;//Ж
 else
 writeln(text[24]);
 end;//0.2

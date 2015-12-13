@@ -1544,7 +1544,19 @@ writeln(text[95]);
 readln();
 end;
 procedure load;
+var
+  UnZipper: TUnZipper;
+
 begin
+ UnZipper := TUnZipper.Create;
+ // try    
+    UnZipper.FileName := 'res\save\save.zip';
+    UnZipper.OutputPath := 'res\save\';
+    UnZipper.Examine;
+    UnZipper.UnZipAllFiles;
+ // finally
+    UnZipper.Free;
+ 
 assign(hero_save,'res\save\hero.save');
 reset(hero_save);
 read(hero_save,hero);
@@ -1565,6 +1577,10 @@ read(map_save,map[i,j]);
 end;end;//1.1//1.2
 close(map_save);
 writeln(text[19]);
+DeleteFile('res\save\hero.save');
+DeleteFile('res\save\npc.save');
+DeleteFile('res\save\map.save');
+writeln(text[95]);
 readln();
 end;
 procedure lvlup;

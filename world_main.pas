@@ -1541,6 +1541,7 @@ DeleteFile('res\save\hero.save');
 DeleteFile('res\save\npc.save');
 DeleteFile('res\save\map.save');
 writeln(text[95]);
+writeln(text[96]);
 readln();
 end;
 procedure load;
@@ -1581,6 +1582,7 @@ DeleteFile('res\save\hero.save');
 DeleteFile('res\save\npc.save');
 DeleteFile('res\save\map.save');
 writeln(text[95]);
+writeln(text[96]);
 readln();
 end;
 procedure lvlup;
@@ -1655,7 +1657,7 @@ lvlup;
 
 writeln(text[15]);
 delay(500);
-
+writeln(text[96]);
 readln();
 
 end;//2 
@@ -1931,6 +1933,7 @@ writeln(npc[map[x,y].npc_index].st0);
 writeln(npc[map[x,y].npc_index].st3);
 writeln('');
 writeln	(text[35]);
+writeln(text[96]);
 readln();
 map_output(x,y);
 end;//3.5.1
@@ -2053,6 +2056,7 @@ log_generate('log_drop_generate','');
 textcolor(yellow);
 writeln	(text[1]);
 textcolor(white);
+writeln(text[96]);
 readln();
  ClrScr;
 writeln	(text[3]);

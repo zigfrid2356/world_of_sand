@@ -2056,7 +2056,7 @@ log_generate('log_drop_generate','');
 textcolor(yellow);
 writeln	(text[1]);
 textcolor(white);
-writeln(text[96]);
+//writeln(text[96]);
 readln();
  ClrScr;
 writeln	(text[3]);

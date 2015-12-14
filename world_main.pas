@@ -73,7 +73,7 @@ init,masking,obser:word;
 //boev
 dmg,ign_dmg:integer;
 //invent
-s1,s2,sl,s4,s5:subject;
+s1,s2,s3,s4,s5:subject;
 //bag
 bag:array[0..99] of subject;
 //story
@@ -1771,14 +1771,14 @@ writeln(text[31],' ',hero.init );// инициатива
 writeln(text[32],' ',hero.masking ); //маскировка
 writeln(text[33],' ',hero.obser );// наблюдательность
 
-{writeln('        ___');
-writeln('       |_1_|       1',text[40],' ',hero.slot_1.i_armor);
-writeln('  ___   ___   ___  2',text[40],' ',hero.slot_2.i_armor);
-writeln(' | 4 | |   | | 5 | 4',text[41],' ',hero.slot_4.i_veapon);
-writeln(' |___| | 2 | |___| 5',text[40],' ',hero.slot_5.i_armor);
+writeln('        ___');
+writeln('       |_1_|       1',text[40],' ',hero.s1.base_defense);
+writeln('  ___   ___   ___  2',text[40],' ',hero.s2.base_defense);
+writeln(' | 4 | |   | | 5 | 4',text[41],' ',hero.s4.base_dmg);
+writeln(' |___| | 2 | |___| 5',text[40],' ',hero.s5.base_defense);
 writeln('       |___|');
 writeln('        ___');
-writeln('       |_3_|       3',text[40],' ',hero.slot_3.i_armor);}
+writeln('       |_3_|       3',text[40],' ',hero.s3.base_defense);
 //+06.09.2015
 writeln(text[43]);
 writeln(text[35]);

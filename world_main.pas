@@ -1587,21 +1587,29 @@ readln();
 end;
 procedure lvlup;
 begin
-
-if hero.exp>=hero.lvl*5 then begin//1
+//20.12.2015
+clrscr;
+writeln(text[97]);
+writeln('----------------------------------------');
+writeln('|',text[26],name_tab(inttostr(hero.stren),20),'|');
+writeln('|',text[27],name_tab(inttostr(hero.intel),20),'|');
+writeln('|',text[28],name_tab(inttostr(hero.agility),20),'|');
+writeln('|',text[98],name_tab(inttostr(hero.agility),20),'|');
+writeln('----------------------------------------');
+{if hero.exp>=hero.lvl*5 then begin//1
 hero.exp:=hero.exp-hero.lvl*5;
 hero.lvl:=hero.lvl+1;
 
 hero.hp:=abs(hero.hp)+(10*hero.lvl)+random(hero.lvl);
 hero.mp:=10*hero.lvl;
 
-//hero.veapon:={hero.veapon+}random(hero.lvl);
+//hero.veapon:=hero.veapon+random(hero.lvl);
 //hero.armor:=hero.armor+random(hero.lvl);
 hero.attak:=hero.attak+(1*hero.lvl);
 hero.defense:=hero.defense+(1*hero.lvl);
 hero.dmg:=random(hero.lvl)+hero.attak;
 hero.ign_dmg:=random(hero.lvl)*hero.defense;
-end;//1
+end;//1}
 end;
 
 //29.11.2015

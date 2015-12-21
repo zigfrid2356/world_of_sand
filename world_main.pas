@@ -70,6 +70,7 @@ hp,mp,attak,defense,ves:integer;
 //obnov
 exp,lvl,gold,x,y:integer;
 init,masking,obser:word;
+point:byte;
 //boev
 dmg,ign_dmg:integer;
 //invent
@@ -615,6 +616,7 @@ npc_generate.y:=j_n;
 npc_generate.init:=random(50)+1;
 npc_generate.masking:=random(50)+1;
 npc_generate.obser:=random(50)+1;
+npc_generate.point:=0;//21.12.2015
 //boev
 npc_generate.dmg:=random(50)+1;
 npc_generate.ign_dmg:=random(50)+1;

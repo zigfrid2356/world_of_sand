@@ -1596,7 +1596,7 @@ writeln('----------------------------------------');
 writeln('|',text[26],name_tab(inttostr(hero.stren),20),'|');
 writeln('|',text[27],name_tab(inttostr(hero.intel),20),'|');
 writeln('|',text[28],name_tab(inttostr(hero.agility),20),'|');
-writeln('|',text[98],name_tab(inttostr(hero.agility),20),'|');
+writeln('|',text[98],name_tab(inttostr(hero.point),20),'|');
 writeln('----------------------------------------');
 {if hero.exp>=hero.lvl*5 then begin//1
 hero.exp:=hero.exp-hero.lvl*5;

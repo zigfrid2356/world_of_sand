@@ -1600,11 +1600,11 @@ repeat begin
 clrscr;
 writeln(text[97]);
 writeln('----------------------------------------');
-writeln('|',text[8],name_tab(inttostr(hero.lvl),20),'|');
-writeln('|',text[26],name_tab(inttostr(hero.stren),20),'-1','|');
-writeln('|',text[27],name_tab(inttostr(hero.intel),20),'-2','|');
-writeln('|',text[28],name_tab(inttostr(hero.agility),20),'-3','|');
-writeln('|',text[98],name_tab(inttostr(hero.point),20),'|');
+writeln('|',name_tab(text[8],20),' ',name_tab(inttostr(hero.lvl),20),'|');
+writeln('|',name_tab(text[26],20),' ',name_tab(inttostr(hero.stren),20),'-1','|');
+writeln('|',name_tab(text[27],20),' ',name_tab(inttostr(hero.intel),20),'-2','|');
+writeln('|',name_tab(text[28],20),' ',name_tab(inttostr(hero.agility),20),'-3','|');
+writeln('|',name_tab(text[98],20),' ',name_tab(inttostr(hero.point),20),'|');
 writeln('----------------------------------------');
 writeln(text[90]);
 menu_key:=readkey;

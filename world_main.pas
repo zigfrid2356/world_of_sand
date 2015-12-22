@@ -1609,9 +1609,9 @@ writeln('----------------------------------------');
 writeln(text[90]);
 menu_key:=readkey;
 case menu_key of
-'1':begin hero.stren:=hero.stren+1;hero.point:=hero.point-1; end;
-'2':begin hero.intel:=hero.intel+1;hero.point:=hero.point-1;end;
-'3':begin hero.agility:=hero.agility+1;hero.point:=hero.point-1;end;
+'1':begin if hero.point>0 then begin hero.stren:=hero.stren+1;hero.point:=hero.point-1; end;end;
+'2':begin if hero.point>0 then begin hero.intel:=hero.intel+1;hero.point:=hero.point-1;end;end;
+'3':begin if hero.point>0 then begin hero.agility:=hero.agility+1;hero.point:=hero.point-1;end;end;
 end;end;
 until menu_key='0';
 {if hero.exp>=hero.lvl*5 then begin//1

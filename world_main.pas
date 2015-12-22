@@ -1590,10 +1590,17 @@ readln();
 end;
 procedure lvlup;
 begin
+if hero.exp>=hero.lvl*5 then begin//1
+hero.exp:=hero.exp-hero.lvl*5;
+hero.lvl:=hero.lvl+1;
+hero.point:=hero.point+1;
+end;//1
+
 //20.12.2015
 clrscr;
 writeln(text[97]);
 writeln('----------------------------------------');
+writeln('|',text[8],name_tab(inttostr(hero.lvl),20),'|');
 writeln('|',text[26],name_tab(inttostr(hero.stren),20),'|');
 writeln('|',text[27],name_tab(inttostr(hero.intel),20),'|');
 writeln('|',text[28],name_tab(inttostr(hero.agility),20),'|');

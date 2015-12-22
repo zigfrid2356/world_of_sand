@@ -1595,17 +1595,24 @@ hero.exp:=hero.exp-hero.lvl*5;
 hero.lvl:=hero.lvl+1;
 hero.point:=hero.point+1;
 end;//1
-
+repeat begin
 //20.12.2015
 clrscr;
 writeln(text[97]);
 writeln('----------------------------------------');
 writeln('|',text[8],name_tab(inttostr(hero.lvl),20),'|');
-writeln('|',text[26],name_tab(inttostr(hero.stren),20),'|');
-writeln('|',text[27],name_tab(inttostr(hero.intel),20),'|');
-writeln('|',text[28],name_tab(inttostr(hero.agility),20),'|');
+writeln('|',text[26],name_tab(inttostr(hero.stren),20),'-1','|');
+writeln('|',text[27],name_tab(inttostr(hero.intel),20),'-2','|');
+writeln('|',text[28],name_tab(inttostr(hero.agility),20),'-3','|');
 writeln('|',text[98],name_tab(inttostr(hero.point),20),'|');
 writeln('----------------------------------------');
+writeln(text[90]);
+menu_key:=readkey;
+case menu_key of
+'1':begin end;
+'2':begin end;
+'3':begin end;
+until menu_key='0';
 {if hero.exp>=hero.lvl*5 then begin//1
 hero.exp:=hero.exp-hero.lvl*5;
 hero.lvl:=hero.lvl+1;

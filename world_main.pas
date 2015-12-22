@@ -1307,6 +1307,7 @@ hero.defense:=4;
 hero.dmg:=4*hero.attak;
 hero.ign_dmg:=4*hero.defense;
 hero.gold:=1;
+hero.point:=0;//22.12.2015
 {
 //
 hero.slot_1:=inventory_generation('armor','',hero.lvl);

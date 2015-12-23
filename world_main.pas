@@ -120,7 +120,7 @@ monster_name,map_oz:text;
 color,har,item_name:text;
 f_log:text;
 f_typ:text;//+25.10.2015
-text:array[0..100] of string;
+text:array[0..200] of string;
 text_name:array[0..100] of string;
 //+31.08.2015
 color_name:array[0..1002] of string;
@@ -1605,9 +1605,9 @@ clrscr;
 writeln(text[97]);
 writeln('----------------------------------------');
 writeln('|',name_tab(text[8],20),' ',name_tab(inttostr(hero.lvl),20),'|');
-writeln('|',name_tab(text[26],20),' ',name_tab(inttostr(hero.stren),20),'-1','|');
-writeln('|',name_tab(text[27],20),' ',name_tab(inttostr(hero.intel),20),'-2','|');
-writeln('|',name_tab(text[28],20),' ',name_tab(inttostr(hero.agility),20),'-3','|');
+writeln('|',name_tab(text[26],20),' ',name_tab(inttostr(hero.stren),18),'+1','|');
+writeln('|',name_tab(text[27],20),' ',name_tab(inttostr(hero.intel),18),'+2','|');
+writeln('|',name_tab(text[28],20),' ',name_tab(inttostr(hero.agility),18),'+3','|');
 writeln('|',name_tab(text[98],20),' ',name_tab(inttostr(hero.point),20),'|');
 writeln('|',name_tab(text[99],20),' ',name_tab(inttostr(hero.dmg),20),'|');
 writeln('|',name_tab(text[100],20),' ',name_tab(inttostr(hero.ign_dmg),20),'|');

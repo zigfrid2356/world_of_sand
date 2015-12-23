@@ -1302,12 +1302,12 @@ hero.exp:=0;
 
 //hero.veapon:=4;
 //hero.armor:=4;
-hero.attak:=4;
-hero.defense:=4;
+hero.attak:=4+hero.stren;
+hero.defense:=4+hero.agility;
 hero.dmg:=4*hero.attak;
 hero.ign_dmg:=4*hero.defense;
 hero.gold:=1;
-hero.point:=0;//22.12.2015
+hero.point:=10;//22.12.2015//++23.12.2015
 {
 //
 hero.slot_1:=inventory_generation('armor','',hero.lvl);
@@ -1596,6 +1596,10 @@ hero.lvl:=hero.lvl+1;
 hero.point:=hero.point+1;
 end;//1
 repeat begin
+hero.attak:=4+hero.stren;
+hero.defense:=4+hero.agility;
+hero.dmg:=4*hero.attak;
+hero.ign_dmg:=4*hero.defense;
 //20.12.2015
 clrscr;
 writeln(text[97]);
@@ -1605,8 +1609,12 @@ writeln('|',name_tab(text[26],20),' ',name_tab(inttostr(hero.stren),20),'-1','|'
 writeln('|',name_tab(text[27],20),' ',name_tab(inttostr(hero.intel),20),'-2','|');
 writeln('|',name_tab(text[28],20),' ',name_tab(inttostr(hero.agility),20),'-3','|');
 writeln('|',name_tab(text[98],20),' ',name_tab(inttostr(hero.point),20),'|');
+writeln('|',name_tab(text[99],20),' ',name_tab(inttostr(hero.dmg),20),'|');
+writeln('|',name_tab(text[100],20),' ',name_tab(inttostr(hero.ign_dmg),20),'|');
 writeln('----------------------------------------');
 writeln(text[90]);
+
+
 menu_key:=readkey;
 case menu_key of
 '1':begin if hero.point>0 then begin hero.stren:=hero.stren+1;hero.point:=hero.point-1; end;end;

@@ -584,7 +584,7 @@ beast_inv_generate.masking:=1;
 beast_inv_generate.obser:=1;
 end;//1
 if command='helm' then begin//1
-beast_inv_generate.name:=name_item_generate(command);//text[86];
+beast_inv_generate.name:=color_generate+' '+name_item_generate(command);//text[86];
 beast_inv_generate.type_subject:='helm';
 beast_inv_generate.base_dmg:=0;
 beast_inv_generate.base_defense:=1+random(5);
@@ -594,6 +594,18 @@ beast_inv_generate.tip:=2;
 beast_inv_generate.init:=1;
 beast_inv_generate.masking:=1+random(5);
 beast_inv_generate.obser:=1+random(5);
+end;//1
+if command='dress' then begin//1
+beast_inv_generate.name:=color_generate+' '+name_item_generate(command);//text[86];
+beast_inv_generate.type_subject:='dress';
+beast_inv_generate.base_dmg:=0;
+beast_inv_generate.base_defense:=1+random(5);
+beast_inv_generate.ves:=1+random(5);
+beast_inv_generate.cost:=1;
+beast_inv_generate.tip:=2;
+beast_inv_generate.init:=1+random(5);
+beast_inv_generate.masking:=1+random(5);
+beast_inv_generate.obser:=1;
 end;//1
 end;
 
@@ -649,7 +661,8 @@ npc_generate.point:=0;//21.12.2015
 npc_generate.dmg:=random(50)+1;
 npc_generate.ign_dmg:=random(50)+1;
 //invent
-
+npc_generate.s1:=beast_inv_generate('helm');
+npc_generate.s2:=beast_inv_generate('dress');
 
 //log_generate('log_old_generate','NPC '+inttostr(npc_generate.lvl)+' '+inttostr(i_n)+':'+inttostr(j_n)+'-'+npc_generate.name);
 {

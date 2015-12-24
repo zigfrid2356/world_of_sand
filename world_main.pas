@@ -429,6 +429,20 @@ end;//2}
 end;
 
 
+function color_generate:string;
+
+begin
+assign(color,'res\har\color');
+reset(color);
+n:=1;
+while not eof(color) do begin//1.1
+readln(color,color_name[n]);
+n:=n+1;
+end;//1.1
+close(color);
+end;
+
+
 function name_generate(command:string):string;//+12.08.2015
 var
 s:string;
@@ -567,6 +581,18 @@ beast_inv_generate.init:=1;
 beast_inv_generate.masking:=1;
 beast_inv_generate.obser:=1;
 end;//1
+if command='helm' then begin//1
+beast_inv_generate.name:=name_item_generate(command);//text[86];
+beast_inv_generate.type_subject:='clutches';
+beast_inv_generate.base_dmg:=1;
+beast_inv_generate.base_defense:=0;
+beast_inv_generate.ves:=1;
+beast_inv_generate.cost:=1;
+beast_inv_generate.tip:=1;
+beast_inv_generate.init:=1;
+beast_inv_generate.masking:=1;
+beast_inv_generate.obser:=1;
+end;//1
 end;
 
 //16.11.2015
@@ -620,6 +646,8 @@ npc_generate.point:=0;//21.12.2015
 //boev
 npc_generate.dmg:=random(50)+1;
 npc_generate.ign_dmg:=random(50)+1;
+//invent
+
 
 //log_generate('log_old_generate','NPC '+inttostr(npc_generate.lvl)+' '+inttostr(i_n)+':'+inttostr(j_n)+'-'+npc_generate.name);
 {

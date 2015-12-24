@@ -667,7 +667,7 @@ npc_generate.s2:=beast_inv_generate('dress');
 //log_generate('log_old_generate','NPC '+inttostr(npc_generate.lvl)+' '+inttostr(i_n)+':'+inttostr(j_n)+'-'+npc_generate.name);
 {
 //invent
-s1,s2,sl,s4,s5:subject;
+s1,s2,s3,s4,s5:subject;
 //bag
 bag:array[0..9] of subject;}
 end;

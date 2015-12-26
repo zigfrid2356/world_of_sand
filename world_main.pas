@@ -607,6 +607,18 @@ beast_inv_generate.init:=1+random(5);
 beast_inv_generate.masking:=1+random(5);
 beast_inv_generate.obser:=1;
 end;//1
+if command='shoes' then begin//1
+beast_inv_generate.name:=color_generate+' '+name_item_generate(command);//text[86];
+beast_inv_generate.type_subject:='shoes';
+beast_inv_generate.base_dmg:=0;
+beast_inv_generate.base_defense:=1+random(5);
+beast_inv_generate.ves:=1+random(5);
+beast_inv_generate.cost:=1;
+beast_inv_generate.tip:=2;
+beast_inv_generate.init:=1+random(5);
+beast_inv_generate.masking:=1+random(5);
+beast_inv_generate.obser:=1;
+end;//1
 end;
 
 //16.11.2015

@@ -985,12 +985,12 @@ end;
 //---------(6)
 until (n>32)and(n<x_map-32)and(m>32)and(m<y_map-32);
 	//log_generate('log_old_generate',inttostr(n_oz)+':'+inttostr(m_oz)+map_name[k]);
-	//log_generate('log_old_generate',inttostr(l));
+	log_generate('log_old_generate',inttostr(l));
 	//+08.11.2015
 	oz_list[l].x:=n_oz;
 	oz_list[l].y:=m_oz;
 	oz_list[l].oz_name:=map_name[k];
-log_generate('log_old_generate','start oaz -!- '+inttostr(l));
+//log_generate('log_old_generate','start oaz -!- '+inttostr(l));
 for i:=n-32 to n+32 do begin//6.1
 	for j:=m-32 to m+32 do begin//6.2
 	map[i,j].name:=map_name[k];

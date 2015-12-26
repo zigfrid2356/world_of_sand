@@ -610,7 +610,7 @@ end;//1
 if command='shoes' then begin//1
 beast_inv_generate.name:=color_generate+' '+name_item_generate(command);//text[86];
 beast_inv_generate.type_subject:='shoes';
-beast_inv_generate.base_dmg:=0;
+beast_inv_generate.base_dmg:=1;
 beast_inv_generate.base_defense:=1+random(5);
 beast_inv_generate.ves:=1+random(5);
 beast_inv_generate.cost:=1;
@@ -675,6 +675,7 @@ npc_generate.ign_dmg:=random(50)+1;
 //invent
 npc_generate.s1:=beast_inv_generate('helm');
 npc_generate.s2:=beast_inv_generate('dress');
+npc_generate.s3:=beast_inv_generate('shoes');
 
 //log_generate('log_old_generate','NPC '+inttostr(npc_generate.lvl)+' '+inttostr(i_n)+':'+inttostr(j_n)+'-'+npc_generate.name);
 {
@@ -691,6 +692,7 @@ procedure map_generate(command:string);
 var
 bl:integer;
 begin
+log_generate('log_old_generate','start map generate -1');
 //+03.11.2015
 k_oz:=0;
 //+16.11.2015
@@ -734,6 +736,7 @@ for i:=0 to x_map do begin//1.1
 end;//1.1
 end;//1
 if command='map_test_generate' then begin//2
+log_generate('log_old_generate','start sand full -2');
 //+17.09.2015
 //§ áë¯ª  ¯¥áª®¬
 //---------------
@@ -748,6 +751,7 @@ for i:=0 to x_map do begin//2.1
 		end;//2.2
 end;//2.1
 //---------------
+log_generate('log_old_generate','start col -3');
 writeln(text[72],text[73]);
 for i:=0 to 1000 do begin//3 
 //+18.09.2015
@@ -903,6 +907,7 @@ end;//4.4.3
 end;//4.4  
 end;//3
 writeln(text[72],text[74]);
+log_generate('log_old_generate','start raw -4');
 for l:=0 to 1000 do begin//5 
 //+22.10.2015
 //¡¨®¬ ¯ãáâë­­ ï à ¢­¨­ 
@@ -964,6 +969,7 @@ map[n,m].color:=2;
 map[n,m].progress:=random(progress_max);
 end;//5
 writeln(text[72],text[75]);
+log_generate('log_old_generate','start oaz -5');
 //+31.10.2015
 //¨®¬ ® §¨á-------------------------------------------------------
 k1:=0;
@@ -984,7 +990,7 @@ until (n>32)and(n<x_map-32)and(m>32)and(m<y_map-32);
 	oz_list[l].x:=n_oz;
 	oz_list[l].y:=m_oz;
 	oz_list[l].oz_name:=map_name[k];
-
+log_generate('log_old_generate','start oaz -!- '+inttostr(l));
 for i:=n-32 to n+32 do begin//6.1
 	for j:=m-32 to m+32 do begin//6.2
 	map[i,j].name:=map_name[k];
@@ -1363,6 +1369,9 @@ hero.dmg:=4*hero.attak;
 hero.ign_dmg:=4*hero.defense;
 hero.gold:=1;
 hero.point:=10;//22.12.2015//++23.12.2015
+hero.s1:=beast_inv_generate('helm');
+hero.s2:=beast_inv_generate('dress');
+hero.s3:=beast_inv_generate('shoes');
 {
 //
 hero.slot_1:=inventory_generation('armor','',hero.lvl);

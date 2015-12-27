@@ -400,8 +400,9 @@ end;
 function name_item_generate(command:string):string;//+09.12.2015
 var
 nig,r:byte;
-item_m_name:array[1..100]of string[20];
+item_m_name:array[1..200]of string[20];
 begin
+log_generate('log_old_generate','name_item_generate -!- '+command);
 //if command='helm' then begin//1
 assign(item_name,'res\har\'+command);
 reset(item_name);
@@ -523,6 +524,7 @@ bones
 clutches
  }
 begin
+log_generate('log_old_generate','beast_inv_generate -!- '+command);
 if command='skin' then begin//1
 beast_inv_generate.name:=name_item_generate(command);//text[82];
 beast_inv_generate.type_subject:='skin';
@@ -673,6 +675,7 @@ npc_generate.point:=0;//21.12.2015
 npc_generate.dmg:=random(50)+1;
 npc_generate.ign_dmg:=random(50)+1;
 //invent
+
 log_generate('log_old_generate','start npc_generate -helm- ');
 npc_generate.s1:=beast_inv_generate('helm');
 //log_generate('log_old_generate','stop npc_generate -helm- ');
@@ -1103,13 +1106,14 @@ for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
 	map[i_oz,j_oz].x:=i_oz;
 	map[i_oz,j_oz].y:=j_oz;
 	//-----------------------------------------------------------------------------------------
-	log_generate('log_old_generate','start nps generate -6- '+inttostr(k1));	
+	log_generate('log_old_generate','start nps generate -6- '+inttostr(k1));
+		
 	npc[k1]:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y);
 	log_generate('log_old_generate','start story nps generate -6_0- '+inttostr(k1));
 	npc[k1].st0:=story_npc('0');
 	log_generate('log_old_generate','start story nps generate -6_3- '+inttostr(k1));
 	npc[k1].st3:=story_npc('3');
-	//log_generate('log_old_generate',inttostr(k1)+' '+inttostr(map[i_oz,j_oz].x)+':'+inttostr(map[i_oz,j_oz].y)+'-'+npc[k1].name);
+	log_generate('log_old_generate',inttostr(k1)+' '+inttostr(map[i_oz,j_oz].x)+':'+inttostr(map[i_oz,j_oz].y)+'-'+npc[k1].name);
 	k1:=k1+1;
 		
 	end;//6.2.2.1

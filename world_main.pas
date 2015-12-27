@@ -1355,6 +1355,68 @@ close(f_typ);
 //typ_generate:='';
 end;
 
+//27.12.2015
+function hero_update(nb:new_body):new_body;
+begin
+{subject=record//+05.11.2015
+name,type_subject:string;
+base_dmg,base_defense,ves,cost,tip:word;tip=1-weapon,2-armor...
+init,masking,obser:word;
+end;
+new_body =record//+05.11.2015
+//ocnov
+name:string;
+stren,intel,agility,sex,race:word;
+//vichisl
+hp,mp,attak,defense,ves:integer;
+//obnov
+exp,lvl,gold,x,y:integer;
+init,masking,obser:word;
+point:byte;
+//boev
+dmg,ign_dmg:integer;
+//invent
+s1,s2,s3,s4,s5:subject;
+//bag
+bag:array[0..99] of subject;
+//story
+st0,st1,st2,st3:string;}
+hero_update.name:=nb
+hero_update.stren:=nb
+hero_update.intel:=nb
+hero_update.agility:=nb
+hero_update.sex:=nb
+hero_update.race:=nb
+//vichisl
+hero_update.hp:=nb
+hero_update.mp:=nb
+hero_update.attak:=nb
+hero_update.defense:=nb
+hero_update.ves:=nb
+//obnov
+hero_update.exp:=nb
+hero_update.lvl:=nb
+hero_update.gold:=nb
+hero_update.x:=nb
+hero_update.y:=nb
+
+hero_update.init:=nb
+hero_update.masking:=nb
+hero_update.obser:=nb
+hero_update.point:=nb
+//boev
+hero_update.dmg:=nb
+hero_update.ign_dmg:=nb
+//invent
+hero_update.s1,:=nb
+hero_update.s2:=nb
+hero_update.s3:=nb
+{s4,
+s5:subject;
+//bag
+bag:array[0..99] of subject;}
+end;
+
 procedure hero_generate(h:string);//+12.08.2015
 begin
 if h='hero_new' then begin //0//+15.08.2015

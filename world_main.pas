@@ -1924,13 +1924,17 @@ writeln('       |_3_|       3',text[40],' ',hero.s3.base_defense);
 //+06.09.2015
 writeln(text[43]);
 writeln(text[101]);
+writeln(text[102]);
+writeln(text[103]);
 writeln(text[35]);
 repeat begin//1
 menu_key:=readkey;
 
 case menu_key of
 '2':bag_info;
-'h':
+'h':item_ful_info(hero.s1);
+'d':item_ful_info(hero.s2);
+'s':item_ful_info(hero.s3);
 end;//2
 end;
 until menu_key='1';

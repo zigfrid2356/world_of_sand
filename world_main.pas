@@ -1892,16 +1892,19 @@ for i:=0 to 9 do begin//1
 //if hero.bag[i].types <> 0 then writeln(text[44],' ',i,' ',hero.bag[i].name,' ',item_info(hero.bag[i].types));
 
 end;//1
-writeln(text[35]);
+writeln(text[96]);
+readln();
+
 end;
 procedure hero_output;
 begin
+repeat begin//1
 clrscr;
 writeln();
-writeln(text[5],' ',hero.hp );
-writeln(text[6],hero.mp );
-writeln(text[7],hero.exp );
-writeln(text[8],hero.lvl );
+writeln(text[5],' ',hero.hp,' ',text[6],hero.mp );
+//writeln(text[6],hero.mp );
+writeln(text[7],hero.exp,' ',text[8],hero.lvl );
+//writeln(text[8],hero.lvl );
 writeln(text[12],hero.dmg );
 writeln(text[13],hero.ign_dmg );
 writeln(text[26],' ',hero.stren );// сила
@@ -1914,20 +1917,17 @@ writeln(text[32],' ',hero.masking ); //маскировка
 writeln(text[33],' ',hero.obser );// наблюдательность
 
 writeln('        ___');
-writeln('       |_1_|       1',text[40],' ',hero.s1.base_defense);
-writeln('  ___   ___   ___  2',text[40],' ',hero.s2.base_defense);
-writeln(' | 4 | |   | | 5 | 4',text[41],' ',hero.s4.base_dmg);
+writeln('       |_1_|       1',text[40],' ',hero.s1.base_defense,{);writeln(}text[101]);
+writeln('  ___   ___   ___  2',text[40],' ',hero.s2.base_defense,{);writeln(}text[103]);
+writeln(' | 4 | |   | | 5 | 4',text[41],' ',hero.s4.base_dmg,{);writeln(}text[104]);
 writeln(' |___| | 2 | |___| 5',text[40],' ',hero.s5.base_defense);
 writeln('       |___|');
 writeln('        ___');
 writeln('       |_3_|       3',text[40],' ',hero.s3.base_defense);
 //+06.09.2015
 writeln(text[43]);
-writeln(text[101]);
-writeln(text[102]);
-writeln(text[103]);
 writeln(text[35]);
-repeat begin//1
+
 menu_key:=readkey;
 
 case menu_key of

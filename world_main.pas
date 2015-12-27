@@ -644,7 +644,7 @@ end;
 //07.11.2015
 function npc_generate(i_n,j_n:integer):new_body;
 begin
-
+log_generate('log_old_generate','start npc_generate -!- '+inttostr(i_n)+' '+inttostr(j_n));
 npc_generate.lvl:=random(50)+1;
 //ocnov
 npc_generate.name:=name_generate('human');
@@ -673,9 +673,15 @@ npc_generate.point:=0;//21.12.2015
 npc_generate.dmg:=random(50)+1;
 npc_generate.ign_dmg:=random(50)+1;
 //invent
+log_generate('log_old_generate','start npc_generate -helm- ');
 npc_generate.s1:=beast_inv_generate('helm');
+//log_generate('log_old_generate','stop npc_generate -helm- ');
+log_generate('log_old_generate','start npc_generate -dress- ');
 npc_generate.s2:=beast_inv_generate('dress');
+//log_generate('log_old_generate','stop npc_generate -dress- ');
+log_generate('log_old_generate','start npc_generate -shoes- ');
 npc_generate.s3:=beast_inv_generate('shoes');
+log_generate('log_old_generate','stop npc_generate -shoes- ');
 
 //log_generate('log_old_generate','NPC '+inttostr(npc_generate.lvl)+' '+inttostr(i_n)+':'+inttostr(j_n)+'-'+npc_generate.name);
 {
@@ -972,7 +978,10 @@ writeln(text[72],text[75]);
 log_generate('log_old_generate','start oaz -5');
 //+31.10.2015
 //¨®¬ ® §¨á-------------------------------------------------------
-k1:=0;
+k1:=1;k0:=0;
+i:=0;j:=0;
+l:=0;
+n:=0;m:=0;
 for l:=0 to 100 do begin//6
 k:=random(k_oz);
 repeat
@@ -990,11 +999,17 @@ until (n>32)and(n<x_map-32)and(m>32)and(m<y_map-32);
 	oz_list[l].x:=n_oz;
 	oz_list[l].y:=m_oz;
 	oz_list[l].oz_name:=map_name[k];
-//log_generate('log_old_generate','start oaz -!- '+inttostr(l));
+log_generate('log_old_generate','start oaz -!- '+inttostr(l));
+log_generate('log_old_generate','start oaz -n- '+inttostr(n));
+log_generate('log_old_generate','start oaz -m- '+inttostr(m));
 for i:=n-32 to n+32 do begin//6.1
 	for j:=m-32 to m+32 do begin//6.2
 	map[i,j].name:=map_name[k];
+//	log_generate('log_old_generate','start oaz -i- '+inttostr(i));
+//	log_generate('log_old_generate','start oaz -j- '+inttostr(j));
+//	log_generate('log_old_generate','map name '+map[i,j].name);
 	k0:=random(100);
+//	log_generate('log_old_generate','start -k0- '+inttostr(k0));
 	if k0<20  then begin //6.2.1
 	map[i,j].structure:=simbol[3];//log_generate('log_old_generate',inttostr(k0)+' ---- (6.1)----');
 	map[i,j].color:=14;
@@ -1015,6 +1030,7 @@ for i:=n-32 to n+32 do begin//6.1
 	end;//6.2.2.1
 	end;//6.1
 	end;//6.2
+log_generate('log_old_generate','start oaz -!!- '+inttostr(l));	
 //-----------(5)
 for i:=n-16 to n+16 do begin//6.1
 	for j:=m-16 to m+16 do begin//6.2
@@ -1038,7 +1054,7 @@ for i:=n-16 to n+16 do begin//6.1
 	end;//6.2.2.1
 	end;//6.1
 	end;//6.2
-
+log_generate('log_old_generate','start oaz -!!!- '+inttostr(l));	
 //------------(4)
 for i:=n-8 to n+8 do begin//6.1
 	for j:=m-8 to m+8 do begin//6.2
@@ -1062,6 +1078,7 @@ for i:=n-8 to n+8 do begin//6.1
 	end;//6.2.2.1
 	end;//6.1
 	end;//6.2
+	log_generate('log_old_generate','start oaz -!!!!- '+inttostr(l));	
 //------------(3)
 for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
 	for j_oz:=m_oz-6 to m_oz+6 do begin//6.2
@@ -1086,9 +1103,11 @@ for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
 	map[i_oz,j_oz].x:=i_oz;
 	map[i_oz,j_oz].y:=j_oz;
 	//-----------------------------------------------------------------------------------------
-	
+	log_generate('log_old_generate','start nps generate -6- '+inttostr(k1));	
 	npc[k1]:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y);
+	log_generate('log_old_generate','start story nps generate -6_0- '+inttostr(k1));
 	npc[k1].st0:=story_npc('0');
+	log_generate('log_old_generate','start story nps generate -6_3- '+inttostr(k1));
 	npc[k1].st3:=story_npc('3');
 	//log_generate('log_old_generate',inttostr(k1)+' '+inttostr(map[i_oz,j_oz].x)+':'+inttostr(map[i_oz,j_oz].y)+'-'+npc[k1].name);
 	k1:=k1+1;
@@ -1096,6 +1115,7 @@ for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
 	end;//6.2.2.1
 	end;//6.1
 	end;//6.2
+	log_generate('log_old_generate','start sand -7- '+inttostr(i_oz));	
 //------------(2)
 for i_oz:=n_oz-3 to n_oz+3 do begin//6.1
 	for j_oz:=m_oz-3 to m_oz+3 do begin//6.2
@@ -1111,7 +1131,7 @@ for i_oz:=n_oz-3 to n_oz+3 do begin//6.1
 	end;//6.2.2.1
 	end;//6.1
 	end;//6.2
-
+log_generate('log_old_generate','start sand -8- '+inttostr(i_oz));
 //------------(1)
 for i_oz:=n_oz-2 to n_oz+2 do begin//6.1
 	for j_oz:=m_oz-2 to m_oz+2 do begin//6.2
@@ -1127,10 +1147,12 @@ for i_oz:=n_oz-2 to n_oz+2 do begin//6.1
 	end;//6.2.2.1
 	end;//6.1
 	end;//6.2
+	log_generate('log_old_generate','end sand -9- '+inttostr(n_oz)+' '+inttostr(m_oz));
 //------------(0)
 map[n_oz,m_oz].structure:=simbol[7];
 map[n_oz,m_oz].color:=1;
 end;//6
+log_generate('log_old_generate','start beast -10- '+inttostr(bl));
 for bl:=1 to 1001 do begin//7
 //	map[i_oz,j_oz].beast_index:=bl;
 //	map[i_oz,j_oz].tip:=1;

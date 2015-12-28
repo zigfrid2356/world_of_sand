@@ -715,6 +715,7 @@ npc_generate.s2:=beast_inv_generate('dress');
 //log_generate('log_old_generate','start npc_generate -shoes- ');
 npc_generate.s3:=beast_inv_generate('shoes');
 //log_generate('log_old_generate','stop npc_generate -shoes- ');
+npc_generate.s3:=beast_inv_generate('sword');
 
 //log_generate('log_old_generate','NPC '+inttostr(npc_generate.lvl)+' '+inttostr(i_n)+':'+inttostr(j_n)+'-'+npc_generate.name);
 {
@@ -1472,6 +1473,7 @@ hero.point:=10;//22.12.2015//++23.12.2015
 hero.s1:=beast_inv_generate('helm');
 hero.s2:=beast_inv_generate('dress');
 hero.s3:=beast_inv_generate('shoes');
+hero.s4:=beast_inv_generate('sword');
 {
 //
 hero.slot_1:=inventory_generation('armor','',hero.lvl);

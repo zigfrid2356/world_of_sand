@@ -1993,8 +1993,8 @@ writeln(text[33],' ',hero.obser );// наблюдательность
 writeln('        ___');
 writeln('       |_1_|       1',text[40],' ',hero.s1.base_defense,{);writeln(}text[101]);
 writeln('  ___   ___   ___  2',text[40],' ',hero.s2.base_defense,{);writeln(}text[103]);
-writeln(' | 4 | |   | | 5 | 4',text[41],' ',hero.s4.base_dmg);
-writeln(' |___| | 2 | |___| 5',text[40],' ',hero.s5.base_defense);
+writeln(' | 4 | |   | | 5 | 4',text[41],' ',hero.s4.base_dmg,text[105]);
+writeln(' |___| | 2 | |___| 5',text[40],' ',hero.s5.base_defense,text[106]);
 writeln('       |___|');
 writeln('        ___');
 writeln('       |_3_|       3',text[40],' ',hero.s3.base_defense,{);writeln(}text[104]);
@@ -2009,6 +2009,8 @@ case menu_key of
 'h':item_ful_info(hero.s1);
 'd':item_ful_info(hero.s2);
 's':item_ful_info(hero.s3);
+'f':item_ful_info(hero.s4);
+'g':item_ful_info(hero.s5);
 end;//2
 end;
 until menu_key='1';

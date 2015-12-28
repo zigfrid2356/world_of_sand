@@ -651,6 +651,18 @@ beast_inv_generate.init:=1+random(10);
 beast_inv_generate.masking:=1;
 beast_inv_generate.obser:=1;
 end;//1
+if command='shield' then begin//1
+beast_inv_generate.name:=color_generate+' '+name_item_generate(command);//text[86];
+beast_inv_generate.type_subject:='shield';
+beast_inv_generate.base_dmg:=1;
+beast_inv_generate.base_defense:=1+random(10);
+beast_inv_generate.ves:=1+random(5);
+beast_inv_generate.cost:=1+random(20);
+beast_inv_generate.tip:=1;
+beast_inv_generate.init:=1+random(5);
+beast_inv_generate.masking:=1+random(5);;
+beast_inv_generate.obser:=1;
+end;//1
 end;
 
 //16.11.2015
@@ -715,7 +727,8 @@ npc_generate.s2:=beast_inv_generate('dress');
 //log_generate('log_old_generate','start npc_generate -shoes- ');
 npc_generate.s3:=beast_inv_generate('shoes');
 //log_generate('log_old_generate','stop npc_generate -shoes- ');
-npc_generate.s3:=beast_inv_generate('sword');
+npc_generate.s4:=beast_inv_generate('sword');
+npc_generate.s5:=beast_inv_generate('shield');
 
 //log_generate('log_old_generate','NPC '+inttostr(npc_generate.lvl)+' '+inttostr(i_n)+':'+inttostr(j_n)+'-'+npc_generate.name);
 {
@@ -1474,6 +1487,7 @@ hero.s1:=beast_inv_generate('helm');
 hero.s2:=beast_inv_generate('dress');
 hero.s3:=beast_inv_generate('shoes');
 hero.s4:=beast_inv_generate('sword');
+hero.s5:=beast_inv_generate('shield');
 {
 //
 hero.slot_1:=inventory_generation('armor','',hero.lvl);

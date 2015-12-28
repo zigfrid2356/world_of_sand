@@ -1393,13 +1393,13 @@ hero_update.gold:=nb.gold;
 hero_update.x:=nb.x;
 hero_update.y:=nb.y;
 
-hero_update.init:=nb.init+nb.s1.init+nb.s2.init+nb.s3.init;
-hero_update.masking:=nb.masking+nb.s1.masking+nb.s2.masking+nb.s3.masking;
-hero_update.obser:=nb.obser+nb.s1.obser+nb.s2.obser+nb.s3.obser;
+hero_update.init:=nb.init+nb.s1.init+nb.s2.init+nb.s3.init+nb.s4.init+nb.s5.init;
+hero_update.masking:=nb.masking+nb.s1.masking+nb.s2.masking+nb.s3.masking+nb.s4.masking+nb.s5.masking;
+hero_update.obser:=nb.obser+nb.s1.obser+nb.s2.obser+nb.s3.obser+nb.s4.obser+nb.s5.obser;
 hero_update.point:=nb.point;
 //boev
-hero_update.dmg:=(4*nb.attak)+nb.s1.base_dmg+nb.s2.base_dmg+nb.s3.base_dmg;
-hero_update.ign_dmg:=(4*nb.defense)+nb.s1.base_defense+nb.s2.base_defense+nb.s3.base_defense;
+hero_update.dmg:=(4*nb.attak)+nb.s1.base_dmg+nb.s2.base_dmg+nb.s3.base_dmg+nb.s4.base_dmg+nb.s5.base_dmg;
+hero_update.ign_dmg:=(4*nb.defense)+nb.s1.base_defense+nb.s2.base_defense+nb.s3.base_defense+nb.s4.base_defense+nb.s5.base_defense;
 //invent
 hero_update.s1:=nb.s1;
 hero_update.s2:=nb.s2;

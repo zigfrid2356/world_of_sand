@@ -191,6 +191,7 @@ writeln('- - '+h[11]);
 writeln('= - '+h[12]);
 textcolor(8);
 writeln('^ - '+h[13]);
+textcolor(white);
 writeln(text[96]);
 readln();
 

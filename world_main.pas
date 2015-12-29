@@ -159,7 +159,7 @@ end;
 procedure help;
 var
 
-h:array [0..10] of string;
+h:array [0..15] of string;
 ih:byte;
 begin
 ClrScr;
@@ -178,8 +178,19 @@ writeln(': - '+h[2]);
 writeln('; - '+h[3]);
 writeln('# - '+h[4]);
 textcolor(6);
-
-
+writeln('/ - '+h[5]);
+textcolor(2);
+writeln('" - '+h[6]);
+writeln('! - '+h[9]);
+textcolor(1);
+writeln('0 - '+h[7]);
+writeln('~ - '+h[8]);
+textcolor(7);
+writeln('_ - '+h[10]);
+writeln('- - '+h[11]);
+writeln('= - '+h[12]);
+textcolor(8);
+writeln('^ - '+h[13]);
 writeln(text[96]);
 readln();
 

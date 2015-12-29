@@ -154,6 +154,24 @@ begin
 
 end;
 
+//29.12.2015
+procedure help;
+var
+helpi:text;
+h:array [0..10] of string;
+begin
+assign(helpi,'res\lang\rus\help');
+reset(helpi);
+while not eof(helpi) do begin
+readln(helpi,h);
+
+
+
+end;
+close(helpi);
+end;
+
+
 //27.12.2015
 procedure item_ful_info(ifi:subject);
 begin
@@ -2211,6 +2229,7 @@ writeln	('2- ',text[9]);
 //writeln	('3- ',text[11]);
 writeln	('4- ',text[17]);
 writeln	('5- ',text[2]);
+writeln	('9- ',text[107]);
 //writeln	('6- ',text[42]);
 //writeln	('7- ',text[70]);
 //writeln	('8- ',text[81]);
@@ -2229,6 +2248,7 @@ end;//1.3}
 '4': begin//1.4
 save;
 end;//1.4
+'9':help;
 {'6':begin//1.5
 //+30.08.2015
 hero.slot_1:=inventory_generation('armor','',hero.lvl);

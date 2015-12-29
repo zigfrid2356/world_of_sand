@@ -116,6 +116,7 @@ menu_key:char;
 i,j,n,m,l,k,k0,k1,k2,k_oz,i_oz,j_oz,n_oz,m_oz:integer;//áçñâç¨ª¨{счётчики}
 s:string;//temp
 lang: text;
+hf:text;
 monster_name,map_oz:text;
 color,har,item_name:text;
 f_log:text;
@@ -157,18 +158,19 @@ end;
 //29.12.2015
 procedure help;
 var
-helpi:text;
+
 h:array [0..10] of string;
+ih:byte;
 begin
-assign(helpi,'res\lang\rus\help');
-reset(helpi);
-while not eof(helpi) do begin
-readln(helpi,h);
-
-
-
+ih:=0;
+assign(hf,'res\lang\rus\help');
+reset(hf);
+while not eof(hf) do begin
+readln(hf,h[ih]);
+ih:=ih+1;
 end;
-close(helpi);
+close(hf);
+writeln(h[0]);
 end;
 
 

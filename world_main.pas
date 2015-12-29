@@ -162,6 +162,7 @@ var
 h:array [0..10] of string;
 ih:byte;
 begin
+ClrScr;
 ih:=0;
 assign(hf,'res\lang\rus\help');
 reset(hf);
@@ -171,6 +172,14 @@ ih:=ih+1;
 end;
 close(hf);
 writeln(h[0]);
+textcolor(yellow);
+writeln('. - '+h[1]);
+writeln(': - '+h[2]);
+writeln('; - '+h[3]);
+writeln('# - '+h[4]);
+textcolor(6);
+
+
 writeln(text[96]);
 readln();
 

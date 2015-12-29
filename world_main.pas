@@ -171,6 +171,9 @@ ih:=ih+1;
 end;
 close(hf);
 writeln(h[0]);
+writeln(text[96]);
+readln();
+
 end;
 
 

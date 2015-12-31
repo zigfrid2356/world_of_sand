@@ -161,7 +161,7 @@ ss:string;
 begin
 ClrScr;
 
-assign(st,'res\lang\rus\help');
+assign(st,'res\lang\rus\story');
 reset(st);
 while not eof(st) do begin
 readln(st,ss);

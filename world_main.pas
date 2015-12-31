@@ -157,10 +157,10 @@ end;
 
 //31.12.2015
 procedure story;
+var
 ss:string;
 begin
 ClrScr;
-
 assign(st,'res\lang\rus\story');
 reset(st);
 while not eof(st) do begin
@@ -2359,8 +2359,8 @@ map_generate('map_test_generate');
 //â¥áâ®¢ ï £¥­¥à æ¨ï £¥à®ï генерация персонажа {~ 12.08.2015}
 //������� ���ᮭ���
 hero_generate('hero_new');
-
-
+//31.12.2015
+story;
 main_menu; 
 end;
 '2':begin load; main_menu; end;

@@ -155,6 +155,21 @@ begin
 
 end;
 
+//31.12.2015
+procedure story;
+ss:string;
+begin
+ClrScr;
+
+assign(hf,'res\lang\rus\help');
+reset(hf);
+while not eof(hf) do begin
+readln(hf,h[ih]);
+
+end;
+close(hf);
+end;
+
 //29.12.2015
 procedure help;
 var

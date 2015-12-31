@@ -1084,8 +1084,6 @@ m_oz:=m;
 end;
 //---------(6)
 until (n>32)and(n<x_map-32)and(m>32)and(m<y_map-32);
-	//log_generate('log_old_generate',inttostr(n_oz)+':'+inttostr(m_oz)+map_name[k]);
-	//log_generate('log_old_generate',inttostr(l));
 	//+08.11.2015
 	oz_list[l].x:=n_oz;
 	oz_list[l].y:=m_oz;

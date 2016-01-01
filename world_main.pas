@@ -603,7 +603,19 @@ bones
 clutches
  }
 begin
-log_generate('log_old_generate','beast_inv_generate -!- '+command);
+//log_generate('log_old_generate','beast_inv_generate -!- '+command);
+if command='null' then begin//1
+beast_inv_generate.name:='null';
+beast_inv_generate.type_subject:='null';
+beast_inv_generate.base_dmg:=0;
+beast_inv_generate.base_defense:=0;
+beast_inv_generate.ves:=0;
+beast_inv_generate.cost:=0;
+beast_inv_generate.tip:=0;
+beast_inv_generate.init:=0;
+beast_inv_generate.masking:=0;
+beast_inv_generate.obser:=0;
+end;//1
 if command='skin' then begin//1
 beast_inv_generate.name:=name_item_generate(command);//text[82];
 beast_inv_generate.type_subject:='skin';
@@ -804,6 +816,9 @@ if stg=4 then st:='shield';
 npc_generate.bag[k2]:=beast_inv_generate(st);
 
 end;//bg1
+for k2:=10 to 99 do begin//bg2
+npc_generate.bag[k2]:=beast_inv_generate('null');
+end;//bg2
 //log_generate('log_old_generate','NPC '+inttostr(npc_generate.lvl)+' '+inttostr(i_n)+':'+inttostr(j_n)+'-'+npc_generate.name);
 {
 //invent
@@ -1572,10 +1587,11 @@ equip ('slot_1',hero.slot_1);
 equip ('slot_2',hero.slot_2);
 equip ('slot_3',hero.slot_3);
 equip ('slot_4',hero.slot_4);
-equip ('slot_5',hero.slot_5);
+equip ('slot_5',hero.slot_5);}
 //+06.09.2015
-for n:=0 to 9 do begin//0.1
-hero.bag[n]:=inventory_generation('nul','',hero.lvl);end;//0.1}
+//++01.01.2016
+for n:=0 to 99 do begin//0.1
+hero.bag[n]:=beast_inv_generate('null');end;//0.1
 hero:=hero_update(hero);
 end;//0
 {

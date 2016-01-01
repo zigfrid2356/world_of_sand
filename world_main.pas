@@ -725,12 +725,12 @@ procedure beast_drop_out(bdo:beast_body);
 begin
 clrscr;
 //bdi:=0;
-writeln('|'+text[91]+'       |'+text[12]+'|'+text[92]+'|'+text[93]+'|');
-writeln('|'+'1- '+text[89]+' '+name_tab(bdo.skin.name,13)+'|'+name_tab(inttostr(bdo.skin.base_dmg),6)+'|'+name_tab(inttostr(bdo.skin.base_defense),6)+'|'+name_tab(inttostr(bdo.skin.ves),4)+'|');
-writeln('|'+'2- '+text[89]+' '+name_tab(bdo.meat.name,13)+'|'+name_tab(inttostr(bdo.meat.base_dmg),6)+'|'+name_tab(inttostr(bdo.meat.base_defense),6)+'|'+name_tab(inttostr(bdo.meat.ves),4)+'|');
-writeln('|'+'3- '+text[89]+' '+name_tab(bdo.teeth.name,13)+'|'+name_tab(inttostr(bdo.teeth.base_dmg),6)+'|'+name_tab(inttostr(bdo.teeth.base_defense),6)+'|'+name_tab(inttostr(bdo.teeth.ves),4)+'|');
-writeln('|'+'4- '+text[89]+' '+name_tab(bdo.bones.name,13)+'|'+name_tab(inttostr(bdo.bones.base_dmg),6)+'|'+name_tab(inttostr(bdo.bones.base_defense),6)+'|'+name_tab(inttostr(bdo.bones.ves),4)+'|');
-writeln('|'+'5- '+text[89]+' '+name_tab(bdo.clutches.name,13)+'|'+name_tab(inttostr(bdo.clutches.base_dmg),6)+'|'+name_tab(inttostr(bdo.clutches.base_defense),6)+'|'+name_tab(inttostr(bdo.clutches.ves),4)+'|');
+writeln('|'+text[91]+'       |'+text[21]+'|'+text[92]+'|'+text[93]+'|');
+if bdo.skin.name<> 'null' then writeln('|'+'1- '+text[89]+' '+name_tab(bdo.skin.name,16)+'|'+name_tab(inttostr(bdo.skin.base_dmg),6)+'|'+name_tab(inttostr(bdo.skin.base_defense),6)+'|'+name_tab(inttostr(bdo.skin.ves),4)+'|');
+if bdo.meat.name<> 'null' then writeln('|'+'2- '+text[89]+' '+name_tab(bdo.meat.name,16)+'|'+name_tab(inttostr(bdo.meat.base_dmg),6)+'|'+name_tab(inttostr(bdo.meat.base_defense),6)+'|'+name_tab(inttostr(bdo.meat.ves),4)+'|');
+if bdo.teeth.name<> 'null' then writeln('|'+'3- '+text[89]+' '+name_tab(bdo.teeth.name,16)+'|'+name_tab(inttostr(bdo.teeth.base_dmg),6)+'|'+name_tab(inttostr(bdo.teeth.base_defense),6)+'|'+name_tab(inttostr(bdo.teeth.ves),4)+'|');
+if bdo.bones.name<> 'null' then writeln('|'+'4- '+text[89]+' '+name_tab(bdo.bones.name,16)+'|'+name_tab(inttostr(bdo.bones.base_dmg),6)+'|'+name_tab(inttostr(bdo.bones.base_defense),6)+'|'+name_tab(inttostr(bdo.bones.ves),4)+'|');
+if bdo.clutches.name<> 'null' then writeln('|'+'5- '+text[89]+' '+name_tab(bdo.clutches.name,16)+'|'+name_tab(inttostr(bdo.clutches.base_dmg),6)+'|'+name_tab(inttostr(bdo.clutches.base_defense),6)+'|'+name_tab(inttostr(bdo.clutches.ves),4)+'|');
 
 end;
 
@@ -740,37 +740,66 @@ function beast_drop(bd:beast_body):beast_body;
 var
 bdi:byte;
 begin
+beast_drop:=bd;
 bdi:=0;
 clrscr;
 writeln(text[45]+bd.name);
 repeat begin//1
-beast_drop_out(bd);
+
+beast_drop_out(beast_drop);
 writeln(text[90]);
 menu_key:=readkey;
 case menu_key of
 '1': begin //1.1
-log_generate('log_old_generate','beast_drop -1- '+hero.bag[bdi].name+' '+inttostr(bdi));
-if hero.bag[bdi].tip<>0 then begin//1.1.1 
-log_generate('log_old_generate','beast_drop -2- '+hero.bag[bdi].name+' '+inttostr(bdi));
+for bdi:=0 to 99 do begin//b
+beast_drop:=bd;
+if (hero.bag[bdi].tip=0)and(beast_drop.skin.tip<>0) then hero.bag[bdi]:=beast_drop.skin; 
+beast_drop.skin:=beast_inv_generate('null');
+end;//b
+{
+while (bd.skin.tip<>0)and(hero.bag[bdi].tip=0) do begin//1.1.1
+if bdi>99 then bdi:=0;
+beast_drop:=bd;
+hero.bag[bdi]:=bd.skin; 
+beast_drop.skin:=beast_inv_generate('null');
+bdi:=bdi+1;
+end;//1.1.1
+}
+{
+//log_generate('log_old_generate','beast_drop -1- '+hero.bag[bdi].name+' '+inttostr(bdi));
+if (hero.bag[bdi].tip<>0)and(bd.skin.name<>'null') then begin//1.1.1 
+//log_generate('log_old_generate','beast_drop -2- '+hero.bag[bdi].name+' '+inttostr(bdi));
 bdi:=bdi+1;
 end  //1.1.1
 else begin
 beast_drop:=bd;
 hero.bag[bdi]:=bd.skin; 
 beast_drop.skin:=beast_inv_generate('null');
-log_generate('log_old_generate','beast_drop -3- '+hero.bag[bdi].name+' '+inttostr(bdi));
+//log_generate('log_old_generate','beast_drop -3- '+hero.bag[bdi].name+' '+inttostr(bdi));
 end;
+}
 writeln(text[108]);
 
 	end;//1.1
 '2':	begin//1.2
+{
+while (bd.meat.tip<>0)and(hero.bag[bdi].tip=0) do begin//1.1.1
+if bdi>99 then bdi:=0;
+beast_drop:=bd;
+hero.bag[bdi]:=bd.meat;
+beast_drop.meat:=beast_inv_generate('null');  
+bdi:=bdi+1;
+end;//1.1.1
+}
+{
 repeat bdi:=bdi+1; until hero.bag[bdi].name='null';
 while hero.bag[bdi].name='null' do begin hero.bag[bdi]:=bd.meat; beast_drop.meat:=beast_inv_generate('null'); 
 beast_drop.skin:=bd.skin;
 beast_drop.teeth:=bd.teeth;
 beast_drop.bones:=bd.bones;
 beast_drop.clutches:=bd.clutches;
-end;		
+end;	
+}	
 	end;//1.2
 '3':	begin//1.3
 repeat bdi:=bdi+1; until hero.bag[bdi].name='null';

@@ -1,117 +1,107 @@
-01.01.2016 15:41:24.138 1-1
-01.01.2016 15:41:24.139 1-2
-01.01.2016 15:42:17.550 hero_generate start -1-
-01.01.2016 15:42:32.676 hero_generate -2- 
-01.01.2016 15:42:32.676 hero_generate -3- 
-01.01.2016 15:42:32.682 hero_generate -4- 
-01.01.2016 15:42:32.683 hero_generate bag 0 0 --.
-01.01.2016 15:42:32.683 hero_generate bag 1 0 --.
-01.01.2016 15:42:32.683 hero_generate bag 2 0 --.
-01.01.2016 15:42:32.683 hero_generate bag 3 0 --.
-01.01.2016 15:42:32.683 hero_generate bag 4 0 --.
-01.01.2016 15:42:32.684 hero_generate bag 5 0 --.
-01.01.2016 15:42:32.684 hero_generate bag 6 0 --.
-01.01.2016 15:42:32.684 hero_generate bag 7 0 --.
-01.01.2016 15:42:32.684 hero_generate bag 8 0 --.
-01.01.2016 15:42:32.685 hero_generate bag 9 0 --.
-01.01.2016 15:42:32.685 hero_generate bag 10 0 --.
-01.01.2016 15:42:32.685 hero_generate bag 11 0 --.
-01.01.2016 15:42:32.685 hero_generate bag 12 0 --.
-01.01.2016 15:42:32.686 hero_generate bag 13 0 --.
-01.01.2016 15:42:32.686 hero_generate bag 14 0 --.
-01.01.2016 15:42:32.686 hero_generate bag 15 0 --.
-01.01.2016 15:42:32.686 hero_generate bag 16 0 --.
-01.01.2016 15:42:32.687 hero_generate bag 17 0 --.
-01.01.2016 15:42:32.687 hero_generate bag 18 0 --.
-01.01.2016 15:42:32.687 hero_generate bag 19 0 --.
-01.01.2016 15:42:32.687 hero_generate bag 20 0 --.
-01.01.2016 15:42:32.688 hero_generate bag 21 0 --.
-01.01.2016 15:42:32.688 hero_generate bag 22 0 --.
-01.01.2016 15:42:32.688 hero_generate bag 23 0 --.
-01.01.2016 15:42:32.688 hero_generate bag 24 0 --.
-01.01.2016 15:42:32.689 hero_generate bag 25 0 --.
-01.01.2016 15:42:32.689 hero_generate bag 26 0 --.
-01.01.2016 15:42:32.689 hero_generate bag 27 0 --.
-01.01.2016 15:42:32.689 hero_generate bag 28 0 --.
-01.01.2016 15:42:32.689 hero_generate bag 29 0 --.
-01.01.2016 15:42:32.690 hero_generate bag 30 0 --.
-01.01.2016 15:42:32.690 hero_generate bag 31 0 --.
-01.01.2016 15:42:32.690 hero_generate bag 32 0 --.
-01.01.2016 15:42:32.690 hero_generate bag 33 0 --.
-01.01.2016 15:42:32.691 hero_generate bag 34 0 --.
-01.01.2016 15:42:32.691 hero_generate bag 35 0 --.
-01.01.2016 15:42:32.691 hero_generate bag 36 0 --.
-01.01.2016 15:42:32.691 hero_generate bag 37 0 --.
-01.01.2016 15:42:32.692 hero_generate bag 38 0 --.
-01.01.2016 15:42:32.692 hero_generate bag 39 0 --.
-01.01.2016 15:42:32.692 hero_generate bag 40 0 --.
-01.01.2016 15:42:32.692 hero_generate bag 41 0 --.
-01.01.2016 15:42:32.692 hero_generate bag 42 0 --.
-01.01.2016 15:42:32.693 hero_generate bag 43 0 --.
-01.01.2016 15:42:32.693 hero_generate bag 44 0 --.
-01.01.2016 15:42:32.693 hero_generate bag 45 0 --.
-01.01.2016 15:42:32.693 hero_generate bag 46 0 --.
-01.01.2016 15:42:32.694 hero_generate bag 47 0 --.
-01.01.2016 15:42:32.694 hero_generate bag 48 0 --.
-01.01.2016 15:42:32.694 hero_generate bag 49 0 --.
-01.01.2016 15:42:32.695 hero_generate bag 50 0 --.
-01.01.2016 15:42:32.695 hero_generate bag 51 0 --.
-01.01.2016 15:42:32.695 hero_generate bag 52 0 --.
-01.01.2016 15:42:32.695 hero_generate bag 53 0 --.
-01.01.2016 15:42:32.695 hero_generate bag 54 0 --.
-01.01.2016 15:42:32.696 hero_generate bag 55 0 --.
-01.01.2016 15:42:32.696 hero_generate bag 56 0 --.
-01.01.2016 15:42:32.696 hero_generate bag 57 0 --.
-01.01.2016 15:42:32.696 hero_generate bag 58 0 --.
-01.01.2016 15:42:32.697 hero_generate bag 59 0 --.
-01.01.2016 15:42:32.697 hero_generate bag 60 0 --.
-01.01.2016 15:42:32.697 hero_generate bag 61 0 --.
-01.01.2016 15:42:32.697 hero_generate bag 62 0 --.
-01.01.2016 15:42:32.698 hero_generate bag 63 0 --.
-01.01.2016 15:42:32.698 hero_generate bag 64 0 --.
-01.01.2016 15:42:32.698 hero_generate bag 65 0 --.
-01.01.2016 15:42:32.698 hero_generate bag 66 0 --.
-01.01.2016 15:42:32.699 hero_generate bag 67 0 --.
-01.01.2016 15:42:32.699 hero_generate bag 68 0 --.
-01.01.2016 15:42:32.699 hero_generate bag 69 0 --.
-01.01.2016 15:42:32.699 hero_generate bag 70 0 --.
-01.01.2016 15:42:32.700 hero_generate bag 71 0 --.
-01.01.2016 15:42:32.700 hero_generate bag 72 0 --.
-01.01.2016 15:42:32.700 hero_generate bag 73 0 --.
-01.01.2016 15:42:32.700 hero_generate bag 74 0 --.
-01.01.2016 15:42:32.701 hero_generate bag 75 0 --.
-01.01.2016 15:42:32.701 hero_generate bag 76 0 --.
-01.01.2016 15:42:32.701 hero_generate bag 77 0 --.
-01.01.2016 15:42:32.702 hero_generate bag 78 0 --.
-01.01.2016 15:42:32.702 hero_generate bag 79 0 --.
-01.01.2016 15:42:32.702 hero_generate bag 80 0 --.
-01.01.2016 15:42:32.702 hero_generate bag 81 0 --.
-01.01.2016 15:42:32.702 hero_generate bag 82 0 --.
-01.01.2016 15:42:32.703 hero_generate bag 83 0 --.
-01.01.2016 15:42:32.703 hero_generate bag 84 0 --.
-01.01.2016 15:42:32.703 hero_generate bag 85 0 --.
-01.01.2016 15:42:32.703 hero_generate bag 86 0 --.
-01.01.2016 15:42:32.704 hero_generate bag 87 0 --.
-01.01.2016 15:42:32.704 hero_generate bag 88 0 --.
-01.01.2016 15:42:32.704 hero_generate bag 89 0 --.
-01.01.2016 15:42:32.704 hero_generate bag 90 0 --.
-01.01.2016 15:42:32.705 hero_generate bag 91 0 --.
-01.01.2016 15:42:32.705 hero_generate bag 92 0 --.
-01.01.2016 15:42:32.705 hero_generate bag 93 0 --.
-01.01.2016 15:42:32.705 hero_generate bag 94 0 --.
-01.01.2016 15:42:32.706 hero_generate bag 95 0 --.
-01.01.2016 15:42:32.706 hero_generate bag 96 0 --.
-01.01.2016 15:42:32.706 hero_generate bag 97 0 --.
-01.01.2016 15:42:32.706 hero_generate bag 98 0 --.
-01.01.2016 15:42:32.706 hero_generate bag 99 0 --.
-01.01.2016 15:42:32.707 hero_generate -5- 
-01.01.2016 15:43:27.330 beast_drop -!- волосы 0
-01.01.2016 15:43:27.711 beast_drop -!- волосы 1
-01.01.2016 15:43:28.049 beast_drop -!- волосы 2
-01.01.2016 15:43:28.340 beast_drop -!- волосы 3
-01.01.2016 15:43:28.633 beast_drop -!- волосы 4
-01.01.2016 15:43:28.929 beast_drop -!- волосы 5
-01.01.2016 15:43:29.220 beast_drop -!- волосы 6
-01.01.2016 15:43:29.539 beast_drop -!- волосы 7
-01.01.2016 15:43:29.892 beast_drop -!- волосы 8
-01.01.2016 15:43:30.164 beast_drop -!- волосы 9
+01.01.2016 18:10:21.893 1-1
+01.01.2016 18:10:21.894 1-2
+01.01.2016 18:10:57.268 hero_generate start -1-
+01.01.2016 18:11:03.349 hero_generate -2- 
+01.01.2016 18:11:03.349 hero_generate -3- 
+01.01.2016 18:11:03.355 hero_generate -4- 
+01.01.2016 18:11:03.355 hero_generate bag 0 0 --.
+01.01.2016 18:11:03.356 hero_generate bag 1 0 --.
+01.01.2016 18:11:03.356 hero_generate bag 2 0 --.
+01.01.2016 18:11:03.356 hero_generate bag 3 0 --.
+01.01.2016 18:11:03.356 hero_generate bag 4 0 --.
+01.01.2016 18:11:03.357 hero_generate bag 5 0 --.
+01.01.2016 18:11:03.357 hero_generate bag 6 0 --.
+01.01.2016 18:11:03.357 hero_generate bag 7 0 --.
+01.01.2016 18:11:03.357 hero_generate bag 8 0 --.
+01.01.2016 18:11:03.358 hero_generate bag 9 0 --.
+01.01.2016 18:11:03.358 hero_generate bag 10 0 --.
+01.01.2016 18:11:03.358 hero_generate bag 11 0 --.
+01.01.2016 18:11:03.358 hero_generate bag 12 0 --.
+01.01.2016 18:11:03.359 hero_generate bag 13 0 --.
+01.01.2016 18:11:03.359 hero_generate bag 14 0 --.
+01.01.2016 18:11:03.359 hero_generate bag 15 0 --.
+01.01.2016 18:11:03.360 hero_generate bag 16 0 --.
+01.01.2016 18:11:03.360 hero_generate bag 17 0 --.
+01.01.2016 18:11:03.360 hero_generate bag 18 0 --.
+01.01.2016 18:11:03.360 hero_generate bag 19 0 --.
+01.01.2016 18:11:03.361 hero_generate bag 20 0 --.
+01.01.2016 18:11:03.361 hero_generate bag 21 0 --.
+01.01.2016 18:11:03.361 hero_generate bag 22 0 --.
+01.01.2016 18:11:03.361 hero_generate bag 23 0 --.
+01.01.2016 18:11:03.362 hero_generate bag 24 0 --.
+01.01.2016 18:11:03.362 hero_generate bag 25 0 --.
+01.01.2016 18:11:03.362 hero_generate bag 26 0 --.
+01.01.2016 18:11:03.362 hero_generate bag 27 0 --.
+01.01.2016 18:11:03.363 hero_generate bag 28 0 --.
+01.01.2016 18:11:03.363 hero_generate bag 29 0 --.
+01.01.2016 18:11:03.363 hero_generate bag 30 0 --.
+01.01.2016 18:11:03.363 hero_generate bag 31 0 --.
+01.01.2016 18:11:03.363 hero_generate bag 32 0 --.
+01.01.2016 18:11:03.364 hero_generate bag 33 0 --.
+01.01.2016 18:11:03.364 hero_generate bag 34 0 --.
+01.01.2016 18:11:03.364 hero_generate bag 35 0 --.
+01.01.2016 18:11:03.364 hero_generate bag 36 0 --.
+01.01.2016 18:11:03.365 hero_generate bag 37 0 --.
+01.01.2016 18:11:03.365 hero_generate bag 38 0 --.
+01.01.2016 18:11:03.365 hero_generate bag 39 0 --.
+01.01.2016 18:11:03.365 hero_generate bag 40 0 --.
+01.01.2016 18:11:03.366 hero_generate bag 41 0 --.
+01.01.2016 18:11:03.366 hero_generate bag 42 0 --.
+01.01.2016 18:11:03.366 hero_generate bag 43 0 --.
+01.01.2016 18:11:03.366 hero_generate bag 44 0 --.
+01.01.2016 18:11:03.367 hero_generate bag 45 0 --.
+01.01.2016 18:11:03.367 hero_generate bag 46 0 --.
+01.01.2016 18:11:03.367 hero_generate bag 47 0 --.
+01.01.2016 18:11:03.367 hero_generate bag 48 0 --.
+01.01.2016 18:11:03.368 hero_generate bag 49 0 --.
+01.01.2016 18:11:03.368 hero_generate bag 50 0 --.
+01.01.2016 18:11:03.368 hero_generate bag 51 0 --.
+01.01.2016 18:11:03.368 hero_generate bag 52 0 --.
+01.01.2016 18:11:03.369 hero_generate bag 53 0 --.
+01.01.2016 18:11:03.369 hero_generate bag 54 0 --.
+01.01.2016 18:11:03.369 hero_generate bag 55 0 --.
+01.01.2016 18:11:03.369 hero_generate bag 56 0 --.
+01.01.2016 18:11:03.370 hero_generate bag 57 0 --.
+01.01.2016 18:11:03.370 hero_generate bag 58 0 --.
+01.01.2016 18:11:03.370 hero_generate bag 59 0 --.
+01.01.2016 18:11:03.370 hero_generate bag 60 0 --.
+01.01.2016 18:11:03.371 hero_generate bag 61 0 --.
+01.01.2016 18:11:03.371 hero_generate bag 62 0 --.
+01.01.2016 18:11:03.371 hero_generate bag 63 0 --.
+01.01.2016 18:11:03.371 hero_generate bag 64 0 --.
+01.01.2016 18:11:03.372 hero_generate bag 65 0 --.
+01.01.2016 18:11:03.372 hero_generate bag 66 0 --.
+01.01.2016 18:11:03.372 hero_generate bag 67 0 --.
+01.01.2016 18:11:03.372 hero_generate bag 68 0 --.
+01.01.2016 18:11:03.373 hero_generate bag 69 0 --.
+01.01.2016 18:11:03.373 hero_generate bag 70 0 --.
+01.01.2016 18:11:03.373 hero_generate bag 71 0 --.
+01.01.2016 18:11:03.373 hero_generate bag 72 0 --.
+01.01.2016 18:11:03.374 hero_generate bag 73 0 --.
+01.01.2016 18:11:03.374 hero_generate bag 74 0 --.
+01.01.2016 18:11:03.374 hero_generate bag 75 0 --.
+01.01.2016 18:11:03.374 hero_generate bag 76 0 --.
+01.01.2016 18:11:03.375 hero_generate bag 77 0 --.
+01.01.2016 18:11:03.375 hero_generate bag 78 0 --.
+01.01.2016 18:11:03.375 hero_generate bag 79 0 --.
+01.01.2016 18:11:03.375 hero_generate bag 80 0 --.
+01.01.2016 18:11:03.376 hero_generate bag 81 0 --.
+01.01.2016 18:11:03.376 hero_generate bag 82 0 --.
+01.01.2016 18:11:03.376 hero_generate bag 83 0 --.
+01.01.2016 18:11:03.376 hero_generate bag 84 0 --.
+01.01.2016 18:11:03.377 hero_generate bag 85 0 --.
+01.01.2016 18:11:03.377 hero_generate bag 86 0 --.
+01.01.2016 18:11:03.377 hero_generate bag 87 0 --.
+01.01.2016 18:11:03.378 hero_generate bag 88 0 --.
+01.01.2016 18:11:03.378 hero_generate bag 89 0 --.
+01.01.2016 18:11:03.378 hero_generate bag 90 0 --.
+01.01.2016 18:11:03.378 hero_generate bag 91 0 --.
+01.01.2016 18:11:03.379 hero_generate bag 92 0 --.
+01.01.2016 18:11:03.379 hero_generate bag 93 0 --.
+01.01.2016 18:11:03.379 hero_generate bag 94 0 --.
+01.01.2016 18:11:03.379 hero_generate bag 95 0 --.
+01.01.2016 18:11:03.380 hero_generate bag 96 0 --.
+01.01.2016 18:11:03.380 hero_generate bag 97 0 --.
+01.01.2016 18:11:03.380 hero_generate bag 98 0 --.
+01.01.2016 18:11:03.381 hero_generate bag 99 0 --.
+01.01.2016 18:11:03.381 hero_generate -5- 

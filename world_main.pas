@@ -1308,7 +1308,7 @@ for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
 	map[i_oz,j_oz].y:=j_oz;
 	//-----------------------------------------------------------------------------------------
 //	log_generate('log_old_generate','start nps generate -6- '+inttostr(k1));
-		
+	//writeln(text[72],text[109]);	
 	npc[k1]:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y);
 //	log_generate('log_old_generate','start story nps generate -6_0- '+inttostr(k1));
 	npc[k1].st0:=story_npc('0');
@@ -1358,6 +1358,7 @@ map[n_oz,m_oz].structure:=simbol[7];
 map[n_oz,m_oz].color:=1;
 end;//6
 //log_generate('log_old_generate','start beast -10- '+inttostr(bl));
+writeln(text[72],text[109]);
 for bl:=1 to 1001 do begin//7
 //	map[i_oz,j_oz].beast_index:=bl;
 //	map[i_oz,j_oz].tip:=1;
@@ -1645,132 +1646,16 @@ hero.s2:=beast_inv_generate('dress');
 hero.s3:=beast_inv_generate('shoes');
 hero.s4:=beast_inv_generate('sword');
 hero.s5:=beast_inv_generate('shield');
-{
-//
-hero.slot_1:=inventory_generation('armor','',hero.lvl);
-hero.slot_2:=inventory_generation('armor','',hero.lvl);
-hero.slot_3:=inventory_generation('armor','',hero.lvl);
-hero.slot_4:=inventory_generation('veapon','',hero.lvl);
-hero.slot_5:=inventory_generation('armor','',hero.lvl);
-//+30.08.2015
-equip ('slot_1',hero.slot_1);
-equip ('slot_2',hero.slot_2);
-equip ('slot_3',hero.slot_3);
-equip ('slot_4',hero.slot_4);
-equip ('slot_5',hero.slot_5);}
+
 //+06.09.2015
 //++01.01.2016
 for n:=0 to 99 do begin//0.1
-hero.bag[n]:=beast_inv_generate('null');end;//0.1
+hero.bag[n]:=beast_inv_generate('null');
+log_generate('hero_generate','bag '+inttostr(n)+' '+inttostr(hero.bag[n].tip)+' '+hero.bag[n].name);
+end;//0.1
 hero:=hero_update(hero);
 end;//0
-{
-//-------------------------------------------12.12.2015-------------------
-if h='super' then begin //0
-writeln(text[20]);readln(s);
-super.name:=s;
-writeln(text[21]);
-m:=0;
-repeat begin//0.1
-menu_key:=readkey;
-case menu_key of//0.2
-'1': begin super.sex:=1;m:=1;end;//М
-'2':begin super.sex:=2;m:=1;end;//Ж
-else
-writeln(text[24]);
-end;//0.2
-end;//0.1
-until m=1;
-m:=0;
-writeln(text[22]);
-writeln(text[25]);
-repeat begin//0.11
-menu_key:=readkey;
-case menu_key of//0.21
-'1':begin  super.race:=1;m:=1;end;//human
-'2':begin super.race:=2;m:=1;end;//not human
-else
-writeln(text[24]);
-end;//0.21
-end;//0.11
-until m=1;
 
-//08.11.2015
-//+16.11.2015
-super.x:=oz_list[1].x+10;
-super.y:=oz_list[1].y;
-
-super.stren:=1;
-super.intel:=1;
-super.agility:=1;
-super.init:=1;
-super.masking:=1;
-super.obser:=1;
-
-super.lvl:=1;
-
-super.hp:=10*hero.lvl;
-super.mp:=10*hero.lvl;
-super.exp:=0;
-
-
-hero.veapon:=4;
-hero.armor:=4;
-hero.attak:=4;
-hero.defense:=4;
-hero.dmg:=hero.veapon*hero.attak;
-hero.ign_dmg:=hero.armor*hero.defense;
-hero.gold:=1;
-//
-hero.slot_1:=inventory_generation('armor','',hero.lvl);
-hero.slot_2:=inventory_generation('armor','',hero.lvl);
-hero.slot_3:=inventory_generation('armor','',hero.lvl);
-hero.slot_4:=inventory_generation('veapon','',hero.lvl);
-hero.slot_5:=inventory_generation('armor','',hero.lvl);
-//+30.08.2015
-equip ('slot_1',hero.slot_1);
-equip ('slot_2',hero.slot_2);
-equip ('slot_3',hero.slot_3);
-equip ('slot_4',hero.slot_4);
-equip ('slot_5',hero.slot_5);
-//+06.09.2015
-for n:=0 to 9 do begin//0.1
-hero.bag[n]:=inventory_generation('nul','',hero.lvl);end;//0.1
-end;//0
-//------------------------------------------------------------------------
-}
-{if h='hero' then begin //1
-hero.name:='@sub_name';
-hero.lvl:=1;
-
-hero.hp:=10*hero.lvl;
-hero.mp:=10*hero.lvl;
-hero.exp:=0;
-
-
-hero.veapon:=3;
-hero.armor:=3;
-hero.attak:=1;
-hero.defense:=1;
-hero.dmg:=hero.veapon*hero.attak;
-hero.ign_dmg:=hero.armor*hero.defense;
-hero.gold:=1;
-//+16.08.2015
-hero.sex:=1;
-hero.race:=1;
-hero.stren:=1;
-hero.intel:=1;
-hero.agility:=1;
-hero.init:=1;
-hero.masking:=1;
-hero.obser:=1;
-//+21.08.2015
-hero.slot_1:=inventory_generation('armor','',hero.lvl);
-hero.slot_2:=inventory_generation('armor','',hero.lvl);;
-hero.slot_3:=inventory_generation('armor','',hero.lvl);;
-hero.slot_4:=inventory_generation('veapon','',hero.lvl);;
-hero.slot_5:=inventory_generation('armor','',hero.lvl);
-end;//1}
 if h='monster_human' then begin//2
 monster.name:=name_generate('human');
 monster.lvl:=(hero.lvl-1)+random(3);
@@ -2123,7 +2008,7 @@ begin
 clrscr;
 writeln(text[45]);
 for i:=0 to 9 do begin//1
-//if hero.bag[i].types <> 0 then writeln(text[44],' ',i,' ',hero.bag[i].name,' ',item_info(hero.bag[i].types));
+if hero.bag[i].tip <> 0 then writeln(text[44],' ',i,' ',hero.bag[i].name,' ',item_info(hero.bag[i].tip));
 
 end;//1
 writeln(text[96]);

@@ -575,20 +575,42 @@ end;
 
 
 //11.12.2015
-procedure beast_drop(bd:beast_body);
+function beast_drop(bd:beast_body):beast_body;
+var
+bdi:byte;
 begin
+bdi:=0;
 clrscr;
 writeln(text[45]+bd.name);
 repeat begin//1
-
+bdi:=0;
 writeln('|'+text[91]+'       |'+text[12]+'|'+text[92]+'|'+text[93]+'|');
-writeln('|'+name_tab(bd.skin.name,16)+'|'+name_tab(inttostr(bd.skin.base_dmg),6)+'|'+name_tab(inttostr(bd.skin.base_defense),6)+'|'+name_tab(inttostr(bd.skin.ves),4)+'|');
-writeln('|'+name_tab(bd.meat.name,16)+'|'+name_tab(inttostr(bd.meat.base_dmg),6)+'|'+name_tab(inttostr(bd.meat.base_defense),6)+'|'+name_tab(inttostr(bd.meat.ves),4)+'|');
-writeln('|'+name_tab(bd.teeth.name,16)+'|'+name_tab(inttostr(bd.teeth.base_dmg),6)+'|'+name_tab(inttostr(bd.teeth.base_defense),6)+'|'+name_tab(inttostr(bd.teeth.ves),4)+'|');
-writeln('|'+name_tab(bd.bones.name,16)+'|'+name_tab(inttostr(bd.bones.base_dmg),6)+'|'+name_tab(inttostr(bd.bones.base_defense),6)+'|'+name_tab(inttostr(bd.bones.ves),4)+'|');
-writeln('|'+name_tab(bd.clutches.name,16)+'|'+name_tab(inttostr(bd.clutches.base_dmg),6)+'|'+name_tab(inttostr(bd.clutches.base_defense),6)+'|'+name_tab(inttostr(bd.clutches.ves),4)+'|');
+writeln('|'+'1- '+text[89]+name_tab(bd.skin.name,13)+'|'+name_tab(inttostr(bd.skin.base_dmg),6)+'|'+name_tab(inttostr(bd.skin.base_defense),6)+'|'+name_tab(inttostr(bd.skin.ves),4)+'|');
+writeln('|'+'2- '+text[89]+name_tab(bd.meat.name,13)+'|'+name_tab(inttostr(bd.meat.base_dmg),6)+'|'+name_tab(inttostr(bd.meat.base_defense),6)+'|'+name_tab(inttostr(bd.meat.ves),4)+'|');
+writeln('|'+'3- '+text[89]+name_tab(bd.teeth.name,13)+'|'+name_tab(inttostr(bd.teeth.base_dmg),6)+'|'+name_tab(inttostr(bd.teeth.base_defense),6)+'|'+name_tab(inttostr(bd.teeth.ves),4)+'|');
+writeln('|'+'4- '+text[89]+name_tab(bd.bones.name,13)+'|'+name_tab(inttostr(bd.bones.base_dmg),6)+'|'+name_tab(inttostr(bd.bones.base_defense),6)+'|'+name_tab(inttostr(bd.bones.ves),4)+'|');
+writeln('|'+'5- '+text[89]+name_tab(bd.clutches.name,13)+'|'+name_tab(inttostr(bd.clutches.base_dmg),6)+'|'+name_tab(inttostr(bd.clutches.base_defense),6)+'|'+name_tab(inttostr(bd.clutches.ves),4)+'|');
 writeln(text[90]);
 menu_key:=readkey;
+case menu_key of
+'1': begin //1.1
+repeat bdi::=bdi+1; until hero.bag[bdi].name='null';
+while hero.bag[bdi].name='null' do begin hero.bag[bdi]:=bd.skin;beast_body.skin:=beast_inv_generate('null'); end;	
+	end;//1.1
+'2':	begin//1.2
+	
+	end;//1.2
+'3':	begin//1.3
+	
+	end;//1.3
+'4':	begin//1.4
+	
+	end;//1.4
+'5':	begin//1.5
+	
+	end;//1.5
+end;//1
+
 end;//1
 until menu_key='0';
 end;
@@ -1956,6 +1978,8 @@ map[bb.x,bb.y].tip:=5;
 hero.hp:=10*hero.lvl;///-------------test----------------------
 hero.gold:=hero.gold+10;//bb.gold;
 hero.exp:=hero.exp+10;//bb.exp;
+writeln(text[96]);
+readln();
 //drop('monster_beast',bb.name);
 lvlup;
 

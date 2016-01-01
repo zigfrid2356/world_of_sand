@@ -730,17 +730,31 @@ bdi:=0;
 clrscr;
 writeln(text[45]+bd.name);
 repeat begin//1
-bdi:=0;
+clrscr;
+//bdi:=0;
 writeln('|'+text[91]+'       |'+text[12]+'|'+text[92]+'|'+text[93]+'|');
-writeln('|'+'1- '+text[89]+name_tab(bd.skin.name,13)+'|'+name_tab(inttostr(bd.skin.base_dmg),6)+'|'+name_tab(inttostr(bd.skin.base_defense),6)+'|'+name_tab(inttostr(bd.skin.ves),4)+'|');
-writeln('|'+'2- '+text[89]+name_tab(bd.meat.name,13)+'|'+name_tab(inttostr(bd.meat.base_dmg),6)+'|'+name_tab(inttostr(bd.meat.base_defense),6)+'|'+name_tab(inttostr(bd.meat.ves),4)+'|');
-writeln('|'+'3- '+text[89]+name_tab(bd.teeth.name,13)+'|'+name_tab(inttostr(bd.teeth.base_dmg),6)+'|'+name_tab(inttostr(bd.teeth.base_defense),6)+'|'+name_tab(inttostr(bd.teeth.ves),4)+'|');
-writeln('|'+'4- '+text[89]+name_tab(bd.bones.name,13)+'|'+name_tab(inttostr(bd.bones.base_dmg),6)+'|'+name_tab(inttostr(bd.bones.base_defense),6)+'|'+name_tab(inttostr(bd.bones.ves),4)+'|');
-writeln('|'+'5- '+text[89]+name_tab(bd.clutches.name,13)+'|'+name_tab(inttostr(bd.clutches.base_dmg),6)+'|'+name_tab(inttostr(bd.clutches.base_defense),6)+'|'+name_tab(inttostr(bd.clutches.ves),4)+'|');
+writeln('|'+'1- '+text[89]+' '+name_tab(bd.skin.name,13)+'|'+name_tab(inttostr(bd.skin.base_dmg),6)+'|'+name_tab(inttostr(bd.skin.base_defense),6)+'|'+name_tab(inttostr(bd.skin.ves),4)+'|');
+writeln('|'+'2- '+text[89]+' '+name_tab(bd.meat.name,13)+'|'+name_tab(inttostr(bd.meat.base_dmg),6)+'|'+name_tab(inttostr(bd.meat.base_defense),6)+'|'+name_tab(inttostr(bd.meat.ves),4)+'|');
+writeln('|'+'3- '+text[89]+' '+name_tab(bd.teeth.name,13)+'|'+name_tab(inttostr(bd.teeth.base_dmg),6)+'|'+name_tab(inttostr(bd.teeth.base_defense),6)+'|'+name_tab(inttostr(bd.teeth.ves),4)+'|');
+writeln('|'+'4- '+text[89]+' '+name_tab(bd.bones.name,13)+'|'+name_tab(inttostr(bd.bones.base_dmg),6)+'|'+name_tab(inttostr(bd.bones.base_defense),6)+'|'+name_tab(inttostr(bd.bones.ves),4)+'|');
+writeln('|'+'5- '+text[89]+' '+name_tab(bd.clutches.name,13)+'|'+name_tab(inttostr(bd.clutches.base_dmg),6)+'|'+name_tab(inttostr(bd.clutches.base_defense),6)+'|'+name_tab(inttostr(bd.clutches.ves),4)+'|');
 writeln(text[90]);
 menu_key:=readkey;
 case menu_key of
 '1': begin //1.1
+
+if hero.bag[bdi].name<>'null' then begin//1.1.1 
+log_generate('log_old_generate','beast_drop -!- '+hero.bag[bdi].name+' '+inttostr(bdi));
+bdi:=bdi+1;
+end  //1.1.1
+else begin
+beast_drop:=bd;
+hero.bag[bdi]:=bd.skin; 
+beast_drop.skin:=beast_inv_generate('null');
+
+writeln(text[108]);
+end;
+{
 repeat bdi:=bdi+1 until hero.bag[bdi].name='null';
 while hero.bag[bdi].name='null' do begin 
 hero.bag[bdi]:=bd.skin; 
@@ -749,7 +763,7 @@ beast_drop.meat:=bd.meat;
 beast_drop.teeth:=bd.teeth;
 beast_drop.bones:=bd.bones;
 beast_drop.clutches:=bd.clutches;
-end;	
+end;	}
 	end;//1.1
 '2':	begin//1.2
 repeat bdi:=bdi+1; until hero.bag[bdi].name='null';
@@ -889,6 +903,7 @@ procedure map_generate(command:string);
 var
 bl:integer;
 begin
+clrscr;
 //log_generate('log_old_generate','start map generate -1');
 //+03.11.2015
 k_oz:=0;

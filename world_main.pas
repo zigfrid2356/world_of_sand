@@ -1583,18 +1583,19 @@ s5:subject;
 bag:array[0..99] of subject;}
 end;
 
-procedure hero_generate(h:string);//+12.08.2015
+function hero_generate(h:string):new_body;//+12.08.2015
 begin
 if h='hero_new' then begin //0//+15.08.2015
+log_generate('log_old_generate','hero_generate '+'start -1-');
 writeln(text[20]);readln(s);
-hero.name:=s;
+hero_generate.name:=s;
 writeln(text[21]);
 m:=0;
 repeat begin//0.1
 menu_key:=readkey;
 case menu_key of//0.2
-'1': begin hero.sex:=1;m:=1;end;//М
-'2':begin hero.sex:=2;m:=1;end;//Ж
+'1': begin hero_generate.sex:=1;m:=1;end;//М
+'2':begin hero_generate.sex:=2;m:=1;end;//Ж
 else
 writeln(text[24]);
 end;//0.2
@@ -1606,53 +1607,54 @@ writeln(text[25]);
 repeat begin//0.11
 menu_key:=readkey;
 case menu_key of//0.21
-'1':begin  hero.race:=1;m:=1;end;//human
-'2':begin hero.race:=2;m:=1;end;//not human
+'1':begin  hero_generate.race:=1;m:=1;end;//human
+'2':begin hero_generate.race:=2;m:=1;end;//not human
 else
 writeln(text[24]);
 end;//0.21
 end;//0.11
 until m=1;
-
+log_generate('log_old_generate','hero_generate '+'-2- ');
 //08.11.2015
 //+16.11.2015
-hero.x:=oz_list[1].x+10;
-hero.y:=oz_list[1].y;
+hero_generate.x:=oz_list[1].x+10;
+hero_generate.y:=oz_list[1].y;
 
-hero.stren:=1;
-hero.intel:=1;
-hero.agility:=1;
-hero.init:=1;
-hero.masking:=1;
-hero.obser:=1;
+hero_generate.stren:=1;
+hero_generate.intel:=1;
+hero_generate.agility:=1;
+hero_generate.init:=1;
+hero_generate.masking:=1;
+hero_generate.obser:=1;
 
-hero.lvl:=1;
+hero_generate.lvl:=1;
 
-hero.hp:=10*hero.lvl;
-hero.mp:=10*hero.lvl;
-hero.exp:=0;
+hero_generate.hp:=10*hero_generate.lvl;
+hero_generate.mp:=10*hero_generate.lvl;
+hero_generate.exp:=0;
 
-
+log_generate('log_old_generate','hero_generate '+'-3- ');
 //hero.veapon:=4;
 //hero.armor:=4;
-hero.attak:=4+hero.stren;
-hero.defense:=4+hero.agility;
-hero.dmg:=4*hero.attak;
-hero.ign_dmg:=4*hero.defense;
-hero.gold:=1;
-hero.point:=10;//22.12.2015//++23.12.2015
-hero.s1:=beast_inv_generate('helm');
-hero.s2:=beast_inv_generate('dress');
-hero.s3:=beast_inv_generate('shoes');
-hero.s4:=beast_inv_generate('sword');
-hero.s5:=beast_inv_generate('shield');
-
+hero_generate.attak:=4+hero_generate.stren;
+hero_generate.defense:=4+hero_generate.agility;
+hero_generate.dmg:=4*hero_generate.attak;
+hero_generate.ign_dmg:=4*hero_generate.defense;
+hero_generate.gold:=1;
+hero_generate.point:=10;//22.12.2015//++23.12.2015
+hero_generate.s1:=beast_inv_generate('helm');
+hero_generate.s2:=beast_inv_generate('dress');
+hero_generate.s3:=beast_inv_generate('shoes');
+hero_generate.s4:=beast_inv_generate('sword');
+hero_generate.s5:=beast_inv_generate('shield');
+log_generate('log_old_generate','hero_generate '+'-4- ');
 //+06.09.2015
 //++01.01.2016
 for n:=0 to 99 do begin//0.1
-hero.bag[n]:=beast_inv_generate('null');
-log_generate('hero_generate','bag '+inttostr(n)+' '+inttostr(hero.bag[n].tip)+' '+hero.bag[n].name);
+hero_generate.bag[n]:=beast_inv_generate('null');
+log_generate('log_old_generate','hero_generate'+' bag '+inttostr(n)+' '+inttostr(hero.bag[n].tip)+' '+hero.bag[n].name);
 end;//0.1
+log_generate('log_old_generate','hero_generate'+' -5- ');
 hero:=hero_update(hero);
 end;//0
 
@@ -2344,7 +2346,7 @@ case menu_key of
 map_generate('map_test_generate');
 //â¥áâ®¢ ï £¥­¥à æ¨ï £¥à®ï генерация персонажа {~ 12.08.2015}
 //������� ���ᮭ���
-hero_generate('hero_new');
+hero:=hero_generate('hero_new');
 //31.12.2015
 story;
 main_menu; 

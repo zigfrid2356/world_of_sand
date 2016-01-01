@@ -748,6 +748,9 @@ end;
 
 //07.11.2015
 function npc_generate(i_n,j_n:integer):new_body;
+var
+st:string;
+stg:byte;
 begin
 //log_generate('log_old_generate','start npc_generate -!- '+inttostr(i_n)+' '+inttostr(j_n));
 npc_generate.lvl:=random(50)+1;
@@ -791,6 +794,16 @@ npc_generate.s3:=beast_inv_generate('shoes');
 npc_generate.s4:=beast_inv_generate('sword');
 npc_generate.s5:=beast_inv_generate('shield');
 
+for k2:=0 to 9 do begin//bg1
+stg:=random(4);
+if stg=0 then st:='helm';
+if stg=1 then st:='dress';
+if stg=2 then st:='shoes';
+if stg=3 then st:='sword';
+if stg=4 then st:='shield';
+npc_generate.bag[k2]:=beast_inv_generate(st);
+
+end;//bg1
 //log_generate('log_old_generate','NPC '+inttostr(npc_generate.lvl)+' '+inttostr(i_n)+':'+inttostr(j_n)+'-'+npc_generate.name);
 {
 //invent

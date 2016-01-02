@@ -115,7 +115,7 @@ npc:array[0..17000] of new_body;
 menu_key:char;
 i,j,n,m,l,k,k0,k1,k2,k_oz,i_oz,j_oz,n_oz,m_oz:integer;//áçñâç¨ª¨{счётчики}
 s:string;//temp
-lang: text;
+lang,lang_f: text;
 hf,st:text;
 monster_name,map_oz:text;
 color,har,item_name:text;
@@ -142,6 +142,8 @@ fmt:string='dd/mm/yyyy hh:nn:ss.zzz';
 //+25.10.2015
 s_typ,s_clas,s_podclas:array[0..9]of string;
 s_podtyp:array[0..50]of string;
+//+02.01.2016
+lang_s:string[3];
 //+24.09.2015
 const 
 x_map = 2048;
@@ -2341,7 +2343,7 @@ BEGIN
 Randomize;
 typ_generate('');
 i:=0;
-log_generate('log_new_generate','1-1');
+//log_generate('log_new_generate','1-1');
 assign(lang,'res\lang\rus\text_win.lang');
 reset(lang);
 while not eof(lang) do begin
@@ -2351,8 +2353,14 @@ delete(text[i],1,3);
 i:=i+1;
 end;
 close(lang);
-log_generate('log_old_generate','1-2');
-log_generate('log_drop_generate','');
+//02.01.2016
+assign(lang_f,'lang_f');
+reset(lang_f);
+readln(lang_f,lang_s);
+close(lang_f);
+
+//log_generate('log_old_generate','1-2');
+//log_generate('log_drop_generate','');
 textcolor(yellow);
 writeln	(text[1]);
 textcolor(white);

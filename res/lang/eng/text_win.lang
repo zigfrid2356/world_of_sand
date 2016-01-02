@@ -1,5 +1,5 @@
 
-001 WORLD SAND
+001 WORLD of SAND
 002 output
 003 menu
 004 start
@@ -18,12 +18,12 @@
 017 save
 018 map and character preserved
 019 Map and Character loaded
-020 ,enter the name of the character
+020 enter the name of the character
 021 select the gender (M -1 / -2 F)
 022 select Russ
 023 Ability to select 
 024 only 1 or 2
-025 1 person / 2 is not a person
+025 1 Human / 2 is not a Human
 026 force
 027 intillekt
 028 Agility
@@ -33,7 +33,7 @@
 032 camouflage
 033 observation
 034 your position:
-035 ,press '1' to go
+035 press '1' to go
 036 Battle number
 037 monster inflicted damage
 038 character inflicted damage
@@ -88,7 +88,7 @@
 087 Hunt
 088 corpse
 089 take
-090 ,press '0' to exit
+090 press '0' to exit
 091 name
 092 Armor
 093 Weight
@@ -105,6 +105,6 @@
 104 's' - Shoes
 105 'f' - arms
 106 'g' - protection
-107 pomosh
+107 Help
 108 recovered
 109 resident

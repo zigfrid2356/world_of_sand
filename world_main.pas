@@ -163,7 +163,8 @@ var
 ss:string;
 begin
 ClrScr;
-assign(st,'res\lang\rus\story');
+if lang_s='rus' then assign(st,'res\lang\rus\story');
+if lang_s='eng' then assign(st,'res\lang\eng\story');
 reset(st);
 while not eof(st) do begin
 readln(st,ss);
@@ -183,7 +184,8 @@ ih:byte;
 begin
 ClrScr;
 ih:=0;
-assign(hf,'res\lang\rus\help');
+if lang_s='rus' then assign(hf,'res\lang\rus\help');
+if lang_s='eng' then assign(hf,'res\lang\eng\help');
 reset(hf);
 while not eof(hf) do begin
 readln(hf,h[ih]);
@@ -727,7 +729,7 @@ procedure beast_drop_out(bdo:beast_body);
 begin
 clrscr;
 //bdi:=0;
-writeln('|'+text[91]+'       |'+text[21]+'|'+text[92]+'|'+text[93]+'|');
+writeln('|'+text[91]+'       |'+text[12]+'|'+text[92]+'|'+text[93]+'|');
 if bdo.skin.name<> 'null' then writeln('|'+'1- '+text[89]+' '+name_tab(bdo.skin.name,16)+'|'+name_tab(inttostr(bdo.skin.base_dmg),6)+'|'+name_tab(inttostr(bdo.skin.base_defense),6)+'|'+name_tab(inttostr(bdo.skin.ves),4)+'|');
 if bdo.meat.name<> 'null' then writeln('|'+'2- '+text[89]+' '+name_tab(bdo.meat.name,16)+'|'+name_tab(inttostr(bdo.meat.base_dmg),6)+'|'+name_tab(inttostr(bdo.meat.base_defense),6)+'|'+name_tab(inttostr(bdo.meat.ves),4)+'|');
 if bdo.teeth.name<> 'null' then writeln('|'+'3- '+text[89]+' '+name_tab(bdo.teeth.name,16)+'|'+name_tab(inttostr(bdo.teeth.base_dmg),6)+'|'+name_tab(inttostr(bdo.teeth.base_defense),6)+'|'+name_tab(inttostr(bdo.teeth.ves),4)+'|');
@@ -2343,8 +2345,15 @@ BEGIN
 Randomize;
 typ_generate('');
 i:=0;
+//02.01.2016
+assign(lang_f,'lang_f');
+reset(lang_f);
+readln(lang_f,lang_s);
+close(lang_f);
+
 //log_generate('log_new_generate','1-1');
-assign(lang,'res\lang\rus\text_win.lang');
+if lang_s='rus' then assign(lang,'res\lang\rus\text_win.lang');
+if lang_s='eng' then assign(lang,'res\lang\eng\text_win.lang');
 reset(lang);
 while not eof(lang) do begin
 readln(lang,text[i]);
@@ -2353,11 +2362,7 @@ delete(text[i],1,3);
 i:=i+1;
 end;
 close(lang);
-//02.01.2016
-assign(lang_f,'lang_f');
-reset(lang_f);
-readln(lang_f,lang_s);
-close(lang_f);
+
 
 //log_generate('log_old_generate','1-2');
 //log_generate('log_drop_generate','');

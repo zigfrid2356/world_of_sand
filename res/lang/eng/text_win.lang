@@ -1,0 +1,110 @@
+
+001 WORLD SAND
+002 output
+003 menu
+004 start
+005 Health
+006 mana
+006 experience
+008 level
+009 Card
+010 Information
+011 Battle
+012 Done
+013 ignoring damage
+014 Round
+015 VICTORY
+016 download
+017 save
+018 map and character preserved
+019 Map and Character loaded
+020 ,enter the name of the character
+021 select the gender (M -1 / -2 F)
+022 select Russ
+023 Ability to select 
+024 only 1 or 2
+025 1 person / 2 is not a person
+026 force
+027 intillekt
+028 Agility
+029 floor
+030 Russ
+031 initiative
+032 camouflage
+033 observation
+034 your position:
+035 ,press '1' to go
+036 Battle number
+037 monster inflicted damage
+038 character inflicted damage
+039 generate
+040 Armor
+041 damage with a weapon
+042 change - test function
+043 2 - Inventory
+044 cell number
+045 Inventory
+046 Weapon
+047 Armor
+048 Decoration
+049 Ingredient
+050 empty
+051 sand
+052 Dune
+053 quicksand
+054 sandstone
+055 dry bush
+056 bush
+057 well
+058 Water
+059 Palm
+060 unit tunes sand ruins
+061 ruins sand poluzanesñnnye
+062 Ruins
+063 construction
+064 ahead
+065 behind
+066 Right
+067 Left
+068 Buy
+069 sell
+070 trade
+071 next
+072 Generation
+073 well
+074 desert plain
+075 Oasis
+076 home
+077 Born in 
+078 work
+079 story
+080 lives
+081 course
+082 skin
+083 meat
+084 teeth
+085 bones
+086 nails
+087 Hunt
+088 corpse
+089 take
+090 ,press '0' to exit
+091 name
+092 Armor
+093 Weight
+094 zip
+095 Remove
+096 press 'Enter' to continue
+097 Increase
+098 free points
+099 Done
+100 sewn
+101 'h' - Helmet
+102 value
+103 'd' - clothes
+104 's' - Shoes
+105 'f' - arms
+106 'g' - protection
+107 pomosh
+108 recovered
+109 resident

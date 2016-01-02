@@ -940,7 +940,8 @@ clrscr;
 k_oz:=0;
 //+16.11.2015
 bl:=0;
-assign(map_oz,'res\map\oz.name');
+if lang_s='rus' then assign(map_oz,'res\map\oz.name');
+if lang_s='eng' then assign(map_oz,'res\map\oz_eng.name');
 reset(map_oz);
 while not eof(map_oz) do begin
 readln(map_oz,map_name[k_oz]);

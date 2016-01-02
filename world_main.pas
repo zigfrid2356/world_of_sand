@@ -487,7 +487,8 @@ item_m_name:array[1..200]of string[20];
 begin
 //log_generate('log_old_generate','name_item_generate -!- '+command);
 //if command='helm' then begin//1
-assign(item_name,'res\har\'+command);
+if lang_s='rus' then assign(item_name,'res\har\'+command);
+if lang_s='eng' then assign(item_name,'res\har\'+command+'_eng');
 reset(item_name);
 nig:=1;
 while not eof(item_name) do begin//1.1
@@ -517,7 +518,8 @@ function color_generate:string;
 var
 n:integer;
 begin
-assign(color,'res\har\color');
+if lang_s='rus' then assign(color,'res\har\color');
+if lang_s='eng' then assign(color,'res\har\color_eng');
 reset(color);
 n:=1;
 while not eof(color) do begin//1.1
@@ -544,7 +546,8 @@ m:=m+1;
 end;//1.1
 close(monster_name);
 //+31.08.2015
-assign(color,'res\har\color');
+if lang_s='rus' then assign(color,'res\har\color');
+if lang_s='eng' then assign(color,'res\har\color_eng');
 reset(color);
 n:=1;
 while not eof(color) do begin//1.1
@@ -553,7 +556,8 @@ n:=n+1;
 end;//1.1
 close(color);
 //
-assign(har,'res\har\har');
+if lang_s='rus' then assign(har,'res\har\har');
+if lang_s='eng' then assign(har,'res\har\har_eng'); 
 reset(har);
 i:=1;
 while not eof(har) do begin//1.1

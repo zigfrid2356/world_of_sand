@@ -1,4 +1,5 @@
 # world_of_sand
+* Блог/Blog: [Game World of Sand](http://gameworldofsand.blogspot.ru)
 
 * Мир песка - кроссплатформенная игра с открытым миром в сеттинге техно магического пост аппокалипсис РПГ.
 * World of sand - a cross-platform open world game in the setting of post techno magic appokalipsis RPG.

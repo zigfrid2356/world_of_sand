@@ -276,6 +276,7 @@ function beast_muve(bb:beast_body;command:string;bi:word):beast_body;
 var
 r_bm:byte;
 begin
+//log_generate('log_old_generate','beast_muve');
 //
 beast_muve.hp:=bb.hp;
 beast_muve.dmg:=bb.dmg;
@@ -593,7 +594,7 @@ bones
 clutches
  }
 begin
-//log_generate('log_old_generate','beast_inv_generate -!- '+command);
+//log_generate('log_old_generate','beast_inv_generate -command- '+command);
 if command='null' then begin//1
 beast_inv_generate.name:='null';
 beast_inv_generate.type_subject:='null';
@@ -731,6 +732,7 @@ end;
 //01.01.2016
 procedure beast_drop_out(bdo:beast_body);
 begin
+log_generate('log_old_generate','beast_drop_out ');
 clrscr;
 //bdi:=0;
 writeln('|'+text[91]+'       |'+text[12]+'|'+text[92]+'|'+text[93]+'|');
@@ -748,6 +750,7 @@ function beast_drop(bd:beast_body):beast_body;
 var
 bdi:byte;
 begin
+log_generate('log_old_generate','besr_drop');
 beast_drop:=bd;
 bdi:=0;
 clrscr;
@@ -845,6 +848,7 @@ end;
 //16.11.2015
 function beast_generate(i_b,j_b:word):beast_body;
 begin
+log_generate('log_old_generate','beast_generate -i_b- '+inttostr(i_b)+' -j_b- '+inttostr(j_b));
 beast_generate.hp:=100;
 beast_generate.dmg:=1;
 beast_generate.ign_dmg:=1;
@@ -1978,6 +1982,7 @@ end;
 procedure battle;
 var i0:integer;
 begin
+log_generate('log_old_generate','battle');
 i0:=0;
 repeat begin//0
 
@@ -2035,6 +2040,7 @@ until readkey='1';
 end;
 function item_info(i_t:byte):string;
 begin
+log_generate('log_old_generate','inem_info - i_t -'+inttostr(i_t));
 if i_t= 0 then  item_info:=text[50];
 if i_t= 1 then  item_info:=text[46];
 if i_t= 2 then  item_info:=text[47];
@@ -2043,6 +2049,7 @@ if i_t= 4 then  item_info:=text[49];
 end;
 procedure bag_info;
 begin
+log_generate('log_old_generate','bag_info');
 clrscr;
 writeln(text[45]);
 for i:=0 to 9 do begin//1
@@ -2055,6 +2062,7 @@ readln();
 end;
 procedure hero_output;
 begin
+log_generate('log_old_generate','hero_output ');
 repeat begin//1
 clrscr;
 writeln();
@@ -2102,6 +2110,7 @@ end;
 //01.11.2015
 function map_info(m_i:char):string;
 begin
+log_generate('log_old_generate','map_info - m_i -'+m_i);
 if m_i='.' then map_info:=text[51];
 if m_i=':'then map_info:=text[52];
 if m_i=';'then map_info:=text[53];
@@ -2116,12 +2125,13 @@ if m_i='-'then map_info:=text[61];
 if m_i='='then map_info:=text[62];
 if m_i='^'then map_info:=text[63];
 end;
+
 procedure map_output(x,y:integer);
 var
 temp_char:char;
 temp_color:integer;
 begin
-
+log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
 temp_char:=map[x,y].structure;
 temp_color:=map[x,y].color;
 map[x,y].structure:='@';

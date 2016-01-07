@@ -848,7 +848,7 @@ end;
 //16.11.2015
 function beast_generate(i_b,j_b:word):beast_body;
 begin
-log_generate('log_old_generate','beast_generate -i_b- '+inttostr(i_b)+' -j_b- '+inttostr(j_b));
+//log_generate('log_old_generate','beast_generate -i_b- '+inttostr(i_b)+' -j_b- '+inttostr(j_b));
 beast_generate.hp:=100;
 beast_generate.dmg:=1;
 beast_generate.ign_dmg:=1;
@@ -1626,7 +1626,7 @@ end;
 function hero_generate(h:string):new_body;//+12.08.2015
 begin
 if h='hero_new' then begin //0//+15.08.2015
-log_generate('log_old_generate','hero_generate '+'start -1-');
+//log_generate('log_old_generate','hero_generate '+'start -1-');
 writeln(text[20]);readln(s);
 hero_generate.name:=s;
 writeln(text[21]);
@@ -1692,7 +1692,7 @@ log_generate('log_old_generate','hero_generate '+'-4- ');
 //++01.01.2016
 for n:=0 to 99 do begin//0.1
 hero_generate.bag[n]:=beast_inv_generate('null');
-log_generate('log_old_generate','hero_generate'+' bag '+inttostr(n)+' '+inttostr(hero.bag[n].tip)+' -'+hero.bag[n].name+'-.');
+//log_generate('log_old_generate','hero_generate'+' bag '+inttostr(n)+' '+inttostr(hero.bag[n].tip)+' -'+hero.bag[n].name+'-.');
 end;//0.1
 log_generate('log_old_generate','hero_generate'+' -5- ');
 hero:=hero_update(hero);
@@ -1818,6 +1818,7 @@ var
   UnZipper: TUnZipper;
 
 begin
+log_generate('log_old_generate','start UnZip');
  UnZipper := TUnZipper.Create;
  // try    
     UnZipper.FileName := 'res\save\save.zip';
@@ -1826,7 +1827,8 @@ begin
     UnZipper.UnZipAllFiles;
  // finally
     UnZipper.Free;
- 
+ log_generate('log_old_generate','stop UnZip');
+ log_generate('log_old_generate','start hero.save');
 assign(hero_save,'res\save\hero.save');
 reset(hero_save);
 read(hero_save,hero);
@@ -2040,7 +2042,7 @@ until readkey='1';
 end;
 function item_info(i_t:byte):string;
 begin
-log_generate('log_old_generate','inem_info - i_t -'+inttostr(i_t));
+//log_generate('log_old_generate','inem_info - i_t -'+inttostr(i_t));
 if i_t= 0 then  item_info:=text[50];
 if i_t= 1 then  item_info:=text[46];
 if i_t= 2 then  item_info:=text[47];
@@ -2110,7 +2112,7 @@ end;
 //01.11.2015
 function map_info(m_i:char):string;
 begin
-log_generate('log_old_generate','map_info - m_i -'+m_i);
+//log_generate('log_old_generate','map_info - m_i -'+m_i);
 if m_i='.' then map_info:=text[51];
 if m_i=':'then map_info:=text[52];
 if m_i=';'then map_info:=text[53];
@@ -2131,7 +2133,7 @@ var
 temp_char:char;
 temp_color:integer;
 begin
-log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
+//log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
 temp_char:=map[x,y].structure;
 temp_color:=map[x,y].color;
 map[x,y].structure:='@';
@@ -2357,16 +2359,19 @@ unix utf-8 text.lang
 }
 //--------------------------------
 BEGIN
+log_generate('log_new_generate','bein');
 Randomize;
 typ_generate('');
 i:=0;
 //02.01.2016
+log_generate('log_old_generate','start lang_f');
 assign(lang_f,'lang_f');
 reset(lang_f);
 readln(lang_f,lang_s);
 close(lang_f);
-
+log_generate('log_old_generate','close lang_f');
 //log_generate('log_new_generate','1-1');
+log_generate('log_old_generate','start lang');
 if lang_s='rus' then assign(lang,'res\lang\rus\text_win.lang');
 if lang_s='eng' then assign(lang,'res\lang\eng\text_win.lang');
 reset(lang);
@@ -2377,7 +2382,7 @@ delete(text[i],1,3);
 i:=i+1;
 end;
 close(lang);
-
+log_generate('log_old_generate','close lang');
 
 //log_generate('log_old_generate','1-2');
 //log_generate('log_drop_generate','');
@@ -2398,9 +2403,11 @@ case menu_key of
 //â¥áâ®¢ ï £¥­¥à æ¨ï ª àâë {генерация карты }
 //������� �����
 //map_generate('map_new_generate');
+log_generate('log_old_generate','start map_generate');
 map_generate('map_test_generate');
 //â¥áâ®¢ ï £¥­¥à æ¨ï £¥à®ï генерация персонажа {~ 12.08.2015}
 //������� ���ᮭ���
+log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');
 //31.12.2015
 story;

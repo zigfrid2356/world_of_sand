@@ -762,34 +762,15 @@ writeln(text[90]);
 menu_key:=readkey;
 case menu_key of
 '1': begin //1.1
-for bdi:=0 to 99 do begin//b
-beast_drop:=bd;
-if (hero.bag[bdi].tip=0)and(beast_drop.skin.tip<>0) then hero.bag[bdi]:=beast_drop.skin; 
+while hero.bag[bdi].tip<>0 do bdi:=bdi+1;
+hero.bag[bdi]:=beast_drop.skin;
+beast_drop:=bd; 
 beast_drop.skin:=beast_inv_generate('null');
-end;//b
-{
-while (bd.skin.tip<>0)and(hero.bag[bdi].tip=0) do begin//1.1.1
-if bdi>99 then bdi:=0;
-beast_drop:=bd;
-hero.bag[bdi]:=bd.skin; 
-beast_drop.skin:=beast_inv_generate('null');
-bdi:=bdi+1;
-end;//1.1.1
-}
-{
-//log_generate('log_old_generate','beast_drop -1- '+hero.bag[bdi].name+' '+inttostr(bdi));
-if (hero.bag[bdi].tip<>0)and(bd.skin.name<>'null') then begin//1.1.1 
-//log_generate('log_old_generate','beast_drop -2- '+hero.bag[bdi].name+' '+inttostr(bdi));
-bdi:=bdi+1;
-end  //1.1.1
-else begin
-beast_drop:=bd;
-hero.bag[bdi]:=bd.skin; 
-beast_drop.skin:=beast_inv_generate('null');
-//log_generate('log_old_generate','beast_drop -3- '+hero.bag[bdi].name+' '+inttostr(bdi));
-end;
-}
+
+
 writeln(text[108]);
+writeln(text[96]);
+readln();
 
 	end;//1.1
 '2':	begin//1.2

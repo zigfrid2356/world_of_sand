@@ -2267,7 +2267,7 @@ if (map[x,y].tip<>0) then beast_list[map[x,y].beast_index]:=hunt(beast_list[map[
  end;//3.6
  
 '3':begin//3.7
-beast_list[map[x,y].beast_index]:=beast_drop(beast_list[map[x,y].beast_index]);
+if (map[x,y].tip=5)then beast_list[map[x,y].beast_index]:=beast_drop(beast_list[map[x,y].beast_index]);
  end;//3.7
  
 end;//3.0

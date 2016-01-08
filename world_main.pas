@@ -767,58 +767,50 @@ hero.bag[bdi]:=beast_drop.skin;
 beast_drop:=bd; 
 beast_drop.skin:=beast_inv_generate('null');
 
-
 writeln(text[108]);
 writeln(text[96]);
 readln();
 
 	end;//1.1
 '2':	begin//1.2
-{
-while (bd.meat.tip<>0)and(hero.bag[bdi].tip=0) do begin//1.1.1
-if bdi>99 then bdi:=0;
-beast_drop:=bd;
-hero.bag[bdi]:=bd.meat;
-beast_drop.meat:=beast_inv_generate('null');  
-bdi:=bdi+1;
-end;//1.1.1
-}
-{
-repeat bdi:=bdi+1; until hero.bag[bdi].name='null';
-while hero.bag[bdi].name='null' do begin hero.bag[bdi]:=bd.meat; beast_drop.meat:=beast_inv_generate('null'); 
-beast_drop.skin:=bd.skin;
-beast_drop.teeth:=bd.teeth;
-beast_drop.bones:=bd.bones;
-beast_drop.clutches:=bd.clutches;
-end;	
-}	
+while hero.bag[bdi].tip<>0 do bdi:=bdi+1;
+hero.bag[bdi]:=beast_drop.meat;
+beast_drop:=bd; 
+beast_drop.meat:=beast_inv_generate('null');
+
+writeln(text[108]);
+writeln(text[96]);
+readln();
 	end;//1.2
 '3':	begin//1.3
-repeat bdi:=bdi+1; until hero.bag[bdi].name='null';
-while hero.bag[bdi].name='null' do begin hero.bag[bdi]:=bd.teeth; beast_drop.teeth:=beast_inv_generate('null'); 
-beast_drop.meat:=bd.meat;
-beast_drop.skin:=bd.skin;
-beast_drop.bones:=bd.bones;
-beast_drop.clutches:=bd.clutches;
-end;		
+while hero.bag[bdi].tip<>0 do bdi:=bdi+1;
+hero.bag[bdi]:=beast_drop.teeth;
+beast_drop:=bd; 
+beast_drop.teeth:=beast_inv_generate('null');
+
+writeln(text[108]);
+writeln(text[96]);
+readln();		
 	end;//1.3
 '4':	begin//1.4
-repeat bdi:=bdi+1; until hero.bag[bdi].name='null';
-while hero.bag[bdi].name='null' do begin hero.bag[bdi]:=bd.bones; beast_drop.bones:=beast_inv_generate('null'); 
-beast_drop.meat:=bd.meat;
-beast_drop.teeth:=bd.teeth;
-beast_drop.skin:=bd.skin;
-beast_drop.clutches:=bd.clutches;
-end;		
+while hero.bag[bdi].tip<>0 do bdi:=bdi+1;
+hero.bag[bdi]:=beast_drop.bones;
+beast_drop:=bd; 
+beast_drop.bones:=beast_inv_generate('null');
+
+writeln(text[108]);
+writeln(text[96]);
+readln();		
 	end;//1.4
 '5':	begin//1.5
-repeat bdi:=bdi+1; until hero.bag[bdi].name='null';
-while hero.bag[bdi].name='null' do begin hero.bag[bdi]:=bd.clutches; beast_drop.clutches:=beast_inv_generate('null'); 
-beast_drop.meat:=bd.meat;
-beast_drop.teeth:=bd.teeth;
-beast_drop.bones:=bd.bones;
-beast_drop.skin:=bd.skin;
-end;		
+while hero.bag[bdi].tip<>0 do bdi:=bdi+1;
+hero.bag[bdi]:=beast_drop.clutches;
+beast_drop:=bd; 
+beast_drop.clutches:=beast_inv_generate('null');
+
+writeln(text[108]);
+writeln(text[96]);
+readln();		
 	end;//1.5
 end;//1
 

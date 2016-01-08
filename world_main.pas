@@ -756,7 +756,7 @@ bdi:=0;
 clrscr;
 writeln(text[45]+bd.name);
 repeat begin//1
-
+bdi:=0;
 beast_drop_out(beast_drop);
 writeln(text[90]);
 menu_key:=readkey;

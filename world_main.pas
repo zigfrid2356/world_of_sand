@@ -743,7 +743,7 @@ if bdo.clutches.name<> 'null' then writeln('|'+'5- '+text[89]+' '+name_tab(bdo.c
 end;
 
 //09.01.2016
-procedure trade_out(t_o:beast_body;command:string);
+procedure trade_out(t_o:new_body;command:string);
 var
 tr:string;
 begin
@@ -751,7 +751,9 @@ log_generate('log_old_generate','trade_out '+command);
 clrscr;
 if command= 'trade' then tr:=text[69];
 if command= 'cell' then tr:=text[68];
-
+writeln('--------------------------------------------------------');
+writeln('|'+text[91]+'         |'+text[110]+'|'+text[12]+'|'+text[92]+'|'+text[102]+'|'+text[93]+'|');
+readln();
 end;
 
 
@@ -856,15 +858,26 @@ end;
 //09.01.2016
 function npc_output(n_o:new_body):new_body;
 begin
+repeat begin//1.0
 clrscr;
 writeln(n_o.name);
 writeln(n_o.st0);
 writeln(n_o.st3);
 writeln('');
+writeln('1- '+text[69]);
+writeln('2- '+text[68]);
+writeln(text[90]);
 
-writeln(text[96]);
-readln();
 npc_output:=n_o;
+
+menu_key:=readkey;
+end;//1.0
+
+case menu_key of//2.0
+'1': trade_out(n_o,'trade');
+'2': trade_out(n_o,'cell');
+end;//2.0
+until menu_key='0';
 end;
 
 
@@ -2197,7 +2210,7 @@ if (map[x+1,y].tip<>0)and( map[x+1,y].tip<>5) then begin write(text[80]+beast_li
 if map[x+1,y].tip=5 then begin write(text[88]+beast_list[map[x+1,y].beast_index].name);end;
 writeln(); 
 writeln	('5- ',text[2]);
-if map[x,y].npc_index<>0 then writeln	('9- ',text[79]);
+if map[x,y].npc_index<>0 then writeln	('9- ',text[111]);
 
 if (map[x,y+1].tip<>0)and (map[x,y+1].tip<>5)then writeln	('7- ',text[87]);
 if (map[x,y-1].tip<>0)and(map[x,y-1].tip<>5)then writeln	('7- ',text[87]);
@@ -2290,7 +2303,7 @@ writeln	('3- ',text[2]);
 menu_key:=readkey;
 case menu_key of
 '1': begin //1.1
-	
+	//trade_out(t_o:beast_body;command:string);
 	end;//1.1
 '2':	begin//1.2
 	

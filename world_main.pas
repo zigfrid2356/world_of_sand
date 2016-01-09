@@ -770,7 +770,7 @@ beast_drop.skin:=beast_inv_generate('null');
 writeln(text[108]);
 writeln(text[96]);
 readln();
-
+menu_key:='0';
 	end;//1.1
 '2':	begin//1.2
 while hero.bag[bdi].tip<>0 do bdi:=bdi+1;
@@ -781,6 +781,7 @@ beast_drop.meat:=beast_inv_generate('null');
 writeln(text[108]);
 writeln(text[96]);
 readln();
+menu_key:='0';
 	end;//1.2
 '3':	begin//1.3
 while hero.bag[bdi].tip<>0 do bdi:=bdi+1;
@@ -790,7 +791,8 @@ beast_drop.teeth:=beast_inv_generate('null');
 
 writeln(text[108]);
 writeln(text[96]);
-readln();		
+readln();
+menu_key:='0';		
 	end;//1.3
 '4':	begin//1.4
 while hero.bag[bdi].tip<>0 do bdi:=bdi+1;
@@ -800,7 +802,8 @@ beast_drop.bones:=beast_inv_generate('null');
 
 writeln(text[108]);
 writeln(text[96]);
-readln();		
+readln();	
+menu_key:='0';	
 	end;//1.4
 '5':	begin//1.5
 while hero.bag[bdi].tip<>0 do bdi:=bdi+1;
@@ -810,7 +813,8 @@ beast_drop.clutches:=beast_inv_generate('null');
 
 writeln(text[108]);
 writeln(text[96]);
-readln();		
+readln();
+menu_key:='0';		
 	end;//1.5
 end;//1
 

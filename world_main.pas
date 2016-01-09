@@ -839,6 +839,21 @@ beast_generate.clutches:=beast_inv_generate('clutches');
 //log_generate('log_old_generate',inttostr(i_b)+':'+inttostr(j_b)+' '+beast_generate.name);
 end;
 
+//09.01.2016
+function npc_output(n_o:new_body):new_body;
+begin
+clrscr;
+writeln(n_o.name);
+writeln(n_o.st0);
+writeln(n_o.st3);
+writeln('');
+
+writeln(text[96]);
+readln();
+npc_output:=n_o;
+end;
+
+
 //07.11.2015
 function npc_generate(i_n,j_n:integer):new_body;
 var
@@ -1598,6 +1613,7 @@ end;
 
 function hero_generate(h:string):new_body;//+12.08.2015
 begin
+clrscr;
 if h='hero_new' then begin //0//+15.08.2015
 //log_generate('log_old_generate','hero_generate '+'start -1-');
 writeln(text[20]);readln(s);
@@ -2219,14 +2235,15 @@ map_output(x,y);
  
 '9':begin//3.5//+09.11.2015
 if map[x,y].npc_index<>0 then begin//3.5.1
-clrscr;
+npc[map[x,y].npc_index]:=npc_output(npc[map[x,y].npc_index]);
+{clrscr;
 writeln(npc[map[x,y].npc_index].name);
 writeln(npc[map[x,y].npc_index].st0);
 writeln(npc[map[x,y].npc_index].st3);
 writeln('');
-writeln	(text[35]);
+//writeln	(text[35]);
 writeln(text[96]);
-readln();
+readln();}
 map_output(x,y);
 end;//3.5.1
  end;//3.5

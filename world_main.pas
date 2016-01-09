@@ -734,13 +734,23 @@ procedure beast_drop_out(bdo:beast_body);
 begin
 log_generate('log_old_generate','beast_drop_out ');
 clrscr;
-//bdi:=0;
 writeln('|'+text[91]+'       |'+text[12]+'|'+text[92]+'|'+text[93]+'|');
 if bdo.skin.name<> 'null' then writeln('|'+'1- '+text[89]+' '+name_tab(bdo.skin.name,16)+'|'+name_tab(inttostr(bdo.skin.base_dmg),6)+'|'+name_tab(inttostr(bdo.skin.base_defense),6)+'|'+name_tab(inttostr(bdo.skin.ves),4)+'|');
 if bdo.meat.name<> 'null' then writeln('|'+'2- '+text[89]+' '+name_tab(bdo.meat.name,16)+'|'+name_tab(inttostr(bdo.meat.base_dmg),6)+'|'+name_tab(inttostr(bdo.meat.base_defense),6)+'|'+name_tab(inttostr(bdo.meat.ves),4)+'|');
 if bdo.teeth.name<> 'null' then writeln('|'+'3- '+text[89]+' '+name_tab(bdo.teeth.name,16)+'|'+name_tab(inttostr(bdo.teeth.base_dmg),6)+'|'+name_tab(inttostr(bdo.teeth.base_defense),6)+'|'+name_tab(inttostr(bdo.teeth.ves),4)+'|');
 if bdo.bones.name<> 'null' then writeln('|'+'4- '+text[89]+' '+name_tab(bdo.bones.name,16)+'|'+name_tab(inttostr(bdo.bones.base_dmg),6)+'|'+name_tab(inttostr(bdo.bones.base_defense),6)+'|'+name_tab(inttostr(bdo.bones.ves),4)+'|');
 if bdo.clutches.name<> 'null' then writeln('|'+'5- '+text[89]+' '+name_tab(bdo.clutches.name,16)+'|'+name_tab(inttostr(bdo.clutches.base_dmg),6)+'|'+name_tab(inttostr(bdo.clutches.base_defense),6)+'|'+name_tab(inttostr(bdo.clutches.ves),4)+'|');
+end;
+
+//09.01.2016
+procedure trade_out(t_o:beast_body;command:string);
+var
+tr:string;
+begin
+log_generate('log_old_generate','trade_out '+command);
+clrscr;
+if command= 'trade' then tr:=text[69];
+if command= 'cell' then tr:=text[68];
 
 end;
 

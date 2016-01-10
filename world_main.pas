@@ -746,6 +746,7 @@ end;
 procedure trade_out(t_o:new_body;command:string);
 var
 tr:string;
+toi:byte;
 begin
 log_generate('log_old_generate','trade_out '+command);
 clrscr;
@@ -753,6 +754,9 @@ if command= 'trade' then tr:=text[69];
 if command= 'cell' then tr:=text[68];
 writeln('--------------------------------------------------------');
 writeln('|'+text[91]+'         |'+text[110]+'|'+text[12]+'|'+text[92]+'|'+text[102]+'|'+text[93]+'|');
+for toi:=0 to 9 do begin//1
+writeln('|'+name_tab(t_o.bag[toi].name,17)+'|');
+end;//1
 readln();
 end;
 

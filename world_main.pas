@@ -742,6 +742,16 @@ if bdo.bones.name<> 'null' then writeln('|'+'4- '+text[89]+' '+name_tab(bdo.bone
 if bdo.clutches.name<> 'null' then writeln('|'+'5- '+text[89]+' '+name_tab(bdo.clutches.name,16)+'|'+name_tab(inttostr(bdo.clutches.base_dmg),6)+'|'+name_tab(inttostr(bdo.clutches.base_defense),6)+'|'+name_tab(inttostr(bdo.clutches.ves),4)+'|');
 end;
 
+function item_info(i_t:byte):string;
+begin
+//log_generate('log_old_generate','inem_info - i_t -'+inttostr(i_t));
+if i_t= 0 then  item_info:=text[50];
+if i_t= 1 then  item_info:=text[46];
+if i_t= 2 then  item_info:=text[47];
+if i_t= 3 then  item_info:=text[48];
+if i_t= 4 then  item_info:=text[49];
+end;
+
 //09.01.2016
 procedure trade_out(t_o:new_body;command:string);
 var
@@ -755,7 +765,7 @@ if command= 'cell' then tr:=text[68];
 writeln('--------------------------------------------------------');
 writeln('|'+text[91]+'         |'+text[110]+'|'+text[12]+'|'+text[92]+'|'+text[102]+'|'+text[93]+'|');
 for toi:=0 to 9 do begin//1
-writeln('|'+name_tab(t_o.bag[toi].name,17)+'|');
+writeln('|'+name_tab(t_o.bag[toi].name,17)+'|'+name_tab(item_info(t_o.bag[toi].tip),11)+'|'+name_tab(inttostr(t_o.bag[toi].base_dmg),4));
 end;//1
 readln();
 end;
@@ -2060,15 +2070,9 @@ end;//2
 end;//0
 until readkey='1';
 end;
-function item_info(i_t:byte):string;
-begin
-//log_generate('log_old_generate','inem_info - i_t -'+inttostr(i_t));
-if i_t= 0 then  item_info:=text[50];
-if i_t= 1 then  item_info:=text[46];
-if i_t= 2 then  item_info:=text[47];
-if i_t= 3 then  item_info:=text[48];
-if i_t= 4 then  item_info:=text[49];
-end;
+
+
+
 procedure bag_info;
 begin
 log_generate('log_old_generate','bag_info');

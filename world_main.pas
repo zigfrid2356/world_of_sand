@@ -612,8 +612,8 @@ beast_inv_generate.name:=name_item_generate(command);//text[82];
 beast_inv_generate.type_subject:='skin';
 beast_inv_generate.base_dmg:=0;
 beast_inv_generate.base_defense:=1;
-beast_inv_generate.ves:=1;
-beast_inv_generate.cost:=1;
+beast_inv_generate.ves:=1+random(5);
+beast_inv_generate.cost:=1+random(20);
 beast_inv_generate.tip:=2;
 beast_inv_generate.init:=1;
 beast_inv_generate.masking:=1;
@@ -624,8 +624,8 @@ beast_inv_generate.name:=name_item_generate(command);//text[83];
 beast_inv_generate.type_subject:='meat';
 beast_inv_generate.base_dmg:=0;
 beast_inv_generate.base_defense:=1;
-beast_inv_generate.ves:=1;
-beast_inv_generate.cost:=1;
+beast_inv_generate.ves:=1+random(5);
+beast_inv_generate.cost:=1+random(20);
 beast_inv_generate.tip:=3;
 beast_inv_generate.init:=1;
 beast_inv_generate.masking:=1;
@@ -636,8 +636,8 @@ beast_inv_generate.name:=name_item_generate(command);//text[84];
 beast_inv_generate.type_subject:='teeth';
 beast_inv_generate.base_dmg:=1;
 beast_inv_generate.base_defense:=2;
-beast_inv_generate.ves:=1;
-beast_inv_generate.cost:=1;
+beast_inv_generate.ves:=1+random(5);
+beast_inv_generate.cost:=1+random(20);
 beast_inv_generate.tip:=1;
 beast_inv_generate.init:=1;
 beast_inv_generate.masking:=1;
@@ -648,8 +648,8 @@ beast_inv_generate.name:=name_item_generate(command);//text[85];
 beast_inv_generate.type_subject:='bones';
 beast_inv_generate.base_dmg:=0;
 beast_inv_generate.base_defense:=1;
-beast_inv_generate.ves:=1;
-beast_inv_generate.cost:=1;
+beast_inv_generate.ves:=1+random(5);
+beast_inv_generate.cost:=1+random(20);
 beast_inv_generate.tip:=4;
 beast_inv_generate.init:=1;
 beast_inv_generate.masking:=1;
@@ -660,8 +660,8 @@ beast_inv_generate.name:=name_item_generate(command);//text[86];
 beast_inv_generate.type_subject:='clutches';
 beast_inv_generate.base_dmg:=1;
 beast_inv_generate.base_defense:=0;
-beast_inv_generate.ves:=1;
-beast_inv_generate.cost:=1;
+beast_inv_generate.ves:=1+random(5);
+beast_inv_generate.cost:=1+random(20);
 beast_inv_generate.tip:=1;
 beast_inv_generate.init:=1;
 beast_inv_generate.masking:=1;
@@ -673,7 +673,7 @@ beast_inv_generate.type_subject:='helm';
 beast_inv_generate.base_dmg:=0;
 beast_inv_generate.base_defense:=1+random(5);
 beast_inv_generate.ves:=1+random(5);
-beast_inv_generate.cost:=1;
+beast_inv_generate.cost:=1+random(20);
 beast_inv_generate.tip:=2;
 beast_inv_generate.init:=1;
 beast_inv_generate.masking:=1+random(5);
@@ -685,7 +685,7 @@ beast_inv_generate.type_subject:='dress';
 beast_inv_generate.base_dmg:=0;
 beast_inv_generate.base_defense:=1+random(5);
 beast_inv_generate.ves:=1+random(5);
-beast_inv_generate.cost:=1;
+beast_inv_generate.cost:=1+random(20);
 beast_inv_generate.tip:=2;
 beast_inv_generate.init:=1+random(5);
 beast_inv_generate.masking:=1+random(5);
@@ -697,7 +697,7 @@ beast_inv_generate.type_subject:='shoes';
 beast_inv_generate.base_dmg:=1;
 beast_inv_generate.base_defense:=1+random(5);
 beast_inv_generate.ves:=1+random(5);
-beast_inv_generate.cost:=1;
+beast_inv_generate.cost:=1+random(20);
 beast_inv_generate.tip:=2;
 beast_inv_generate.init:=1+random(5);
 beast_inv_generate.masking:=1+random(5);
@@ -763,13 +763,13 @@ clrscr;
 if command= 'trade' then tr:=text[69];
 if command= 'cell' then tr:=text[68];
 writeln('--------------------------------------------------------');
-writeln('|'+name_tab(text[91],35)+'|'+name_tab(text[110],11)+'|'+name_tab(text[12],6)+'|'
-+name_tab(text[92],6)+'|'+name_tab(text[102],9)+'|'
-+name_tab(text[93],3)+'|');
+writeln('|'+name_tab(text[91],30)+'|'+name_tab(text[110],11)+'|'+name_tab(text[12],6)+'|'
++name_tab(text[92],6)+'|'+name_tab(text[102],10)+'|'
++name_tab(text[93],4)+'|');
 for toi:=0 to 9 do begin//1
-writeln('|'+name_tab(t_o.bag[toi].name,35)+'|'+name_tab(item_info(t_o.bag[toi].tip),11)+'|'+name_tab(inttostr(t_o.bag[toi].base_dmg),6)
-+'|'+name_tab(inttostr(t_o.bag[toi].base_defense),6)+'|'+name_tab(inttostr(t_o.bag[toi].cost),9)
-+'|'+name_tab(inttostr(t_o.bag[toi].ves),3)+'|');
+writeln('|'+name_tab(t_o.bag[toi].name,30)+'|'+name_tab(item_info(t_o.bag[toi].tip),11)+'|'+name_tab(inttostr(t_o.bag[toi].base_dmg),6)
++'|'+name_tab(inttostr(t_o.bag[toi].base_defense),6)+'|'+name_tab(inttostr(t_o.bag[toi].cost),10)
++'|'+name_tab(inttostr(t_o.bag[toi].ves),4)+'|');
 end;//1
 writeln('--------------------------------------------------------');
 readln();

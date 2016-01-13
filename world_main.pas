@@ -763,9 +763,13 @@ clrscr;
 if command= 'trade' then tr:=text[69];
 if command= 'cell' then tr:=text[68];
 writeln('--------------------------------------------------------');
-writeln('|'+name_tab(text[91],30)+'|'+name_tab(text[110],11)+'|'+name_tab(text[12],4)+'|'+text[92]+'|'+text[102]+'|'+text[93]+'|');
+writeln('|'+name_tab(text[91],30)+'|'+name_tab(text[110],11)+'|'+name_tab(text[12],6)+'|'
++name_tab(text[92],6)+'|'+name_tab(text[102],9)+'|'
++name_tab(text[93],3)+'|');
 for toi:=0 to 9 do begin//1
-writeln('|'+name_tab(t_o.bag[toi].name,30)+'|'+name_tab(item_info(t_o.bag[toi].tip),11)+'|'+name_tab(inttostr(t_o.bag[toi].base_dmg),4));
+writeln('|'+name_tab(t_o.bag[toi].name,30)+'|'+name_tab(item_info(t_o.bag[toi].tip),11)+'|'+name_tab(inttostr(t_o.bag[toi].base_dmg),6)
++'|'+name_tab(inttostr(t_o.bag[toi].base_defense),6)+'|'+name_tab(inttostr(t_o.bag[toi].cost),9)
++'|'+name_tab(inttostr(t_o.bag[toi].ves),3)+'|');
 end;//1
 writeln('--------------------------------------------------------');
 readln();

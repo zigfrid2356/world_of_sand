@@ -24,7 +24,7 @@
 
 program world_of_sand;
 
-uses crt,sysutils,{windows,}dateutils,Zipper;
+uses crt,sysutils,windows,dateutils,Zipper;
 
 type//+21.08.2015
 inventory =record

@@ -486,7 +486,7 @@ var
 nig,r:byte;
 item_m_name:array[1..200]of string[20];
 begin
-//log_generate('log_old_generate','name_item_generate -!- '+command);
+log_generate('log_old_generate','name_item_generate -1- '+command);
 //if command='helm' then begin//1
 if lang_s='rus' then assign(item_name,'res\har\'+command);
 if lang_s='eng' then assign(item_name,'res\har\'+command+'_eng');
@@ -497,8 +497,11 @@ readln(item_name,item_m_name[nig]);
 nig:=nig+1;
 end;//1.1
 close(item_name);
-repeat r:=random(nig) until (r>0)and(r<nig);
+repeat r:=random(nig) until (r>0)and(r<nig-1);
 name_item_generate:=item_m_name[r];
+log_generate('log_old_generate','name_item_generate -2- '+inttostr(r));
+log_generate('log_old_generate','name_item_generate -3- '+item_m_name[r]);
+nig:=1;
 //end;//1
 {if command='skin' then begin//2
 assign(item_name,'res\har\'+command);

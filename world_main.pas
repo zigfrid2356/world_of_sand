@@ -1689,10 +1689,26 @@ writeln('4- '+text[115]);
 repeat begin//0.11
 menu_key:=readkey;
 case menu_key of//0.21
-'1':begin  hero_generate.race:=1;m:=1;end;//human
-'2':begin hero_generate.race:=2;m:=1;end;//ork
-'3':begin hero_generate.race:=3;m:=1;end;//elf
-'4':begin hero_generate.race:=4;m:=1;end;//dwarf
+'1':begin  hero_generate.race:=1;m:=1;
+hero_generate.stren:=1;
+hero_generate.intel:=2;
+hero_generate.agility:=2;
+end;//human
+'2':begin hero_generate.race:=2;m:=1;
+hero_generate.stren:=2;
+hero_generate.intel:=1;
+hero_generate.agility:=2;
+end;//ork
+'3':begin hero_generate.race:=3;m:=1;
+hero_generate.stren:=1;
+hero_generate.intel:=3;
+hero_generate.agility:=1;
+end;//elf
+'4':begin hero_generate.race:=4;m:=1;
+hero_generate.stren:=3;
+hero_generate.intel:=1;
+hero_generate.agility:=1;
+end;//dwarf
 else
 writeln(text[24]);
 end;//0.21
@@ -1704,9 +1720,10 @@ log_generate('log_old_generate','hero_generate '+'-2- ');
 hero_generate.x:=oz_list[1].x+10;
 hero_generate.y:=oz_list[1].y;
 
+{
 hero_generate.stren:=1;
 hero_generate.intel:=1;
-hero_generate.agility:=1;
+hero_generate.agility:=1;}
 hero_generate.init:=1;
 hero_generate.masking:=1;
 hero_generate.obser:=1;

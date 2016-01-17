@@ -65,6 +65,7 @@ new_body =record//+05.11.2015
 //ocnov
 name:string;
 stren,intel,agility,sex,race:word;
+{race= 1-human,2-ork,3-elf,4-dwarf}
 //vichisl
 hp,mp,attak,defense,ves:integer;
 //obnov

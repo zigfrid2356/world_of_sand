@@ -487,7 +487,7 @@ var
 nig,r:byte;
 item_m_name:array[1..200]of string[20];
 begin
-log_generate('log_old_generate','name_item_generate -1- '+command);
+//log_generate('log_old_generate','name_item_generate -1- '+command);
 //if command='helm' then begin//1
 if lang_s='rus' then assign(item_name,'res\har\'+command);
 if lang_s='eng' then assign(item_name,'res\har\'+command+'_eng');
@@ -500,8 +500,8 @@ end;//1.1
 close(item_name);
 repeat r:=random(nig) until (r>0)and(r<nig-1);
 name_item_generate:=item_m_name[r];
-log_generate('log_old_generate','name_item_generate -2- '+inttostr(r));
-log_generate('log_old_generate','name_item_generate -3- '+item_m_name[r]);
+//log_generate('log_old_generate','name_item_generate -2- '+inttostr(r));
+//log_generate('log_old_generate','name_item_generate -3- '+item_m_name[r]);
 nig:=1;
 //end;//1
 {if command='skin' then begin//2
@@ -2264,20 +2264,23 @@ menu_key:=readkey;
 end;//2.0
 
 case menu_key of//3.0
-'6':begin//3.1 
+'6':begin//3.1
 x:=x;
 if y+1<={244}2037 then y:=y+1 else y:=y;
 hero.y:=y;
+log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y)); 
 muve(x,y,'test');
 map_output(x,y);
 
 
 end;//3.1
 '4':begin//3.2
+
 x:=x;
 if y-1>=11 then y:=y-1 else y:=y;
 
 hero.y:=y;
+log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y)); 
 muve(x,y,'test');
 map_output(x,y);
 
@@ -2286,6 +2289,7 @@ map_output(x,y);
 if x-1>=6 then x:=x-1 else x:=x;
 y:=y; 
 hero.x:=x;
+log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y)); 
 muve(x,y,'test');
 map_output(x,y);
 
@@ -2294,6 +2298,7 @@ map_output(x,y);
 if x+1<={249}2042 then x:=x+1 else x:=x;
 y:=y; 
 hero.x:=x; 
+log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y)); 
 muve(x,y,'test');
 map_output(x,y);
 

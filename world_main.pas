@@ -396,7 +396,7 @@ end;end;//0.1//0.2
 end;//00
 if command='test' then begin//000------------------------000-----------------
 
-//log_generate('log_old_generate','start_muve');
+log_generate('log_old_generate','start_muve_');
 for i_muv:=1 to x_map-1 do begin//0.1
 	for j_muv:=1 to y_map-1 do begin//0.2
 	
@@ -412,7 +412,7 @@ end;//1.2
 if map[i_muv,j_muv].structure='"' then begin//1.1
 rr:=random(4);
 if (rr=0)and (i_muv<x_map-1) and(map[i_muv+1,j_muv].structure='.') then begin //1.1.1
-//log_generate('log_old_generate','muve 0');
+log_generate('log_old_generate','muve 0');
 map[i_muv+1,j_muv].structure:='"';
 map[i_muv+1,j_muv].color:=2;
 map[i_muv+1,j_muv].progress:=0;
@@ -423,7 +423,7 @@ map[i_muv+1,j_muv].progress:=0;
 
 end;//1.1.1
 if (rr=1)and (i_muv>0) and(map[i_muv-1,j_muv].structure='.')then begin //1.1.2
-//log_generate('log_old_generate','muve 1');
+log_generate('log_old_generate','muve 1');
 map[i_muv-1,j_muv].structure:='"';
 map[i_muv-1,j_muv].color:=2;
 map[i_muv-1,j_muv].progress:=0;
@@ -434,7 +434,7 @@ map[i_muv-1,j_muv].progress:=0;
 
 end;//1.1.2
 if (rr=2)and (j_muv<y_map-1)and(map[i_muv,j_muv+1].structure='.') then begin//1.1.3
-//log_generate('log_old_generate','muve 2');
+log_generate('log_old_generate','muve 2');
  map[i_muv,j_muv+1].structure:='"';
  map[i_muv,j_muv+1].color:=2;
  map[i_muv,j_muv+1].progress:=0;
@@ -445,7 +445,7 @@ if (rr=2)and (j_muv<y_map-1)and(map[i_muv,j_muv+1].structure='.') then begin//1.
 
  end;//1.1.3
 if (rr=3)and (j_muv>0)and(map[i_muv,j_muv-1].structure='.') then begin //1.1.4
-//log_generate('log_old_generate','muve 3');
+log_generate('log_old_generate','muve 3');
 map[i_muv,j_muv-1].structure:='"';
 map[i_muv,j_muv-1].color:=2;
 map[i_muv,j_muv-1].progress:=0;
@@ -467,16 +467,16 @@ end;//1.1
 end;//1
 if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
 end;end;//0.1//0.2
-//log_generate('log_old_generate','stop_muve');
+log_generate('log_old_generate','stop_muve');
 
 for bm_i:=1 to 1001 do begin //2
-{if bm_i=10 then begin//0   
-log_generate('log_old_generate','muve 9-1 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' name '+beast_list[map[beast_list[bm_i].x,beast_list[bm_i].y].beast_index].name);
-end;}//0
+{if bm_i=10 then begin//0 }  
+//log_generate('log_old_generate','muve 9-1 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' name '+beast_list[map[beast_list[bm_i].x,beast_list[bm_i].y].beast_index].name);
+{end;}//0
 beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i); 
-{if bm_i=10 then begin//0   
-log_generate('log_old_generate','muve 9-2 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' mame '+beast_list[bm_i].name);
-end;}//0
+{if bm_i=10 then begin//0 }  
+//log_generate('log_old_generate','muve 9-2 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' mame '+beast_list[bm_i].name);
+{end;}//0
 end;//2
 
 end;//000
@@ -2298,7 +2298,7 @@ map_output(x,y);
 if x+1<={249}2042 then x:=x+1 else x:=x;
 y:=y; 
 hero.x:=x; 
-log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y)); 
+log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
 muve(x,y,'test');
 map_output(x,y);
 

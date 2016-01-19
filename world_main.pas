@@ -469,7 +469,7 @@ if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[
 end;end;//0.1//0.2
 //log_generate('log_old_generate','stop_muve');
 
-for bm_i:=1 to 1001 do begin //2
+for bm_i:=10 to 900 do begin //2
 {if bm_i=10 then begin//0 }  
 //log_generate('log_old_generate','muve 9-1 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' name '+beast_list[map[beast_list[bm_i].x,beast_list[bm_i].y].beast_index].name);
 {end;}//0

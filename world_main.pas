@@ -878,12 +878,23 @@ beast_generate.clutches:=beast_inv_generate('clutches');
 //log_generate('log_old_generate',inttostr(i_b)+':'+inttostr(j_b)+' '+beast_generate.name);
 end;
 
+//20.01.2016
+function race_output(r_o:word):string;
+begin
+{race= 1-human,2-ork,3-elf,4-dwarf}
+if r_o=1 then race_output:=text[112];
+if r_o=2 then race_output:=text[113];
+if r_o=3 then race_output:=text[114];
+if r_o=4 then race_output:=text[115];
+end;
+
 //09.01.2016
 function npc_output(n_o:new_body):new_body;
 begin
 repeat begin//1.0
 clrscr;
 writeln(n_o.name);
+writeln(race_output(n_o.race));
 writeln(n_o.st0);
 writeln(n_o.st3);
 writeln('');
@@ -2117,15 +2128,7 @@ writeln(text[96]);
 readln();
 
 end;
-//20.01.2016
-function race_output(r_o:word):string;
-begin
-{race= 1-human,2-ork,3-elf,4-dwarf}
-if r_o=1 then race_output:=text[112];
-if r_o=2 then race_output:=text[113];
-if r_o=3 then race_output:=text[114];
-if r_o=4 then race_output:=text[115];
-end;
+
 
 procedure hero_output;
 begin

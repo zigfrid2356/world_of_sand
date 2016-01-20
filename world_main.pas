@@ -918,7 +918,7 @@ npc_generate.stren:=random(npc_generate.lvl)+5;
 npc_generate.intel:=random(npc_generate.lvl)+5;
 npc_generate.agility:=random(npc_generate.lvl)+5;
 npc_generate.sex:=1;
-npc_generate.race:=1;
+npc_generate.race:=random(3)+1;
 //vichisl
 npc_generate.hp:=random(npc_generate.lvl)+50;
 npc_generate.mp:=random(npc_generate.lvl)+50;

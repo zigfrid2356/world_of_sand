@@ -2117,6 +2117,16 @@ writeln(text[96]);
 readln();
 
 end;
+//20.01.2016
+function race_output(r_o:word):string;
+begin
+{race= 1-human,2-ork,3-elf,4-dwarf}
+if r_o=1 then race_output:=text[112];
+if r_o=2 then race_output:=text[113];
+if r_o=3 then race_output:=text[114];
+if r_o=4 then race_output:=text[115];
+end;
+
 procedure hero_output;
 begin
 log_generate('log_old_generate','hero_output ');
@@ -2133,7 +2143,7 @@ writeln(text[26],' ',hero.stren );// сила
 writeln(text[27],' ',hero.intel );// интиллект
 writeln(text[28],' ',hero.agility );// ловкость
 writeln(text[29],' ',hero.sex );// пол
-writeln(text[30],' ',hero.race );// расса
+writeln(text[30],' ',race_output(hero.race) );// расса
 writeln(text[31],' ',hero.init );// инициатива
 writeln(text[32],' ',hero.masking ); //маскировка
 writeln(text[33],' ',hero.obser );// наблюдательность

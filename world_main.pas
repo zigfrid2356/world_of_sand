@@ -916,7 +916,7 @@ end;
 
 
 //07.11.2015
-function npc_generate(i_n,j_n:integer):new_body;
+function npc_generate(i_n,j_n:integer; sid:byte):new_body;
 var
 st:string;
 stg:byte;
@@ -929,7 +929,7 @@ npc_generate.stren:=random(npc_generate.lvl)+5;
 npc_generate.intel:=random(npc_generate.lvl)+5;
 npc_generate.agility:=random(npc_generate.lvl)+5;
 npc_generate.sex:=1;
-npc_generate.race:=random(3)+1;
+if sid=1 then npc_generate.race:=1 else npc_generate.race:=random(3)+1;
 //vichisl
 npc_generate.hp:=random(npc_generate.lvl)+50;
 npc_generate.mp:=random(npc_generate.lvl)+50;
@@ -1398,7 +1398,7 @@ for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
 	//-----------------------------------------------------------------------------------------
 //	log_generate('log_old_generate','start nps generate -6- '+inttostr(k1));
 	//writeln(text[72],text[109]);	
-	npc[k1]:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y);
+	npc[k1]:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y,1);
 //	log_generate('log_old_generate','start story nps generate -6_0- '+inttostr(k1));
 	npc[k1].st0:=story_npc('0');
 //	log_generate('log_old_generate','start story nps generate -6_3- '+inttostr(k1));

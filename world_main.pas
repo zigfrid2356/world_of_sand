@@ -757,14 +757,16 @@ if i_t= 4 then  item_info:=text[49];
 end;
 
 //09.01.2016
-procedure trade_out(t_o:new_body;command:string);
+function trade_out(t_o:new_body;command:string):new_body;
 var
 tr:string;
-toi:byte;
+toi,bagi:byte;
 begin
 log_generate('log_old_generate','trade_out '+command);
+trade_out:=t_o;
 repeat begin//0
 clrscr;
+bagi:=0;
 if command= 'trade' then tr:=text[69];
 if command= 'cell' then tr:=text[68];
 writeln('--------------------------------------------------------');
@@ -772,7 +774,7 @@ writeln('|'+name_tab(text[91],30)+'|'+name_tab(text[110],11)+'|'+name_tab(text[1
 +name_tab(text[92],6)+'|'+name_tab(text[102],10)+'|'
 +name_tab(text[93],4)+'|');
 for toi:=0 to 8 do begin//1
-writeln('|'+name_tab(t_o.bag[toi].name,30)+'|'+name_tab(item_info(t_o.bag[toi].tip),11)+'|'+name_tab(inttostr(t_o.bag[toi].base_dmg),6)
+if t_o.bag[toi].tip<>0 then writeln('|'+name_tab(t_o.bag[toi].name,30)+'|'+name_tab(item_info(t_o.bag[toi].tip),11)+'|'+name_tab(inttostr(t_o.bag[toi].base_dmg),6)
 +'|'+name_tab(inttostr(t_o.bag[toi].base_defense),6)+'|'+name_tab(inttostr(t_o.bag[toi].cost),10)
 +'|'+name_tab(inttostr(t_o.bag[toi].ves),4)+'|'+'-'+inttostr(toi+1));
 end;//1
@@ -781,7 +783,16 @@ writeln(text[90]);
 menu_key:=readkey;
 end;//0
 case menu_key of
-'1':begin end;
+'1':begin //00
+if (command= 'cell')and(t_o.bag[1].cost>=hero.gold) then begin//00.1 
+while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
+hero.bag[bagi]:=t_o.bag[1];
+hero.gold:=hero.gold-t_o.bag[1].cost;
+trade_out.bag[1]:=beast_inv_generate('nill');
+end;//00.1
+end;//00
+
+
 '2':begin end;
 '3':begin end;
 '4':begin end;
@@ -918,16 +929,17 @@ writeln('1- '+text[69]);
 writeln('2- '+text[68]);
 writeln(text[90]);
 
-npc_output:=n_o;
+
 
 menu_key:=readkey;
 end;//1.0
 
 case menu_key of//2.0
 '1': trade_out(hero,'trade');
-'2': trade_out(n_o,'cell');
+'2': n_o:=trade_out(n_o,'cell');
 end;//2.0
 until menu_key='0';
+npc_output:=n_o;
 end;
 
 
@@ -979,7 +991,7 @@ npc_generate.s3:=beast_inv_generate('shoes');
 npc_generate.s4:=beast_inv_generate('sword');
 npc_generate.s5:=beast_inv_generate('shield');
 
-for k2:=0 to 9 do begin//bg1
+for k2:=0 to 4 do begin//bg1
 stg:=random(4);
 if stg=0 then st:='helm';
 if stg=1 then st:='dress';
@@ -989,7 +1001,7 @@ if stg=4 then st:='shield';
 npc_generate.bag[k2]:=beast_inv_generate(st);
 
 end;//bg1
-for k2:=10 to 99 do begin//bg2
+for k2:=5 to 99 do begin//bg2
 npc_generate.bag[k2]:=beast_inv_generate('null');
 end;//bg2
 //log_generate('log_old_generate','NPC '+inttostr(npc_generate.lvl)+' '+inttostr(i_n)+':'+inttostr(j_n)+'-'+npc_generate.name);

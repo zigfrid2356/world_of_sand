@@ -939,7 +939,7 @@ npc_generate.ves:=random(npc_generate.lvl)+50;
 //obnov
 npc_generate.exp:=1;
 
-npc_generate.gold:=random(50)+1;
+npc_generate.gold:=random(100)+50;
 npc_generate.x:=i_n;
 npc_generate.y:=j_n;
 npc_generate.init:=random(50)+1;

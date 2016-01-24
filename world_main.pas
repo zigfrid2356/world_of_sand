@@ -774,9 +774,10 @@ writeln('|'+name_tab(text[91],30)+'|'+name_tab(text[110],11)+'|'+name_tab(text[1
 for toi:=0 to 8 do begin//1
 writeln('|'+name_tab(t_o.bag[toi].name,30)+'|'+name_tab(item_info(t_o.bag[toi].tip),11)+'|'+name_tab(inttostr(t_o.bag[toi].base_dmg),6)
 +'|'+name_tab(inttostr(t_o.bag[toi].base_defense),6)+'|'+name_tab(inttostr(t_o.bag[toi].cost),10)
-+'|'+name_tab(inttostr(t_o.bag[toi].ves),4)+'-'+inttostr(toi+1)+'|');
++'|'+name_tab(inttostr(t_o.bag[toi].ves),4)+'|'+'-'+inttostr(toi+1));
 end;//1
 writeln('--------------------------------------------------------');
+writeln(text[90]);
 menu_key:=readkey;
 end;//0
 case menu_key of

@@ -779,16 +779,19 @@ if t_o.bag[toi].tip<>0 then writeln('|'+name_tab(t_o.bag[toi].name,30)+'|'+name_
 +'|'+name_tab(inttostr(t_o.bag[toi].ves),4)+'|'+'-'+inttostr(toi+1));
 end;//1
 writeln('--------------------------------------------------------');
+{if command= 'cell' then} writeln(hero.name,' ',text[116],':',hero.gold,' | ',t_o.name,' ',text[116],':',t_o.gold,' |');
+
 writeln(text[90]);
 menu_key:=readkey;
 end;//0
 case menu_key of
 '1':begin //00
-if (command= 'cell')and(t_o.bag[1].cost>=hero.gold) then begin//00.1 
+if (command= 'cell')and(t_o.bag[0].cost>=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
-hero.bag[bagi]:=t_o.bag[1];
-hero.gold:=hero.gold-t_o.bag[1].cost;
-trade_out.bag[1]:=beast_inv_generate('nill');
+hero.bag[bagi]:=t_o.bag[0];
+hero.gold:=hero.gold-t_o.bag[0].cost;
+trade_out.bag[0]:=beast_inv_generate('nill');
+menu_key:='0';
 end;//00.1
 end;//00
 

@@ -763,6 +763,7 @@ tr:string;
 toi:byte;
 begin
 log_generate('log_old_generate','trade_out '+command);
+repeat begin//0
 clrscr;
 if command= 'trade' then tr:=text[69];
 if command= 'cell' then tr:=text[68];
@@ -770,13 +771,27 @@ writeln('--------------------------------------------------------');
 writeln('|'+name_tab(text[91],30)+'|'+name_tab(text[110],11)+'|'+name_tab(text[12],6)+'|'
 +name_tab(text[92],6)+'|'+name_tab(text[102],10)+'|'
 +name_tab(text[93],4)+'|');
-for toi:=0 to 9 do begin//1
+for toi:=0 to 8 do begin//1
 writeln('|'+name_tab(t_o.bag[toi].name,30)+'|'+name_tab(item_info(t_o.bag[toi].tip),11)+'|'+name_tab(inttostr(t_o.bag[toi].base_dmg),6)
 +'|'+name_tab(inttostr(t_o.bag[toi].base_defense),6)+'|'+name_tab(inttostr(t_o.bag[toi].cost),10)
-+'|'+name_tab(inttostr(t_o.bag[toi].ves),4)+'|');
++'|'+name_tab(inttostr(t_o.bag[toi].ves),4)+'-'+inttostr(toi+1)+'|');
 end;//1
 writeln('--------------------------------------------------------');
-readln();
+menu_key:=readkey;
+end;//0
+case menu_key of
+'1':begin end;
+'2':begin end;
+'3':begin end;
+'4':begin end;
+'5':begin end;
+'6':begin end;
+'7':begin end;
+'8':begin end;
+'9':begin end;
+
+end;
+until menu_key='0';
 end;
 
 

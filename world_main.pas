@@ -924,7 +924,7 @@ menu_key:=readkey;
 end;//1.0
 
 case menu_key of//2.0
-'1': trade_out(n_o,'trade');
+'1': trade_out(hero,'trade');
 '2': trade_out(n_o,'cell');
 end;//2.0
 until menu_key='0';

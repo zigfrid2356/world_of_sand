@@ -2302,13 +2302,19 @@ temp_char:char;
 temp_color:integer;
 begin
 //log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
+{temp_char:=map[x,y].structure;
+temp_color:=map[x,y].color;
+map[x,y].structure:='@';
+map[x,y].color:=4;}
+if (x-1>=6) and(x+1<=x_map-6) and (y-1>=11) and (y+1<=y_map-11) then begin//2.00
+
+repeat begin//2.0
+//---temp--
 temp_char:=map[x,y].structure;
 temp_color:=map[x,y].color;
 map[x,y].structure:='@';
 map[x,y].color:=4;
-if (x-1>=6) and(x+1<=x_map-6) and (y-1>=11) and (y+1<=y_map-11) then begin//2.00
-
-repeat begin//2.0
+//---temp--
 clrscr;
 textcolor(white);
 writeln(map[x,y].name);{i,j}
@@ -2381,9 +2387,9 @@ case menu_key of//3.0
 x:=x;
 if y+1<={244}2037 then y:=y+1 else y:=y;
 hero.y:=y;
-log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y)); 
+//log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y)); 
 muve(x,y,'test');
-map_output(x,y);
+//map_output(x,y);
 
 
 end;//3.1
@@ -2393,27 +2399,27 @@ x:=x;
 if y-1>=11 then y:=y-1 else y:=y;
 
 hero.y:=y;
-log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y)); 
+//log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y)); 
 muve(x,y,'test');
-map_output(x,y);
+//map_output(x,y);
 
  end;//3.2
 '8':begin//3.3
 if x-1>=6 then x:=x-1 else x:=x;
 y:=y; 
 hero.x:=x;
-log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y)); 
+//log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y)); 
 muve(x,y,'test');
-map_output(x,y);
+//map_output(x,y);
 
  end;//3.3
 '2':begin//3.4
 if x+1<={249}2042 then x:=x+1 else x:=x;
 y:=y; 
 hero.x:=x; 
-log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
+//log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
 muve(x,y,'test');
-map_output(x,y);
+//map_output(x,y);
 
  end;//3.4
  

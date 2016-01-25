@@ -1856,7 +1856,7 @@ log_generate('log_old_generate','hero_generate '+'-4- ');
 //+06.09.2015
 //++01.01.2016
 for n:=0 to 99 do begin//0.1
-hero_generate.bag[n]:=beast_inv_generate('helm');
+hero_generate.bag[n]:=beast_inv_generate('null');
 //log_generate('log_old_generate','hero_generate'+' bag '+inttostr(n)+' '+inttostr(hero.bag[n].tip)+' -'+hero.bag[n].name+'-.');
 end;//0.1
 log_generate('log_old_generate','hero_generate'+' -5- ');

@@ -1856,7 +1856,7 @@ log_generate('log_old_generate','hero_generate '+'-4- ');
 //+06.09.2015
 //++01.01.2016
 for n:=0 to 99 do begin//0.1
-hero_generate.bag[n]:=beast_inv_generate('null');
+hero_generate.bag[n]:=beast_inv_generate('helm');
 //log_generate('log_old_generate','hero_generate'+' bag '+inttostr(n)+' '+inttostr(hero.bag[n].tip)+' -'+hero.bag[n].name+'-.');
 end;//0.1
 log_generate('log_old_generate','hero_generate'+' -5- ');
@@ -2209,17 +2209,24 @@ end;
 
 
 procedure bag_info;
+var
+b_l,t_b_l:byte;
 begin
+b_l:=0;
 log_generate('log_old_generate','bag_info');
+repeat begin//1.1
 clrscr;
+writeln(text[117]);
 writeln(text[45]);
-for i:=0 to 9 do begin//1
+t_b_l:=(b_l*10)+9;
+for i:=b_l*10 to t_b_l do begin//1
 if hero.bag[i].tip <> 0 then writeln(text[44],' ',i,' ',hero.bag[i].name,' ',item_info(hero.bag[i].tip));
-
 end;//1
-writeln(text[96]);
-readln();
-
+writeln(text[90]);
+menu_key:=readkey;
+b_l:=strtoint(menu_key);
+end;//1.1
+until menu_key='0';
 end;
 
 

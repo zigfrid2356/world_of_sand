@@ -798,7 +798,7 @@ if (command= 'trade')and (hero.bag[0].cost<=t_o.gold) then begin//00.2
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[0];
 t_o.gold:=t_o.gold-hero.bag[0].cost;
-trade_out.bag[bagi]:=t_o.bag[bagi];
+trade_out:=t_o;
 hero.bag[0]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.2

@@ -761,22 +761,23 @@ function trade_out(t_o:new_body;command:string):new_body;
 var
 tr:string;
 toi,bagi:byte;
+trader:new_body;
 begin
 log_generate('log_old_generate','trade_out '+command);
 trade_out:=t_o;
 repeat begin//0
 clrscr;
 bagi:=0;
-if command= 'trade' then tr:=text[69];
-if command= 'cell' then tr:=text[68];
+if command= 'trade' then begin tr:=text[69]; trader:=hero end;
+if command= 'cell' then begin tr:=text[68]; trader:= t_o end;
 writeln('--------------------------------------------------------');
 writeln('|'+name_tab(text[91],30)+'|'+name_tab(text[110],11)+'|'+name_tab(text[12],6)+'|'
 +name_tab(text[92],6)+'|'+name_tab(text[102],10)+'|'
 +name_tab(text[93],4)+'|');
 for toi:=0 to 8 do begin//1
-if t_o.bag[toi].tip<>0 then writeln('|'+name_tab(t_o.bag[toi].name,30)+'|'+name_tab(item_info(t_o.bag[toi].tip),11)+'|'+name_tab(inttostr(t_o.bag[toi].base_dmg),6)
-+'|'+name_tab(inttostr(t_o.bag[toi].base_defense),6)+'|'+name_tab(inttostr(t_o.bag[toi].cost),10)
-+'|'+name_tab(inttostr(t_o.bag[toi].ves),4)+'|'+'-'+inttostr(toi+1));
+if trader.bag[toi].tip<>0 then writeln('|'+name_tab(trader.bag[toi].name,30)+'|'+name_tab(item_info(trader.bag[toi].tip),11)+'|'+name_tab(inttostr(trader.bag[toi].base_dmg),6)
++'|'+name_tab(inttostr(trader.bag[toi].base_defense),6)+'|'+name_tab(inttostr(trader.bag[toi].cost),10)
++'|'+name_tab(inttostr(trader.bag[toi].ves),4)+'|'+'-'+inttostr(toi+1));
 end;//1
 writeln('--------------------------------------------------------');
 {if command= 'cell' then} writeln(hero.name,' ',text[116],':',hero.gold,' | ',t_o.name,' ',text[116],':',t_o.gold,' |');
@@ -786,16 +787,24 @@ menu_key:=readkey;
 end;//0
 case menu_key of
 '1':begin //00
-if (command= 'cell')and(t_o.bag[0].cost>=hero.gold) then begin//00.1 
+if (command= 'cell')and(trader.bag[0].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
-hero.bag[bagi]:=t_o.bag[0];
-hero.gold:=hero.gold-t_o.bag[0].cost;
+hero.bag[bagi]:=trader.bag[0];
+hero.gold:=hero.gold-trader.bag[0].cost;
 trade_out.bag[0]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.1
+if (command= 'trade')and (hero.bag[0].cost<=t_o.gold) then begin//00.2 
+while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
+t_o.bag[bagi]:=hero.bag[0];
+t_o.gold:=t_o.gold-hero.bag[0].cost;
+trade_out.bag[bagi]:=t_o.bag[bagi];
+hero.bag[0]:=beast_inv_generate('nill');
+menu_key:='0';
+end;//00.2
 end;//00
 '2':begin 
-if (command= 'cell')and(t_o.bag[1].cost>=hero.gold) then begin//00.1 
+if (command= 'cell')and(t_o.bag[1].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=t_o.bag[1];
 hero.gold:=hero.gold-t_o.bag[1].cost;
@@ -804,7 +813,7 @@ menu_key:='0';
 end;//00.1
 end;
 '3':begin 
-if (command= 'cell')and(t_o.bag[2].cost>=hero.gold) then begin//00.1 
+if (command= 'cell')and(t_o.bag[2].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=t_o.bag[2];
 hero.gold:=hero.gold-t_o.bag[2].cost;
@@ -813,7 +822,7 @@ menu_key:='0';
 end;//00.1
 end;
 '4':begin 
-if (command= 'cell')and(t_o.bag[3].cost>=hero.gold) then begin//00.1 
+if (command= 'cell')and(t_o.bag[3].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=t_o.bag[3];
 hero.gold:=hero.gold-t_o.bag[3].cost;
@@ -822,7 +831,7 @@ menu_key:='0';
 end;//00.1
 end;
 '5':begin 
-if (command= 'cell')and(t_o.bag[4].cost>=hero.gold) then begin//00.1 
+if (command= 'cell')and(t_o.bag[4].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=t_o.bag[4];
 hero.gold:=hero.gold-t_o.bag[4].cost;
@@ -831,7 +840,7 @@ menu_key:='0';
 end;//00.1
 end;
 '6':begin 
-if (command= 'cell')and(t_o.bag[5].cost>=hero.gold) then begin//00.1 
+if (command= 'cell')and(t_o.bag[5].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=t_o.bag[5];
 hero.gold:=hero.gold-t_o.bag[5].cost;
@@ -840,7 +849,7 @@ menu_key:='0';
 end;//00.1
 end;
 '7':begin 
-if (command= 'cell')and(t_o.bag[6].cost>=hero.gold) then begin//00.1 
+if (command= 'cell')and(t_o.bag[6].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=t_o.bag[6];
 hero.gold:=hero.gold-t_o.bag[6].cost;
@@ -849,7 +858,7 @@ menu_key:='0';
 end;//00.1
 end;
 '8':begin 
-if (command= 'cell')and(t_o.bag[7].cost>=hero.gold) then begin//00.1 
+if (command= 'cell')and(t_o.bag[7].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=t_o.bag[7];
 hero.gold:=hero.gold-t_o.bag[7].cost;
@@ -858,7 +867,7 @@ menu_key:='0';
 end;//00.1
 end;
 '9':begin 
-if (command= 'cell')and(t_o.bag[8].cost>=hero.gold) then begin//00.1 
+if (command= 'cell')and(t_o.bag[8].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=t_o.bag[8];
 hero.gold:=hero.gold-t_o.bag[8].cost;
@@ -1000,7 +1009,7 @@ menu_key:=readkey;
 end;//1.0
 
 case menu_key of//2.0
-'1': trade_out(hero,'trade');
+'1': trade_out(n_o,'trade');
 '2': n_o:=trade_out(n_o,'cell');
 end;//2.0
 until menu_key='0';
@@ -1845,7 +1854,7 @@ hero_generate.attak:=4+hero_generate.stren;
 hero_generate.defense:=4+hero_generate.agility;
 hero_generate.dmg:=4*hero_generate.attak;
 hero_generate.ign_dmg:=4*hero_generate.defense;
-hero_generate.gold:=1;
+hero_generate.gold:=100;//-----------------------------temp!!!---delete
 hero_generate.point:=10;//22.12.2015//++23.12.2015
 hero_generate.s1:=beast_inv_generate('helm');
 hero_generate.s2:=beast_inv_generate('dress');

@@ -798,6 +798,7 @@ if (command= 'trade')and (hero.bag[0].cost<=t_o.gold) then begin//00.2
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[0];
 t_o.gold:=t_o.gold-hero.bag[0].cost;
+hero.gold:=hero.gold+hero.bag[0].cost;
 trade_out:=t_o;
 hero.bag[0]:=beast_inv_generate('nill');
 menu_key:='0';
@@ -815,6 +816,7 @@ if (command= 'trade')and (hero.bag[1].cost<=t_o.gold) then begin//00.2
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[1];
 t_o.gold:=t_o.gold-hero.bag[1].cost;
+hero.gold:=hero.gold+hero.bag[1].cost;
 trade_out:=t_o;
 hero.bag[1]:=beast_inv_generate('nill');
 menu_key:='0';
@@ -832,6 +834,7 @@ if (command= 'trade')and (hero.bag[2].cost<=t_o.gold) then begin//00.2
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[2];
 t_o.gold:=t_o.gold-hero.bag[2].cost;
+hero.gold:=hero.gold+hero.bag[2].cost;
 trade_out:=t_o;
 hero.bag[2]:=beast_inv_generate('nill');
 menu_key:='0';
@@ -849,6 +852,7 @@ if (command= 'trade')and (hero.bag[3].cost<=t_o.gold) then begin//00.2
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[3];
 t_o.gold:=t_o.gold-hero.bag[3].cost;
+hero.gold:=hero.gold+hero.bag[3].cost;
 trade_out:=t_o;
 hero.bag[3]:=beast_inv_generate('nill');
 menu_key:='0';
@@ -866,6 +870,7 @@ if (command= 'trade')and (hero.bag[4].cost<=t_o.gold) then begin//00.2
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[4];
 t_o.gold:=t_o.gold-hero.bag[4].cost;
+hero.gold:=hero.gold+hero.bag[4].cost;
 trade_out:=t_o;
 hero.bag[4]:=beast_inv_generate('nill');
 menu_key:='0';
@@ -883,6 +888,7 @@ if (command= 'trade')and (hero.bag[5].cost<=t_o.gold) then begin//00.2
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[5];
 t_o.gold:=t_o.gold-hero.bag[5].cost;
+hero.gold:=hero.gold+hero.bag[5].cost;
 trade_out:=t_o;
 hero.bag[5]:=beast_inv_generate('nill');
 menu_key:='0';
@@ -900,6 +906,7 @@ if (command= 'trade')and (hero.bag[6].cost<=t_o.gold) then begin//00.2
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[6];
 t_o.gold:=t_o.gold-hero.bag[6].cost;
+hero.gold:=hero.gold+hero.bag[6].cost;
 trade_out:=t_o;
 hero.bag[6]:=beast_inv_generate('nill');
 menu_key:='0';
@@ -917,6 +924,7 @@ if (command= 'trade')and (hero.bag[7].cost<=t_o.gold) then begin//00.2
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[7];
 t_o.gold:=t_o.gold-hero.bag[7].cost;
+hero.gold:=hero.gold+hero.bag[7].cost;
 trade_out:=t_o;
 hero.bag[7]:=beast_inv_generate('nill');
 menu_key:='0';
@@ -934,6 +942,7 @@ if (command= 'trade')and (hero.bag[8].cost<=t_o.gold) then begin//00.2
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[8];
 t_o.gold:=t_o.gold-hero.bag[8].cost;
+hero.gold:=hero.gold+hero.bag[8].cost;
 trade_out:=t_o;
 hero.bag[8]:=beast_inv_generate('nill');
 menu_key:='0';

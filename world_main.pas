@@ -1633,9 +1633,10 @@ writeln(text[72],text[109]);
 for bl:=0 to 1000 do begin//7
 for i:=0 to 9 do begin//7.1
 st1:=inttostr(bl);
-st2:=inttostr(i+1);
-st0:=st1+st2;
+st2:=inttostr(i);
+st0:=st2+st1;
 j:=strtoint(st0);
+log_generate('log_old_generate',inttostr(j));
 	beast_list[j]:=beast_generate(pyst_list[bl].x,pyst_list[bl].y);//--------------------------------------BEAST--------
 	map[beast_list[j].x,beast_list[j].y].tip:=1;
 	map[beast_list[j].x,beast_list[j].y].beast_index:=j;

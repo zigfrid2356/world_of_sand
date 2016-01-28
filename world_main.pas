@@ -1636,7 +1636,7 @@ st1:=inttostr(bl);
 st2:=inttostr(i);
 st0:=st2+st1;
 j:=strtoint(st0);
-log_generate('log_old_generate',inttostr(j));
+//log_generate('log_old_generate',inttostr(j));
 	beast_list[j]:=beast_generate(pyst_list[bl].x,pyst_list[bl].y);//--------------------------------------BEAST--------
 	map[beast_list[j].x,beast_list[j].y].tip:=1;
 	map[beast_list[j].x,beast_list[j].y].beast_index:=j;

@@ -112,7 +112,8 @@ hero:new_body;
 //super:new_body;
 monster:body;
 npc:array[0..17000] of new_body;
-
+//28.01.2016
+mob:array[0..30000] of new_body;
 menu_key:char;
 i,j,n,m,l,k,k0,k1,k2,k_oz,i_oz,j_oz,n_oz,m_oz:integer;//áçñâç¨ª¨{счётчики}
 s:string;//temp

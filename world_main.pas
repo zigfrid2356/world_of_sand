@@ -90,7 +90,7 @@ skin,meat,teeth,bones,clutches:subject;
 end;
 
 erath =record
-x,y,npc_index,beast_index:word;
+x,y,npc_index,beast_index,mob_index:word;
 structure:char;
 color:byte;
 name:string[25];
@@ -135,7 +135,7 @@ oz_list:array [0..100] of oz_index;
 //+19.11.2015
 pyst_list:array[0..1000] of pyst_index;
 //+16.11.2015
-beast_list:array[0..1001]of beast_body;
+beast_list:array[0..10000]of beast_body;
 hero_save:file of new_body;
 map_save:file of erath;
 npc_save:file of new_body;
@@ -1042,8 +1042,8 @@ beast_generate.ign_dmg:=1;
 beast_generate.name:=name_generate('beast');
 beast_generate.flag_life:=1;
 beast_generate.flag_hishn:=random(1);
-beast_generate.x:=i_b+random(10);
-beast_generate.y:=j_b+random(10);
+beast_generate.x:=i_b+random(20);
+beast_generate.y:=j_b+random(20);
 beast_generate.skin:=beast_inv_generate('skin');
 beast_generate.meat:=beast_inv_generate('meat');
 beast_generate.teeth:=beast_inv_generate('teeth');
@@ -1166,6 +1166,7 @@ end;
 procedure map_generate(command:string);
 var
 bl:integer;
+st0,st1,st2:string[6];
 begin
 clrscr;
 //log_generate('log_old_generate','start map generate -1');
@@ -1232,7 +1233,7 @@ end;//2.1
 writeln(text[72],text[73]);
 for i:=0 to 1000 do begin//3 
 //+18.09.2015
-//биом колодец
+//биом колодец//colodec
 repeat
 begin
 n:=random(x_map);
@@ -1383,7 +1384,7 @@ map[l,m-3].color:=7;
 end;//4.4.3
 end;//4.4  
 end;//3
-writeln(text[72],text[74]);
+writeln(text[72],text[74]);//---------------------------------------------
 //log_generate('log_old_generate','start raw -4');
 for l:=0 to 1000 do begin//5 
 //+22.10.2015
@@ -1622,19 +1623,24 @@ for i_oz:=n_oz-2 to n_oz+2 do begin//6.1
 map[n_oz,m_oz].structure:=simbol[7];
 map[n_oz,m_oz].color:=1;
 end;//6
+
+k1:=1;k0:=0;
+i:=0;j:=0;
+l:=0;
+n:=0;m:=0;
 //log_generate('log_old_generate','start beast -10- '+inttostr(bl));
 writeln(text[72],text[109]);
-for bl:=1 to 1001 do begin//7
-//	map[i_oz,j_oz].beast_index:=bl;
-//	map[i_oz,j_oz].tip:=1;
-	beast_list[bl]:=beast_generate(pyst_list[bl].x,pyst_list[bl].y);//--------------------------------------BEAST--------
-	map[beast_list[bl].x,beast_list[bl].y].tip:=1;
-	map[beast_list[bl].x,beast_list[bl].y].beast_index:=bl;
-if bl=10 then begin//0   
-//log_generate('log_old_generate','generate '+inttostr(beast_list[bl].x)+':'+inttostr(beast_list[bl].y)+' name1 '+beast_list[map[beast_list[bl].x,beast_list[bl].y].beast_index].name);
-end;//0	
-//	bl:=bl+1;
-//beast_generate()
+for bl:=0 to 1000 do begin//7
+for i:=0 to 9 do begin//7.1
+st1:=inttostr(bl);
+st2:=inttostr(i+1);
+st0:=st1+st2;
+j:=strtoint(st0);
+	beast_list[j]:=beast_generate(pyst_list[bl].x,pyst_list[bl].y);//--------------------------------------BEAST--------
+	map[beast_list[j].x,beast_list[j].y].tip:=1;
+	map[beast_list[j].x,beast_list[j].y].beast_index:=j;
+end;//7.1
+
 end;//7
 end;//2
 if command='map_story_generate' then begin//3

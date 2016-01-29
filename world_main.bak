@@ -1,29 +1,29 @@
 {
    world_main.pas
-
+   
    Copyright 2015 Zigfrid <zigfridone@gmail.com>
-
+   
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation; either version 2 of the License, or
    (at your option) any later version.
-
+   
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-
+   
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
    MA 02110-1301, USA.
-
-
+   
+   
 }
 {v.0.12a}{12.12.2015}
 
 program world_of_sand;
-{$FPUTYPE SSE2}
+{$O}
 uses crt,sysutils,windows,dateutils,Zipper;
 
 type//+21.08.2015
@@ -147,7 +147,7 @@ s_podtyp:array[0..50]of string;
 //+02.01.2016
 lang_s:string[3];
 //+24.09.2015
-const
+const 
 x_map = 2048;
 y_map = 2048;
 npc_max =32768;
@@ -293,7 +293,7 @@ beast_muve.bones:=bb.bones;
 beast_muve.clutches:=bb.clutches;
 //
 {
-if bi=10 then begin//0
+if bi=10 then begin//0   
 log_generate('log_old_generate','muve 10-1 '+inttostr(bb.x)+':'+inttostr(bb.y)+' name '+beast_list[map[bb.x,bb.y].beast_index].name);
 end;}//0
 
@@ -336,7 +336,7 @@ end;//1.1.4
 
 end;//00
 {
-if bi=10 then begin//000
+if bi=10 then begin//000   
 log_generate('log_old_generate','muve 10-2 '+inttostr(beast_muve.x)+':'+inttostr(beast_muve.y)+' name '+beast_list[map[beast_muve.x,beast_muve.y].beast_index].name);
 end;}//000
 end;
@@ -439,7 +439,7 @@ if (rr=2)and (j_muv<y_map-1)and(map[i_muv,j_muv+1].structure='.') then begin//1.
  map[i_muv,j_muv+1].structure:='"';
  map[i_muv,j_muv+1].color:=2;
  map[i_muv,j_muv+1].progress:=0;
-
+ 
   map[i_muv,j_muv].structure:='/';
  map[i_muv,j_muv].color:=6;
  map[i_muv,j_muv].progress:=0;
@@ -471,11 +471,11 @@ end;end;//0.1//0.2
 //log_generate('log_old_generate','stop_muve');
 
 for bm_i:=10 to 900 do begin //2
-{if bm_i=10 then begin//0 }
+{if bm_i=10 then begin//0 }  
 //log_generate('log_old_generate','muve 9-1 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' name '+beast_list[map[beast_list[bm_i].x,beast_list[bm_i].y].beast_index].name);
 {end;}//0
-beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
-{if bm_i=10 then begin//0 }
+beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i); 
+{if bm_i=10 then begin//0 }  
 //log_generate('log_old_generate','muve 9-2 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' mame '+beast_list[bm_i].name);
 {end;}//0
 end;//2
@@ -563,7 +563,7 @@ end;//1.1
 close(color);
 //
 if lang_s='rus' then assign(har,'res\har\har');
-if lang_s='eng' then assign(har,'res\har\har_eng');
+if lang_s='eng' then assign(har,'res\har\har_eng'); 
 reset(har);
 i:=1;
 while not eof(har) do begin//1.1
@@ -788,14 +788,14 @@ menu_key:=readkey;
 end;//0
 case menu_key of
 '1':begin //00
-if (command= 'cell')and(trader.bag[0].cost<=hero.gold) then begin//00.1
+if (command= 'cell')and(trader.bag[0].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=trader.bag[0];
 hero.gold:=hero.gold-trader.bag[0].cost;
 trade_out.bag[0]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.1
-if (command= 'trade')and (hero.bag[0].cost<=t_o.gold) then begin//00.2
+if (command= 'trade')and (hero.bag[0].cost<=t_o.gold) then begin//00.2 
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[0];
 t_o.gold:=t_o.gold-hero.bag[0].cost;
@@ -805,15 +805,15 @@ hero.bag[0]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.2
 end;//00
-'2':begin
-if (command= 'cell')and(trader.bag[1].cost<=hero.gold) then begin//00.1
+'2':begin 
+if (command= 'cell')and(trader.bag[1].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=trader.bag[1];
 hero.gold:=hero.gold-trader.bag[1].cost;
 trade_out.bag[1]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.1
-if (command= 'trade')and (hero.bag[1].cost<=t_o.gold) then begin//00.2
+if (command= 'trade')and (hero.bag[1].cost<=t_o.gold) then begin//00.2 
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[1];
 t_o.gold:=t_o.gold-hero.bag[1].cost;
@@ -823,15 +823,15 @@ hero.bag[1]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.2
 end;
-'3':begin
-if (command= 'cell')and(trader.bag[2].cost<=hero.gold) then begin//00.1
+'3':begin 
+if (command= 'cell')and(trader.bag[2].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=trader.bag[2];
 hero.gold:=hero.gold-trader.bag[2].cost;
 trade_out.bag[2]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.1
-if (command= 'trade')and (hero.bag[2].cost<=t_o.gold) then begin//00.2
+if (command= 'trade')and (hero.bag[2].cost<=t_o.gold) then begin//00.2 
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[2];
 t_o.gold:=t_o.gold-hero.bag[2].cost;
@@ -841,15 +841,15 @@ hero.bag[2]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.2
 end;
-'4':begin
-if (command= 'cell')and(trader.bag[3].cost<=hero.gold) then begin//00.1
+'4':begin 
+if (command= 'cell')and(trader.bag[3].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=trader.bag[3];
 hero.gold:=hero.gold-trader.bag[3].cost;
 trade_out.bag[3]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.1
-if (command= 'trade')and (hero.bag[3].cost<=t_o.gold) then begin//00.2
+if (command= 'trade')and (hero.bag[3].cost<=t_o.gold) then begin//00.2 
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[3];
 t_o.gold:=t_o.gold-hero.bag[3].cost;
@@ -859,15 +859,15 @@ hero.bag[3]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.2
 end;
-'5':begin
-if (command= 'cell')and(trader.bag[4].cost<=hero.gold) then begin//00.1
+'5':begin 
+if (command= 'cell')and(trader.bag[4].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=trader.bag[4];
 hero.gold:=hero.gold-trader.bag[4].cost;
 trade_out.bag[4]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.1
-if (command= 'trade')and (hero.bag[4].cost<=t_o.gold) then begin//00.2
+if (command= 'trade')and (hero.bag[4].cost<=t_o.gold) then begin//00.2 
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[4];
 t_o.gold:=t_o.gold-hero.bag[4].cost;
@@ -877,15 +877,15 @@ hero.bag[4]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.2
 end;
-'6':begin
-if (command= 'cell')and(trader.bag[5].cost<=hero.gold) then begin//00.1
+'6':begin 
+if (command= 'cell')and(trader.bag[5].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=trader.bag[5];
 hero.gold:=hero.gold-trader.bag[5].cost;
 trade_out.bag[5]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.1
-if (command= 'trade')and (hero.bag[5].cost<=t_o.gold) then begin//00.2
+if (command= 'trade')and (hero.bag[5].cost<=t_o.gold) then begin//00.2 
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[5];
 t_o.gold:=t_o.gold-hero.bag[5].cost;
@@ -895,15 +895,15 @@ hero.bag[5]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.2
 end;
-'7':begin
-if (command= 'cell')and(trader.bag[6].cost<=hero.gold) then begin//00.1
+'7':begin 
+if (command= 'cell')and(trader.bag[6].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=trader.bag[6];
 hero.gold:=hero.gold-trader.bag[6].cost;
 trade_out.bag[6]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.1
-if (command= 'trade')and (hero.bag[6].cost<=t_o.gold) then begin//00.2
+if (command= 'trade')and (hero.bag[6].cost<=t_o.gold) then begin//00.2 
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[6];
 t_o.gold:=t_o.gold-hero.bag[6].cost;
@@ -913,15 +913,15 @@ hero.bag[6]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.2
 end;
-'8':begin
-if (command= 'cell')and(trader.bag[7].cost<=hero.gold) then begin//00.1
+'8':begin 
+if (command= 'cell')and(trader.bag[7].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=trader.bag[7];
 hero.gold:=hero.gold-trader.bag[7].cost;
 trade_out.bag[7]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.1
-if (command= 'trade')and (hero.bag[7].cost<=t_o.gold) then begin//00.2
+if (command= 'trade')and (hero.bag[7].cost<=t_o.gold) then begin//00.2 
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[7];
 t_o.gold:=t_o.gold-hero.bag[7].cost;
@@ -931,15 +931,15 @@ hero.bag[7]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.2
 end;
-'9':begin
-if (command= 'cell')and(trader.bag[8].cost<=hero.gold) then begin//00.1
+'9':begin 
+if (command= 'cell')and(trader.bag[8].cost<=hero.gold) then begin//00.1 
 while hero.bag[bagi].tip<>0 do bagi:=bagi+1;
 hero.bag[bagi]:=trader.bag[8];
 hero.gold:=hero.gold-trader.bag[8].cost;
 trade_out.bag[8]:=beast_inv_generate('nill');
 menu_key:='0';
 end;//00.1
-if (command= 'trade')and (hero.bag[8].cost<=t_o.gold) then begin//00.2
+if (command= 'trade')and (hero.bag[8].cost<=t_o.gold) then begin//00.2 
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
 t_o.bag[bagi]:=hero.bag[8];
 t_o.gold:=t_o.gold-hero.bag[8].cost;
@@ -974,7 +974,7 @@ case menu_key of
 '1': begin //1.1
 while hero.bag[bdi].tip<>0 do bdi:=bdi+1;
 hero.bag[bdi]:=beast_drop.skin;
-beast_drop:=bd;
+beast_drop:=bd; 
 beast_drop.skin:=beast_inv_generate('null');
 
 writeln(text[108]);
@@ -985,7 +985,7 @@ menu_key:='0';
 '2':	begin//1.2
 while hero.bag[bdi].tip<>0 do bdi:=bdi+1;
 hero.bag[bdi]:=beast_drop.meat;
-beast_drop:=bd;
+beast_drop:=bd; 
 beast_drop.meat:=beast_inv_generate('null');
 
 writeln(text[108]);
@@ -996,7 +996,7 @@ menu_key:='0';
 '3':	begin//1.3
 while hero.bag[bdi].tip<>0 do bdi:=bdi+1;
 hero.bag[bdi]:=beast_drop.teeth;
-beast_drop:=bd;
+beast_drop:=bd; 
 beast_drop.teeth:=beast_inv_generate('null');
 
 writeln(text[108]);
@@ -1007,7 +1007,7 @@ menu_key:='0';
 '4':	begin//1.4
 while hero.bag[bdi].tip<>0 do bdi:=bdi+1;
 hero.bag[bdi]:=beast_drop.bones;
-beast_drop:=bd;
+beast_drop:=bd; 
 beast_drop.bones:=beast_inv_generate('null');
 
 writeln(text[108]);
@@ -1018,7 +1018,7 @@ menu_key:='0';
 '5':	begin//1.5
 while hero.bag[bdi].tip<>0 do bdi:=bdi+1;
 hero.bag[bdi]:=beast_drop.clutches;
-beast_drop:=bd;
+beast_drop:=bd; 
 beast_drop.clutches:=beast_inv_generate('null');
 
 writeln(text[108]);
@@ -1209,7 +1209,7 @@ for i:=0 to x_map do begin//1.1
 	if (n=5) or (n=8) then map[i,j].color:=2;
 	if (n=6) or (n=7) then map[i,j].color:=1;
 	if (n=9) or (n=10) or (n=11) then map[i,j].color:=7;
-	if n=12 then map[i,j].color:=8;
+	if n=12 then map[i,j].color:=8;  
 	end;//1.2
 end;//1.1
 end;//1
@@ -1231,7 +1231,7 @@ end;//2.1
 //---------------
 //log_generate('log_old_generate','start col -3');
 writeln(text[72],text[73]);
-for i:=0 to 1000 do begin//3
+for i:=0 to 1000 do begin//3 
 //+18.09.2015
 //¡¨®¬ ª®«®¤¥æ//colodec
 repeat
@@ -1270,7 +1270,7 @@ if (k>57)and (k<86) then begin//3.1.3
 map[n-2,l].structure:=simbol[4];
 map[n-2,l].color:=6;
 end;//3.1.3
-end;//3.1
+end;//3.1 
 //--
 for l:=m-2 to m+2 do begin//3.2
 k:=random(100);
@@ -1334,7 +1334,7 @@ if (k>43)and (k<45) then begin//4.1.3
 map[n-3,l].structure:=simbol[10];
 map[n-3,l].color:=7;
 end;//4.1.3
-end;//4.1
+end;//4.1 
 //--
 for l:=m-3 to m+3 do begin//4.2
 k:=random(100);
@@ -1382,11 +1382,11 @@ if (k>43)and (k<45) then begin//4.4.3
 map[l,m-3].structure:=simbol[10];
 map[l,m-3].color:=7;
 end;//4.4.3
-end;//4.4
+end;//4.4  
 end;//3
 writeln(text[72],text[74]);//---------------------------------------------
 //log_generate('log_old_generate','start raw -4');
-for l:=0 to 1000 do begin//5
+for l:=0 to 1000 do begin//5 
 //+22.10.2015
 //¡¨®¬ ¯ãáâë­­ ï à ¢­¨­ 
 repeat
@@ -1405,11 +1405,11 @@ for i:=n-32 to n+32 do begin//5.1
 	if k0<10 then begin //5.2.1
 	map[i,j].structure:=simbol[3];
 	map[i,j].color:=14;
-	end;//5.2.1
+	end;//5.2.1 
 	if (k0>10) and (k0<98) then begin //5.2.2
 	map[i,j].structure:=simbol[0];
 	map[i,j].color:=14;
-	end;//5.2.2
+	end;//5.2.2 
 	if (k0>98) and (k0<100)then begin//5.2.2.1
 	map[i,j].structure:=simbol[5];
 	map[i,j].color:=2;
@@ -1425,7 +1425,7 @@ for i:=n-8 to n+8 do begin//5.1
 	if (k0<30)  then begin //5.2.1
 	map[i,j].structure:=simbol[3];
 	map[i,j].color:=14;
-	end;//5.2.1
+	end;//5.2.1 
 	if (k0>30) and(k0<90) then begin //5.3.1
 	map[i,j].structure:=simbol[0];
 	map[i,j].color:=14;
@@ -1434,7 +1434,7 @@ for i:=n-8 to n+8 do begin//5.1
 	map[i,j].structure:=simbol[5];
 	map[i,j].color:=2;
 	map[i,j].progress:=random(progress_max);
-	end;//5.2.2
+	end;//5.2.2 
 	if(k0>95) and(k0<100) then begin//5.2.2.1
 	map[i,j].structure:=simbol[4];
 	map[i,j].color:=6;
@@ -1483,7 +1483,7 @@ for i:=n-32 to n+32 do begin//6.1
 	if k0<20  then begin //6.2.1
 	map[i,j].structure:=simbol[3];//log_generate('log_old_generate',inttostr(k0)+' ---- (6.1)----');
 	map[i,j].color:=14;
-	end;//6.2.1
+	end;//6.2.1 
 	if (k0>20) and(k0<90) then begin //6.3.1
 	map[i,j].structure:=simbol[0];//log_generate('log_old_generate',inttostr(k0)+' ---- (6.2)----');
 	map[i,j].color:=14;
@@ -1493,7 +1493,7 @@ for i:=n-32 to n+32 do begin//6.1
 	map[i,j].structure:=simbol[5];//log_generate('log_old_generate',inttostr(k0)+' ---- (6.3)----');
 	map[i,j].color:=2;
 
-	end;//6.2.2
+	end;//6.2.2 
 	if (k0>98)and(k0<100) then begin//6.2.2.1
 	map[i,j].structure:=simbol[4];//log_generate('log_old_generate',inttostr(k0)+' ---- (6.4)----');
 	map[i,j].color:=6;	
@@ -1509,7 +1509,7 @@ for i:=n-16 to n+16 do begin//6.1
 	if k0<20  then begin //6.2.1
 	map[i,j].structure:=simbol[5];
 	map[i,j].color:=2;
-	end;//6.2.1
+	end;//6.2.1 
 	if (k0>20) and(k0<30) then begin //6.3.1
 	map[i,j].structure:=simbol[4];
 	map[i,j].color:=6;
@@ -1517,7 +1517,7 @@ for i:=n-16 to n+16 do begin//6.1
 	if (k0>30)and(k0<70) then begin //6.2.2
 	map[i,j].structure:=simbol[3];
 	map[i,j].color:=14;
-	end;//6.2.2
+	end;//6.2.2 
 	if (k0>70)and(k0<100) then begin//6.2.2.1
 	map[i,j].structure:=simbol[0];
 	map[i,j].color:=14;	
@@ -1533,7 +1533,7 @@ for i:=n-8 to n+8 do begin//6.1
 	if k0<20  then begin //6.2.1
 	map[i,j].structure:=simbol[8];
 	map[i,j].color:=2;
-	end;//6.2.1
+	end;//6.2.1 
 	if (k0>20) and(k0<30) then begin //6.3.1
 	map[i,j].structure:=simbol[5];
 	map[i,j].color:=2;
@@ -1561,7 +1561,7 @@ for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
 	map[i_oz,j_oz].tip:=1;
 	beast_list[bl]:=beast_generate(i,j);
 	bl:=bl+1;}
-	end;//6.2.1
+	end;//6.2.1 
 	if (k0>30) and(k0<90) then begin //6.3.1
 	map[i_oz,j_oz].structure:=simbol[3];
 	map[i_oz,j_oz].color:=14;
@@ -1647,17 +1647,15 @@ k1:=1;k0:=0;
 i:=0;j:=0;
 l:=0;
 n:=0;m:=0;
-{
 for bl:=0 to 99 do begin//8
 for i:=0 to 299 do begin//8.1
 //log_generate('log_old_generate',inttostr(k0));
 	mob[k0]:=npc_generate(oz_list[bl].x,oz_list[bl].y,1);//--------------------------------------BEAST--------
 	map[mob[k0].x,mob[k0].y].tip:=1;
-	map[mob[k0].x,mob[k0].y].mob_index:=k0;
+	map[mob[k0].x,mob[k0].y].mob_index:=j;
 k0:=k0+1;	
 end;//8.1
 end;//8
-}
 end;//2
 if command='map_story_generate' then begin//3
 //§ «¨¢ ¥¬ ¢®¤®©
@@ -1739,7 +1737,7 @@ inventory_generation.i_armor:=0;
 inventory_generation.i_attak:=random(lvl)+1;
 inventory_generation.i_defense:=0;
 end;//1
-if command='armor' then begin//2
+if command='armor' then begin//2 
 inventory_generation.equip:=0;
 inventory_generation.types:=2;
 inventory_generation.name:='armor';
@@ -2077,7 +2075,7 @@ writeln(text[94]);
  zip.ZipFiles(F);
  Zip.Free;
  F.Free;
-writeln(text[94],' ',text[2]);
+writeln(text[94],' ',text[2]); 
 DeleteFile('res\save\hero.save');
 DeleteFile('res\save\npc.save');
 DeleteFile('res\save\map.save');
@@ -2092,7 +2090,7 @@ var
 begin
 log_generate('log_old_generate','start UnZip');
  UnZipper := TUnZipper.Create;
- // try
+ // try    
     UnZipper.FileName := 'res\save\save.zip';
     UnZipper.OutputPath := 'res\save\';
     UnZipper.Examine;
@@ -2237,7 +2235,7 @@ delay(500);
 writeln(text[96]);
 readln();
 
-end;//2
+end;//2 
 
 hunt.dmg:=bb.dmg;
 hunt.ign_dmg:=bb.ign_dmg;
@@ -2308,7 +2306,7 @@ delay(500);
 
 //readln();
 
-end;//2
+end;//2 
 end;//0
 until readkey='1';
 end;
@@ -2444,30 +2442,30 @@ write('|');//left
 end;//2.1
  writeln(' ---------------------');
  //writeln();
-map[x,y].structure:=temp_char;//+16.08.2015
+map[x,y].structure:=temp_char;//+16.08.2015 
 map[x,y].color:=temp_color;//+16.09.2015
 write(text[34],' ',x,' : ',y,text[71]+map_info(map[x,y].structure));
 if (map[x,y].tip<>0) and( map[x,y].tip<>5) then begin write(text[80]+beast_list[map[x,y].beast_index].name);end;
 if map[x,y].tip=5 then begin write(text[88]+beast_list[map[x,y].beast_index].name);end;
-writeln();
+writeln(); 
 if map[x,y].npc_index<>0 then begin write(text[76]+npc[map[x,y].npc_index].name);writeln(); end;
 
 write	('6- -> '+text[64]+map_info(map[x,y+1].structure) );
 if (map[x,y+1].tip<>0)and( map[x,y+1].tip<>5) then begin write(text[80]+beast_list[map[x,y+1].beast_index].name);end;
 if map[x,y+1].tip=5 then begin write(text[88]+beast_list[map[x,y+1].beast_index].name);end;
-writeln();
+writeln(); 
 write	('4- <- '+text[65]+map_info(map[x,y-1].structure) );
 if (map[x,y-1].tip<>0)and( map[x,y-1].tip<>5) then begin write(text[80]+beast_list[map[x,y-1].beast_index].name);end;
 if map[x,y-1].tip=5 then begin write(text[88]+beast_list[map[x,y-1].beast_index].name);end;
-writeln();
+writeln(); 
 write	('8- /\ '+text[67]+map_info(map[x-1,y].structure) );
 if (map[x-1,y].tip<>0)and( map[x-1,y].tip<>5) then begin write(text[80]+beast_list[map[x-1,y].beast_index].name);end;
 if map[x-1,y].tip=5 then begin write(text[88]+beast_list[map[x-1,y].beast_index].name);end;
-writeln();
+writeln(); 
 write	('2- \/ '+text[66]+map_info(map[x+1,y].structure) );
 if (map[x+1,y].tip<>0)and( map[x+1,y].tip<>5) then begin write(text[80]+beast_list[map[x+1,y].beast_index].name);end;
 if map[x+1,y].tip=5 then begin write(text[88]+beast_list[map[x+1,y].beast_index].name);end;
-writeln();
+writeln(); 
 writeln	('5- ',text[2]);
 if map[x,y].npc_index<>0 then writeln	('9- ',text[111]);
 
@@ -2488,7 +2486,7 @@ case menu_key of//3.0
 x:=x;
 if y+1<={244}2037 then y:=y+1 else y:=y;
 hero.y:=y;
-//log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
+//log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y)); 
 muve(x,y,'test');
 
 
@@ -2499,27 +2497,27 @@ x:=x;
 if y-1>=11 then y:=y-1 else y:=y;
 
 hero.y:=y;
-//log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
+//log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y)); 
 muve(x,y,'test');
 
  end;//3.2
 '8':begin//3.3
 if x-1>=6 then x:=x-1 else x:=x;
-y:=y;
+y:=y; 
 hero.x:=x;
-//log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
+//log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y)); 
 muve(x,y,'test');
 
  end;//3.3
 '2':begin//3.4
 if x+1<={249}2042 then x:=x+1 else x:=x;
-y:=y;
-hero.x:=x;
+y:=y; 
+hero.x:=x; 
 //log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
 muve(x,y,'test');
 
  end;//3.4
-
+ 
 '9':begin//3.5//+09.11.2015
 if map[x,y].npc_index<>0 then begin//3.5.1
 npc[map[x,y].npc_index]:=npc_output(npc[map[x,y].npc_index]);
@@ -2534,7 +2532,7 @@ readln();}
 map_output(x,y);
 end;//3.5.1
  end;//3.5
-
+ 
 '7':begin//3.6
 if (map[x,y+1].tip<>0) then beast_list[map[x,y+1].beast_index]:=hunt(beast_list[map[x,y+1].beast_index]);
 if (map[x,y-1].tip<>0) then beast_list[map[x,y-1].beast_index]:=hunt(beast_list[map[x,y-1].beast_index]);
@@ -2542,11 +2540,11 @@ if (map[x-1,y].tip<>0) then beast_list[map[x-1,y].beast_index]:=hunt(beast_list[
 if (map[x+1,y].tip<>0) then beast_list[map[x+1,y].beast_index]:=hunt(beast_list[map[x+1,y].beast_index]);
 if (map[x,y].tip<>0) then beast_list[map[x,y].beast_index]:=hunt(beast_list[map[x,y].beast_index]);
  end;//3.6
-
+ 
 '3':begin//3.7
 if (map[x,y].tip=5)then beast_list[map[x,y].beast_index]:=beast_drop(beast_list[map[x,y].beast_index]);
  end;//3.7
-
+ 
 end;//3.0
 until menu_key='5';
 end;//2.00 else mapgenerate(new,'/\')
@@ -2569,7 +2567,7 @@ case menu_key of
 	
 	end;//1.2
 end;//1
-end;
+end; 
 until menu_key='3';
 end;
 
@@ -2624,7 +2622,7 @@ end;//1.4}
 for i:=0 to 10 do muve(128,126,'test')
 end;//1.5}
 end;
-end;//2
+end;//2 
 until menu_key='5';
 
 end;
@@ -2676,7 +2674,7 @@ writeln	('3-',text[2]);
 //readln(menu_key);
 menu_key:=readkey;
 case menu_key of
-'1': begin
+'1': begin 
 //Ã¢Â¥Ã¡Ã¢Â®Â¢Â Ã¯ Â£Â¥Â­Â¥Ã Â Ã¦Â¨Ã¯ ÂªÂ Ã Ã¢Ã« {Ğ³ĞµĞ½ĞµÑ€Ğ°Ñ†Ğ¸Ñ ĞºĞ°Ñ€Ñ‚Ñ‹ }
 //£¥­¥à æ¨ï ª àâë
 //map_generate('map_new_generate');
@@ -2688,7 +2686,7 @@ log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');
 //31.12.2015
 story;
-main_menu;
+main_menu; 
 end;
 '2':begin load; main_menu; end;
 '3': exit

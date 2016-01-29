@@ -1641,8 +1641,23 @@ j:=strtoint(st0);
 	map[beast_list[j].x,beast_list[j].y].tip:=1;
 	map[beast_list[j].x,beast_list[j].y].beast_index:=j;
 end;//7.1
-
 end;//7
+k1:=1;k0:=0;
+i:=0;j:=0;
+l:=0;
+n:=0;m:=0;
+for bl:=0 to 100 do begin//8
+for i:=0 to 90 do begin//8.1
+st1:=inttostr(bl);
+st2:=inttostr(i);
+st0:='0'+st1+st2;
+j:=strtoint(st0);
+log_generate('log_old_generate',inttostr(j));
+	{beast_list[j]:=beast_generate(pyst_list[bl].x,pyst_list[bl].y);//--------------------------------------BEAST--------
+	map[beast_list[j].x,beast_list[j].y].tip:=1;
+	map[beast_list[j].x,beast_list[j].y].beast_index:=j;}
+end;//8.1
+end;//8
 end;//2
 if command='map_story_generate' then begin//3
 //заливаем водой

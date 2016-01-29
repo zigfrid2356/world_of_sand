@@ -23,7 +23,7 @@
 {v.0.12a}{12.12.2015}
 
 program world_of_sand;
-
+{$O}
 uses crt,sysutils,windows,dateutils,Zipper;
 
 type//+21.08.2015
@@ -1632,30 +1632,28 @@ n:=0;m:=0;
 writeln(text[72],text[109]);
 for bl:=0 to 1000 do begin//7
 for i:=0 to 9 do begin//7.1
-st1:=inttostr(bl);
+{st1:=inttostr(bl);
 st2:=inttostr(i);
 st0:=st2+st1;
-j:=strtoint(st0);
+j:=strtoint(st0}
 //log_generate('log_old_generate',inttostr(j));
-	beast_list[j]:=beast_generate(pyst_list[bl].x,pyst_list[bl].y);//--------------------------------------BEAST--------
-	map[beast_list[j].x,beast_list[j].y].tip:=1;
-	map[beast_list[j].x,beast_list[j].y].beast_index:=j;
+	beast_list[k0]:=beast_generate(pyst_list[bl].x,pyst_list[bl].y);//--------------------------------------BEAST--------
+	map[beast_list[k0].x,beast_list[k0].y].tip:=1;
+	map[beast_list[k0].x,beast_list[k0].y].beast_index:=k0;
+	k0:=k0+1;
 end;//7.1
 end;//7
 k1:=1;k0:=0;
 i:=0;j:=0;
 l:=0;
 n:=0;m:=0;
-for bl:=0 to 100 do begin//8
-for i:=0 to 99 do begin//8.1
-st1:=inttostr(bl);
-st2:=inttostr(i);
-st0:=st1+st2;
-j:=strtoint(st0);
-log_generate('log_old_generate',inttostr(j));
-	{beast_list[j]:=beast_generate(pyst_list[bl].x,pyst_list[bl].y);//--------------------------------------BEAST--------
-	map[beast_list[j].x,beast_list[j].y].tip:=1;
-	map[beast_list[j].x,beast_list[j].y].beast_index:=j;}
+for bl:=0 to 99 do begin//8
+for i:=0 to 299 do begin//8.1
+//log_generate('log_old_generate',inttostr(k0));
+	mob[k0]:=npc_generate(oz_list[bl].x,oz_list[bl].y,1);//--------------------------------------BEAST--------
+	map[mob[k0].x,mob[k0].y].tip:=1;
+	map[mob[k0].x,mob[k0].y].mob_index:=j;
+k0:=k0+1;	
 end;//8.1
 end;//8
 end;//2
@@ -1970,6 +1968,8 @@ end;//0
 
 if h='monster_human' then begin//2
 monster.name:=name_generate('human');
+
+
 monster.lvl:=(hero.lvl-1)+random(3);
 
 monster.hp:=(5+random(monster.lvl))*monster.lvl;

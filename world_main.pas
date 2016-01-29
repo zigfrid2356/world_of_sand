@@ -1647,10 +1647,10 @@ i:=0;j:=0;
 l:=0;
 n:=0;m:=0;
 for bl:=0 to 100 do begin//8
-for i:=0 to 90 do begin//8.1
+for i:=0 to 99 do begin//8.1
 st1:=inttostr(bl);
 st2:=inttostr(i);
-st0:='0'+st1+st2;
+st0:=st1+st2;
 j:=strtoint(st0);
 log_generate('log_old_generate',inttostr(j));
 	{beast_list[j]:=beast_generate(pyst_list[bl].x,pyst_list[bl].y);//--------------------------------------BEAST--------

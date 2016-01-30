@@ -1,22 +1,41 @@
 {
-   world_main.pas
+		world_main.pas
 
-   Copyright 2015 Zigfrid <zigfridone@gmail.com>
+		Copyright 2015 Alexander Fedotov <zigfridone@gmail.com>
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
+        This program is free software; you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation; either version 2 of the License, or
+        (at your option) any later version.
+        
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+        
+        You should have received a copy of the GNU General Public License
+        along with this program; if not, write to the Free Software
+        Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+        MA 02110-1301, USA.
 
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
+        
+        Авторские права 2011 Александр Федотов <zigfridone@gmail.com>
+        
+		Эта программа является свободным программным продуктом; вы вправе 
+		распространять и/или изменять  ее в соответствии с условиями 
+		Генеральной Общественной Лицензии GNU в том виде, как она была  
+		опубликована Фондом Свободного ПО; либо версии 2 Лицензии либо 
+		(по вашему желанию) любой более  поздней версии.
 
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-   MA 02110-1301, USA.
+		Программа распространяется в надежде, что она будет полезной, но 
+		БЕЗ КАКИХ БЫ ТО НИ БЫЛО ГАРАНТИЙНЫХ ОБЯЗАТЕЛЬСТВ; даже без косвенных 
+		гарантийных обязательств, связанных с ПОТРЕБИТЕЛЬСКИМИ  СВОЙСТВАМИ и 
+		ПРИГОДНОСТЬЮ ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Для подробностей смотрите 
+		Генеральную  Общественную Лицензию GNU.
+
+		Вы должны были получить копию Генеральной Общественной Лицензии GNU 
+		вместе с этой программой;  если это не так, напишите в Фонд Свободного ПО 
+		(Free Software Foundation, Inc., 675 Mass Ave,  Cambridge, MA 02139, USA).
 
 
 }
@@ -1648,7 +1667,7 @@ i:=0;j:=0;
 l:=0;
 n:=0;m:=0;
 {
-for bl:=0 to 99 do begin//8
+for bl:=0 to 100 do begin//8
 for i:=0 to 299 do begin//8.1
 //log_generate('log_old_generate',inttostr(k0));
 	mob[k0]:=npc_generate(oz_list[bl].x,oz_list[bl].y,1);//--------------------------------------BEAST--------
@@ -2673,17 +2692,14 @@ writeln	(text[3]);
 writeln	('1-',text[4]);
 writeln	('2-',text[16]);
 writeln	('3-',text[2]);
-//readln(menu_key);
+
 menu_key:=readkey;
 case menu_key of
 '1': begin
-//ГўВҐГЎГўВ®ВўВ ГЇ ВЈВҐВ­ВҐГ В Г¦ВЁГЇ ВЄВ Г ГўГ« {РіРµРЅРµСЂР°С†РёСЏ РєР°СЂС‚С‹ }
-//ЈҐ­Ґа жЁп Є авл
 //map_generate('map_new_generate');
 log_generate('log_old_generate','start map_generate');
 map_generate('map_test_generate');
-//ГўВҐГЎГўВ®ВўВ ГЇ ВЈВҐВ­ВҐГ В Г¦ВЁГЇ ВЈВҐГ В®ГЇ РіРµРЅРµСЂР°С†РёСЏ РїРµСЂСЃРѕРЅР°Р¶Р° {~ 12.08.2015}
-//ЈҐ­Ґа жЁп ЇҐаб®­ ¦ 
+
 log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');
 //31.12.2015

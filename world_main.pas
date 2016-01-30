@@ -43,7 +43,7 @@
 
 program world_of_sand;
 {$FPUTYPE SSE2}
-uses crt,sysutils,windows,dateutils,Zipper;
+uses crt,sysutils,windows,dateutils,Zipper,gen;
 
 type//+21.08.2015
 inventory =record

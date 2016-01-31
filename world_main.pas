@@ -1355,10 +1355,10 @@ hero_update.s2:=nb.s2;
 hero_update.s3:=nb.s3;
 hero_update.s4:=nb.s4;
 hero_update.s5:=nb.s5;
-{s4,
-s5:subject;
+
 //bag
-bag:array[0..99] of subject;}
+for i:=0 to 99 do
+hero_update.bag[i]:=nb.bag[i];
 end;
 
 function hero_generate(h:string):new_body;//+12.08.2015
@@ -2066,8 +2066,6 @@ end;
 procedure map_generate(command:string);
 var
 bl:integer;
-
-
 begin
 clrscr;
 //log_generate('log_old_generate','start map generate -1');

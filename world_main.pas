@@ -44,6 +44,7 @@
 program world_of_sand;
 {//$FPUTYPE SSE2}
  {//$IFDEF WIN64}
+
 uses crt,sysutils,windows,dateutils,Zipper,gen{,mmx};
 {//$mmx+}
 type//+21.08.2015
@@ -172,12 +173,12 @@ x_map = 2048;
 y_map = 2048;
 npc_max =32768;
 progress_max=10;
-
+{
 //+07.11.2015
 function dialog(s_in:string):string;
 begin
 
-end;
+end;}
 
 //31.12.2015
 procedure story;
@@ -2710,7 +2711,7 @@ case menu_key of
 log_generate('log_old_generate','start map_generate');
 map_generate('map_test_generate');
 log_generate('log_old_generate','start mob_generate');
-mob_generate;
+//mob_generate;
 
 log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');

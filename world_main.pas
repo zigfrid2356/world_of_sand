@@ -2063,6 +2063,29 @@ end;//1
 end;
 until menu_key='3';
 end;
+
+//01.02.2016
+procedure mob_generate;
+var
+bl,i,k0:integer;
+begin
+bl:=0;
+i:=0;
+k0:=0;
+ClrScr;
+writeln	(text[72]+' '+text[118]);
+for bl:=0 to 100 do begin//8
+for i:=0 to 299 do begin//8.1
+//log_generate('log_old_generate',inttostr(k0));
+	mob[k0]:=npc_generate(oz_list[bl].x,oz_list[bl].y,1);//--------------------------------------BEAST--------
+	map[mob[k0].x,mob[k0].y].tip:=1;
+	map[mob[k0].x,mob[k0].y].mob_index:=k0;
+k0:=k0+1;	
+end;//8.1
+end;//8
+end;
+
+
 procedure map_generate(command:string);
 var
 bl:integer;
@@ -2575,23 +2598,7 @@ end;//3.3
 end;//3
 end;
 
-procedure mob_generate;
-var
-bl,i,k0:integer;
-begin
-bl:=0;
-i:=0;
-k0:=0;
-for bl:=0 to 100 do begin//8
-for i:=0 to 299 do begin//8.1
-//log_generate('log_old_generate',inttostr(k0));
-	mob[k0]:=npc_generate(oz_list[bl].x,oz_list[bl].y,1);//--------------------------------------BEAST--------
-	map[mob[k0].x,mob[k0].y].tip:=1;
-	map[mob[k0].x,mob[k0].y].mob_index:=k0;
-k0:=k0+1;	
-end;//8.1
-end;//8
-end;
+
 
 
 procedure main_menu;
@@ -2701,6 +2708,8 @@ case menu_key of
 //map_generate('map_new_generate');
 log_generate('log_old_generate','start map_generate');
 map_generate('map_test_generate');
+log_generate('log_old_generate','start mob_generate');
+mob_generate;
 
 log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');

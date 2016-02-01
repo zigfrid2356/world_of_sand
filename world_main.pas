@@ -42,9 +42,10 @@
 {v.0.12a}{12.12.2015}
 
 program world_of_sand;
-{$FPUTYPE SSE2}
-uses crt,sysutils,windows,dateutils,Zipper,gen;
-
+{//$FPUTYPE SSE2}
+ {//$IFDEF WIN64}
+uses crt,sysutils,windows,dateutils,Zipper,gen{,mmx};
+{//$mmx+}
 type//+21.08.2015
 inventory =record
 equip:byte;

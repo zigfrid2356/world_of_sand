@@ -2714,8 +2714,8 @@ case menu_key of
 //map_generate('map_new_generate');
 log_generate('log_old_generate','start map_generate');
 map_generate('map_test_generate');
-log_generate('log_old_generate','start mob_generate');
-mob_generate;
+//log_generate('log_old_generate','start mob_generate');
+//mob_generate;
 
 log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');

@@ -1936,6 +1936,11 @@ write('|');//left
  write('@');
  textcolor(white);
  end;//2.5
+  if map[i,j].tip=3 then begin//2.6
+ textcolor(5);
+ write('@');
+ textcolor(white);
+ end;//2.6 
  end;//2.2
  writeln('|');//right
 end;//2.1
@@ -2084,7 +2089,7 @@ for bl:=0 to 100 do begin//8
 for i:=0 to 99 do begin//8.1
 //log_generate('log_old_generate',inttostr(k0));
 	mob[k0]:=npc_generate(oz_list[bl].x,oz_list[bl].y,1);//--------------------------------------BEAST--------
-	map[mob[k0].x,mob[k0].y].tip:=1;
+	map[mob[k0].x,mob[k0].y].tip:=3;
 	map[mob[k0].x,mob[k0].y].mob_index:=k0;
 k0:=k0+1;	
 end;//8.1

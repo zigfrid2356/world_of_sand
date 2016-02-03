@@ -1976,11 +1976,16 @@ writeln();
 writeln	('5- ',text[2]);
 if map[x,y].npc_index<>0 then writeln	('9- ',text[111]);
 
-if (map[x,y+1].tip<>0)and (map[x,y+1].tip<>5)and (map[x,y+1].tip<>3)then writeln	('7- ',text[87]);
-if (map[x,y-1].tip<>0)and(map[x,y-1].tip<>5)and (map[x,y+1].tip<>3)then writeln	('7- ',text[87]);
-if (map[x-1,y].tip<>0)and(map[x-1,y].tip<>5)and (map[x,y+1].tip<>3)then writeln	('7- ',text[87]);
-if (map[x+1,y].tip<>0)and(map[x+1,y].tip<>5)and (map[x,y+1].tip<>3)then writeln	('7- ',text[87]);
-if (map[x,y].tip<>0)and(map[x,y].tip<>5) and (map[x,y+1].tip<>3) then writeln	('7- ',text[87]);
+if (map[x,y+1].tip=1)or (map[x,y+1].tip=2)or (map[x,y+1].tip=4)then
+{if (map[x,y+1].tip<>0)and (map[x,y+1].tip<>5)and (map[x,y+1].tip<>3)then} writeln	('7- ',text[87]);
+if (map[x,y-1].tip=1)or (map[x,y-1].tip=2)or (map[x,y-1].tip=4)then
+{if (map[x,y-1].tip<>0)and(map[x,y-1].tip<>5)and (map[x,y+1].tip<>3)then} writeln	('7- ',text[87]);
+if (map[x-1,y].tip=1)or (map[x-1,y].tip=2)or (map[x-1,y].tip=4)then
+{if (map[x-1,y].tip<>0)and(map[x-1,y].tip<>5)and (map[x,y+1].tip<>3)then} writeln	('7- ',text[87]);
+if (map[x+1,y].tip=1)or (map[x+1,y].tip=2)or (map[x+1,y].tip=4)then
+{if (map[x+1,y].tip<>0)and(map[x+1,y].tip<>5)and (map[x,y+1].tip<>3)then} writeln	('7- ',text[87]);
+if (map[x,y].tip=1)or (map[x,y].tip=2)or (map[x,y].tip=4)then
+{if (map[x,y].tip<>0)and(map[x,y].tip<>5) and (map[x,y+1].tip<>3) then} writeln	('7- ',text[87]);
 if (map[x,y].tip=5)then  writeln	('3- ',text[89]);
 
 
@@ -2041,11 +2046,11 @@ end;//3.5.1
  end;//3.5
 
 '7':begin//3.6
-if (map[x,y+1].tip<>0) then beast_list[map[x,y+1].beast_index]:=hunt(beast_list[map[x,y+1].beast_index]);
-if (map[x,y-1].tip<>0) then beast_list[map[x,y-1].beast_index]:=hunt(beast_list[map[x,y-1].beast_index]);
-if (map[x-1,y].tip<>0) then beast_list[map[x-1,y].beast_index]:=hunt(beast_list[map[x-1,y].beast_index]);
-if (map[x+1,y].tip<>0) then beast_list[map[x+1,y].beast_index]:=hunt(beast_list[map[x+1,y].beast_index]);
-if (map[x,y].tip<>0) then beast_list[map[x,y].beast_index]:=hunt(beast_list[map[x,y].beast_index]);
+if (map[x,y+1].tip<>0) and(map[x,y+1].tip<>3) then beast_list[map[x,y+1].beast_index]:=hunt(beast_list[map[x,y+1].beast_index]);
+if (map[x,y-1].tip<>0)and(map[x,y-1].tip<>3) then beast_list[map[x,y-1].beast_index]:=hunt(beast_list[map[x,y-1].beast_index]);
+if (map[x-1,y].tip<>0)and (map[x-1,y].tip<>3)then beast_list[map[x-1,y].beast_index]:=hunt(beast_list[map[x-1,y].beast_index]);
+if (map[x+1,y].tip<>0)and (map[x+1,y].tip<>3)then beast_list[map[x+1,y].beast_index]:=hunt(beast_list[map[x+1,y].beast_index]);
+if (map[x,y].tip<>0)and (map[x,y].tip<>3)then beast_list[map[x,y].beast_index]:=hunt(beast_list[map[x,y].beast_index]);
  end;//3.6
 
 '3':begin//3.7

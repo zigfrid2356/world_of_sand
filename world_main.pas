@@ -2083,11 +2083,11 @@ begin
 bl:=0;
 i:=0;
 k0:=0;
-ClrScr;
-writeln	(text[72]+' '+text[118]);
-for bl:=0 to 100 do begin//8
+//ClrScr;
+writeln	(text[72]+text[118]);
+for bl:=0 to 99 do begin//8
 for i:=0 to 99 do begin//8.1
-//log_generate('log_old_generate',inttostr(k0));
+log_generate('log_old_generate',inttostr(k0));
 	mob[k0]:=npc_generate(oz_list[bl].x,oz_list[bl].y,1);//--------------------------------------BEAST--------
 	map[mob[k0].x,mob[k0].y].tip:=3;
 	map[mob[k0].x,mob[k0].y].mob_index:=k0;

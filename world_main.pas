@@ -138,7 +138,7 @@ hero:new_body;
 monster:body;
 npc:array[0..17000] of new_body;
 //28.01.2016
-mob:array[0..30000] of new_body;
+mob:array[0..10000] of new_body;
 menu_key:char;
 i,j,n,m,l,k,k0,k1,k2,k_oz,i_oz,j_oz,n_oz,m_oz:integer;//áçñâç¨ª¨{счётчики}
 s:string;//temp
@@ -2081,7 +2081,7 @@ k0:=0;
 ClrScr;
 writeln	(text[72]+' '+text[118]);
 for bl:=0 to 100 do begin//8
-for i:=0 to 299 do begin//8.1
+for i:=0 to 99 do begin//8.1
 //log_generate('log_old_generate',inttostr(k0));
 	mob[k0]:=npc_generate(oz_list[bl].x,oz_list[bl].y,1);//--------------------------------------BEAST--------
 	map[mob[k0].x,mob[k0].y].tip:=1;
@@ -2715,7 +2715,7 @@ case menu_key of
 log_generate('log_old_generate','start map_generate');
 map_generate('map_test_generate');
 //log_generate('log_old_generate','start mob_generate');
-//mob_generate;
+mob_generate;
 
 log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');

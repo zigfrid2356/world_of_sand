@@ -1143,8 +1143,8 @@ npc_generate.exp:=1;
 npc_generate.gold:=random(100)+50;
 if tip=1 then npc_generate.x:=i_n;
 if tip=1 then npc_generate.y:=j_n;
-if tip=2 then npc_generate.x:=i_n+random(100);
-if tip=2 then npc_generate.y:=j_n+random(100);
+if tip=2 then npc_generate.x:=i_n-random(20)+random(100);
+if tip=2 then npc_generate.y:=j_n-random(20)+random(100);
 npc_generate.init:=random(50)+1;
 npc_generate.masking:=random(50)+1;
 npc_generate.obser:=random(50)+1;
@@ -2089,7 +2089,7 @@ k0:=0;
 writeln	(text[72]+text[118]);
 for bl:=0 to 99 do begin//8
 for i:=0 to 99 do begin//8.1
-log_generate('log_old_generate',inttostr(k0)+inttostr(mob[k0].x)+' '+inttostr(mob[k0].y));
+//log_generate('log_old_generate',inttostr(k0)+inttostr(mob[k0].x)+' '+inttostr(mob[k0].y));
 	mob[k0]:=npc_generate(oz_list[bl].x,oz_list[bl].y,1,2);//--------------------------------------BEAST--------
 	map[mob[k0].x,mob[k0].y].tip:=3;
 	map[mob[k0].x,mob[k0].y].mob_index:=k0;

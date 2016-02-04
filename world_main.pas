@@ -167,7 +167,7 @@ npc_save:file of new_body;
 simbol: array [0..12] of char;
 fmt:string='dd/mm/yyyy hh:nn:ss.zzz';
 //+25.10.2015
-s_typ,s_clas,s_podclas:array[0..9]of string;
+s_typ{,s_clas,s_podclas}:array[0..9]of string;
 s_podtyp:array[0..50]of string;
 //+02.01.2016
 lang_s:string[3];
@@ -370,7 +370,7 @@ end;
 procedure muve(i_m,j_m:word; command:string);
 var
 i_muv,j_muv,rr:word;
-b_m,bm_i:integer;
+bm_i:integer;
 begin
 if command='start' then begin//00
 for i_muv:=i_m-5 to i_m+5 do begin//0.1
@@ -497,13 +497,9 @@ end;end;//0.1//0.2
 //log_generate('log_old_generate','stop_muve');
 
 for bm_i:=0 to 10000 do begin //2
-{if bm_i=10 then begin//0 }
-//log_generate('log_old_generate','muve 9-1 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' name '+beast_list[map[beast_list[bm_i].x,beast_list[bm_i].y].beast_index].name);
-{end;}//0
+
 beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
-{if bm_i=10 then begin//0 }
-//log_generate('log_old_generate','muve 9-2 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' mame '+beast_list[bm_i].name);
-{end;}//0
+
 end;//2
 
 end;//000

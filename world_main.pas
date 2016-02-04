@@ -366,6 +366,14 @@ log_generate('log_old_generate','muve 10-2 '+inttostr(beast_muve.x)+':'+inttostr
 end;}//000
 end;
 
+//04.02.2016
+function mob_muve(mm:new_body;command:string):new_body;
+begin
+if command='start' then begin//00
+mob_muve:=mm;
+end;//00
+end;
+
 //+11.11.2015
 procedure muve(i_m,j_m:word; command:string);
 var
@@ -499,7 +507,7 @@ end;end;//0.1//0.2
 for bm_i:=0 to 10000 do begin //2
 
 beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
-
+mob[bm_i]:=mob_muve(mob[bm_i],'start');
 end;//2
 
 end;//000
@@ -782,7 +790,7 @@ end;
 //09.01.2016
 function trade_out(t_o:new_body;command:string):new_body;
 var
-tr:string;
+//tr:string;
 toi,bagi:byte;
 trader:new_body;
 begin
@@ -791,8 +799,8 @@ trade_out:=t_o;
 repeat begin//0
 clrscr;
 bagi:=0;
-if command= 'trade' then begin tr:=text[69]; trader:=hero end;
-if command= 'cell' then begin tr:=text[68]; trader:= t_o end;
+if command= 'trade' then begin {tr:=text[69];} trader:=hero end;
+if command= 'cell' then begin {tr:=text[68];} trader:= t_o end;
 writeln('--------------------------------------------------------');
 writeln('|'+name_tab(text[91],30)+'|'+name_tab(text[110],11)+'|'+name_tab(text[12],6)+'|'
 +name_tab(text[92],6)+'|'+name_tab(text[102],10)+'|'

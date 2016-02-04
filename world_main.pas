@@ -368,10 +368,25 @@ end;
 
 //04.02.2016
 function mob_muve(mm:new_body;command:string):new_body;
+var
+tx,ty,ti:word;
 begin
-if command='start' then begin//00
+if command='start'{and (mm.x>hero.x-20) and (mm.x<hero.x+20) and (mm.y>hero.y-20) and (mm.y<hero.y+20)} then begin//00
 mob_muve:=mm;
+ti:=0;
+repeat
+begin
+tx:=mm.x-random(1)+random(1);
+ty:=mm.y-random(1)+random(1);
+ti:=ti+1
+end;
+until (tx>5)and(tx<x_map-5)and(ty>5)and(ty<y_map-5) or (ti>10);
+
+mob_muve.x:=tx;
+mob_muve.y:=ty;
+log_generate('log_old_generate','mob_muve '+inttostr(mob_muve.x)+':'+inttostr(mob_muve.y));
 end;//00
+
 end;
 
 //+11.11.2015
@@ -435,6 +450,7 @@ if command='test' then begin//000------------------------000-----------------
 for i_muv:=10 to x_map-10 do begin//0.1
 	for j_muv:=10 to y_map-10 do begin//0.2
 	
+//mob[map[i_muv,j_muv].mob_index]:=mob_muve(mob[map[i_muv,j_muv].mob_index],'start');	
 if map[i_muv,j_muv].progress>=2 then begin//1--------------!!!!2->100!!!!--------------
 
 if map[i_muv,j_muv].structure='/' then begin//1.2
@@ -507,7 +523,7 @@ end;end;//0.1//0.2
 for bm_i:=0 to 10000 do begin //2
 
 beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
-mob[bm_i]:=mob_muve(mob[bm_i],'start');
+//mob[bm_i]:=mob_muve(mob[bm_i],'start');
 end;//2
 
 end;//000
@@ -1126,7 +1142,7 @@ function npc_generate(i_n,j_n:integer; sid:byte; tip:byte):new_body;
 var
 st:string;
 stg:byte;
-tx,ty:integer;
+tx,ty:word;
 begin
 //log_generate('log_old_generate','start npc_generate -!- '+inttostr(i_n)+' '+inttostr(j_n));
 npc_generate.lvl:=random(50)+1;
@@ -1939,6 +1955,7 @@ writeln(' _____________________');//top
 for i:=x-5 to x+5 do begin//2.1//5
 write('|');//left
  for j:=y-10 to y+10 do begin//2.2//10
+ mob[map[i,j].mob_index]:=mob_muve(mob[map[i,j].mob_index],'start');
  if map[i,j].tip=1 then begin//2.3
  textcolor(10);
  write('@');
@@ -2109,10 +2126,15 @@ i:=0;
 k0:=0;
 //ClrScr;
 writeln	(text[72]+text[118]);
+for i:=0 to x_map do begin//1.1
+	for j:=0 to y_map do begin//1.2
+	map[i,j].mob_index:=1;
+	end;//1.2
+	end;//11
 for bl:=0 to 99 do begin//8
 for i:=0 to 99 do begin//8.1
 //log_generate('log_old_generate',inttostr(k0)+inttostr(mob[k0].x)+' '+inttostr(mob[k0].y));
-	mob[k0]:=npc_generate(oz_list[bl].x,oz_list[bl].y,1,2);//--------------------------------------BEAST--------
+	mob[k0]:=npc_generate(oz_list[bl].x,oz_list[bl].y,1,2);//--------------------------------------mob--------
 	map[mob[k0].x,mob[k0].y].tip:=3;
 	map[mob[k0].x,mob[k0].y].mob_index:=k0;
 k0:=k0+1;	

@@ -384,7 +384,7 @@ until (tx>5)and(tx<x_map-5)and(ty>5)and(ty<y_map-5) or (ti>10);
 
 mob_muve.x:=tx;
 mob_muve.y:=ty;
-log_generate('log_old_generate','mob_muve '+inttostr(mob_muve.x)+':'+inttostr(mob_muve.y));
+//log_generate('log_old_generate','mob_muve '+inttostr(mob_muve.x)+':'+inttostr(mob_muve.y));
 end;//00
 
 end;
@@ -1955,7 +1955,9 @@ writeln(' _____________________');//top
 for i:=x-5 to x+5 do begin//2.1//5
 write('|');//left
  for j:=y-10 to y+10 do begin//2.2//10
+ //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  mob[map[i,j].mob_index]:=mob_muve(mob[map[i,j].mob_index],'start');
+ 
  if map[i,j].tip=1 then begin//2.3
  textcolor(10);
  write('@');

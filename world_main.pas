@@ -278,13 +278,13 @@ end;
 procedure log_generate(command:string;text:string);
 begin;
 if command='log_new_generate' then begin//1
-assign(f_log,'log.txt');
+assign(f_log,'log.log');
 rewrite(f_log);
 writeln(f_log,formatdatetime(fmt,now)+' '+text);
 close(f_log);
 end;//1
 if command='log_old_generate' then begin//2
-assign(f_log,'log.txt');
+assign(f_log,'log.log');
 append(f_log);
 writeln(f_log,formatdatetime(fmt,now)+' '+text);
 close(f_log);
@@ -420,6 +420,7 @@ end;//1
 if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
 end;end;//0.1//0.2
 end;//00
+
 if command='test' then begin//000------------------------000-----------------
 
 //log_generate('log_old_generate','start_muve_');
@@ -495,7 +496,7 @@ if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[
 end;end;//0.1//0.2
 //log_generate('log_old_generate','stop_muve');
 
-for bm_i:=10 to 900 do begin //2
+for bm_i:=0 to 10000 do begin //2
 {if bm_i=10 then begin//0 }
 //log_generate('log_old_generate','muve 9-1 '+inttostr(beast_list[bm_i].x)+':'+inttostr(beast_list[bm_i].y)+' name '+beast_list[map[beast_list[bm_i].x,beast_list[bm_i].y].beast_index].name);
 {end;}//0
@@ -1121,6 +1122,7 @@ function npc_generate(i_n,j_n:integer; sid:byte; tip:byte):new_body;
 var
 st:string;
 stg:byte;
+tx,ty:integer;
 begin
 //log_generate('log_old_generate','start npc_generate -!- '+inttostr(i_n)+' '+inttostr(j_n));
 npc_generate.lvl:=random(50)+1;
@@ -1143,8 +1145,18 @@ npc_generate.exp:=1;
 npc_generate.gold:=random(100)+50;
 if tip=1 then npc_generate.x:=i_n;
 if tip=1 then npc_generate.y:=j_n;
-if tip=2 then npc_generate.x:=i_n-random(20)+random(100);
-if tip=2 then npc_generate.y:=j_n-random(20)+random(100);
+
+if tip=2 then begin//1
+repeat
+begin
+tx:=i_n-random(100)+random(100);;
+ty:=j_n-random(100)+random(100);;
+end;
+until (tx>8)and(tx<x_map-8)and(ty>8)and(ty<y_map-8);
+npc_generate.x:=tx;
+npc_generate.y:=ty;
+end;//1
+
 npc_generate.init:=random(50)+1;
 npc_generate.masking:=random(50)+1;
 npc_generate.obser:=random(50)+1;

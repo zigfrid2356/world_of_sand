@@ -369,15 +369,17 @@ end;
 //04.02.2016
 function mob_muve(mm:new_body;command:string):new_body;
 var
-tx,ty,ti:word;
+//tx,ty,ti:word;
+mmt:new_body;
 begin
-if command='start'{and (mm.x>hero.x-20) and (mm.x<hero.x+20) and (mm.y>hero.y-20) and (mm.y<hero.y+20)} then begin//00
+{
+if command='start' then begin//00
 mob_muve:=mm;
 ti:=0;
 repeat
 begin
-tx:=mm.x-random(1)+random(1);
-ty:=mm.y-random(1)+random(1);
+tx:=mm.x+random(1);
+ty:=mm.y+random(1);
 ti:=ti+1
 end;
 until (tx>5)and(tx<x_map-5)and(ty>5)and(ty<y_map-5) or (ti>10);
@@ -386,7 +388,11 @@ mob_muve.x:=tx;
 mob_muve.y:=ty;
 //log_generate('log_old_generate','mob_muve '+inttostr(mob_muve.x)+':'+inttostr(mob_muve.y));
 end;//00
-
+}
+mmt:=mm;
+mmt.x:=mmt.x+1;
+mmt.y:=mmt.y+1;
+mob_muve:=mmt;
 end;
 
 //+11.11.2015
@@ -1956,8 +1962,10 @@ for i:=x-5 to x+5 do begin//2.1//5
 write('|');//left
  for j:=y-10 to y+10 do begin//2.2//10
  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+log_generate('log_old_generate','mob-1 '+inttostr(map[i,j].mob_index)); 
+log_generate('log_old_generate','mob-2 '+inttostr(mob[map[i,j].mob_index].x)); 
  mob[map[i,j].mob_index]:=mob_muve(mob[map[i,j].mob_index],'start');
- 
+log_generate('log_old_generate','mob-3 '+inttostr(mob[map[i,j].mob_index].x)); 
  if map[i,j].tip=1 then begin//2.3
  textcolor(10);
  write('@');

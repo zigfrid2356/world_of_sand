@@ -367,31 +367,33 @@ end;}//000
 end;
 
 //04.02.2016
-function mob_muve(mm:new_body;command:string):new_body;
+function mob_muve(mm:new_body;command:string;mi:byte):new_body;
 var
-//tx,ty,ti:word;
+tx,ty,ti:word;
 mmt:new_body;
 begin
-{
+
 if command='start' then begin//00
-mob_muve:=mm;
+mmt:=mm;
 ti:=0;
 repeat
 begin
-tx:=mm.x+random(1);
-ty:=mm.y+random(1);
+tx:=mmt.x+random(1)-random(1);
+ty:=mmt.y+random(1)-random(1);
 ti:=ti+1
 end;
 until (tx>5)and(tx<x_map-5)and(ty>5)and(ty<y_map-5) or (ti>10);
 
-mob_muve.x:=tx;
-mob_muve.y:=ty;
+mmt.x:=tx;
+mmt.y:=ty;
 //log_generate('log_old_generate','mob_muve '+inttostr(mob_muve.x)+':'+inttostr(mob_muve.y));
 end;//00
-}
-mmt:=mm;
-mmt.x:=mmt.x+1;
-mmt.y:=mmt.y+1;
+map[mm.x,mm.y].tip:=0;
+map[mmt.x,mmt.y].tip:=3;
+map[mm.x,mm.y].mob_index:=0;
+map[mmt.x,mmt.y].mob_index:=mi;
+
+
 mob_muve:=mmt;
 end;
 
@@ -1962,10 +1964,10 @@ for i:=x-5 to x+5 do begin//2.1//5
 write('|');//left
  for j:=y-10 to y+10 do begin//2.2//10
  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-log_generate('log_old_generate','mob-1 '+inttostr(map[i,j].mob_index)); 
-log_generate('log_old_generate','mob-2 '+inttostr(mob[map[i,j].mob_index].x)); 
- mob[map[i,j].mob_index]:=mob_muve(mob[map[i,j].mob_index],'start');
-log_generate('log_old_generate','mob-3 '+inttostr(mob[map[i,j].mob_index].x)); 
+//log_generate('log_old_generate','mob-1 '+inttostr(map[i,j].mob_index)); 
+//log_generate('log_old_generate','mob-2 '+inttostr(mob[map[i,j].mob_index].x)); 
+ mob[map[i,j].mob_index]:=mob_muve(mob[map[i,j].mob_index],'start',map[i,j].mob_index);
+//log_generate('log_old_generate','mob-3 '+inttostr(mob[map[i,j].mob_index].x)); 
  if map[i,j].tip=1 then begin//2.3
  textcolor(10);
  write('@');

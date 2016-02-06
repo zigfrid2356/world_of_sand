@@ -536,14 +536,21 @@ end;//1
 if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
 end;end;//0.1//0.2
 //log_generate('log_old_generate','start_muve_1');
-
+//log_generate('log_old_generate','start_muve_beast ');
 for bm_i:=0 to 10000 do begin //2
 //log_generate('log_old_generate','start_muve_2 '+inttostr(bm_i));
 beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
 mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
 end;//2
-
-
+{
+//log_generate('log_old_generate','stop_muve_beast ');
+//log_generate('log_old_generate','start_muve_mob ');
+for bm_i:=0 to 10000 do begin //2
+//log_generate('log_old_generate','start_muve_2 '+inttostr(bm_i));
+//beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
+mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
+end;//2}
+//log_generate('log_old_generate','stop_muve_mob ');
 end;//000
 end;
 

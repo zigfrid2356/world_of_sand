@@ -176,7 +176,7 @@ const
 x_map = 2048;
 y_map = 2048;
 npc_max =32768;
-progress_max=10;
+progress_max=100;
 {
 //+07.11.2015
 function dialog(s_in:string):string;
@@ -372,11 +372,11 @@ var
 tx,ty{,ti},tt:word;
 mmt:new_body;
 begin
-//log_generate('log_old_generate','mob_muve_int 1 '+inttostr(mi)+' '+inttostr(mm.x)+':'+inttostr(mm.y));
+
 mmt:=mm;
 //log_generate('log_old_generate','mob_muve_int 2 '+inttostr(mi)+' '+inttostr(mmt.x)+':'+inttostr(mmt.y));
-if command='start' then begin//00
-
+if (command='start') and (mi<>1) then begin//00
+//log_generate('log_old_generate','mob_muve_int 1 '+inttostr(mi)+' '+inttostr(mm.x)+':'+inttostr(mm.y));
 //ti:=0;
 //repeat
 //begin
@@ -403,7 +403,7 @@ map[mmt.x,mmt.y].mob_index:=mi;
 
 
 mob_muve:=mmt;
-//log_generate('log_old_generate','mob_muve 33'+inttostr(mi)+' '+inttostr(mob_muve.x)+':'+inttostr(mob_muve.y));
+//log_generate('log_old_generate','mob_muve 33 '+inttostr(mi)+' '+inttostr(mob_muve.x)+':'+inttostr(mob_muve.y));
 end;
 
 //+11.11.2015
@@ -540,9 +540,13 @@ end;end;//0.1//0.2
 for bm_i:=0 to 10000 do begin //2
 //log_generate('log_old_generate','start_muve_2 '+inttostr(bm_i));
 beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
+//mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
+end;//2
+for bm_i:=0 to 10000 do begin //2
+//log_generate('log_old_generate','start_muve_2 '+inttostr(bm_i));
+//beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
 mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
 end;//2
-
 
 end;//000
 end;

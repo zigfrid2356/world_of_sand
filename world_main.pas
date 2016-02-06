@@ -372,22 +372,22 @@ var
 tx,ty,ti,tt:word;
 mmt:new_body;
 begin
-
-if command='start' then begin//00
 mmt:=mm;
+if command='start' then begin//00
+
 ti:=0;
-repeat
-begin
-tx:=mmt.x;
-ty:=mmt.y;
+//repeat
+//begin
+tx:=mm.x;
+ty:=mm.y;
 tt:=random(4);
-if tt=0 then tx:=mmt.x+1;
-if tt=1 then tx:=mmt.x-1;
-if tt=2 then ty:=mmt.y+1;
-if tt=3 then ty:=mmt.y-1;
-ti:=ti+1
-end;
-until (tx>5)and(tx<x_map-5)and(ty>5)and(ty<y_map-5) or (ti>10);
+if tt=0 then tx:=tx+1;
+if tt=1 then tx:=tx-1;
+if tt=2 then ty:=ty+1;
+if tt=3 then ty:=ty-1;
+//ti:=ti+1
+//end;
+//until (tx>5)and(tx<x_map-5)and(ty>5)and(ty<y_map-5) or (ti>10);
 
 mmt.x:=tx;
 mmt.y:=ty;
@@ -536,7 +536,7 @@ end;end;//0.1//0.2
 for bm_i:=0 to 10000 do begin //2
 
 beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
-//mob[bm_i]:=mob_muve(mob[bm_i],'start');
+mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
 end;//2
 
 end;//000
@@ -1971,7 +1971,7 @@ write('|');//left
  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //log_generate('log_old_generate','mob-1 '+inttostr(map[i,j].mob_index)); 
 //log_generate('log_old_generate','mob-2 '+inttostr(mob[map[i,j].mob_index].x)); 
-
+// mob[map[i,j].mob_index]:=mob_muve(mob[map[i,j].mob_index],'start',map[i,j].mob_index);
 //log_generate('log_old_generate','mob-3 '+inttostr(mob[map[i,j].mob_index].x)); 
  if map[i,j].tip=1 then begin//2.3
  textcolor(10);
@@ -2050,7 +2050,7 @@ if y+1<={244}2037 then y:=y+1 else y:=y;
 hero.y:=y;
 //log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
 muve(x,y,'test');
- mob[map[x,y].mob_index]:=mob_muve(mob[map[x,y].mob_index],'start',map[x,y].mob_index);
+
 
 end;//3.1
 '4':begin//3.2
@@ -2061,7 +2061,7 @@ if y-1>=11 then y:=y-1 else y:=y;
 hero.y:=y;
 //log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
 muve(x,y,'test');
- mob[map[x,y].mob_index]:=mob_muve(mob[map[x,y].mob_index],'start',map[x,y].mob_index);
+
  end;//3.2
 '8':begin//3.3
 if x-1>=6 then x:=x-1 else x:=x;
@@ -2069,7 +2069,7 @@ y:=y;
 hero.x:=x;
 //log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
 muve(x,y,'test');
- mob[map[x,y].mob_index]:=mob_muve(mob[map[x,y].mob_index],'start',map[x,y].mob_index);
+
  end;//3.3
 '2':begin//3.4
 if x+1<={249}2042 then x:=x+1 else x:=x;
@@ -2077,7 +2077,7 @@ y:=y;
 hero.x:=x;
 //log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
 muve(x,y,'test');
- mob[map[x,y].mob_index]:=mob_muve(mob[map[x,y].mob_index],'start',map[x,y].mob_index);
+
  end;//3.4
 
 '9':begin//3.5//+09.11.2015

@@ -468,7 +468,7 @@ for i_muv:=10 to x_map-10 do begin//0.1
 	for j_muv:=10 to y_map-10 do begin//0.2
 	
 //mob[map[i_muv,j_muv].mob_index]:=mob_muve(mob[map[i_muv,j_muv].mob_index],'start');	
-if map[i_muv,j_muv].progress>=2 then begin//1--------------!!!!2->100!!!!--------------
+if map[i_muv,j_muv].progress>=100 then begin//1--------------!!!!2->100!!!!--------------
 
 if map[i_muv,j_muv].structure='/' then begin//1.2
  map[i_muv,j_muv].structure:='.';
@@ -540,13 +540,9 @@ end;end;//0.1//0.2
 for bm_i:=0 to 10000 do begin //2
 //log_generate('log_old_generate','start_muve_2 '+inttostr(bm_i));
 beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
-//mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
-end;//2
-for bm_i:=0 to 10000 do begin //2
-//log_generate('log_old_generate','start_muve_2 '+inttostr(bm_i));
-//beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
 mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
 end;//2
+
 
 end;//000
 end;

@@ -372,9 +372,9 @@ var
 tx,ty{,ti},tt:word;
 mmt:new_body;
 begin
-log_generate('log_old_generate','mob_muve_int 1 '+inttostr(mi)+' '+inttostr(mm.x)+':'+inttostr(mm.y));
+//log_generate('log_old_generate','mob_muve_int 1 '+inttostr(mi)+' '+inttostr(mm.x)+':'+inttostr(mm.y));
 mmt:=mm;
-log_generate('log_old_generate','mob_muve_int 2 '+inttostr(mi)+' '+inttostr(mmt.x)+':'+inttostr(mmt.y));
+//log_generate('log_old_generate','mob_muve_int 2 '+inttostr(mi)+' '+inttostr(mmt.x)+':'+inttostr(mmt.y));
 if command='start' then begin//00
 
 //ti:=0;
@@ -393,7 +393,7 @@ if tt=3 then ty:=ty-1;
 
 mmt.x:=tx;
 mmt.y:=ty;
-log_generate('log_old_generate','mob_muve_int 3 '+inttostr(mi)+' '+inttostr(mmt.x)+':'+inttostr(mmt.y));
+//log_generate('log_old_generate','mob_muve_int 3 '+inttostr(mi)+' '+inttostr(mmt.x)+':'+inttostr(mmt.y));
 
 end;//00
 map[mm.x,mm.y].tip:=0;
@@ -403,7 +403,7 @@ map[mmt.x,mmt.y].mob_index:=mi;
 
 
 mob_muve:=mmt;
-log_generate('log_old_generate','mob_muve 33'+inttostr(mi)+' '+inttostr(mob_muve.x)+':'+inttostr(mob_muve.y));
+//log_generate('log_old_generate','mob_muve 33'+inttostr(mi)+' '+inttostr(mob_muve.x)+':'+inttostr(mob_muve.y));
 end;
 
 //+11.11.2015
@@ -535,10 +535,10 @@ end;//1.1
 end;//1
 if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
 end;end;//0.1//0.2
-log_generate('log_old_generate','start_muve_1');
+//log_generate('log_old_generate','start_muve_1');
 
 for bm_i:=0 to 10000 do begin //2
-log_generate('log_old_generate','start_muve_2 '+inttostr(bm_i));
+//log_generate('log_old_generate','start_muve_2 '+inttostr(bm_i));
 beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
 mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
 end;//2

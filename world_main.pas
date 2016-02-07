@@ -467,6 +467,8 @@ if command='test' then begin//000------------------------000-----------------
 for i_muv:=10 to x_map-10 do begin//0.1
 	for j_muv:=10 to y_map-10 do begin//0.2
 	
+if map[i_muv,j_muv].tip =3 then mob[map[i_muv,j_muv].mob_index]:=mob_muve(mob[map[i_muv,j_muv].mob_index],'start',map[i_muv,j_muv].mob_index);
+	
 //mob[map[i_muv,j_muv].mob_index]:=mob_muve(mob[map[i_muv,j_muv].mob_index],'start');	
 if map[i_muv,j_muv].progress>=100 then begin//1--------------!!!!2->100!!!!--------------
 
@@ -535,22 +537,13 @@ end;//1.1
 end;//1
 if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
 end;end;//0.1//0.2
-//log_generate('log_old_generate','start_muve_1');
 //log_generate('log_old_generate','start_muve_beast ');
 for bm_i:=0 to 10000 do begin //2
 //log_generate('log_old_generate','start_muve_2 '+inttostr(bm_i));
 beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
-mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
+
 end;//2
-{
-//log_generate('log_old_generate','stop_muve_beast ');
-//log_generate('log_old_generate','start_muve_mob ');
-for bm_i:=0 to 10000 do begin //2
-//log_generate('log_old_generate','start_muve_2 '+inttostr(bm_i));
-//beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
-mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
-end;//2}
-//log_generate('log_old_generate','stop_muve_mob ');
+
 end;//000
 end;
 
@@ -2155,18 +2148,24 @@ i:=0;
 k0:=0;
 //ClrScr;
 writeln	(text[72]+text[118]);
-for i:=0 to x_map do begin//1.1
+{for i:=0 to x_map do begin//1.1
 	for j:=0 to y_map do begin//1.2
 	map[i,j].mob_index:=1;
 	end;//1.2
-	end;//11
+	end;//11}
+k0:=0;
 for bl:=0 to 99 do begin//8
 for i:=0 to 99 do begin//8.1
 //log_generate('log_old_generate',inttostr(k0)+inttostr(mob[k0].x)+' '+inttostr(mob[k0].y));
-	mob[k0]:=npc_generate(oz_list[bl].x,oz_list[bl].y,1,2);//--------------------------------------mob--------
+	mob[k0]:=npc_generate(oz_list[bl].x,oz_list[bl].y,1,2);
+	//log_generate('log_old_generate','mob '+inttostr(k0)+' '+mob[k0].name);	
+	//--------------------------------------mob--------
 	map[mob[k0].x,mob[k0].y].tip:=3;
 	map[mob[k0].x,mob[k0].y].mob_index:=k0;
-k0:=k0+1;	
+
+if (k0=10)or(k0=100)or(k0=1000) then 
+log_generate('log_old_generate','10-i mob '+inttostr(map[mob[k0].x,mob[k0].y].mob_index)+' '+mob[k0].name);
+	k0:=k0+1;
 end;//8.1
 end;//8
 end;

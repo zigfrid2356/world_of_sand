@@ -369,40 +369,42 @@ end;
 //04.02.2016
 function mob_muve(mm:new_body;command:string;mi:byte):new_body;
 var
-tx,ty{,ti},tt:word;
-mmt:new_body;
+{tx,ty,ti,}tt:byte;
+//mmt:new_body;
 begin
+mob_muve:=mm;
+//mmt:=mm;
 
-mmt:=mm;
-//log_generate('log_old_generate','mob_muve_int 2 '+inttostr(mi)+' '+inttostr(mmt.x)+':'+inttostr(mmt.y));
-if (command='start') and (map[mm.x,mm.y].tip<>1) then begin//00
-//log_generate('log_old_generate','mob_muve_int 1 '+inttostr(mi)+' '+inttostr(mm.x)+':'+inttostr(mm.y));
+if (command='start') and (map[mm.x,mm.y].tip<>1) 
+and(mm.x+2<x_map)and(mm.x>2)and(mm.y+2<y_map)and(mm.y>2) 
+then begin//00
+
 //ti:=0;
 //repeat
 //begin
-tx:=mm.x;
-ty:=mm.y;
+//tx:=mm.x;
+//ty:=mm.y;
 tt:=random(4);
-if tt=0 then tx:=tx+1;
-if tt=1 then tx:=tx-1;
-if tt=2 then ty:=ty+1;
-if tt=3 then ty:=ty-1;
+if tt=0 then {tx:=tx+1;}mob_muve.x:=mob_muve.x+1;
+if tt=1 then {tx:=tx-1;}mob_muve.x:=mob_muve.x-1;
+if tt=2 then {ty:=ty+1;}mob_muve.y:=mob_muve.y+1;
+if tt=3 then {ty:=ty-1;}mob_muve.y:=mob_muve.y-1;
 //ti:=ti+1
 //end;
 //until (tx>5)and(tx<x_map-5)and(ty>5)and(ty<y_map-5) or (ti>10);
 
-mmt.x:=tx;
-mmt.y:=ty;
+//mmt.x:=tx;
+//mmt.y:=ty;
 //log_generate('log_old_generate','mob_muve_int 3 '+inttostr(mi)+' '+inttostr(mmt.x)+':'+inttostr(mmt.y));
 
 end;//00
 map[mm.x,mm.y].tip:=0;
-map[mmt.x,mmt.y].tip:=3;
+map[mob_muve.x,mob_muve.y].tip:=3;
 map[mm.x,mm.y].mob_index:=0;
-map[mmt.x,mmt.y].mob_index:=mi;
+map[mob_muve.x,mob_muve.y].mob_index:=mi;
 
 
-mob_muve:=mmt;
+//mob_muve:=mmt;
 //log_generate('log_old_generate','mob_muve 33 '+inttostr(mi)+' '+inttostr(mob_muve.x)+':'+inttostr(mob_muve.y));
 end;
 
@@ -541,7 +543,7 @@ end;end;//0.1//0.2
 for bm_i:=0 to 10000 do begin //2
 //log_generate('log_old_generate','start_muve_2 '+inttostr(bm_i));
 beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
-
+mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
 end;//2
 
 end;//000

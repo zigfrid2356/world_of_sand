@@ -375,7 +375,7 @@ begin
 
 mmt:=mm;
 //log_generate('log_old_generate','mob_muve_int 2 '+inttostr(mi)+' '+inttostr(mmt.x)+':'+inttostr(mmt.y));
-if (command='start') and (mi<>1) then begin//00
+if (command='start') and (map[mm.x,mm.y].tip<>1) then begin//00
 //log_generate('log_old_generate','mob_muve_int 1 '+inttostr(mi)+' '+inttostr(mm.x)+':'+inttostr(mm.y));
 //ti:=0;
 //repeat
@@ -467,7 +467,7 @@ if command='test' then begin//000------------------------000-----------------
 for i_muv:=10 to x_map-10 do begin//0.1
 	for j_muv:=10 to y_map-10 do begin//0.2
 	
-if map[i_muv,j_muv].tip =3 then mob[map[i_muv,j_muv].mob_index]:=mob_muve(mob[map[i_muv,j_muv].mob_index],'start',map[i_muv,j_muv].mob_index);
+//if map[i_muv,j_muv].tip =3 then mob[map[i_muv,j_muv].mob_index]:=mob_muve(mob[map[i_muv,j_muv].mob_index],'start',map[i_muv,j_muv].mob_index);
 	
 //mob[map[i_muv,j_muv].mob_index]:=mob_muve(mob[map[i_muv,j_muv].mob_index],'start');	
 if map[i_muv,j_muv].progress>=100 then begin//1--------------!!!!2->100!!!!--------------
@@ -2163,8 +2163,8 @@ for i:=0 to 99 do begin//8.1
 	map[mob[k0].x,mob[k0].y].tip:=3;
 	map[mob[k0].x,mob[k0].y].mob_index:=k0;
 
-if (k0=10)or(k0=100)or(k0=1000) then 
-log_generate('log_old_generate','10-i mob '+inttostr(map[mob[k0].x,mob[k0].y].mob_index)+' '+mob[k0].name);
+//if (k0=10)or(k0=100)or(k0=1000) then 
+//log_generate('log_old_generate','10-i mob '+inttostr(map[mob[k0].x,mob[k0].y].mob_index)+' '+mob[k0].name);
 	k0:=k0+1;
 end;//8.1
 end;//8

@@ -304,98 +304,41 @@ var
 r_bm:byte;
 begin
 //log_generate('log_old_generate','beast_muve');
-//
-beast_muve.hp:=bb.hp;
-beast_muve.dmg:=bb.dmg;
-beast_muve.ign_dmg:=bb.ign_dmg;
-beast_muve.name:=bb.name;
-beast_muve.flag_life:=bb.flag_life;
-beast_muve.flag_hishn:=bb.flag_hishn;
-beast_muve.skin:=bb.skin;
-beast_muve.meat:=bb.meat;
-beast_muve.teeth:=bb.teeth;
-beast_muve.bones:=bb.bones;
-beast_muve.clutches:=bb.clutches;
-//
-{
-if bi=10 then begin//0
-log_generate('log_old_generate','muve 10-1 '+inttostr(bb.x)+':'+inttostr(bb.y)+' name '+beast_list[map[bb.x,bb.y].beast_index].name);
-end;}//0
 
-if (command='start')and (bb.x<x_map-1)and (bb.y<y_map-1)and(bb.flag_life<>0)and(bb.flag_life<>5) then begin//00
-//log_generate('log_old_generate','muve 1 '+inttostr(bb.x)+':'+inttostr(bb.y));
+beast_muve:=bb;
+if (command='start')and (bb.x<x_map-2)and (bb.y<y_map-2)and(bb.flag_life<>0)and(bb.flag_life<>5)and (bb.x>2)and (bb.y>2) then begin//00
+
 r_bm:=random(4);
-if (r_bm=0)and (bb.x<x_map-1) then begin //1.1.1
-beast_muve.x:=bb.x+1;
-beast_muve.y:=bb.y;
+if r_bm=0 then beast_muve.x:=bb.x+1;
+if r_bm=1 then beast_muve.x:=bb.x-1;
+if r_bm=2 then beast_muve.y:=bb.y+1;
+if r_bm=3 then beast_muve.y:=bb.y-1;
 
 map[bb.x,bb.y].tip:=0;
 map[beast_muve.x,beast_muve.y].tip:=1;
 map[bb.x,bb.y].beast_index:=0;
 map[beast_muve.x,beast_muve.y].beast_index:=bi;
-end;//1.1.1
-if (r_bm=1)and (bb.x>1) then begin //1.1.2
-beast_muve.x:=bb.x-1;
-beast_muve.y:=bb.y;
-map[bb.x,bb.y].tip:=0;
-map[beast_muve.x,beast_muve.y].tip:=1;
-map[bb.x,bb.y].beast_index:=0;
-map[beast_muve.x,beast_muve.y].beast_index:=bi;
-end;//1.1.2
-if (r_bm=2)and (bb.y<y_map-1) then begin//1.1.3
-beast_muve.y:=bb.y+1;
-beast_muve.x:=bb.x;
-map[bb.x,bb.y].tip:=0;
-map[beast_muve.x,beast_muve.y].tip:=1;
-map[bb.x,bb.y].beast_index:=0;
-map[beast_muve.x,beast_muve.y].beast_index:=bi;
- end;//1.1.3
-if (r_bm=3)and (bb.y>1) then begin //1.1.4
-beast_muve.y:=bb.y-1;
-beast_muve.x:=bb.x;
-map[bb.x,bb.y].tip:=0;
-map[beast_muve.x,beast_muve.y].tip:=1;
-map[bb.x,bb.y].beast_index:=0;
-map[beast_muve.x,beast_muve.y].beast_index:=bi;
-end;//1.1.4
 
 end;//00
-{
-if bi=10 then begin//000
-log_generate('log_old_generate','muve 10-2 '+inttostr(beast_muve.x)+':'+inttostr(beast_muve.y)+' name '+beast_list[map[beast_muve.x,beast_muve.y].beast_index].name);
-end;}//000
+
 end;
 
 //04.02.2016
 function mob_muve(mm:new_body;command:string;mi:byte):new_body;
 var
-{tx,ty,ti,}tt:byte;
-//mmt:new_body;
+tt:byte;
 begin
 mob_muve:=mm;
-//mmt:=mm;
 
 if (command='start') and (map[mm.x,mm.y].tip<>1) 
 and(mm.x+2<x_map)and(mm.x>2)and(mm.y+2<y_map)and(mm.y>2) 
 then begin//00
 
-//ti:=0;
-//repeat
-//begin
-//tx:=mm.x;
-//ty:=mm.y;
 tt:=random(4);
-if tt=0 then {tx:=tx+1;}mob_muve.x:=mob_muve.x+1;
-if tt=1 then {tx:=tx-1;}mob_muve.x:=mob_muve.x-1;
-if tt=2 then {ty:=ty+1;}mob_muve.y:=mob_muve.y+1;
-if tt=3 then {ty:=ty-1;}mob_muve.y:=mob_muve.y-1;
-//ti:=ti+1
-//end;
-//until (tx>5)and(tx<x_map-5)and(ty>5)and(ty<y_map-5) or (ti>10);
-
-//mmt.x:=tx;
-//mmt.y:=ty;
-//log_generate('log_old_generate','mob_muve_int 3 '+inttostr(mi)+' '+inttostr(mmt.x)+':'+inttostr(mmt.y));
+if tt=0 then mob_muve.x:=mob_muve.x+1;
+if tt=1 then mob_muve.x:=mob_muve.x-1;
+if tt=2 then mob_muve.y:=mob_muve.y+1;
+if tt=3 then mob_muve.y:=mob_muve.y-1;
 
 end;//00
 map[mm.x,mm.y].tip:=0;
@@ -403,8 +346,6 @@ map[mob_muve.x,mob_muve.y].tip:=3;
 map[mm.x,mm.y].mob_index:=0;
 map[mob_muve.x,mob_muve.y].mob_index:=mi;
 
-
-//mob_muve:=mmt;
 //log_generate('log_old_generate','mob_muve 33 '+inttostr(mi)+' '+inttostr(mob_muve.x)+':'+inttostr(mob_muve.y));
 end;
 

@@ -1707,7 +1707,8 @@ writeln('-------------------');
 writeln(text[37],abs(bb.dmg-hero.ign_dmg));
 writeln(text[38],abs(hero.dmg-bb.ign_dmg));
 writeln('-------------------');
-//readln();
+writeln(text[96]);
+readln();
 delay(500);
 end;//1
 until (hero.hp<=0) or(bb.hp<=0);

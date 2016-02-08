@@ -1620,6 +1620,7 @@ writeln(text[95]);
 writeln(text[96]);
 readln();
 end;
+
 procedure lvlup;
 begin
 if hero.exp>=hero.lvl*5 then begin//1
@@ -1629,10 +1630,7 @@ hero.point:=hero.point+1;
 end;//1
 repeat begin
 hero:=hero_update(hero);
-{hero.attak:=4+hero.stren;
-hero.defense:=4+hero.agility;
-hero.dmg:=4*hero.attak;
-hero.ign_dmg:=4*hero.defense;}
+
 //20.12.2015
 clrscr;
 writeln(text[97]);
@@ -1655,21 +1653,15 @@ case menu_key of
 '3':begin if hero.point>0 then begin hero.agility:=hero.agility+1;hero.point:=hero.point-1;end;end;
 end;end;
 until menu_key='0';
-{if hero.exp>=hero.lvl*5 then begin//1
-hero.exp:=hero.exp-hero.lvl*5;
-hero.lvl:=hero.lvl+1;
 
-hero.hp:=abs(hero.hp)+(10*hero.lvl)+random(hero.lvl);
-hero.mp:=10*hero.lvl;
-
-//hero.veapon:=hero.veapon+random(hero.lvl);
-//hero.armor:=hero.armor+random(hero.lvl);
-hero.attak:=hero.attak+(1*hero.lvl);
-hero.defense:=hero.defense+(1*hero.lvl);
-hero.dmg:=random(hero.lvl)+hero.attak;
-hero.ign_dmg:=random(hero.lvl)*hero.defense;
-end;//1}
 end;
+
+//08.02.2016
+function mob_battle(mb:new_body):new_body;
+begin
+mob_battle:=mb;
+end;
+
 
 //29.11.2015
 function hunt(bb:beast_body):beast_body;

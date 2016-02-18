@@ -3,6 +3,6 @@
 git pull
 git init
 git add .
-git commit -a -m 'first commit'
+git commit -a -m "(date +%d-%m-%Y\ %H:%M:%S)"
 git remote add origin git@github.com:username/reponame.git
 git push -u origin master

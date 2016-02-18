@@ -2699,8 +2699,9 @@ close(lang_f);
 log_generate('log_old_generate','close lang_f');
 //log_generate('log_new_generate','1-1');
 log_generate('log_old_generate','start lang');
-if lang_s='rus' then assign(lang,'res\lang\rus\text_win.lang');
-if lang_s='eng' then assign(lang,'res\lang\eng\text_win.lang');
+if lang_s='rus' then assign(lang,'res/lang/rus/text_win.lang');
+if lang_s='eng' then assign(lang,'res/lang/eng/text_win.lang');
+if lang_s='u_rus' then assign(lang,'res/lang/rus/text_unix.lang');
 reset(lang);
 while not eof(lang) do begin
 readln(lang,text[i]);

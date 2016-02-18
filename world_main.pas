@@ -170,7 +170,7 @@ fmt:string='dd/mm/yyyy hh:nn:ss.zzz';
 s_typ{,s_clas,s_podclas}:array[0..9]of string;
 s_podtyp:array[0..50]of string;
 //+02.01.2016
-lang_s:string[3];
+lang_s:string[5];
 //+24.09.2015
 const
 x_map = 2048;
@@ -2699,9 +2699,10 @@ close(lang_f);
 log_generate('log_old_generate','close lang_f');
 //log_generate('log_new_generate','1-1');
 log_generate('log_old_generate','start lang');
-if lang_s='rus' then assign(lang,'res/lang/rus/text_win.lang');
-if lang_s='eng' then assign(lang,'res/lang/eng/text_win.lang');
+if lang_s='w_rus' then assign(lang,'res/lang/rus/text_win.lang');
+if lang_s='w_eng' then assign(lang,'res/lang/eng/text_win.lang');
 if lang_s='u_rus' then assign(lang,'res/lang/rus/text_unix.lang');
+log_generate('log_old_generate','lang = '+lang_s);
 reset(lang);
 while not eof(lang) do begin
 readln(lang,text[i]);

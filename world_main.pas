@@ -44,12 +44,12 @@
 program world_of_sand;
 {//$FPUTYPE SSE2}
  {//$IFDEF WIN64}
-{$APPTYPE Console}
+//{$APPTYPE Console}
 {$SMARTLINK+}
 {$S+}
 {$STACKFRAMES+}
 {$MEMORY 524288,524288}
-uses crt,sysutils,windows,dateutils,Zipper,gen{,mmx};
+uses sysutils,linux,crt{,windows},dateutils,Zipper,gen;
 {//$mmx+}
 type//+21.08.2015
 inventory =record
@@ -2685,7 +2685,7 @@ unix utf-8 text.lang
 }
 //--------------------------------
 BEGIN
-log_generate('log_new_generate','bein');
+log_generate('log_new_generate','begin');
 Randomize;
 typ_generate('');
 i:=0;

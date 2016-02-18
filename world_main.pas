@@ -278,13 +278,13 @@ end;
 procedure log_generate(command:string;text:string);
 begin;
 if command='log_new_generate' then begin//1
-assign(f_log,'log.log');
+assign(f_log,'./log.log');
 rewrite(f_log);
 writeln(f_log,formatdatetime(fmt,now)+' '+text);
 close(f_log);
 end;//1
 if command='log_old_generate' then begin//2
-assign(f_log,'log.log');
+assign(f_log,'./log.log');
 append(f_log);
 writeln(f_log,formatdatetime(fmt,now)+' '+text);
 close(f_log);
@@ -1297,8 +1297,9 @@ var
 s:string;
 
 begin
-s:='res\mob\typ.type';
-
+log_generate('log_old_generate','tip_generate');
+s:='res/mob/typ.type';
+//log_generate('log_old_generate','tip_generate_stop');
 assign(f_typ,s);
 reset(f_typ);
 readln(f_typ,s_typ[0]);

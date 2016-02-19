@@ -190,8 +190,9 @@ var
 ss:string;
 begin
 ClrScr;
-if lang_s='rus' then assign(st,'res\lang\rus\story');
-if lang_s='eng' then assign(st,'res\lang\eng\story');
+if lang_s='w_rus' then assign(st,'res\lang\rus\story');
+if lang_s='u_rus' then assign(st,'res/lang/rus/story');
+if lang_s='w_eng' then assign(st,'res\lang\eng\story');
 reset(st);
 while not eof(st) do begin
 readln(st,ss);
@@ -211,8 +212,9 @@ ih:byte;
 begin
 ClrScr;
 ih:=0;
-if lang_s='rus' then assign(hf,'res\lang\rus\help');
-if lang_s='eng' then assign(hf,'res\lang\eng\help');
+if lang_s='w_rus' then assign(hf,'res\lang\rus\help');
+if lang_s='u_rus' then assign(hf,'res/lang/rus/help');
+if lang_s='w_eng' then assign(hf,'res\lang\eng\help');
 reset(hf);
 while not eof(hf) do begin
 readln(hf,h[ih]);
@@ -497,8 +499,9 @@ item_m_name:array[1..200]of string[20];
 begin
 //log_generate('log_old_generate','name_item_generate -1- '+command);
 //if command='helm' then begin//1
-if lang_s='rus' then assign(item_name,'res\har\'+command);
-if lang_s='eng' then assign(item_name,'res\har\'+command+'_eng');
+if lang_s='w_rus' then assign(item_name,'res\har\'+command);
+if lang_s='u_rus' then assign(item_name,'res/har/'+command);
+if lang_s='w_eng' then assign(item_name,'res\har\'+command+'_eng');
 reset(item_name);
 nig:=1;
 while not eof(item_name) do begin//1.1
@@ -531,8 +534,9 @@ function color_generate:string;
 var
 n:integer;
 begin
-if lang_s='rus' then assign(color,'res\har\color');
-if lang_s='eng' then assign(color,'res\har\color_eng');
+if lang_s='w_rus' then assign(color,'res\har\color');
+if lang_s='u_rus' then assign(color,'res/har/color');
+if lang_s='w_eng' then assign(color,'res\har\color_eng');
 reset(color);
 n:=1;
 while not eof(color) do begin//1.1
@@ -559,8 +563,9 @@ m:=m+1;
 end;//1.1
 close(monster_name);
 //+31.08.2015
-if lang_s='rus' then assign(color,'res\har\color');
-if lang_s='eng' then assign(color,'res\har\color_eng');
+if lang_s='w_rus' then assign(color,'res\har\color');
+if lang_s='u_rus' then assign(color,'res/har/color');
+if lang_s='w_eng' then assign(color,'res\har\color_eng');
 reset(color);
 n:=1;
 while not eof(color) do begin//1.1
@@ -569,8 +574,9 @@ n:=n+1;
 end;//1.1
 close(color);
 //
-if lang_s='rus' then assign(har,'res\har\har');
-if lang_s='eng' then assign(har,'res\har\har_eng');
+if lang_s='w_rus' then assign(har,'res\har\har');
+if lang_s='u_rus' then assign(har,'res/har/har');
+if lang_s='w_eng' then assign(har,'res\har\har_eng');
 reset(har);
 i:=1;
 while not eof(har) do begin//1.1
@@ -2118,8 +2124,9 @@ clrscr;
 k_oz:=0;
 //+16.11.2015
 bl:=0;
-if lang_s='rus' then assign(map_oz,'res\map\oz.name');
-if lang_s='eng' then assign(map_oz,'res\map\oz_eng.name');
+if lang_s='w_rus' then assign(map_oz,'res\map\oz.name');
+if lang_s='u_rus' then assign(map_oz,'res/map/oz.name');
+if lang_s='w_eng' then assign(map_oz,'res\map\oz_eng.name');
 reset(map_oz);
 while not eof(map_oz) do begin
 readln(map_oz,map_name[k_oz]);

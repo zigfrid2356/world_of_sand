@@ -18,25 +18,6 @@
         Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
         MA 02110-1301, USA.
 
-        
-        Авторские права 2011 Александр Федотов <zigfridone@gmail.com>
-        
-		Эта программа является свободным программным продуктом; вы вправе 
-		распространять и/или изменять  ее в соответствии с условиями 
-		Генеральной Общественной Лицензии GNU в том виде, как она была  
-		опубликована Фондом Свободного ПО; либо версии 2 Лицензии либо 
-		(по вашему желанию) любой более  поздней версии.
-
-		Программа распространяется в надежде, что она будет полезной, но 
-		БЕЗ КАКИХ БЫ ТО НИ БЫЛО ГАРАНТИЙНЫХ ОБЯЗАТЕЛЬСТВ; даже без косвенных 
-		гарантийных обязательств, связанных с ПОТРЕБИТЕЛЬСКИМИ  СВОЙСТВАМИ и 
-		ПРИГОДНОСТЬЮ ДЛЯ ОПРЕДЕЛЕННЫХ ЦЕЛЕЙ. Для подробностей смотрите 
-		Генеральную  Общественную Лицензию GNU.
-
-		Вы должны были получить копию Генеральной Общественной Лицензии GNU 
-		вместе с этой программой;  если это не так, напишите в Фонд Свободного ПО 
-		(Free Software Foundation, Inc., 675 Mass Ave,  Cambridge, MA 02139, USA).
-
 
 }
 {v.0.2a}{19.02.2016}
@@ -177,7 +158,7 @@ x_map = 2048;
 y_map = 2048;
 npc_max =32768;
 progress_max=100;
-fool_log=false;
+fool_log=true;
 {
 //+07.11.2015
 function dialog(s_in:string):string;
@@ -192,7 +173,7 @@ ss:string;
 begin
 ClrScr;
 if lang_s='w_rus' then assign(st,'res\lang\rus\story');
-if lang_s='u_rus' then assign(st,'res/lang/rus/story');
+if lang_s='u_rus' then assign(st,'res/lang/rus/story_u');
 if lang_s='w_eng' then assign(st,'res\lang\eng\story');
 reset(st);
 while not eof(st) do begin
@@ -214,7 +195,7 @@ begin
 ClrScr;
 ih:=0;
 if lang_s='w_rus' then assign(hf,'res\lang\rus\help');
-if lang_s='u_rus' then assign(hf,'res/lang/rus/help');
+if lang_s='u_rus' then assign(hf,'res/lang/rus/help_u');
 if lang_s='w_eng' then assign(hf,'res\lang\eng\help');
 reset(hf);
 while not eof(hf) do begin

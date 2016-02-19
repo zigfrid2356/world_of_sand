@@ -39,7 +39,7 @@
 
 
 }
-{v.0.12a}{12.12.2015}
+{v.0.2a}{19.02.2016}
 
 program world_of_sand;
 {//$FPUTYPE SSE2}

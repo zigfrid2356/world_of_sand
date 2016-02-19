@@ -177,6 +177,7 @@ x_map = 2048;
 y_map = 2048;
 npc_max =32768;
 progress_max=100;
+fool_log=false;
 {
 //+07.11.2015
 function dialog(s_in:string):string;
@@ -305,7 +306,7 @@ function beast_muve(bb:beast_body;command:string;bi:word):beast_body;
 var
 r_bm:byte;
 begin
-//log_generate('log_old_generate','beast_muve');
+if fool_log=true then log_generate('log_old_generate','beast_muve');
 
 beast_muve:=bb;
 if (command='start')and (bb.x<x_map-2)and (bb.y<y_map-2)and(bb.flag_life<>0)and(bb.flag_life<>5)and (bb.x>2)and (bb.y>2) then begin//00
@@ -552,8 +553,8 @@ function name_generate(command:string):string;//+12.08.2015
 var
 s:string;
 begin
-s:='res\mob\monster_'+command+'_win.name';//+01.09.2015
-
+if lang_s='w_rus' then s:='res\mob\monster_'+command+'_win.name';//+01.09.2015
+if lang_s='u_rus' then s:='res/mob/monster_'+command+'_unix.name';//19.02.2016
 assign(monster_name,s);
 reset(monster_name);
 m:=1;
@@ -750,7 +751,7 @@ end;
 //01.01.2016
 procedure beast_drop_out(bdo:beast_body);
 begin
-log_generate('log_old_generate','beast_drop_out ');
+if fool_log=true then log_generate('log_old_generate','beast_drop_out ');
 clrscr;
 writeln('|'+text[91]+'       |'+text[12]+'|'+text[92]+'|'+text[93]+'|');
 if bdo.skin.name<> 'null' then writeln('|'+'1- '+text[89]+' '+name_tab(bdo.skin.name,16)+'|'+name_tab(inttostr(bdo.skin.base_dmg),6)+'|'+name_tab(inttostr(bdo.skin.base_defense),6)+'|'+name_tab(inttostr(bdo.skin.ves),4)+'|');
@@ -777,7 +778,7 @@ var
 toi,bagi:byte;
 trader:new_body;
 begin
-log_generate('log_old_generate','trade_out '+command);
+if fool_log=true then log_generate('log_old_generate','trade_out '+command);
 trade_out:=t_o;
 repeat begin//0
 clrscr;
@@ -973,7 +974,7 @@ function beast_drop(bd:beast_body):beast_body;
 var
 bdi:byte;
 begin
-log_generate('log_old_generate','besr_drop');
+if fool_log=true then log_generate('log_old_generate','besr_drop');
 beast_drop:=bd;
 bdi:=0;
 clrscr;
@@ -1303,7 +1304,7 @@ var
 s:string;
 
 begin
-log_generate('log_old_generate','tip_generate');
+if fool_log=true then log_generate('log_old_generate','tip_generate');
 s:='res/mob/typ.type';
 //log_generate('log_old_generate','tip_generate_stop');
 assign(f_typ,s);
@@ -1319,7 +1320,7 @@ delete(s_podtyp[k1],1,11);
 k1:=k1+1;
 end;//2
 end;//1
-log_generate('log_old_generate','k1 '+inttostr(k1));
+if fool_log=true then log_generate('log_old_generate','k1 '+inttostr(k1));
 close(f_typ);
 
 //typ_generate:='';
@@ -1422,7 +1423,7 @@ writeln(text[24]);
 end;//0.21
 end;//0.11
 until m=1;
-log_generate('log_old_generate','hero_generate '+'-2- ');
+if fool_log=true then log_generate('log_old_generate','hero_generate '+'-2- ');
 //08.11.2015
 //+16.11.2015
 hero_generate.x:=oz_list[1].x+10;
@@ -1442,7 +1443,7 @@ hero_generate.hp:=10*hero_generate.lvl;
 hero_generate.mp:=10*hero_generate.lvl;
 hero_generate.exp:=0;
 
-log_generate('log_old_generate','hero_generate '+'-3- ');
+if fool_log=true then log_generate('log_old_generate','hero_generate '+'-3- ');
 //hero.veapon:=4;
 //hero.armor:=4;
 hero_generate.attak:=4+hero_generate.stren;
@@ -1456,14 +1457,14 @@ hero_generate.s2:=beast_inv_generate('dress');
 hero_generate.s3:=beast_inv_generate('shoes');
 hero_generate.s4:=beast_inv_generate('sword');
 hero_generate.s5:=beast_inv_generate('shield');
-log_generate('log_old_generate','hero_generate '+'-4- ');
+if fool_log=true then log_generate('log_old_generate','hero_generate '+'-4- ');
 //+06.09.2015
 //++01.01.2016
 for n:=0 to 99 do begin//0.1
 hero_generate.bag[n]:=beast_inv_generate('null');
 //log_generate('log_old_generate','hero_generate'+' bag '+inttostr(n)+' '+inttostr(hero.bag[n].tip)+' -'+hero.bag[n].name+'-.');
 end;//0.1
-log_generate('log_old_generate','hero_generate'+' -5- ');
+if fool_log=true then log_generate('log_old_generate','hero_generate'+' -5- ');
 hero:=hero_update(hero);
 end;//0
 
@@ -1589,7 +1590,7 @@ var
   UnZipper: TUnZipper;
 
 begin
-log_generate('log_old_generate','start UnZip');
+if fool_log=true then log_generate('log_old_generate','start UnZip');
  UnZipper := TUnZipper.Create;
  // try
     UnZipper.FileName := 'res\save\save.zip';
@@ -1598,8 +1599,8 @@ log_generate('log_old_generate','start UnZip');
     UnZipper.UnZipAllFiles;
  // finally
     UnZipper.Free;
- log_generate('log_old_generate','stop UnZip');
- log_generate('log_old_generate','start hero.save');
+if fool_log=true then  log_generate('log_old_generate','stop UnZip');
+if fool_log=true then log_generate('log_old_generate','start hero.save');
 assign(hero_save,'res\save\hero.save');
 reset(hero_save);
 read(hero_save,hero);
@@ -1748,7 +1749,7 @@ end;
 procedure battle;
 var i0:integer;
 begin
-log_generate('log_old_generate','battle');
+if fool_log=true then log_generate('log_old_generate','battle');
 i0:=0;
 repeat begin//0
 
@@ -1763,13 +1764,13 @@ writeln(text[14],': ',i);
 writeln('-------------------------');
 writeln('|',hero.name,'           ', s_typ[monster.typ],' ',s_podtyp[monster.podtyp],'|');
 writeln('|','     ',monster.name,'|');
-log_generate('log_old_generate','monster.name '+monster.name+' type '+s_typ[monster.typ]+' podtype '+s_podtyp[monster.podtyp]);
+if fool_log=true then log_generate('log_old_generate','monster.name '+monster.name+' type '+s_typ[monster.typ]+' podtype '+s_podtyp[monster.podtyp]);
 writeln('|',text[5],'             ', text[5],'|');
-writeln('|',hero.hp,'             ', monster.hp,'|');log_generate('log_old_generate','monster.hp '+inttostr(monster.hp));
+writeln('|',hero.hp,'             ', monster.hp,'|');if fool_log=true then log_generate('log_old_generate','monster.hp '+inttostr(monster.hp));
 writeln('|',text[6],'             ', text[6],'|');
 writeln('|',hero.mp,'             ', monster.mp,'|');
 writeln('|',text[12],'            ', text[12],'|');
-writeln('|',hero.dmg ,'           ',monster.dmg,'|');log_generate('log_old_generate','monster.dmg '+inttostr(monster.dmg));
+writeln('|',hero.dmg ,'           ',monster.dmg,'|');if fool_log=true then log_generate('log_old_generate','monster.dmg '+inttostr(monster.dmg));
 writeln('-------------------------');
 writeln(text[13],hero.ign_dmg,'    ',monster.ign_dmg );
 writeln(text[7],hero.exp );
@@ -1812,7 +1813,7 @@ var
 b_l,t_b_l:byte;
 begin
 b_l:=0;
-log_generate('log_old_generate','bag_info');
+if fool_log=true then log_generate('log_old_generate','bag_info');
 repeat begin//1.1
 clrscr;
 writeln(text[117]);
@@ -1831,7 +1832,7 @@ end;
 
 procedure hero_output;
 begin
-log_generate('log_old_generate','hero_output ');
+if fool_log=true then log_generate('log_old_generate','hero_output ');
 repeat begin//1
 clrscr;
 writeln();
@@ -2119,13 +2120,13 @@ var
 bl:integer;
 begin
 clrscr;
-//log_generate('log_old_generate','start map generate -1');
+if fool_log=true then log_generate('log_old_generate','start map generate -1.0');
 //+03.11.2015
 k_oz:=0;
 //+16.11.2015
 bl:=0;
 if lang_s='w_rus' then assign(map_oz,'res\map\oz.name');
-if lang_s='u_rus' then assign(map_oz,'res/map/oz.name');
+if lang_s='u_rus' then assign(map_oz,'res/map/oz_u_r.name');
 if lang_s='w_eng' then assign(map_oz,'res\map\oz_eng.name');
 reset(map_oz);
 while not eof(map_oz) do begin
@@ -2133,7 +2134,7 @@ readln(map_oz,map_name[k_oz]);
 k_oz:=k_oz+1;
 end;
 close(map_oz);
-
+if fool_log=true then log_generate('log_old_generate','start map generate -1.1');
 
 simbol[0]:='.';//colore[0]:=1;colore[13]:=13;
 simbol[1]:=':';//colore[1]:=1;colore[14]:=14;
@@ -2165,7 +2166,7 @@ for i:=0 to x_map do begin//1.1
 end;//1.1
 end;//1
 if command='map_test_generate' then begin//2
-//log_generate('log_old_generate','start sand full -2');
+if fool_log=true then log_generate('log_old_generate','start sand full -2');
 //+17.09.2015
 
 //---------------
@@ -2180,7 +2181,7 @@ for i:=0 to x_map do begin//2.1
 		end;//2.2
 end;//2.1
 //---------------
-//log_generate('log_old_generate','start col -3');
+if fool_log=true then log_generate('log_old_generate','start col -3');
 writeln(text[72],text[73]);
 for i:=0 to 1000 do begin//3
 //+18.09.2015
@@ -2336,7 +2337,7 @@ end;//4.4.3
 end;//4.4
 end;//3
 writeln(text[72],text[74]);//---------------------------------------------
-//log_generate('log_old_generate','start raw -4');
+if fool_log=true then log_generate('log_old_generate','start raw -4');
 for l:=0 to 1000 do begin//5
 //+22.10.2015
 
@@ -2398,7 +2399,7 @@ map[n,m].color:=2;
 map[n,m].progress:=random(progress_max);
 end;//5
 writeln(text[72],text[75]);
-//log_generate('log_old_generate','start oaz -5');
+if fool_log=true then log_generate('log_old_generate','start oaz -5');
 //+31.10.2015
 //-------------------------------------------------------
 k1:=1;k0:=0;
@@ -2451,7 +2452,7 @@ for i:=n-32 to n+32 do begin//6.1
 	end;//6.2.2.1
 	end;//6.1
 	end;//6.2
-//log_generate('log_old_generate','start oaz -!!- '+inttostr(l));	
+if fool_log=true then log_generate('log_old_generate','start oaz -!!- '+inttostr(l));	
 //-----------(5)
 for i:=n-16 to n+16 do begin//6.1
 	for j:=m-16 to m+16 do begin//6.2
@@ -2524,7 +2525,7 @@ for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
 	map[i_oz,j_oz].x:=i_oz;
 	map[i_oz,j_oz].y:=j_oz;
 	//-----------------------------------------------------------------------------------------
-//	log_generate('log_old_generate','start nps generate -6- '+inttostr(k1));
+	if fool_log=true then log_generate('log_old_generate','start nps generate -6- '+inttostr(k1));
 	//writeln(text[72],text[109]);	
 	npc[k1]:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y,1,1);
 //	log_generate('log_old_generate','start story nps generate -6_0- '+inttostr(k1));
@@ -2537,7 +2538,7 @@ for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
 	end;//6.2.2.1
 	end;//6.1
 	end;//6.2
-//	log_generate('log_old_generate','start sand -7- '+inttostr(i_oz));	
+	log_generate('log_old_generate','start sand -7- '+inttostr(i_oz));	
 //------------(2)
 for i_oz:=n_oz-3 to n_oz+3 do begin//6.1
 	for j_oz:=m_oz-3 to m_oz+3 do begin//6.2
@@ -2553,7 +2554,7 @@ for i_oz:=n_oz-3 to n_oz+3 do begin//6.1
 	end;//6.2.2.1
 	end;//6.1
 	end;//6.2
-//log_generate('log_old_generate','start sand -8- '+inttostr(i_oz));
+if fool_log=true then log_generate('log_old_generate','start sand -8- '+inttostr(i_oz));
 //------------(1)
 for i_oz:=n_oz-2 to n_oz+2 do begin//6.1
 	for j_oz:=m_oz-2 to m_oz+2 do begin//6.2
@@ -2569,7 +2570,7 @@ for i_oz:=n_oz-2 to n_oz+2 do begin//6.1
 	end;//6.2.2.1
 	end;//6.1
 	end;//6.2
-//	log_generate('log_old_generate','end sand -9- '+inttostr(n_oz)+' '+inttostr(m_oz));
+	if fool_log=true then log_generate('log_old_generate','end sand -9- '+inttostr(n_oz)+' '+inttostr(m_oz));
 //------------(0)
 map[n_oz,m_oz].structure:=simbol[7];
 map[n_oz,m_oz].color:=1;
@@ -2579,7 +2580,7 @@ k1:=1;k0:=0;
 i:=0;j:=0;
 l:=0;
 n:=0;m:=0;
-//log_generate('log_old_generate','start beast -10- '+inttostr(bl));
+if fool_log=true then log_generate('log_old_generate','start beast -10- '+inttostr(bl));
 writeln(text[72],text[109]);
 for bl:=0 to 1000 do begin//7
 for i:=0 to 9 do begin//7.1
@@ -2600,7 +2601,7 @@ end;//2
 if command='map_story_generate' then begin//3
 //
 //+24.09.2015
-log_generate('log_new_generate','~ \/ (water)');
+if fool_log=true then log_generate('log_new_generate','~ \/ (water)');
 for i:=0 to x_map do begin//3.1
 	for j:=0 to y_map do begin//3.2
 	map[i,j].x:=i;
@@ -2610,11 +2611,11 @@ for i:=0 to x_map do begin//3.1
 		end;//3.2
 	end;//3.1
 	m:=random(3)+1;
-	log_generate('log_old_generate',inttostr(m)+' # (land)');
+	if fool_log=true then log_generate('log_old_generate',inttostr(m)+' # (land)');
 for n:=0 to m do begin//3.3
 
-repeat l:=random(x_map); until (l>400) and (l<x_map-400); log_generate('log_old_generate',inttostr(l)+' x (land)');
-repeat k:=random(y_map); until (k>400) and (k<y_map-400); log_generate('log_old_generate',inttostr(k)+' y (land)');
+repeat l:=random(x_map); until (l>400) and (l<x_map-400); if fool_log=true then log_generate('log_old_generate',inttostr(l)+' x (land)');
+repeat k:=random(y_map); until (k>400) and (k<y_map-400); if fool_log=true then log_generate('log_old_generate',inttostr(k)+' y (land)');
 for i:=l-300 to l+300 do begin//3.3.1
 	for j:=k-300 to k+300 do begin//3.3.2
 	map[i,j].x:=i;
@@ -2698,18 +2699,18 @@ Randomize;
 typ_generate('');
 i:=0;
 //02.01.2016
-log_generate('log_old_generate','start lang_f');
+if fool_log=true then log_generate('log_old_generate','start lang_f');
 assign(lang_f,'lang_f');
 reset(lang_f);
 readln(lang_f,lang_s);
 close(lang_f);
-log_generate('log_old_generate','close lang_f');
+if fool_log=true then log_generate('log_old_generate','close lang_f');
 //log_generate('log_new_generate','1-1');
-log_generate('log_old_generate','start lang');
+if fool_log=true then log_generate('log_old_generate','start lang');
 if lang_s='w_rus' then assign(lang,'res/lang/rus/text_win.lang');
 if lang_s='w_eng' then assign(lang,'res/lang/eng/text_win.lang');
 if lang_s='u_rus' then assign(lang,'res/lang/rus/text_unix.lang');
-log_generate('log_old_generate','lang = '+lang_s);
+if fool_log=true then log_generate('log_old_generate','lang = '+lang_s);
 reset(lang);
 while not eof(lang) do begin
 readln(lang,text[i]);
@@ -2718,7 +2719,7 @@ delete(text[i],1,3);
 i:=i+1;
 end;
 close(lang);
-log_generate('log_old_generate','close lang');
+if fool_log=true then log_generate('log_old_generate','close lang');
 
 //log_generate('log_old_generate','1-2');
 //log_generate('log_drop_generate','');
@@ -2737,12 +2738,12 @@ menu_key:=readkey;
 case menu_key of
 '1': begin
 //map_generate('map_new_generate');
-log_generate('log_old_generate','start map_generate');
+if fool_log=true then log_generate('log_old_generate','start map_generate');
 map_generate('map_test_generate');
 //log_generate('log_old_generate','start mob_generate');
 mob_generate;
 
-log_generate('log_old_generate','start hero_generate');
+if fool_log=true then log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');
 //31.12.2015
 story;

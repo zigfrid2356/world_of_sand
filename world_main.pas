@@ -144,7 +144,10 @@ pyst_list:array[0..1000] of pyst_index;
 beast_list:array[0..10000]of beast_body;
 hero_save:file of new_body;
 map_save:file of erath;
-npc_save:file of new_body;
+npc_save,mob_save:file of new_body;
+beast_save:file of beast_body;
+oz_save:file of oz_index;
+pyst_save:file of pyst_index;
 simbol: array [0..12] of char;
 fmt:string='dd/mm/yyyy hh:nn:ss.zzz';
 //+25.10.2015
@@ -465,12 +468,13 @@ end;//1
 if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
 end;end;//0.1//0.2
 //log_generate('log_old_generate','start_muve_beast ');
+{
 for bm_i:=0 to 10000 do begin //2
-//log_generate('log_old_generate','start_muve_2 '+inttostr(bm_i));
+
 beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
 mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
 end;//2
-
+}
 end;//000
 end;
 
@@ -1527,20 +1531,52 @@ var
 Zip: TZipper;
 F:TZipFileEntries;
 begin
+
 writeln(text[17],' ',hero.name);
-assign(hero_save,'res\save\hero.save');
+if lang_s='w_rus' then assign(hero_save,'res\save\hero.save');
 rewrite(hero_save);
 write(hero_save,hero);
 close(hero_save);
 writeln(text[17],' ',text[76]);
-assign(npc_save,'res\save\npc.save');
+{NPC}
+if lang_s='w_rus' then assign(npc_save,'res\save\npc.save');
 rewrite(npc_save);
 for i:=0 to 17000 do begin//1.1
 write(npc_save,npc[i]);
 end;//1.1
 close(npc_save);
+
+
+{MOB}
+writeln(text[17],' ',text[118]);
+if lang_s='w_rus' then assign(mob_save,'res\save\mob.save');
+rewrite(mob_save);
+for i:=0 to 10000 do begin//1.1
+write(mob_save,mob[i]);
+end;//1.1
+close(mob_save);
+
+{BEAST}
+writeln(text[17],' ',text[119]);
+if lang_s='w_rus' then assign(beast_save,'res\save\beast.save');
+rewrite(beast_save);
+for i:=0 to 10000 do begin//1.1
+write(beast_save,beast_list[i]);
+end;//1.1
+close(beast_save);
+
+{OZ}
+writeln(text[17],' ',text[75]);
+if lang_s='w_rus' then assign(oz_save,'res\save\oz.save');
+rewrite(oz_save);
+for i:=0 to 100 do begin//1.1
+write(oz_save,oz_list[i]);
+end;//1.1
+close(oz_save);
+
+
 writeln(text[17],' ',text[9]);
-assign(map_save,'res\save\map.save');
+if lang_s='w_rus' then assign(map_save,'res\save\map.save');
 rewrite(map_save);
 for i:=0 to x_map do begin//1.1
 	for j:=0 to y_map do begin//1.2
@@ -1550,18 +1586,24 @@ close(map_save);
 writeln(text[18]);
 writeln(text[94]);
  F:=TZipFileEntries.Create(TZipFileEntry);
- F.AddFileEntry('res\save\hero.save','hero.save');
- F.AddFileEntry('res\save\npc.save','npc.save');
- F.AddFileEntry('res\save\map.save','map.save');
+if lang_s='w_rus' then  F.AddFileEntry('res\save\hero.save','hero.save');
+if lang_s='w_rus' then   F.AddFileEntry('res\save\npc.save','npc.save');
+if lang_s='w_rus' then   F.AddFileEntry('res\save\map.save','map.save');
+if lang_s='w_rus' then   F.AddFileEntry('res\save\map.save','mob.save');
+if lang_s='w_rus' then   F.AddFileEntry('res\save\map.save','beast.save');
+if lang_s='w_rus' then   F.AddFileEntry('res\save\map.save','oz.save');
  zip:=TZipper.Create;
- zip.FileName:='res\save\save.zip';
+if lang_s='w_rus' then   zip.FileName:='res\save\save.zip';
  zip.ZipFiles(F);
  Zip.Free;
  F.Free;
 writeln(text[94],' ',text[2]);
-DeleteFile('res\save\hero.save');
-DeleteFile('res\save\npc.save');
-DeleteFile('res\save\map.save');
+if lang_s='w_rus' then  DeleteFile('res\save\hero.save');
+if lang_s='w_rus' then  DeleteFile('res\save\npc.save');
+if lang_s='w_rus' then  DeleteFile('res\save\map.save');
+if lang_s='w_rus' then  DeleteFile('res\save\mob.save');
+if lang_s='w_rus' then  DeleteFile('res\save\beast.save');
+if lang_s='w_rus' then  DeleteFile('res\save\oz.save');
 writeln(text[95]);
 writeln(text[96]);
 readln();
@@ -1574,27 +1616,42 @@ begin
 if fool_log=true then log_generate('log_old_generate','start UnZip');
  UnZipper := TUnZipper.Create;
  // try
-    UnZipper.FileName := 'res\save\save.zip';
-    UnZipper.OutputPath := 'res\save\';
+  if lang_s='w_rus' then    UnZipper.FileName := 'res\save\save.zip';
+  if lang_s='w_rus' then    UnZipper.OutputPath := 'res\save\';
     UnZipper.Examine;
     UnZipper.UnZipAllFiles;
  // finally
     UnZipper.Free;
 if fool_log=true then  log_generate('log_old_generate','stop UnZip');
 if fool_log=true then log_generate('log_old_generate','start hero.save');
-assign(hero_save,'res\save\hero.save');
+if lang_s='w_rus' then  assign(hero_save,'res\save\hero.save');
 reset(hero_save);
 read(hero_save,hero);
 close(hero_save);
 
-assign(npc_save,'res\save\npc.save');
+if lang_s='w_rus' then  assign(npc_save,'res\save\npc.save');
 reset(npc_save);
 for i:=0 to 17000 do begin//1.1
 read(npc_save,npc[i]);
 end;//1.1
 close(npc_save);
 
-assign(map_save,'res\save\map.save');
+if lang_s='w_rus' then  assign(mob_save,'res\save\mob.save');
+reset(mob_save);
+for i:=0 to 10000 do begin//1.1
+read(mob_save,mob[i]);
+end;//1.1
+close(mob_save);
+
+
+if lang_s='w_rus' then  assign(mob_save,'res\save\beast.save');
+reset(beast_save);
+for i:=0 to 10000 do begin//1.1
+read(beast_save,beast_list[i]);
+end;//1.1
+close(beast_save);
+
+if lang_s='w_rus' then  assign(map_save,'res\save\map.save');
 reset(map_save);
 for i:=0 to x_map do begin//1.1
 	for j:=0 to y_map do begin//1.2
@@ -1602,9 +1659,11 @@ read(map_save,map[i,j]);
 end;end;//1.1//1.2
 close(map_save);
 writeln(text[19]);
-DeleteFile('res\save\hero.save');
-DeleteFile('res\save\npc.save');
-DeleteFile('res\save\map.save');
+if lang_s='w_rus' then  DeleteFile('res\save\hero.save');
+if lang_s='w_rus' then  DeleteFile('res\save\npc.save');
+if lang_s='w_rus' then  DeleteFile('res\save\map.save');
+if lang_s='w_rus' then  DeleteFile('res\save\mob.save');
+if lang_s='w_rus' then  DeleteFile('res\save\beast.save');
 writeln(text[95]);
 writeln(text[96]);
 readln();

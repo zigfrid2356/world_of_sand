@@ -340,7 +340,7 @@ end;
 procedure muve(i_m,j_m:word; command:string);
 var
 i_muv,j_muv,rr:word;
-bm_i:integer;
+//bm_i:integer;
 begin
 if command='start' then begin//00
 for i_muv:=i_m-5 to i_m+5 do begin//0.1
@@ -1575,6 +1575,16 @@ end;//1.1
 close(oz_save);
 
 
+{PYST}
+writeln(text[17],' ',text[74]);
+if lang_s='w_rus' then assign(pyst_save,'res\save\pyst.save');
+rewrite(pyst_save);
+for i:=0 to 1000 do begin//1.1
+write(pyst_save,pyst_list[i]);
+end;//1.1
+close(pyst_save);
+
+
 writeln(text[17],' ',text[9]);
 if lang_s='w_rus' then assign(map_save,'res\save\map.save');
 rewrite(map_save);
@@ -1589,9 +1599,10 @@ writeln(text[94]);
 if lang_s='w_rus' then  F.AddFileEntry('res\save\hero.save','hero.save');
 if lang_s='w_rus' then   F.AddFileEntry('res\save\npc.save','npc.save');
 if lang_s='w_rus' then   F.AddFileEntry('res\save\map.save','map.save');
-if lang_s='w_rus' then   F.AddFileEntry('res\save\map.save','mob.save');
-if lang_s='w_rus' then   F.AddFileEntry('res\save\map.save','beast.save');
-if lang_s='w_rus' then   F.AddFileEntry('res\save\map.save','oz.save');
+if lang_s='w_rus' then   F.AddFileEntry('res\save\mob.save','mob.save');
+if lang_s='w_rus' then   F.AddFileEntry('res\save\beast.save','beast.save');
+if lang_s='w_rus' then   F.AddFileEntry('res\save\oz.save','oz.save');
+if lang_s='w_rus' then   F.AddFileEntry('res\save\pyst.save','pyst.save');
  zip:=TZipper.Create;
 if lang_s='w_rus' then   zip.FileName:='res\save\save.zip';
  zip.ZipFiles(F);
@@ -1604,6 +1615,7 @@ if lang_s='w_rus' then  DeleteFile('res\save\map.save');
 if lang_s='w_rus' then  DeleteFile('res\save\mob.save');
 if lang_s='w_rus' then  DeleteFile('res\save\beast.save');
 if lang_s='w_rus' then  DeleteFile('res\save\oz.save');
+if lang_s='w_rus' then  DeleteFile('res\save\pyst.save');
 writeln(text[95]);
 writeln(text[96]);
 readln();
@@ -1651,6 +1663,21 @@ read(beast_save,beast_list[i]);
 end;//1.1
 close(beast_save);
 
+if lang_s='w_rus' then  assign(oz_save,'res\save\oz.save');
+reset(oz_save);
+for i:=0 to 100 do begin//1.1
+read(oz_save,oz_list[i]);
+end;//1.1
+close(oz_save);
+
+
+if lang_s='w_rus' then  assign(pyst_save,'res\save\pyst.save');
+reset(pyst_save);
+for i:=0 to 1000 do begin//1.1
+read(pyst_save,pyst_list[i]);
+end;//1.1
+close(pyst_save);
+
 if lang_s='w_rus' then  assign(map_save,'res\save\map.save');
 reset(map_save);
 for i:=0 to x_map do begin//1.1
@@ -1664,6 +1691,8 @@ if lang_s='w_rus' then  DeleteFile('res\save\npc.save');
 if lang_s='w_rus' then  DeleteFile('res\save\map.save');
 if lang_s='w_rus' then  DeleteFile('res\save\mob.save');
 if lang_s='w_rus' then  DeleteFile('res\save\beast.save');
+if lang_s='w_rus' then  DeleteFile('res\save\oz.save');
+if lang_s='w_rus' then  DeleteFile('res\save\pyst.save');
 writeln(text[95]);
 writeln(text[96]);
 readln();

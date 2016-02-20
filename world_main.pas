@@ -1694,8 +1694,8 @@ end;//1.1
 close(mob_save);
 
 
-if lang_s='w_rus' then  assign(mob_save,'res\save\beast.save');
-if lang_s='u_rus' then  assign(mob_save,'res/save/beast.save');
+if lang_s='w_rus' then  assign(beast_save,'res\save\beast.save');
+if lang_s='u_rus' then  assign(beast_save,'res/save/beast.save');
 reset(beast_save);
 for i:=0 to 10000 do begin//1.1
 read(beast_save,beast_list[i]);

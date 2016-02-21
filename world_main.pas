@@ -1100,7 +1100,7 @@ stg:byte;
 tx,ty:word;
 begin
 //log_generate('log_old_generate','start npc_generate -!- '+inttostr(i_n)+' '+inttostr(j_n));
-npc_generate.lvl:=random(50)+1;
+npc_generate.lvl:=1;
 //ocnov
 npc_generate.name:=name_generate('human');
 npc_generate.stren:=random(npc_generate.lvl)+5;
@@ -1141,15 +1141,9 @@ npc_generate.dmg:=random(50)+1;
 npc_generate.ign_dmg:=random(50)+1;
 //invent
 
-//log_generate('log_old_generate','start npc_generate -helm- ');
 npc_generate.s1:=beast_inv_generate('helm');
-//log_generate('log_old_generate','stop npc_generate -helm- ');
-//log_generate('log_old_generate','start npc_generate -dress- ');
 npc_generate.s2:=beast_inv_generate('dress');
-//log_generate('log_old_generate','stop npc_generate -dress- ');
-//log_generate('log_old_generate','start npc_generate -shoes- ');
 npc_generate.s3:=beast_inv_generate('shoes');
-//log_generate('log_old_generate','stop npc_generate -shoes- ');
 npc_generate.s4:=beast_inv_generate('sword');
 npc_generate.s5:=beast_inv_generate('shield');
 
@@ -1166,12 +1160,6 @@ end;//bg1
 for k2:=5 to 99 do begin//bg2
 npc_generate.bag[k2]:=beast_inv_generate('null');
 end;//bg2
-//log_generate('log_old_generate','NPC '+inttostr(npc_generate.lvl)+' '+inttostr(i_n)+':'+inttostr(j_n)+'-'+npc_generate.name);
-{
-//invent
-s1,s2,s3,s4,s5:subject;
-//bag
-bag:array[0..9] of subject;}
 end;
 
 
@@ -2214,23 +2202,15 @@ i:=0;
 k0:=0;
 //ClrScr;
 writeln	(text[72]+text[118]);
-{for i:=0 to x_map do begin//1.1
-	for j:=0 to y_map do begin//1.2
-	map[i,j].mob_index:=1;
-	end;//1.2
-	end;//11}
+
 k0:=0;
 for bl:=0 to 99 do begin//8
 for i:=0 to 99 do begin//8.1
-//log_generate('log_old_generate',inttostr(k0)+inttostr(mob[k0].x)+' '+inttostr(mob[k0].y));
 	mob[k0]:=npc_generate(oz_list[bl].x,oz_list[bl].y,1,2);
-	//log_generate('log_old_generate','mob '+inttostr(k0)+' '+mob[k0].name);	
 	//--------------------------------------mob--------
 	map[mob[k0].x,mob[k0].y].tip:=3;
 	map[mob[k0].x,mob[k0].y].mob_index:=k0;
 
-//if (k0=10)or(k0=100)or(k0=1000) then 
-//log_generate('log_old_generate','10-i mob '+inttostr(map[mob[k0].x,mob[k0].y].mob_index)+' '+mob[k0].name);
 	k0:=k0+1;
 end;//8.1
 end;//8

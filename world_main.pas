@@ -1067,6 +1067,9 @@ if r_o=1 then race_output:=text[112];
 if r_o=2 then race_output:=text[113];
 if r_o=3 then race_output:=text[114];
 if r_o=4 then race_output:=text[115];
+if r_o=5 then race_output:=text[121];
+if r_o=6 then race_output:=text[122];
+if r_o=7 then race_output:=text[123];
 end;
 
 //09.01.2016
@@ -1796,7 +1799,7 @@ end;
 //21.02.2016
 function undead(ud:new_body;tim:byte):new_body;
 begin
-if fool_log=true then log_generate('log_old_generate','undead, mob name '+ud.name);
+if fool_log=true then log_generate('log_old_generate','undead, mob name '+ud.name+' lvl '+inttostr(ud.lvl));
 if (tim>0) and (tim<=20) then begin ud.race:=5; ud.stren:=ud.stren+5; end;
 if (tim>20) and (tim<=80) then begin ud.race:=6; ud.agility:=ud.agility+5;end;
 if (tim>80) and (tim<=100) then begin ud.race:=7; ud.intel:=ud.intel+5;end;
@@ -2026,6 +2029,31 @@ end;
 until menu_key='1';
 
 end;
+
+//21.02.2016
+procedure mob_output(m_o:new_body);
+begin
+repeat begin//1.0
+clrscr;
+writeln(m_o.name,' ',text[8],inttostr(m_o.lvl) );
+writeln(race_output(m_o.race));
+writeln(m_o.st0);
+writeln(m_o.st3);
+writeln('');
+writeln('1- '+text[11]);
+writeln('2- '+text[125]);
+writeln(text[90]);
+menu_key:=readkey;
+end;//1.0
+
+case menu_key of//2.0
+'1': begin end;
+'2': begin end;
+end;//2.0
+until menu_key='0';
+end;
+
+
 //01.11.2015
 function map_info(m_i:char):string;
 begin
@@ -2050,7 +2078,6 @@ var
 temp_char:char;
 temp_color:integer;
 begin
-//log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
 if (x-1>=6) and(x+1<=x_map-6) and (y-1>=11) and (y+1<=y_map-11) then begin//2.00
 
 repeat begin//2.0
@@ -2066,11 +2093,6 @@ writeln(' _____________________');//top
 for i:=x-5 to x+5 do begin//2.1//5
 write('|');//left
  for j:=y-10 to y+10 do begin//2.2//10
- //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//log_generate('log_old_generate','mob-1 '+inttostr(map[i,j].mob_index)); 
-//log_generate('log_old_generate','mob-2 '+inttostr(mob[map[i,j].mob_index].x)); 
-// mob[map[i,j].mob_index]:=mob_muve(mob[map[i,j].mob_index],'start',map[i,j].mob_index);
-//log_generate('log_old_generate','mob-3 '+inttostr(mob[map[i,j].mob_index].x)); 
  if map[i,j].tip=1 then begin//2.3
  textcolor(10);
  write('@');
@@ -2123,6 +2145,7 @@ if map[x+1,y].tip=5 then begin write(text[88]+beast_list[map[x+1,y].beast_index]
 writeln();
 writeln	('5- ',text[2]);
 if map[x,y].npc_index<>0 then writeln	('9- ',text[111]);
+if map[x,y].mob_index<>0 then writeln	('9- ',text[126]);
 
 if (map[x,y+1].tip=1)or (map[x,y+1].tip=2)or (map[x,y+1].tip=4)then
 {if (map[x,y+1].tip<>0)and (map[x,y+1].tip<>5)and (map[x,y+1].tip<>3)then} writeln	('7- ',text[87]);
@@ -2181,14 +2204,10 @@ muve(x,y,'test');
 '9':begin//3.5//+09.11.2015
 if map[x,y].npc_index<>0 then begin//3.5.1
 npc[map[x,y].npc_index]:=npc_output(npc[map[x,y].npc_index]);
-{clrscr;
-writeln(npc[map[x,y].npc_index].name);
-writeln(npc[map[x,y].npc_index].st0);
-writeln(npc[map[x,y].npc_index].st3);
-writeln('');
-//writeln	(text[35]);
-writeln(text[96]);
-readln();}
+map_output(x,y);
+end;//3.5.1
+if map[x,y].mob_index<>0 then begin//3.5.1
+mob_output(mob[map[x,y].mob_index]);
 map_output(x,y);
 end;//3.5.1
  end;//3.5
@@ -2677,7 +2696,7 @@ temp_battle:=mob_battle(temp_npc1,temp_npc2);
 	end;//6.2.2.1
 	end;//6.1
 	end;//6.2
-	log_generate('log_old_generate','start sand -7- '+inttostr(i_oz));	
+	if fool_log=true then log_generate('log_old_generate','start sand -7- '+inttostr(i_oz));	
 //------------(2)
 for i_oz:=n_oz-3 to n_oz+3 do begin//6.1
 	for j_oz:=m_oz-3 to m_oz+3 do begin//6.2

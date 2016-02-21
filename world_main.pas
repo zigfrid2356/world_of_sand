@@ -26,10 +26,11 @@ program world_of_sand;
 {//$FPUTYPE SSE2}
  {//$IFDEF WIN64}
 //{$APPTYPE Console}
-{$SMARTLINK+}
-{$S+}
-{$STACKFRAMES+}
-{$MEMORY 524288,524288}
+
+{//$SMARTLINK+}
+{//$S+}
+{//$STACKFRAMES+}
+{//$MEMORY 524288,524288}
 uses sysutils,linux,crt{,windows},dateutils,Zipper,gen;
 {//$mmx+}
 type//+21.08.2015
@@ -552,7 +553,7 @@ end;//1.1
 close(monster_name);
 //+31.08.2015
 if lang_s='w_rus' then assign(color,'res\har\color');
-if lang_s='u_rus' then assign(color,'res/har/color');
+if lang_s='u_rus' then assign(color,'res/har/u_color');
 if lang_s='w_eng' then assign(color,'res\har\color_eng');
 reset(color);
 n:=1;
@@ -563,7 +564,7 @@ end;//1.1
 close(color);
 //
 if lang_s='w_rus' then assign(har,'res\har\har');
-if lang_s='u_rus' then assign(har,'res/har/har');
+if lang_s='u_rus' then assign(har,'res/har/u_har');
 if lang_s='w_eng' then assign(har,'res\har\har_eng');
 reset(har);
 i:=1;
@@ -1772,6 +1773,8 @@ end;
 
 //21.02.2016
 function auto_lvlup(al:new_body):new_body;
+var
+tal:new_body;
 begin
 if fool_log=true then log_generate('log_old_generate','avto levelup, mob name '+al.name);
 if al.exp>=al.lvl*5 then begin//1
@@ -1782,7 +1785,8 @@ if (al.stren>al.intel)and(al.stren>al.agility) then al.stren:=al.stren+1;
 if (al.intel>al.stren)and(al.intel>al.agility) then al.intel:=al.intel+1;
 if (al.agility>al.intel)and(al.agility>al.stren) then al.agility:=al.agility+1;
 end;//1
-auto_lvlup:=hero_update(al);
+tal:=hero_update(al);
+auto_lvlup:=tal;
 end;
 
 //21.02.2016
@@ -2655,13 +2659,11 @@ for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
 	map[i_oz,j_oz].y:=j_oz;
 	//-----------------------------------------------------------------------------------------
 	if fool_log=true then log_generate('log_old_generate','start nps generate -6- '+inttostr(k1));
-if fool_log=true then log_generate('log_old_generate','start temp1');
+
 temp_npc1:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y,1,1);
-if fool_log=true then log_generate('log_old_generate','stop temp1');
-if fool_log=true then log_generate('log_old_generate','start temp2');
+
 temp_npc2:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y,1,1);
-if fool_log=true then log_generate('log_old_generate','stop temp2');
-if fool_log=true then log_generate('log_old_generate','start battle');
+
 	npc[k1]:=mob_battle(temp_npc1,temp_npc2);
 	npc[k1].st0:=story_npc('0');
 	npc[k1].st3:=story_npc('3');
@@ -2842,7 +2844,7 @@ unix utf-8 text.lang
 }
 //--------------------------------
 BEGIN
-fool_log:=true;
+fool_log:=false;
 log_generate('log_new_generate','begin');
 Randomize;
 typ_generate('');
@@ -2893,7 +2895,7 @@ if fool_log=true then log_generate('log_old_generate','start map_generate');
 map_generate('map_test_generate');
 //log_generate('log_old_generate','start mob_generate');
 mob_generate;
-evolution(100);
+evolution(10);
 if fool_log=true then log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');
 //31.12.2015

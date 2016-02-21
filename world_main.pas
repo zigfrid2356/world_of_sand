@@ -134,6 +134,7 @@ monster_name,map_oz:text;
 color,har,item_name:text;
 f_log:text;
 f_typ:text;//+25.10.2015
+prof:text;//21.02.2016
 text:array[0..200] of string;
 text_name:array[0..100] of string;
 //+31.08.2015
@@ -261,12 +262,33 @@ end;
 
 //+08.11.2015
 function story_npc(command:char):string;
+var
+born,stud,work,live:array[0..10]of string;
+ts:string;
+ib,iss,iw,il:byte;
 begin
-if command='0' then story_npc:=text[77]+oz_list[random(100)].oz_name;
+ib:=0;iss:=0;iw:=0;il:=0;
+if lang_s='u_rus' then assign(prof,'res/har/u_prof_rus');
+if lang_s='u_eng' then assign(prof,'res/har/u_prof_rus');
+if lang_s='w_rus' then assign(prof,'res\har\u_prof_rus');
+if lang_s='w_eng' then assign(prof,'res\har\u_prof_rus');
+reset(prof);
+while not eof(prof) do begin
 
-if command='3' then begin//2
-story_npc:=text[78];
-end;//2
+readln(prof,ts);
+if ts[2]='b' then begin delete(ts,1,6);born[ib]:=ts; ib:=ib+1; end;
+if ts[2]='s' then begin  delete(ts,1,6);stud[iss]:=ts; iss:=iss+1; end;
+if ts[2]='w' then begin delete(ts,1,6);work[iw]:=ts; iw:=iw+1; end;
+if ts[2]='l' then begin delete(ts,1,6);live[il]:=ts; il:=il+1; end;
+
+end;
+close(prof);
+
+if command='0' then story_npc:=text[77]+' '+born[random(ib)]+oz_list[random(100)].oz_name;
+if command='1' then story_npc:=text[127]+' '+stud[random(iss)];
+if command='2' then story_npc:=text[78]+' '+work[random(iw)];
+if command='3' then story_npc:=text[128]+' '+live[random(il)];
+
 end;
 
 procedure log_generate(command:string;text:string);
@@ -1102,7 +1124,7 @@ end;
 //27.12.2015
 function hero_update(nb:new_body):new_body;
 begin
-if fool_log=true then log_generate('log_old_generate','hero update, hero name '+nb.name);
+if fool_log=true then log_generate('log_old_generate','hero update, hero name '+nb.name+' lvl '+inttostr(nb.lvl));
 
 hero_update.name:=nb.name;
 hero_update.stren:=nb.stren;
@@ -1141,6 +1163,11 @@ hero_update.s5:=nb.s5;
 //bag
 for i:=0 to 99 do
 hero_update.bag[i]:=nb.bag[i];
+//story
+hero_update.st0:=nb.st0;
+hero_update.st1:=nb.st1;
+hero_update.st2:=nb.st2;
+hero_update.st3:=nb.st3;
 end;
 
 //07.11.2015
@@ -1205,6 +1232,11 @@ end;//bg1
 for k2:=5 to 99 do begin//bg2
 npc_generate.bag[k2]:=beast_inv_generate('null');
 end;//bg2
+//story
+npc_generate.st0:=story_npc('0');
+npc_generate.st0:=story_npc('1');
+npc_generate.st0:=story_npc('2');
+npc_generate.st3:=story_npc('3');
 npc_generate:=hero_update(npc_generate);
 end;
 
@@ -1780,10 +1812,9 @@ end;
 
 //21.02.2016
 function auto_lvlup(al:new_body):new_body;
-var
-tal:new_body;
+
 begin
-if fool_log=true then log_generate('log_old_generate','avto levelup, mob name '+al.name);
+if fool_log=true then log_generate('log_old_generate','avto levelup, mob name '+al.name+' lvl '+inttostr(al.lvl));
 if al.exp>=al.lvl*5 then begin//1
 al.exp:=0;
 al.lvl:=al.lvl+1;
@@ -1792,8 +1823,8 @@ if (al.stren>al.intel)and(al.stren>al.agility) then al.stren:=al.stren+1;
 if (al.intel>al.stren)and(al.intel>al.agility) then al.intel:=al.intel+1;
 if (al.agility>al.intel)and(al.agility>al.stren) then al.agility:=al.agility+1;
 end;//1
-tal:=hero_update(al);
-auto_lvlup:=tal;
+
+auto_lvlup:=hero_update(al);
 end;
 
 //21.02.2016
@@ -1811,7 +1842,7 @@ end;
 function mob_battle(mb1,mb2:new_body):temp;
 
 begin
-if fool_log=true then log_generate('log_old_generate','mob batle, mob1 name '+mb1.name+' , mob2 name '+mb2.name);
+if fool_log=true then log_generate('log_old_generate','mob batle, mob1 name '+mb1.name+' , mob2 name '+mb2.name+' lvl1 '+inttostr(mb1.lvl)+' lvl2 '+inttostr(mb2.lvl));
 repeat begin//1
 if mb1.dmg>=mb2.ign_dmg then mb2.hp:=mb2.hp-abs(mb1.dmg-mb2.ign_dmg) else mb2.hp:=mb2.hp-(mb1.dmg div 4);
 
@@ -2038,6 +2069,8 @@ clrscr;
 writeln(m_o.name,' ',text[8],inttostr(m_o.lvl) );
 writeln(race_output(m_o.race));
 writeln(m_o.st0);
+writeln(m_o.st1);
+writeln(m_o.st2);
 writeln(m_o.st3);
 writeln('');
 writeln('1- '+text[11]);
@@ -2689,8 +2722,6 @@ temp_npc1:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y,1,1);
 temp_npc2:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y,1,1);
 temp_battle:=mob_battle(temp_npc1,temp_npc2);
 	npc[k1]:=temp_battle.nb1;
-	npc[k1].st0:=story_npc('0');
-	npc[k1].st3:=story_npc('3');
 	k1:=k1+1;
 		
 	end;//6.2.2.1
@@ -2900,12 +2931,9 @@ end;
 close(lang);
 if fool_log=true then log_generate('log_old_generate','close lang');
 
-//log_generate('log_old_generate','1-2');
-//log_generate('log_drop_generate','');
 textcolor(yellow);
 writeln	(text[1]);
 textcolor(white);
-//writeln(text[96]);
 readln();
  ClrScr;
 writeln	(text[3]);
@@ -2921,7 +2949,7 @@ if fool_log=true then log_generate('log_old_generate','start map_generate');
 map_generate('map_test_generate');
 //log_generate('log_old_generate','start mob_generate');
 mob_generate;
-evolution(10);
+evolution(1);
 if fool_log=true then log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');
 //31.12.2015

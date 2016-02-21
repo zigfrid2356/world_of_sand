@@ -1314,8 +1314,8 @@ hero_update.sex:=nb.sex;
 hero_update.race:=nb.race;
 //vichisl
 
-hero_update.hp:=10*nb.lvl;
-hero_update.mp:=10*nb.lvl;
+hero_update.hp:=(10*nb.lvl)+(nb.stren*2)+nb.agility;
+hero_update.mp:=(10*nb.lvl)+(nb.intel*2);
 hero_update.attak:=4+nb.stren;
 hero_update.defense:=4+nb.agility;
 hero_update.ves:=nb.ves;
@@ -1774,10 +1774,28 @@ until menu_key='0';
 
 end;
 
-//08.02.2016
-function mob_battle(mb:new_body):new_body;
+//21.02.2016
+function auto_lvlup(al:new_body):new_body;
 begin
-mob_battle:=mb;
+auto_lvlup:=al;
+if (al.stren>al.intel)and(al.stren>al.agility) then auto_lvlup.stren:=al.stren+1;
+if (al.intel>al.stren)and(al.intel>al.agility) then auto_lvlup.intel:=al.intel+1;
+if (al.agility>al.intel)and(al.agility>al.stren) then auto_lvlup.agility:=al.agility+1;
+auto_lvlup.lvl:=al.lvl+1;
+end;
+
+//08.02.2016
+function mob_battle(mb1,mb2:new_body):new_body;
+
+begin
+repeat begin//1
+if mb1.dmg>=mb2.ign_dmg then mb2.hp:=mb2.hp-abs(mb1.dmg-mb2.ign_dmg) else mb2.hp:=mb2.hp-(mb1.dmg div 4);
+
+if mb2.dmg>=mb1.ign_dmg then mb1.hp:=monster.hp-abs(mb2.dmg-mb1.ign_dmg) else mb1.hp:=mb1.hp-(mb2.dmg div 4);
+end;//1
+until (mb2.hp<=0) or(mb1.hp<=0);
+if mb1.hp>0 then begin  mb1:=auto_lvlup(mb1); mb1:=hero_update(mb1); mob_battle:=mb1;  end;
+if mb2.hp>0 then begin  mb2:=auto_lvlup(mb2); mb2:=hero_update(mb2); mob_battle:=mb2;  end;
 end;
 
 

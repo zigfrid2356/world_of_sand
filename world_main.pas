@@ -112,7 +112,9 @@ end;
 pyst_index=record
 x,y:word;
 end;
-
+temp=record
+nb1,nb2:new_body;
+end;
 var
 map:array[0..2048,0..2048] of erath;
 hero:new_body;
@@ -121,6 +123,8 @@ monster:body;
 npc:array[0..17000] of new_body;
 //28.01.2016
 mob:array[0..10000] of new_body;
+//21.02.2016
+temp_battle:temp;
 menu_key:char;
 i,j,n,m,l,k,k0,k1,k2,k_oz,i_oz,j_oz,n_oz,m_oz:integer;//áçñâç¨ª¨{счётчики}
 s:string;//temp
@@ -1801,7 +1805,7 @@ end;
 
 //08.02.2016
 //++21.02.2016
-function mob_battle(mb1,mb2:new_body):new_body;
+function mob_battle(mb1,mb2:new_body):temp;
 
 begin
 if fool_log=true then log_generate('log_old_generate','mob batle, mob1 name '+mb1.name+' , mob2 name '+mb2.name);
@@ -1811,8 +1815,8 @@ if mb1.dmg>=mb2.ign_dmg then mb2.hp:=mb2.hp-abs(mb1.dmg-mb2.ign_dmg) else mb2.hp
 if mb2.dmg>=mb1.ign_dmg then mb1.hp:=monster.hp-abs(mb2.dmg-mb1.ign_dmg) else mb1.hp:=mb1.hp-(mb2.dmg div 4);
 end;//1
 until (mb2.hp<=0) or(mb1.hp<=0);
-if mb1.hp>0 then begin mb1.exp:=mb1.exp+10; mb1:=auto_lvlup(mb1); mob_battle:=mb1;  end;
-if mb2.hp>0 then begin mb2.exp:=mb2.exp+10;  mb2:=auto_lvlup(mb2); mob_battle:=mb2;  end;
+if mb1.hp>0 then begin mb1.exp:=mb1.exp+10; mb1:=auto_lvlup(mb1); mob_battle.nb1:=mb1;mob_battle.nb2:=mb2;  end;
+if mb2.hp>0 then begin mb2.exp:=mb2.exp+10;  mb2:=auto_lvlup(mb2); mob_battle.nb1:=mb2; mob_battle.nb2:=mb1; end;
 end;
 
 
@@ -2242,7 +2246,8 @@ writeln	(text[72]+text[118]);
 k0:=0;
 for bl:=0 to 99 do begin//8
 for i:=0 to 99 do begin//8.1
-	mob[k0]:=mob_battle(npc_generate(oz_list[bl].x,oz_list[bl].y,1,2),npc_generate(oz_list[bl].x,oz_list[bl].y,1,2));
+temp_battle:=mob_battle(npc_generate(oz_list[bl].x,oz_list[bl].y,1,2),npc_generate(oz_list[bl].x,oz_list[bl].y,1,2));
+	mob[k0]:=temp_battle.nb1;
 	//--------------------------------------mob--------
 	map[mob[k0].x,mob[k0].y].tip:=3;
 	map[mob[k0].x,mob[k0].y].mob_index:=k0;
@@ -2663,8 +2668,8 @@ for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
 temp_npc1:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y,1,1);
 
 temp_npc2:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y,1,1);
-
-	npc[k1]:=mob_battle(temp_npc1,temp_npc2);
+temp_battle:=mob_battle(temp_npc1,temp_npc2);
+	npc[k1]:=temp_battle.nb1;
 	npc[k1].st0:=story_npc('0');
 	npc[k1].st3:=story_npc('3');
 	k1:=k1+1;
@@ -2770,7 +2775,9 @@ for e_i:=0 to evo do begin//1
 ClrScr;
 writeln	(text[124],' ',inttostr(e_i));
 for e_i1:=0 to 9999 do begin//2
-mob_battle(mob[e_i1],mob[e_i1+1]);
+temp_battle:=mob_battle(mob[e_i1],mob[e_i1+1]);
+mob[e_i1]:=temp_battle.nb1;
+mob[e_i1+1]:=temp_battle.nb2;
 if mob[e_i1].hp<=0 then mob[e_i1]:=undead(mob[e_i1],random(100));
 if mob[e_i1+1].hp<=0 then mob[e_i1+1]:=undead(mob[e_i1+1],random(100));
 end;//2

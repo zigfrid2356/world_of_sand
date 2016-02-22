@@ -86,7 +86,7 @@ s1,s2,s3,s4,s5:subject;
 //bag
 bag:array[0..99] of subject;
 //story
-st0,st1,st2,st3:string[35];
+st0,st1,st2,st3:string[55];
 end;
 beast_body=record
 hp,dmg,ign_dmg:integer;
@@ -117,6 +117,7 @@ nb1,nb2:new_body;
 end;
 var
 map:array[0..2048,0..2048] of erath;
+//out_map:array[0..9,0..19]of char;
 hero:new_body;
 //super:new_body;
 monster:body;
@@ -1839,6 +1840,34 @@ if (tim>80) and (tim<=100) then begin ud.race:=7; ud.intel:=ud.intel+5;end;
 undead:=hero_update(ud);
 end;
 
+//22.02.2016
+function hero_battle(hb1,hb2:new_body):temp;
+//hb1-hero, hb2-mob
+begin
+repeat begin
+
+clrscr;
+writeln(text[11]);
+writeln('----------------------------------------');
+writeln('|',name_tab(text[8],20),' ',name_tab(inttostr(hero.lvl),20),'|');
+
+writeln('|',name_tab(text[99],20),' ',name_tab(inttostr(hero.dmg),20),'|');
+writeln('|',name_tab(text[100],20),' ',name_tab(inttostr(hero.ign_dmg),20),'|');
+writeln('----------------------------------------');
+writeln(text[90]);
+
+
+menu_key:=readkey;
+case menu_key of
+'1':begin end;
+'2':begin end;
+//'3':begin end;
+end;end;
+until menu_key='0';
+end;
+
+
+
 //08.02.2016
 //++21.02.2016
 function mob_battle(mb1,mb2:new_body):temp;
@@ -2062,7 +2091,13 @@ end;
 until menu_key='1';
 
 end;
+{
+//22.02.2016
+procedure map_out(mx,my:integer);
+begin
 
+end;
+}
 //21.02.2016
 procedure mob_output(m_o:new_body);
 begin
@@ -2125,6 +2160,8 @@ textcolor(white);
 writeln(map[x,y].name);{i,j}
 writeln(inttostr(map[x,y].progress));
 writeln(' _____________________');//top
+
+
 for i:=x-5 to x+5 do begin//2.1//5
 write('|');//left
  for j:=y-10 to y+10 do begin//2.2//10
@@ -2151,6 +2188,7 @@ write('|');//left
  end;//2.2
  writeln('|');//right
 end;//2.1
+
  writeln(' ---------------------');
  //writeln();
 map[x,y].structure:=temp_char;//+16.08.2015

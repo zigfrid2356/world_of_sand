@@ -86,7 +86,7 @@ s1,s2,s3,s4,s5:subject;
 //bag
 bag:array[0..99] of subject;
 //story
-st0,st1,st2,st3:string;
+st0,st1,st2,st3:string[35];
 end;
 beast_body=record
 hp,dmg,ign_dmg:integer;
@@ -1102,6 +1102,8 @@ clrscr;
 writeln(n_o.name);
 writeln(race_output(n_o.race));
 writeln(n_o.st0);
+writeln(n_o.st1);
+writeln(n_o.st2);
 writeln(n_o.st3);
 writeln('');
 writeln('1- '+text[69]);
@@ -1159,15 +1161,15 @@ hero_update.s2:=nb.s2;
 hero_update.s3:=nb.s3;
 hero_update.s4:=nb.s4;
 hero_update.s5:=nb.s5;
-
-//bag
-for i:=0 to 99 do
-hero_update.bag[i]:=nb.bag[i];
 //story
 hero_update.st0:=nb.st0;
 hero_update.st1:=nb.st1;
 hero_update.st2:=nb.st2;
 hero_update.st3:=nb.st3;
+//bag
+for i:=0 to 99 do
+hero_update.bag[i]:=nb.bag[i];
+
 end;
 
 //07.11.2015
@@ -1234,8 +1236,8 @@ npc_generate.bag[k2]:=beast_inv_generate('null');
 end;//bg2
 //story
 npc_generate.st0:=story_npc('0');
-npc_generate.st0:=story_npc('1');
-npc_generate.st0:=story_npc('2');
+npc_generate.st1:=story_npc('1');
+npc_generate.st2:=story_npc('2');
 npc_generate.st3:=story_npc('3');
 npc_generate:=hero_update(npc_generate);
 end;
@@ -2300,6 +2302,7 @@ for bl:=0 to 99 do begin//8
 for i:=0 to 99 do begin//8.1
 temp_battle:=mob_battle(npc_generate(oz_list[bl].x,oz_list[bl].y,1,2),npc_generate(oz_list[bl].x,oz_list[bl].y,1,2));
 	mob[k0]:=temp_battle.nb1;
+	if (bl=10)and(i=10) then log_generate('log_old_generate','mob generate '+mob[k0].st1);
 	//--------------------------------------mob--------
 	map[mob[k0].x,mob[k0].y].tip:=3;
 	map[mob[k0].x,mob[k0].y].mob_index:=k0;
@@ -2949,7 +2952,7 @@ if fool_log=true then log_generate('log_old_generate','start map_generate');
 map_generate('map_test_generate');
 //log_generate('log_old_generate','start mob_generate');
 mob_generate;
-evolution(1);
+evolution(5);
 if fool_log=true then log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');
 //31.12.2015

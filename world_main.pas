@@ -20,7 +20,7 @@
 
 
 }
-{v.0.2a}{19.02.2016}
+{v.0.3a}{23.02.2016}
 
 program world_of_sand;
 {//$FPUTYPE SSE2}
@@ -1663,7 +1663,7 @@ if lang_s='u_rus' then   zip.FileName:='res/save/save.zip';
  Zip.Free;
  F.Free;
 writeln(text[94],' ',text[2]);
-if lang_s='w_rus' then  begin
+if (lang_s='w_rus')or(lang_s='w_eng') then  begin
 DeleteFile('res\save\hero.save');
 DeleteFile('res\save\npc.save');
 DeleteFile('res\save\map.save');
@@ -1672,7 +1672,7 @@ DeleteFile('res\save\beast.save');
 DeleteFile('res\save\oz.save');
 DeleteFile('res\save\pyst.save');
 end;
-if lang_s='u_rus' then  begin
+if (lang_s='u_rus')or(lang_s='u_eng') then  begin
 DeleteFile('res/save/hero.save');
 DeleteFile('res/save/npc.save');
 DeleteFile('res/save/map.save');
@@ -1698,6 +1698,10 @@ if fool_log=true then log_generate('log_old_generate','start UnZip');
   if lang_s='w_rus' then    UnZipper.OutputPath := 'res\save\';
   if lang_s='u_rus' then    UnZipper.FileName := 'res/save/save.zip';
   if lang_s='u_rus' then    UnZipper.OutputPath := 'res/save/';
+  if lang_s='u_eng' then    UnZipper.FileName := 'res/save/save.zip';
+  if lang_s='u_eng' then    UnZipper.OutputPath := 'res/save/';
+  if lang_s='w_eng' then    UnZipper.FileName := 'res/save/save.zip';
+  if lang_s='w_eng' then    UnZipper.OutputPath := 'res/save/';
     UnZipper.Examine;
     UnZipper.UnZipAllFiles;
  // finally
@@ -1706,12 +1710,16 @@ if fool_log=true then  log_generate('log_old_generate','stop UnZip');
 if fool_log=true then log_generate('log_old_generate','start hero.save');
 if lang_s='w_rus' then  assign(hero_save,'res\save\hero.save');
 if lang_s='u_rus' then  assign(hero_save,'res/save/hero.save');
+if lang_s='u_eng' then  assign(hero_save,'res/save/hero.save');
+if lang_s='w_eng' then  assign(hero_save,'res/save/hero.save');
 reset(hero_save);
 read(hero_save,hero);
 close(hero_save);
 
 if lang_s='w_rus' then  assign(npc_save,'res\save\npc.save');
 if lang_s='u_rus' then  assign(npc_save,'res/save/npc.save');
+if lang_s='u_eng' then  assign(npc_save,'res/save/npc.save');
+if lang_s='w_eng' then  assign(npc_save,'res/save/npc.save');
 reset(npc_save);
 for i:=0 to 17000 do begin//1.1
 read(npc_save,npc[i]);
@@ -1720,6 +1728,8 @@ close(npc_save);
 
 if lang_s='w_rus' then  assign(mob_save,'res\save\mob.save');
 if lang_s='u_rus' then  assign(mob_save,'res/save/mob.save');
+if lang_s='w_eng' then  assign(mob_save,'res\save\mob.save');
+if lang_s='u_eng' then  assign(mob_save,'res/save/mob.save');
 reset(mob_save);
 for i:=0 to 10000 do begin//1.1
 read(mob_save,mob[i]);
@@ -1729,6 +1739,8 @@ close(mob_save);
 
 if lang_s='w_rus' then  assign(beast_save,'res\save\beast.save');
 if lang_s='u_rus' then  assign(beast_save,'res/save/beast.save');
+if lang_s='w_eng' then  assign(beast_save,'res\save\beast.save');
+if lang_s='u_eng' then  assign(beast_save,'res/save/beast.save');
 reset(beast_save);
 for i:=0 to 10000 do begin//1.1
 read(beast_save,beast_list[i]);
@@ -1737,6 +1749,8 @@ close(beast_save);
 
 if lang_s='w_rus' then  assign(oz_save,'res\save\oz.save');
 if lang_s='u_rus' then  assign(oz_save,'res/save/oz.save');
+if lang_s='w_eng' then  assign(oz_save,'res\save\oz.save');
+if lang_s='u_eng' then  assign(oz_save,'res/save/oz.save');
 reset(oz_save);
 for i:=0 to 100 do begin//1.1
 read(oz_save,oz_list[i]);
@@ -1746,6 +1760,8 @@ close(oz_save);
 
 if lang_s='w_rus' then  assign(pyst_save,'res\save\pyst.save');
 if lang_s='u_rus' then  assign(pyst_save,'res/save/pyst.save');
+if lang_s='w_eng' then  assign(pyst_save,'res\save\pyst.save');
+if lang_s='u_eng' then  assign(pyst_save,'res/save/pyst.save');
 reset(pyst_save);
 for i:=0 to 1000 do begin//1.1
 read(pyst_save,pyst_list[i]);
@@ -1754,6 +1770,8 @@ close(pyst_save);
 
 if lang_s='w_rus' then  assign(map_save,'res\save\map.save');
 if lang_s='u_rus' then  assign(map_save,'res/save/map.save');
+if lang_s='w_eng' then  assign(map_save,'res\save\map.save');
+if lang_s='u_eng' then  assign(map_save,'res/save/map.save');
 reset(map_save);
 for i:=0 to x_map do begin//1.1
 	for j:=0 to y_map do begin//1.2
@@ -1761,7 +1779,7 @@ read(map_save,map[i,j]);
 end;end;//1.1//1.2
 close(map_save);
 writeln(text[19]);
-if lang_s='w_rus' then  begin
+if (lang_s='w_rus')or(lang_s='w_eng') then  begin
   DeleteFile('res\save\hero.save');
   DeleteFile('res\save\npc.save');
   DeleteFile('res\save\map.save');
@@ -1770,7 +1788,7 @@ if lang_s='w_rus' then  begin
   DeleteFile('res\save\oz.save');
   DeleteFile('res\save\pyst.save');
 end;
-if lang_s='u_rus' then  begin
+if (lang_s='u_rus')or(lang_s='u_eng') then  begin
   DeleteFile('res/save/hero.save');
   DeleteFile('res/save/npc.save');
   DeleteFile('res/save/map.save');

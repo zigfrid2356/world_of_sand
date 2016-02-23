@@ -24,21 +24,24 @@
 
 program GetMax;
  
-uses graph,crt,sysutils,windows,dateutils;
+uses {graph}ptcGraph,crt,sysutils,linux{windows},dateutils;
 type
 erath =record
-x,y,npc_index,beast_index:word;
+x,y,npc_index,beast_index,mob_index:word;
 structure:char;
 color:byte;
 name:string[25];
-tip:byte;//flag_life__beast(1/2)_human(3/4)_not_life(0)
+tip:byte;//flag_life__beast(1/2)_human(3/4)_not_life(0)_dead(5)
 progress:word;
 end;
+
 var
 map:array[0..2048,0..2048] of erath;
 gd,gm: integer;
 map_save:file of erath;
 i,j,ii,iii:integer;
+    Driver: SmallInt; 
+    Mode:   SmallInt;  
 const 
 x_map = 2048;
 y_map = 2048;
@@ -109,9 +112,7 @@ map[i_muv,j_muv-1].progress:=0;
 
 end;//1.1.4
 
- {map[i_muv,j_muv].structure:='/';
- map[i_muv,j_muv].color:=6;
- map[i_muv,j_muv].progress:=0;}
+ 
 
 end;//1.1	
 	
@@ -123,25 +124,24 @@ end;end;//0.1//0.2
 //log_generate('log_old_generate','stop_muve');
 end;//000
 end;
-begin
+
+begin//1
 //gd:=D16bit; 
-gm:=m800x600x64K; 
-gd:=detect;
+//gm:=m800x600x64K; 
+//gd:=detect;
 //gm:=0;
-  // gd:=VGA;   {адаптер VGA}
-  // gm:=VGAHi; {режим 640*480пикс.*16 цветов}
-   initgraph(gd,gm,'');
-   //line (0,0,getmaxx,getmaxy);
-   //setcolor(15);
-    
-   //putpixel(20,10,15);
-   
-   assign(map_save,'res\save\map.save');
+  // gd:=VGA;   
+  // gm:=VGAHi;
+//initgraph(gd,gm,'');  
+   // DetectGraph(Driver, Mode);
+     Driver:=VGA;
+  Mode:=VGAHi;
+    InitGraph(Driver, Mode, '');
+assign(map_save,'res/save/map.save');
 reset(map_save);
 for i:=0 to x_map do begin//1.1
 	for j:=0 to y_map do begin//1.2
 read(map_save,map[i,j]);
-//if map[i,j].structure='#' then putpixel(i,j,15) else putpixel(i,j,map[i,j].color);
 end;end;//1.1//1.2
 close(map_save);
 for ii:=0 to 10 do begin//00--------------------00---------------
@@ -152,8 +152,8 @@ end;end;//1.1//1.2
 for iii:=0 to 100 do muve(128,128,'test');
 end;//00----------------------------------------00---------------
 readln();
-   //readln; 
+ 
    closegraph;
-   
-end.
+ //end;  
+end.//1
 

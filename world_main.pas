@@ -1873,21 +1873,25 @@ repeat begin
 clrscr;
 writeln(text[11]);
 writeln('----------------------------------------');
+writeln('|',name_tab(text[131],10),' ',name_tab(hb1.name,10),'|',name_tab(hb2.name,10),'|');
 writeln('|',name_tab(text[8],10),' ',name_tab(inttostr(hb1.lvl),10),'|',name_tab(inttostr(hb2.lvl),10),'|');
-
-writeln('|',name_tab(text[99],10),' ',name_tab(inttostr(hb1.dmg),10),'|'),'|',name_tab(inttostr(hb2.dmg),10),'|');
-writeln('|',name_tab(text[100],10),' ',name_tab(inttostr(hb1.ign_dmg),10),'|',name_tab(inttostr(hb2.ign_dmg),10),'|);
+writeln('|',name_tab(text[5],10),' ',name_tab(inttostr(hb1.hp),10),'|',name_tab(inttostr(hb2.hp),10),'|');
+writeln('|',name_tab(text[99],10),' ',name_tab(inttostr(hb1.dmg),10),'|',name_tab(inttostr(hb2.dmg),10),'|');
+writeln('|',name_tab(text[100],10),' ',name_tab(inttostr(hb1.ign_dmg),10),'|',name_tab(inttostr(hb2.ign_dmg),10),'|');
 writeln('----------------------------------------');
+writeln('1- ',text[130]);
+writeln('0- ',text[125]);
+
 writeln(text[90]);
-
-
 menu_key:=readkey;
 case menu_key of
-'1':begin end;
-'2':begin end;
+'1':begin //1.0
+ 
+end;//1.0
+//'2':begin end;
 //'3':begin end;
 end;end;
-until menu_key='0';
+until (menu_key='0')or(hb1.hp<=0)or(hb2.hp<=0);
 end;
 
 
@@ -2967,7 +2971,7 @@ unix utf-8 text.lang
 }
 //--------------------------------
 BEGIN
-fool_log:=true;
+fool_log:=false;
 log_generate('log_new_generate','begin');
 Randomize;
 typ_generate('');

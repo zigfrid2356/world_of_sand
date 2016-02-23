@@ -1,82 +1,82 @@
 
-001 WORLD of SAND
+001 WORLD OF SAND
 002 output
 003 menu
 004 start
-005 Health
+005 health
 006 mana
-006 experience
+007 experience
 008 level
-009 Card
-010 Information
-011 Battle
-012 Done
+009 card
+010 information
+011 battle
+012 damage
 013 ignoring damage
-014 Round
+014 round
 015 VICTORY
 016 download
 017 save
 018 map and character preserved
-019 Map and Character loaded
-020 enter the name of the character
+019 map and a character loaded
+020 enter the character's name
 021 select the gender (M -1 / -2 F)
-022 select Russ
-023 Ability to select 
-024 only 1 or 2
-025 1 Human / 2 is not a Human
-026 force
-027 intillekt
-028 Agility
+022 choose Russ
+023 ability to choose
+024 Only 1-4
+025 1 person / 2 is not a man
+026 strength
+027 intelligence
+028 agility
 029 floor
 030 Russ
 031 initiative
 032 camouflage
 033 observation
-034 your position:
-035 press '1' to go
+034 your location:
+035, press "1" to exit
 036 Battle number
 037 monster inflicted damage
 038 character inflicted damage
-039 generate
-040 Armor
-041 damage with a weapon
+039 to generate
+040 Armour
+041 weapon damage
 042 change - test function
 043 2 - Inventory
 044 cell number
-045 Inventory
-046 Weapon
-047 Armor
-048 Decoration
-049 Ingredient
+045 inventory
+046 weapon
+047 Armour
+decoration 048
+049 ingredient
 050 empty
 051 sand
-052 Dune
+052 dune
 053 quicksand
 054 sandstone
 055 dry bush
 056 bush
-057 well
-058 Water
-059 Palm
-060 unit tunes sand ruins
-061 ruins sand poluzanesñnnye
-062 Ruins
+057 wells
+058 water
+059 palm
+060 tunes sand ruins
+061 semi-ruins sand tunes
+062 ruins
 063 construction
 064 ahead
 065 behind
-066 Right
-067 Left
-068 Buy
+066 to the right
+067 left
+068 buy
 069 sell
 070 trade
 071 next
-072 Generation
-073 well
+072 generation
+073 wells
 074 desert plain
-075 Oasis
-076 home
-077 Born in 
-078 work
+075 oasis
+076 houses
+077 the beginning of life
+078 worked
 079 story
 080 lives
 081 course
@@ -85,26 +85,45 @@
 084 teeth
 085 bones
 086 nails
-087 Hunt
+087 hunt
 088 corpse
 089 take
-090 press '0' to exit
+090, press '0' to exit
 091 name
-092 Armor
-093 Weight
+092 Armour
+093 weight
 094 zip
-095 Remove
+095 removal
 096 press 'Enter' to continue
-097 Increase
+097 Raising
 098 free points
-099 Done
+099 damage
 100 sewn
-101 'h' - Helmet
-102 value
-103 'd' - clothes
+101 'h' - helmet
+102 cost
+103 'd' - Clothing
 104 's' - Shoes
-105 'f' - arms
+105 'f' - weapons
 106 'g' - protection
-107 Help
+107 pomosh
 108 recovered
 109 resident
+110 type
+111 log
+112 people
+113 orc
+114 elf
+115 gnome
+116 money
+117 select the page number
+118 bandit
+119 beast
+120 configuration file error
+121 Mortifier
+122 skeleton
+123 ghost
+124 evolution
+125 flight
+126 meeting
+127 attended
+128 Now

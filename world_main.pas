@@ -187,6 +187,7 @@ ClrScr;
 if lang_s='w_rus' then assign(st,'res\lang\rus\story');
 if lang_s='u_rus' then assign(st,'res/lang/rus/story_u');
 if lang_s='w_eng' then assign(st,'res\lang\eng\story');
+if lang_s='u_eng' then assign(st,'res/lang/eng/story');
 reset(st);
 while not eof(st) do begin
 readln(st,ss);
@@ -209,6 +210,7 @@ ih:=0;
 if lang_s='w_rus' then assign(hf,'res\lang\rus\help');
 if lang_s='u_rus' then assign(hf,'res/lang/rus/help_u');
 if lang_s='w_eng' then assign(hf,'res\lang\eng\help');
+if lang_s='u_eng' then assign(hf,'res/lang/eng/help');
 reset(hf);
 while not eof(hf) do begin
 readln(hf,h[ih]);
@@ -518,6 +520,7 @@ begin
 if lang_s='w_rus' then assign(item_name,'res\har\'+command);
 if lang_s='u_rus' then assign(item_name,'res/har/'+command);
 if lang_s='w_eng' then assign(item_name,'res\har\'+command+'_eng');
+if lang_s='u_eng' then assign(item_name,'res/har/'+command+'_eng');
 reset(item_name);
 nig:=1;
 while not eof(item_name) do begin//1.1
@@ -553,6 +556,7 @@ begin
 if lang_s='w_rus' then assign(color,'res\har\color');
 if lang_s='u_rus' then assign(color,'res/har/color');
 if lang_s='w_eng' then assign(color,'res\har\color_eng');
+if lang_s='u_eng' then assign(color,'res/har/color_eng');
 reset(color);
 n:=1;
 while not eof(color) do begin//1.1
@@ -582,6 +586,7 @@ close(monster_name);
 if lang_s='w_rus' then assign(color,'res\har\color');
 if lang_s='u_rus' then assign(color,'res/har/u_color');
 if lang_s='w_eng' then assign(color,'res\har\color_eng');
+if lang_s='u_eng' then assign(color,'res/har/color_eng');
 reset(color);
 n:=1;
 while not eof(color) do begin//1.1
@@ -593,6 +598,7 @@ close(color);
 if lang_s='w_rus' then assign(har,'res\har\har');
 if lang_s='u_rus' then assign(har,'res/har/u_har');
 if lang_s='w_eng' then assign(har,'res\har\har_eng');
+if lang_s='u_eng' then assign(har,'res/har/har_eng');
 reset(har);
 i:=1;
 while not eof(har) do begin//1.1
@@ -2365,6 +2371,7 @@ bl:=0;
 if lang_s='w_rus' then assign(map_oz,'res\map\oz.name');
 if lang_s='u_rus' then assign(map_oz,'res/map/oz_u_r.name');
 if lang_s='w_eng' then assign(map_oz,'res\map\oz_eng.name');
+if lang_s='u_eng' then assign(map_oz,'res/map/oz_eng.name');
 reset(map_oz);
 while not eof(map_oz) do begin
 readln(map_oz,map_name[k_oz]);
@@ -2942,7 +2949,7 @@ unix utf-8 text.lang
 }
 //--------------------------------
 BEGIN
-fool_log:=false;
+fool_log:=true;
 log_generate('log_new_generate','begin');
 Randomize;
 typ_generate('');
@@ -2960,6 +2967,7 @@ if fool_log=true then log_generate('log_old_generate','close lang_f');
 if fool_log=true then log_generate('log_old_generate','start lang');
 if lang_s='w_rus' then assign(lang,'res/lang/rus/text_win.lang');
 if lang_s='w_eng' then assign(lang,'res/lang/eng/text_win.lang');
+if lang_s='u_eng' then assign(lang,'res/lang/eng/text_win.lang');
 if lang_s='u_rus' then assign(lang,'res/lang/rus/text_unix.lang');
 
 reset(lang);

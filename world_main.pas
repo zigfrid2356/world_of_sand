@@ -1886,12 +1886,16 @@ writeln(text[90]);
 menu_key:=readkey;
 case menu_key of
 '1':begin //1.0
- 
+ if hb1.dmg>=hb2.ign_dmg then hb2.hp:=hb2.hp-abs(hb1.dmg-hb2.ign_dmg) else hb2.hp:=hb2.hp-(hb1.dmg div 4);
+
+if hb2.dmg>=hb1.ign_dmg then hb1.hp:=hb1.hp-abs(hb2.dmg-hb1.ign_dmg) else hb1.hp:=hb1.hp-(hb2.dmg div 4);
 end;//1.0
 //'2':begin end;
 //'3':begin end;
 end;end;
 until (menu_key='0')or(hb1.hp<=0)or(hb2.hp<=0);
+if hb1.hp>0 then begin hb1.exp:=hb1.exp+10; hero_battle.nb1:=hb1;hero_battle.nb2:=hb2;  end;
+if hb2.hp>0 then begin hb2.exp:=hb2.exp+10;  hb2:=auto_lvlup(hb2); hero_battle.nb1:=hb1; hero_battle.nb2:=hb2; end;
 end;
 
 
@@ -1905,7 +1909,7 @@ if fool_log=true then log_generate('log_old_generate','mob batle, mob1 name '+mb
 repeat begin//1
 if mb1.dmg>=mb2.ign_dmg then mb2.hp:=mb2.hp-abs(mb1.dmg-mb2.ign_dmg) else mb2.hp:=mb2.hp-(mb1.dmg div 4);
 
-if mb2.dmg>=mb1.ign_dmg then mb1.hp:=monster.hp-abs(mb2.dmg-mb1.ign_dmg) else mb1.hp:=mb1.hp-(mb2.dmg div 4);
+if mb2.dmg>=mb1.ign_dmg then mb1.hp:=mb1.hp-abs(mb2.dmg-mb1.ign_dmg) else mb1.hp:=mb1.hp-(mb2.dmg div 4);
 end;//1
 until (mb2.hp<=0) or(mb1.hp<=0);
 if mb1.hp>0 then begin mb1.exp:=mb1.exp+10; mb1:=auto_lvlup(mb1); mob_battle.nb1:=mb1;mob_battle.nb2:=mb2;  end;

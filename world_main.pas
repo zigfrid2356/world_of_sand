@@ -1873,10 +1873,10 @@ repeat begin
 clrscr;
 writeln(text[11]);
 writeln('----------------------------------------');
-writeln('|',name_tab(text[8],20),' ',name_tab(inttostr(hero.lvl),20),'|');
+writeln('|',name_tab(text[8],10),' ',name_tab(inttostr(hb1.lvl),10),'|',name_tab(inttostr(hb2.lvl),10),'|');
 
-writeln('|',name_tab(text[99],20),' ',name_tab(inttostr(hero.dmg),20),'|');
-writeln('|',name_tab(text[100],20),' ',name_tab(inttostr(hero.ign_dmg),20),'|');
+writeln('|',name_tab(text[99],10),' ',name_tab(inttostr(hb1.dmg),10),'|'),'|',name_tab(inttostr(hb2.dmg),10),'|');
+writeln('|',name_tab(text[100],10),' ',name_tab(inttostr(hb1.ign_dmg),10),'|',name_tab(inttostr(hb2.ign_dmg),10),'|);
 writeln('----------------------------------------');
 writeln(text[90]);
 

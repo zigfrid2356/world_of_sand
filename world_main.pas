@@ -1846,9 +1846,9 @@ if al.exp>=al.lvl*5 then begin//1
 al.exp:=0;
 al.lvl:=al.lvl+1;
 
-if (al.stren>al.intel)and(al.stren>al.agility) then al.stren:=al.stren+1;
-if (al.intel>al.stren)and(al.intel>al.agility) then al.intel:=al.intel+1;
-if (al.agility>al.intel)and(al.agility>al.stren) then al.agility:=al.agility+1;
+if (al.stren>=al.intel)and(al.stren>=al.agility) then al.stren:=al.stren+1;
+if (al.intel>=al.stren)and(al.intel>=al.agility) then al.intel:=al.intel+1;
+if (al.agility>=al.intel)and(al.agility>=al.stren) then al.agility:=al.agility+1;
 end;//1
 
 auto_lvlup:=hero_update(al);
@@ -2217,7 +2217,7 @@ write('|');//left
  write(map[i,j].structure);
  textcolor(white);
  end;//2.4
-  if map[i,j].tip=5 then begin//2.5
+  if (map[i,j].tip=5)or(map[i,j].tip=6) then begin//2.5
  textcolor(8);
  write('@');
  textcolor(white);
@@ -2382,7 +2382,7 @@ for bl:=0 to 99 do begin//8
 for i:=0 to 99 do begin//8.1
 temp_battle:=mob_battle(npc_generate(oz_list[bl].x,oz_list[bl].y,1,2),npc_generate(oz_list[bl].x,oz_list[bl].y,1,2));
 	mob[k0]:=temp_battle.nb1;
-	if (bl=10)and(i=10) then log_generate('log_old_generate','mob generate '+mob[k0].st1);
+	//if (bl=10)and(i=10) then log_generate('log_old_generate','mob generate '+mob[k0].st1);
 	//--------------------------------------mob--------
 	map[mob[k0].x,mob[k0].y].tip:=3;
 	map[mob[k0].x,mob[k0].y].mob_index:=k0;
@@ -2906,15 +2906,16 @@ var e_i,e_i1:integer;
 begin
 
 for e_i:=0 to evo do begin//1
-ClrScr;
-writeln	(text[124],' ',inttostr(e_i));
+
 for e_i1:=0 to 9999 do begin//2
-log_generate('log_old_generate','evolition '+inttostr(e_i)+' '+inttostr(e_i1));
+ClrScr;
+writeln	(text[124],' ',inttostr(e_i),' ',inttostr(e_i1));
 temp_battle:=mob_battle(mob[e_i1],mob[e_i1+1]);
 mob[e_i1]:=temp_battle.nb1;
 mob[e_i1+1]:=temp_battle.nb2;
 if mob[e_i1].hp<=0 then mob[e_i1]:=undead(mob[e_i1],random(100));
 if mob[e_i1+1].hp<=0 then mob[e_i1+1]:=undead(mob[e_i1+1],random(100));
+
 end;//2
 end;//1
 end;
@@ -3035,7 +3036,7 @@ if fool_log=true then log_generate('log_old_generate','start map_generate');
 map_generate('map_test_generate');
 //log_generate('log_old_generate','start mob_generate');
 mob_generate;
-evolution(5);
+//evolution(1);
 if fool_log=true then log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');
 //31.12.2015

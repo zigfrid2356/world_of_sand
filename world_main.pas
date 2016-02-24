@@ -2131,7 +2131,9 @@ begin
 end;
 }
 //21.02.2016
-procedure mob_output(m_o:new_body);
+function mob_output(m_o:new_body):new_body;
+var
+tt:temp;
 begin
 repeat begin//1.0
 clrscr;
@@ -2149,8 +2151,16 @@ menu_key:=readkey;
 end;//1.0
 
 case menu_key of//2.0
-'1': begin end;
-'2': begin end;
+'1': begin 
+if map[m_o.x,m_o.y].tip<>6 then tt:=hero_battle(hero,m_o);
+hero:=tt.nb1;
+m_o:=tt.nb2;
+mob_output:=m_o;
+if m_o.hp<=0 then map[m_o.x,m_o.y].tip:=6;
+end;
+'2': begin 
+mob_output:=m_o;
+end;
 end;//2.0
 until menu_key='0';
 end;
@@ -2312,7 +2322,7 @@ npc[map[x,y].npc_index]:=npc_output(npc[map[x,y].npc_index]);
 map_output(x,y);
 end;//3.5.1
 if map[x,y].mob_index<>0 then begin//3.5.1
-mob_output(mob[map[x,y].mob_index]);
+mob[map[x,y].mob_index]:=mob_output(mob[map[x,y].mob_index]);
 map_output(x,y);
 end;//3.5.1
  end;//3.5
@@ -2899,6 +2909,7 @@ for e_i:=0 to evo do begin//1
 ClrScr;
 writeln	(text[124],' ',inttostr(e_i));
 for e_i1:=0 to 9999 do begin//2
+log_generate('log_old_generate','evolition '+inttostr(e_i)+' '+inttostr(e_i1));
 temp_battle:=mob_battle(mob[e_i1],mob[e_i1+1]);
 mob[e_i1]:=temp_battle.nb1;
 mob[e_i1+1]:=temp_battle.nb2;

@@ -2,6 +2,6 @@
 git pull
 git init
 git add .
-git commit -a -m 'battle'
+git commit -a -m 'begin madjik'
 git remote add origin git@github.com:username/reponame.git
 git push -u origin master

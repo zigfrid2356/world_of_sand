@@ -1457,7 +1457,7 @@ hero_generate.init:=1;
 hero_generate.masking:=1;
 hero_generate.obser:=1;
 
-hero_generate.lvl:=1;
+hero_generate.lvl:=10;
 
 hero_generate.hp:=10*hero_generate.lvl;
 hero_generate.mp:=10*hero_generate.lvl;
@@ -1879,8 +1879,9 @@ writeln('|',name_tab(text[5],10),' ',name_tab(inttostr(hb1.hp),10),'|',name_tab(
 writeln('|',name_tab(text[99],10),' ',name_tab(inttostr(hb1.dmg),10),'|',name_tab(inttostr(hb2.dmg),10),'|');
 writeln('|',name_tab(text[100],10),' ',name_tab(inttostr(hb1.ign_dmg),10),'|',name_tab(inttostr(hb2.ign_dmg),10),'|');
 writeln('----------------------------------------');
-writeln('1- ',text[130]);
 writeln('0- ',text[125]);
+writeln('1- ',text[130]);
+writeln('2- ',text[129]);
 
 writeln(text[90]);
 menu_key:=readkey;
@@ -1890,7 +1891,7 @@ case menu_key of
 
 if hb2.dmg>=hb1.ign_dmg then hb1.hp:=hb1.hp-abs(hb2.dmg-hb1.ign_dmg) else hb1.hp:=hb1.hp-(hb2.dmg div 4);
 end;//1.0
-//'2':begin end;
+'2':begin hb1.hp:=hb1.hp+100; end;
 //'3':begin end;
 end;end;
 until (menu_key='0')or(hb1.hp<=0)or(hb2.hp<=0);

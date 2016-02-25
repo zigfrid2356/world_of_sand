@@ -101,7 +101,7 @@ x,y,npc_index,beast_index,mob_index:word;
 structure:char;
 color:byte;
 name:string[25];
-tip:byte;//flag_life__beast(1/2)_human(3/4)_not_life(0)_dead(5)
+tip:byte;//flag_life__beast(1/2)_human(3/4)_not_life(0)_dead-beast(5)_dead-mob(6)
 progress:word;
 end;
 oz_index=record
@@ -266,7 +266,7 @@ end;
 //+08.11.2015
 function story_npc(command:char):string;
 var
-born,stud,work,live:array[0..10]of string;
+born,stud,work,live:array[0..10]of string[55];
 ts:string;
 ib,iss,iw,il:byte;
 begin
@@ -1897,6 +1897,7 @@ end;end;
 until (menu_key='0')or(hb1.hp<=0)or(hb2.hp<=0);
 if hb1.hp>0 then begin hb1.exp:=hb1.exp+10; hero_battle.nb1:=hb1;hero_battle.nb2:=hb2;  end;
 if hb2.hp>0 then begin hb2.exp:=hb2.exp+10;  hb2:=auto_lvlup(hb2); hero_battle.nb1:=hb1; hero_battle.nb2:=hb2; end;
+if hb1.hp<=0 then begin clrscr; writeln(text[132]); halt; end;
 end;
 
 
@@ -1915,6 +1916,7 @@ end;//1
 until (mb2.hp<=0) or(mb1.hp<=0);
 if mb1.hp>0 then begin mb1.exp:=mb1.exp+10; mb1:=auto_lvlup(mb1); mob_battle.nb1:=mb1;mob_battle.nb2:=mb2;  end;
 if mb2.hp>0 then begin mb2.exp:=mb2.exp+10;  mb2:=auto_lvlup(mb2); mob_battle.nb1:=mb2; mob_battle.nb2:=mb1; end;
+
 end;
 
 
@@ -2237,31 +2239,32 @@ end;//2.1
 map[x,y].structure:=temp_char;//+16.08.2015
 map[x,y].color:=temp_color;//+16.09.2015
 write(text[34],' ',x,' : ',y,text[71]+map_info(map[x,y].structure));
-if (map[x,y].tip<>0) and( map[x,y].tip<>5) and ( map[x,y].tip<>3)then begin write(text[80]+beast_list[map[x,y].beast_index].name);end;
+if (map[x,y].tip<>0) and( map[x,y].tip<>5) and ( map[x,y].tip<>3)and ( map[x,y].tip<>6)then begin write(text[80]+beast_list[map[x,y].beast_index].name);end;
 if map[x,y].tip=5 then begin write(text[88]+beast_list[map[x,y].beast_index].name);end;
 writeln();
 if map[x,y].npc_index<>0 then begin write(text[76]+npc[map[x,y].npc_index].name);writeln(); end;
 if map[x,y].mob_index<>0 then begin write(text[118]+' '+mob[map[x,y].mob_index].name);writeln(); end;
 
 write	('6- -> '+text[64]+map_info(map[x,y+1].structure) );
-if (map[x,y+1].tip<>0)and( map[x,y+1].tip<>5) and( map[x,y+1].tip<>3)then begin write(text[80]+beast_list[map[x,y+1].beast_index].name);end;
+if (map[x,y+1].tip<>0)and( map[x,y+1].tip<>5) and( map[x,y+1].tip<>3)and( map[x,y+1].tip<>6)then begin write(text[80]+beast_list[map[x,y+1].beast_index].name);end;
 if map[x,y+1].tip=5 then begin write(text[88]+beast_list[map[x,y+1].beast_index].name);end;
 writeln();
 write	('4- <- '+text[65]+map_info(map[x,y-1].structure) );
-if (map[x,y-1].tip<>0)and( map[x,y-1].tip<>5) and( map[x,y-1].tip<>3)then begin write(text[80]+beast_list[map[x,y-1].beast_index].name);end;
+if (map[x,y-1].tip<>0)and( map[x,y-1].tip<>5) and( map[x,y-1].tip<>3)and( map[x,y-1].tip<>6)then begin write(text[80]+beast_list[map[x,y-1].beast_index].name);end;
 if map[x,y-1].tip=5 then begin write(text[88]+beast_list[map[x,y-1].beast_index].name);end;
 writeln();
 write	('8- /\ '+text[67]+map_info(map[x-1,y].structure) );
-if (map[x-1,y].tip<>0)and( map[x-1,y].tip<>5)and( map[x-1,y].tip<>3) then begin write(text[80]+beast_list[map[x-1,y].beast_index].name);end;
+if (map[x-1,y].tip<>0)and( map[x-1,y].tip<>5)and( map[x-1,y].tip<>3) and( map[x-1,y].tip<>6) then begin write(text[80]+beast_list[map[x-1,y].beast_index].name);end;
 if map[x-1,y].tip=5 then begin write(text[88]+beast_list[map[x-1,y].beast_index].name);end;
 writeln();
 write	('2- \/ '+text[66]+map_info(map[x+1,y].structure) );
-if (map[x+1,y].tip<>0)and( map[x+1,y].tip<>5) and( map[x+1,y].tip<>3)then begin write(text[80]+beast_list[map[x+1,y].beast_index].name);end;
+if (map[x+1,y].tip<>0)and( map[x+1,y].tip<>5) and( map[x+1,y].tip<>3) and( map[x+1,y].tip<>6)then begin write(text[80]+beast_list[map[x+1,y].beast_index].name);end;
 if map[x+1,y].tip=5 then begin write(text[88]+beast_list[map[x+1,y].beast_index].name);end;
 writeln();
 writeln	('5- ',text[2]);
+
 if map[x,y].npc_index<>0 then writeln	('9- ',text[111]);
-if map[x,y].mob_index<>0 then writeln	('9- ',text[126]);
+if( map[x,y].mob_index<>0)and(map[x,y].tip<>6) then writeln	('9- ',text[126]);
 
 if (map[x,y+1].tip=1)or (map[x,y+1].tip=2)or (map[x,y+1].tip=4)then
 {if (map[x,y+1].tip<>0)and (map[x,y+1].tip<>5)and (map[x,y+1].tip<>3)then} writeln	('7- ',text[87]);
@@ -2322,7 +2325,7 @@ if map[x,y].npc_index<>0 then begin//3.5.1
 npc[map[x,y].npc_index]:=npc_output(npc[map[x,y].npc_index]);
 map_output(x,y);
 end;//3.5.1
-if map[x,y].mob_index<>0 then begin//3.5.1
+if (map[x,y].mob_index<>0)and(map[x,y].tip<>6) then begin//3.5.1
 mob[map[x,y].mob_index]:=mob_output(mob[map[x,y].mob_index]);
 map_output(x,y);
 end;//3.5.1

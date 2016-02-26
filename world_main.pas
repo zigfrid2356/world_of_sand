@@ -349,7 +349,7 @@ tt:byte;
 begin
 mob_muve:=mm;
 
-if (command='start') and (map[mm.x,mm.y].tip<>1) 
+if (command='start') and (map[mm.x,mm.y].tip=3) 
 and(mm.x+2<x_map)and(mm.x>2)and(mm.y+2<y_map)and(mm.y>2) 
 then begin//00
 

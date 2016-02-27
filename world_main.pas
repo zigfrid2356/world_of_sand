@@ -125,7 +125,7 @@ npc:array[0..17000] of new_body;
 //28.01.2016
 mob:array[0..10000] of new_body;
 //21.02.2016
-temp_battle:temp;
+temp_battle,mob_temp:temp;
 menu_key:char;
 i,j,n,m,l,k,k0,k1,k2,k_oz,i_oz,j_oz,n_oz,m_oz:integer;//áçñâç¨ª¨{счётчики}
 s:string;//temp
@@ -616,7 +616,7 @@ var
 ss:string;
 begin
 ss:=s;
-while length(ss)<i do begin
+while length(ss)<=i do begin
 ss:=ss+' ';
 end;
 name_tab:=ss;
@@ -990,14 +990,18 @@ until menu_key='0';
 end;
 
 //27.02.2016
-function mob_drop_out(md1,md2:new_body;command:char):temp;
+function mob_drop_out(mdo1,mdo2:new_body;command:char):temp;
 begin
+mob_drop_out.nb1:=mdo1;
+mob_drop_out.nb2:=mdo2;
 end;
 
 
 //27.02.2016
 function mob_drop(md1,md2:new_body):temp;
 //nb1-hero, nb2-mob
+var
+mdt:temp;
 begin
 repeat begin//1
 clrscr;
@@ -1007,16 +1011,16 @@ writeln('2- ',text[134]);
 writeln(text[90]);
 menu_key:=readkey;
 case menu_key of
-'1': begin //1.1
-end;//1.1
-'2': begin //1.2
-end;//1.2
+'1': mdt:=mob_drop_out(md1,md2,'o');
+
+'2': mdt:=mob_drop_out(md1,md2,'e');
+
 end;
 end;//1
 
 until menu_key='0';
-mob_drop.nb1:=md1;
-mob_drop.nb2:=md2;
+mob_drop.nb1:=mdt.nb1;
+mob_drop.nb2:=mdt.nb2;
 end;
 
 
@@ -1832,39 +1836,40 @@ writeln(text[96]);
 readln();
 end;
 
-procedure lvlup;
+function lvlup(ll:new_body):new_body;
 begin
-if hero.exp>=hero.lvl*5 then begin//1
-hero.exp:=0;
-hero.lvl:=hero.lvl+1;
-hero.point:=hero.point+1;
-end;//1
+if ll.exp>=ll.lvl*5 then begin//1
+ll.exp:=0;
+ll.lvl:=ll.lvl+1;
+ll.point:=ll.point+1;
+
 repeat begin
-hero:=hero_update(hero);
+ll:=hero_update(ll);
 
 //20.12.2015
 clrscr;
 writeln(text[97]);
 writeln('----------------------------------------');
-writeln('|',name_tab(text[8],20),' ',name_tab(inttostr(hero.lvl),20),'|');
-writeln('|',name_tab(text[26],20),' ',name_tab(inttostr(hero.stren),18),'+1','|');
-writeln('|',name_tab(text[27],20),' ',name_tab(inttostr(hero.intel),18),'+2','|');
-writeln('|',name_tab(text[28],20),' ',name_tab(inttostr(hero.agility),18),'+3','|');
-writeln('|',name_tab(text[98],20),' ',name_tab(inttostr(hero.point),20),'|');
-writeln('|',name_tab(text[99],20),' ',name_tab(inttostr(hero.dmg),20),'|');
-writeln('|',name_tab(text[100],20),' ',name_tab(inttostr(hero.ign_dmg),20),'|');
+writeln('|',name_tab(text[8],20),' ',name_tab(inttostr(ll.lvl),20),'|');
+writeln('|',name_tab(text[26],20),' ',name_tab(inttostr(ll.stren),18),'+1','|');
+writeln('|',name_tab(text[27],20),' ',name_tab(inttostr(ll.intel),18),'+2','|');
+writeln('|',name_tab(text[28],20),' ',name_tab(inttostr(ll.agility),18),'+3','|');
+writeln('|',name_tab(text[98],20),' ',name_tab(inttostr(ll.point),20),'|');
+writeln('|',name_tab(text[99],20),' ',name_tab(inttostr(ll.dmg),20),'|');
+writeln('|',name_tab(text[100],20),' ',name_tab(inttostr(ll.ign_dmg),20),'|');
 writeln('----------------------------------------');
 writeln(text[90]);
 
 
 menu_key:=readkey;
 case menu_key of
-'1':begin if hero.point>0 then begin hero.stren:=hero.stren+1;hero.point:=hero.point-1; end;end;
-'2':begin if hero.point>0 then begin hero.intel:=hero.intel+1;hero.point:=hero.point-1;end;end;
-'3':begin if hero.point>0 then begin hero.agility:=hero.agility+1;hero.point:=hero.point-1;end;end;
+'1':begin if ll.point>0 then begin ll.stren:=ll.stren+1;ll.point:=ll.point-1; end;end;
+'2':begin if ll.point>0 then begin ll.intel:=ll.intel+1;ll.point:=ll.point-1;end;end;
+'3':begin if ll.point>0 then begin ll.agility:=ll.agility+1;ll.point:=ll.point-1;end;end;
 end;end;
 until menu_key='0';
-
+end;//1
+lvlup:=ll;
 end;
 
 //21.02.2016
@@ -1925,7 +1930,7 @@ end;//1.0
 //'3':begin end;
 end;end;
 until (menu_key='0')or(hb1.hp<=0)or(hb2.hp<=0);
-if hb1.hp>0 then begin hb1.exp:=hb1.exp+10; hero_battle.nb1:=hb1;hero_battle.nb2:=hb2;  end;
+if hb1.hp>0 then begin hb1.exp:=hb1.exp+10; hb1:=lvlup(hb1); hero_battle.nb1:=hb1;hero_battle.nb2:=hb2;  end;
 if hb2.hp>0 then begin hb2.exp:=hb2.exp+10;  hb2:=auto_lvlup(hb2); hero_battle.nb1:=hb1; hero_battle.nb2:=hb2; end;
 if hb1.hp<=0 then begin clrscr; writeln(text[132]); halt; end;
 end;
@@ -2002,7 +2007,7 @@ hero.exp:=hero.exp+10;//bb.exp;
 writeln(text[96]);
 readln();
 //drop('monster_beast',bb.name);
-lvlup;
+hero:=lvlup(hero);
 
 writeln(text[15]);
 delay(500);
@@ -2073,7 +2078,7 @@ hero.hp:=10*hero.lvl;///-------------test----------------------
 hero.gold:=hero.gold+monster.gold;
 hero.exp:=hero.exp+monster.exp;
 drop('monster_beast',monster.name);
-lvlup;
+hero:=lvlup(hero);
 
 writeln(text[15]);
 delay(500);
@@ -2195,7 +2200,7 @@ end;
 mob_output:=m_o;
 end;
 end;//2.0
-until menu_key='0';
+until (menu_key='0')or (m_o.hp<=0);
 end;
 
 
@@ -2306,7 +2311,7 @@ if (map[x+1,y].tip=1)or (map[x+1,y].tip=2)or (map[x+1,y].tip=4)then
 {if (map[x+1,y].tip<>0)and(map[x+1,y].tip<>5)and (map[x,y+1].tip<>3)then} writeln	('7- ',text[87]);
 if (map[x,y].tip=1)or (map[x,y].tip=2)or (map[x,y].tip=4)then
 {if (map[x,y].tip<>0)and(map[x,y].tip<>5) and (map[x,y+1].tip<>3) then} writeln	('7- ',text[87]);
-if (map[x,y].tip=5)then  writeln	('3- ',text[89]);
+if (map[x,y].tip=5)or(map[x,y].tip=6) then  writeln	('3- ',text[89]);
 
 
 //readln(menu_key);
@@ -2371,6 +2376,12 @@ if (map[x,y].tip<>0)and (map[x,y].tip<>3)then beast_list[map[x,y].beast_index]:=
 
 '3':begin//3.7
 if (map[x,y].tip=5)then beast_list[map[x,y].beast_index]:=beast_drop(beast_list[map[x,y].beast_index]);
+if (map[x,y].tip=6)then  begin 
+mob_temp:=mob_drop(hero,mob[map[x,y].mob_index]); 
+hero:=mob_temp.nb1; 
+mob[map[x,y].mob_index]:=mob_temp.nb2;
+end;
+
  end;//3.7
 
 end;//3.0

@@ -248,6 +248,7 @@ end;
 procedure item_ful_info(ifi:subject);
 begin
 ClrScr;
+
 writeln(text[91]+' '+ifi.name);
 //type_subject:string;
 writeln(text[12]+' '+inttostr(ifi.base_dmg));
@@ -529,22 +530,9 @@ nig:=nig+1;
 end;//1.1
 close(item_name);
 repeat r:=random(nig) until (r>0)and(r<nig-1);
-name_item_generate:=item_m_name[r];
-//log_generate('log_old_generate','name_item_generate -2- '+inttostr(r));
-//log_generate('log_old_generate','name_item_generate -3- '+item_m_name[r]);
+{if (lang_s='w_rus') or (lang_s='w_eng')then }name_item_generate:=item_m_name[r];
+{if (lang_s='u_rus') or (lang_s='u_eng')then name_item_generate:=Utf8ToAnsi(item_m_name[r]);}
 nig:=1;
-//end;//1
-{if command='skin' then begin//2
-assign(item_name,'res\har\'+command);
-reset(item_name);
-nig:=1;
-while not eof(item_name) do begin//1.1
-readln(item_name,item_m_name[nig]);
-nig:=nig+1;
-end;//1.1
-close(item_name);
-name_item_generate:=item_m_name[random(nig)];
-end;//2}
 
 end;
 
@@ -1426,6 +1414,43 @@ close(f_typ);
 //typ_generate:='';
 end;
 
+function lvlup(ll:new_body):new_body;
+begin
+ll:=hero_update(ll);
+if ll.exp>=ll.lvl*5 then begin//1
+ll.exp:=0;
+ll.lvl:=ll.lvl+1;
+ll.point:=ll.point+1;
+
+repeat begin
+ll:=hero_update(ll);
+
+//20.12.2015
+clrscr;
+writeln(text[97]);
+writeln('----------------------------------------');
+writeln('|',name_tab(text[8],20),' ',name_tab(inttostr(ll.lvl),20),'|');
+writeln('|',name_tab(text[26],20),' ',name_tab(inttostr(ll.stren),18),'+1','|');
+writeln('|',name_tab(text[27],20),' ',name_tab(inttostr(ll.intel),18),'+2','|');
+writeln('|',name_tab(text[28],20),' ',name_tab(inttostr(ll.agility),18),'+3','|');
+writeln('|',name_tab(text[98],20),' ',name_tab(inttostr(ll.point),20),'|');
+writeln('|',name_tab(text[99],20),' ',name_tab(inttostr(ll.dmg),20),'|');
+writeln('|',name_tab(text[100],20),' ',name_tab(inttostr(ll.ign_dmg),20),'|');
+writeln('|',name_tab(text[5],20),' ',name_tab(inttostr(ll.hp),20),'|');
+writeln('----------------------------------------');
+writeln(text[90]);
+
+
+menu_key:=readkey;
+case menu_key of
+'1':begin if ll.point>0 then begin ll.stren:=ll.stren+1;ll.point:=ll.point-1; end;end;
+'2':begin if ll.point>0 then begin ll.intel:=ll.intel+1;ll.point:=ll.point-1;end;end;
+'3':begin if ll.point>0 then begin ll.agility:=ll.agility+1;ll.point:=ll.point-1;end;end;
+end;end;
+until menu_key='0';
+end;//1
+lvlup:=ll;
+end;
 
 
 function hero_generate(h:string):new_body;//+12.08.2015
@@ -1457,24 +1482,24 @@ repeat begin//0.11
 menu_key:=readkey;
 case menu_key of//0.21
 '1':begin  hero_generate.race:=1;m:=1;
-hero_generate.stren:=1;
-hero_generate.intel:=2;
-hero_generate.agility:=2;
+hero_generate.stren:=2;
+hero_generate.intel:=4;
+hero_generate.agility:=4;
 end;//human
 '2':begin hero_generate.race:=2;m:=1;
-hero_generate.stren:=2;
-hero_generate.intel:=1;
-hero_generate.agility:=2;
+hero_generate.stren:=4;
+hero_generate.intel:=2;
+hero_generate.agility:=4;
 end;//ork
 '3':begin hero_generate.race:=3;m:=1;
-hero_generate.stren:=1;
-hero_generate.intel:=3;
-hero_generate.agility:=1;
+hero_generate.stren:=2;
+hero_generate.intel:=6;
+hero_generate.agility:=2;
 end;//elf
 '4':begin hero_generate.race:=4;m:=1;
-hero_generate.stren:=3;
-hero_generate.intel:=1;
-hero_generate.agility:=1;
+hero_generate.stren:=6;
+hero_generate.intel:=2;
+hero_generate.agility:=2;
 end;//dwarf
 else
 writeln(text[24]);
@@ -1495,7 +1520,7 @@ hero_generate.init:=1;
 hero_generate.masking:=1;
 hero_generate.obser:=1;
 
-hero_generate.lvl:=10;
+hero_generate.lvl:=1;
 
 hero_generate.hp:=10*hero_generate.lvl;
 hero_generate.mp:=10*hero_generate.lvl;
@@ -1523,7 +1548,7 @@ hero_generate.bag[n]:=beast_inv_generate('null');
 //log_generate('log_old_generate','hero_generate'+' bag '+inttostr(n)+' '+inttostr(hero.bag[n].tip)+' -'+hero.bag[n].name+'-.');
 end;//0.1
 if fool_log=true then log_generate('log_old_generate','hero_generate'+' -5- ');
-hero:=hero_update(hero);
+
 end;//0
 
 if h='monster_human' then begin//2
@@ -1840,42 +1865,6 @@ writeln(text[96]);
 readln();
 end;
 
-function lvlup(ll:new_body):new_body;
-begin
-ll:=hero_update(ll);
-if ll.exp>=ll.lvl*5 then begin//1
-ll.exp:=0;
-ll.lvl:=ll.lvl+1;
-ll.point:=ll.point+1;
-
-repeat begin
-ll:=hero_update(ll);
-
-//20.12.2015
-clrscr;
-writeln(text[97]);
-writeln('----------------------------------------');
-writeln('|',name_tab(text[8],20),' ',name_tab(inttostr(ll.lvl),20),'|');
-writeln('|',name_tab(text[26],20),' ',name_tab(inttostr(ll.stren),18),'+1','|');
-writeln('|',name_tab(text[27],20),' ',name_tab(inttostr(ll.intel),18),'+2','|');
-writeln('|',name_tab(text[28],20),' ',name_tab(inttostr(ll.agility),18),'+3','|');
-writeln('|',name_tab(text[98],20),' ',name_tab(inttostr(ll.point),20),'|');
-writeln('|',name_tab(text[99],20),' ',name_tab(inttostr(ll.dmg),20),'|');
-writeln('|',name_tab(text[100],20),' ',name_tab(inttostr(ll.ign_dmg),20),'|');
-writeln('----------------------------------------');
-writeln(text[90]);
-
-
-menu_key:=readkey;
-case menu_key of
-'1':begin if ll.point>0 then begin ll.stren:=ll.stren+1;ll.point:=ll.point-1; end;end;
-'2':begin if ll.point>0 then begin ll.intel:=ll.intel+1;ll.point:=ll.point-1;end;end;
-'3':begin if ll.point>0 then begin ll.agility:=ll.agility+1;ll.point:=ll.point-1;end;end;
-end;end;
-until menu_key='0';
-end;//1
-lvlup:=ll;
-end;
 
 //21.02.2016
 function auto_lvlup(al:new_body):new_body;
@@ -1890,8 +1879,8 @@ if (al.stren>=al.intel)and(al.stren>=al.agility) then al.stren:=al.stren+1;
 if (al.intel>=al.stren)and(al.intel>=al.agility) then al.intel:=al.intel+1;
 if (al.agility>=al.intel)and(al.agility>=al.stren) then al.agility:=al.agility+1;
 end;//1
-
-auto_lvlup:=hero_update(al);
+al:=hero_update(al);
+auto_lvlup:=al;
 end;
 
 //21.02.2016
@@ -2243,7 +2232,7 @@ map[x,y].color:=4;
 clrscr;
 textcolor(white);
 writeln(map[x,y].name);{i,j}
-writeln(inttostr(map[x,y].progress));
+//writeln(inttostr(map[x,y].progress));
 writeln(' _____________________');//top
 
 
@@ -3090,6 +3079,7 @@ mob_generate;
 //evolution(1);
 if fool_log=true then log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');
+hero:=lvlup(hero);
 //31.12.2015
 story;
 main_menu;

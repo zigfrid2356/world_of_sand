@@ -136,7 +136,7 @@ color,har,item_name:text;
 f_log:text;
 f_typ:text;//+25.10.2015
 prof:text;//21.02.2016
-text:array[0..200] of string;
+text:array[0..200] of string[50];
 text_name:array[0..100] of string;
 //+31.08.2015
 color_name:array[0..1002] of string;
@@ -607,19 +607,23 @@ i:=i+1;
 end;//1.1
 close(har);
 
-name_generate:=har_name[random(i)]+' '+text_name[random(m)]+' '+color_name[random(n)];
+name_generate:={har_name[random(i)]+' '+}text_name[random(m)]{+' '+color_name[random(n)]};
 end;
 
 //11.12.2015
 function name_tab(s:string;i:byte):string;
-var
-ss:string;
 begin
-ss:=s;
-while length(ss)<=i do begin
-ss:=ss+' ';
-end;
-name_tab:=ss;
+if (lang_s='w_rus') or (lang_s='w_eng')then begin //1
+while length(s)<i do begin//1.1
+s:=s+' ';
+end;//1.1
+end;//1
+if (lang_s='u_rus') or (lang_s='u_eng')then begin //2
+while length(Utf8ToAnsi(s))<i do begin//2.1
+s:=s+' ';
+end;//2.1
+end;//2
+name_tab:=s;
 end;
 
 
@@ -1244,7 +1248,7 @@ begin
 tx:=i_n-random(100)+random(100);;
 ty:=j_n-random(100)+random(100);;
 end;
-until (tx>8)and(tx<x_map-8)and(ty>8)and(ty<y_map-8);
+until (tx>11)and(tx<x_map-11)and(ty>11)and(ty<y_map-11);
 npc_generate.x:=tx;
 npc_generate.y:=ty;
 end;//1
@@ -1838,6 +1842,7 @@ end;
 
 function lvlup(ll:new_body):new_body;
 begin
+ll:=hero_update(ll);
 if ll.exp>=ll.lvl*5 then begin//1
 ll.exp:=0;
 ll.lvl:=ll.lvl+1;
@@ -3058,6 +3063,7 @@ while not eof(lang) do begin
 readln(lang,text[i]);
 
 delete(text[i],1,3);
+//text[i]:=name_tab(text[i],10);
 i:=i+1;
 end;
 close(lang);

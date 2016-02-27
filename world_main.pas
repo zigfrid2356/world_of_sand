@@ -104,6 +104,11 @@ name:string[25];
 tip:byte;//flag_life__beast(1/2)_human(3/4)_not_life(0)_dead-beast(5)_dead-mob(6)
 progress:word;
 end;
+mini_erath=record
+x,y:word;
+structure:char;
+color:byte;
+end;
 oz_index=record
 x,y:word;
 oz_name:string[25];
@@ -117,6 +122,7 @@ nb1,nb2:new_body;
 end;
 var
 map:array[0..2048,0..2048] of erath;
+mini_map:array[0..204,0..204]of mini_erath;
 //out_map:array[0..9,0..19]of char;
 hero:new_body;
 //super:new_body;
@@ -531,7 +537,7 @@ end;//1.1
 close(item_name);
 repeat r:=random(nig) until (r>0)and(r<nig-1);
 {if (lang_s='w_rus') or (lang_s='w_eng')then }name_item_generate:=item_m_name[r];
-{if (lang_s='u_rus') or (lang_s='u_eng')then name_item_generate:=Utf8ToAnsi(item_m_name[r]);}
+{if (lang_s='u_rus') or (lang_s='u_eng')then name_item_generate:=AnsiToUTF8(item_m_name[r]);}
 nig:=1;
 
 end;

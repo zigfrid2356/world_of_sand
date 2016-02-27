@@ -989,6 +989,36 @@ end;
 until menu_key='0';
 end;
 
+//27.02.2016
+function mob_drop_out(md1,md2:new_body;command:char):temp;
+begin
+end;
+
+
+//27.02.2016
+function mob_drop(md1,md2:new_body):temp;
+//nb1-hero, nb2-mob
+begin
+repeat begin//1
+clrscr;
+writeln(text[89]+' '+text[88]+' '+md2.name);
+writeln('1- ',text[133]);
+writeln('2- ',text[134]);
+writeln(text[90]);
+menu_key:=readkey;
+case menu_key of
+'1': begin //1.1
+end;//1.1
+'2': begin //1.2
+end;//1.2
+end;
+end;//1
+
+until menu_key='0';
+mob_drop.nb1:=md1;
+mob_drop.nb2:=md2;
+end;
+
 
 //11.12.2015
 function beast_drop(bd:beast_body):beast_body;

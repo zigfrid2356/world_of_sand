@@ -108,6 +108,7 @@ mini_erath=record
 x,y:word;
 structure:char;
 color:byte;
+name:string[2];
 end;
 oz_index=record
 x,y:word;
@@ -2229,7 +2230,11 @@ var
 temp_char:char;
 temp_color:integer;
 begin
-if (x-1>=6) and(x+1<=199) and (y-1>=11) and (y+1<=204-11) then begin//2.00
+if x-1<6 then x:=6;
+if x+1>198 then x:=198;
+if y-1<11 then y:=11;
+if y+1>193 then y:=193;
+if (x-1>=6) and(x+1<=198) and (y-1>=11) and (y+1<=204-11) then begin//2.00
 repeat begin//2.0
 ClrScr;
 temp_char:=mini_map[x,y].structure;
@@ -2252,8 +2257,10 @@ write('|');//left
  end;//2.3
  if mini_map[i,j].tip=0 then begin//2.4}
  textcolor(mini_map[i,j].color);
- write(mini_map[i,j].structure);
+ if mini_map[i,j].name=' ' then write(mini_map[i,j].structure);
+ if mini_map[i,j].name<>' ' then begin textcolor(white); write(mini_map[i,j].name); end;
  textcolor(white);
+ 
 { end;//2.4
   if (mini_map[i,j].tip=5)or(mini_map[i,j].tip=6) then begin//2.5
  textcolor(8);
@@ -2270,7 +2277,7 @@ write('|');//left
 end;//2.1
 
  writeln(' ---------------------');
- //writeln();
+// writeln(x,' ',y);
 mini_map[x,y].structure:=temp_char;//+16.08.2015
 mini_map[x,y].color:=temp_color;//+16.09.2015
 
@@ -2563,6 +2570,7 @@ for i:=0 to x_map do begin//2.1
 	map[i,j].color:=14;
 	map[i,j].progress:=0;
 	map[i,j].tip:=0;
+	map[i,j].name:=' ';
 		end;//2.2
 end;//2.1
 //---------------
@@ -3011,8 +3019,9 @@ begin
 writeln	(text[72],' ',text[135]);
 for i:=0 to 204 do begin //1
 for j:=0 to 204 do begin //2
-mini_map[i,j].structure:=map[i,j].structure;
-mini_map[i,j].color:=map[i,j].color;
+mini_map[i,j].structure:=map[i*10,j*10].structure;
+mini_map[i,j].color:=map[i*10,j*10].color;
+if map[i*10,j*10].name<>' ' then mini_map[i,j].name:=map[i*10,j*10].name else mini_map[i,j].name:=' '
 end;//2
 end;//1
 end;

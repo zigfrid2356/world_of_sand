@@ -537,8 +537,8 @@ nig:=nig+1;
 end;//1.1
 close(item_name);
 repeat r:=random(nig) until (r>0)and(r<nig-1);
-{if (lang_s='w_rus') or (lang_s='w_eng')then }name_item_generate:=item_m_name[r];
-{if (lang_s='u_rus') or (lang_s='u_eng')then name_item_generate:=AnsiToUTF8(item_m_name[r]);}
+{if (lang_s='w_rus') or (lang_s='w_eng')then} name_item_generate:=item_m_name[r];
+{if (lang_s='u_rus') or (lang_s='u_eng')then name_item_generate:=CP866ToUTF8(item_m_name[r]);}
 nig:=1;
 
 end;

@@ -2223,7 +2223,65 @@ if m_i='='then map_info:=text[62];
 if m_i='^'then map_info:=text[63];
 end;
 
-procedure map_output(x,y:integer);
+//28.02.2016
+procedure mini_map_output(x,y:word);
+var
+temp_char:char;
+temp_color:integer;
+begin
+if (x-1>=6) and(x+1<=199) and (y-1>=11) and (y+1<=204-11) then begin//2.00
+repeat begin//2.0
+ClrScr;
+temp_char:=mini_map[x,y].structure;
+temp_color:=mini_map[x,y].color;
+mini_map[x,y].structure:='@';
+mini_map[x,y].color:=4;
+clrscr;
+textcolor(white);
+
+writeln(' _____________________');//top
+
+
+for i:=x-5 to x+5 do begin//2.1//5
+write('|');//left
+ for j:=y-10 to y+10 do begin//2.2//10
+ {if mini_map[i,j].tip=1 then begin//2.3
+ textcolor(10);
+ write('@');
+ textcolor(white);
+ end;//2.3
+ if mini_map[i,j].tip=0 then begin//2.4}
+ textcolor(mini_map[i,j].color);
+ write(mini_map[i,j].structure);
+ textcolor(white);
+{ end;//2.4
+  if (mini_map[i,j].tip=5)or(mini_map[i,j].tip=6) then begin//2.5
+ textcolor(8);
+ write('@');
+ textcolor(white);
+ end;//2.5
+  if mini_map[i,j].tip=3 then begin//2.6
+ textcolor(5);
+ write('@');
+ textcolor(white);
+ end;//2.6 }
+ end;//2.2
+ writeln('|');//right
+end;//2.1
+
+ writeln(' ---------------------');
+ //writeln();
+mini_map[x,y].structure:=temp_char;//+16.08.2015
+mini_map[x,y].color:=temp_color;//+16.09.2015
+
+writeln	(text[90]);
+menu_key:=readkey;
+end;//2.0
+until menu_key='0';
+end;//2.00 
+end;
+
+procedure map_output(x,y:word);
 var
 temp_char:char;
 temp_color:integer;
@@ -2297,7 +2355,7 @@ if (map[x+1,y].tip<>0)and( map[x+1,y].tip<>5) and( map[x+1,y].tip<>3) and( map[x
 if map[x+1,y].tip=5 then begin write(text[88]+beast_list[map[x+1,y].beast_index].name);end;
 writeln();
 writeln	('5- ',text[2]);
-
+writeln	('m- ',text[135]);
 if map[x,y].npc_index<>0 then writeln	('9- ',text[111]);
 if( map[x,y].mob_index<>0)and(map[x,y].tip<>6) then writeln	('9- ',text[126]);
 
@@ -2381,9 +2439,11 @@ mob_temp:=mob_drop(hero,mob[map[x,y].mob_index]);
 hero:=mob_temp.nb1; 
 mob[map[x,y].mob_index]:=mob_temp.nb2;
 end;
-
  end;//3.7
-
+ 
+'m':begin//3.8
+mini_map_output(x div 10,y div 10);
+ end;//3.8
 end;//3.0
 until menu_key='5';
 end;//2.00 else mapgenerate(new,'/\')
@@ -2946,6 +3006,18 @@ end;//3.3
 end;//3
 end;
 
+procedure mini_map_generate;
+begin
+writeln	(text[72],' ',text[135]);
+for i:=0 to 204 do begin //1
+for j:=0 to 204 do begin //2
+mini_map[i,j].structure:=map[i,j].structure;
+mini_map[i,j].color:=map[i,j].color;
+end;//2
+end;//1
+end;
+
+
 procedure evolution(evo:integer);
 var e_i,e_i1:integer;
 begin
@@ -2955,11 +3027,12 @@ for e_i:=0 to evo do begin//1
 for e_i1:=0 to 9999 do begin//2
 ClrScr;
 writeln	(text[124],' ',inttostr(e_i),' ',inttostr(e_i1));
-temp_battle:=mob_battle(mob[e_i1],mob[e_i1+1]);
+if (mob[e_i1].hp>1)and(mob[e_i1+1].hp>1) then temp_battle:=mob_battle(mob[e_i1],mob[e_i1+1]);
 mob[e_i1]:=temp_battle.nb1;
 mob[e_i1+1]:=temp_battle.nb2;
 if mob[e_i1].hp<=0 then mob[e_i1]:=undead(mob[e_i1],random(100));
 if mob[e_i1+1].hp<=0 then mob[e_i1+1]:=undead(mob[e_i1+1],random(100));
+
 
 end;//2
 end;//1
@@ -3082,6 +3155,7 @@ if fool_log=true then log_generate('log_old_generate','start map_generate');
 map_generate('map_test_generate');
 //log_generate('log_old_generate','start mob_generate');
 mob_generate;
+mini_map_generate;
 //evolution(1);
 if fool_log=true then log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');

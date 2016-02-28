@@ -171,6 +171,9 @@ s_podtyp:array[0..50]of string;
 lang_s:string[5];
 //20.02.2016
 fool_log:boolean;
+
+
+
 //+24.09.2015
 const
 x_map = 2048;
@@ -549,7 +552,7 @@ var
 n:integer;
 begin
 if lang_s='w_rus' then assign(color,'res\har\color');
-if lang_s='u_rus' then assign(color,'res/har/color');
+if lang_s='u_rus' then assign(color,'res/har/u_color');
 if lang_s='w_eng' then assign(color,'res\har\color_eng');
 if lang_s='u_eng' then assign(color,'res/har/color_eng');
 reset(color);
@@ -995,12 +998,12 @@ begin
 repeat begin//0
 clrscr;
 if command='o' then begin//1
-writeln('|'+name_tab(text[91],28)+'|'+name_tab(text[12],6)+'|'+name_tab(text[92],6)+'|'+name_tab(text[93],4)+'|');
-if mdo2.s1.name<> 'null' then writeln('|'+'1- '+name_tab(text[89],11)+' '+name_tab(mdo2.s1.name,16)+'|'+name_tab(inttostr(mdo2.s1.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s1.base_defense),6)+'|'+name_tab(inttostr(mdo2.s1.ves),4)+'|');
-if mdo2.s2.name<> 'null' then writeln('|'+'1- '+name_tab(text[89],11)+' '+name_tab(mdo2.s2.name,16)+'|'+name_tab(inttostr(mdo2.s2.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s2.base_defense),6)+'|'+name_tab(inttostr(mdo2.s2.ves),4)+'|');
-if mdo2.s3.name<> 'null' then writeln('|'+'1- '+name_tab(text[89],11)+' '+name_tab(mdo2.s3.name,16)+'|'+name_tab(inttostr(mdo2.s3.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s3.base_defense),6)+'|'+name_tab(inttostr(mdo2.s3.ves),4)+'|');
-if mdo2.s4.name<> 'null' then writeln('|'+'1- '+name_tab(text[89],11)+' '+name_tab(mdo2.s4.name,16)+'|'+name_tab(inttostr(mdo2.s4.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s4.base_defense),6)+'|'+name_tab(inttostr(mdo2.s4.ves),4)+'|');
-if mdo2.s5.name<> 'null' then writeln('|'+'1- '+name_tab(text[89],11)+' '+name_tab(mdo2.s5.name,16)+'|'+name_tab(inttostr(mdo2.s5.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s5.base_defense),6)+'|'+name_tab(inttostr(mdo2.s5.ves),4)+'|');
+writeln('|'+name_tab(text[91],35)+'|'+name_tab(text[12],6)+'|'+name_tab(text[92],6)+'|'+name_tab(text[93],4)+'|');
+if mdo2.s1.name<> 'null' then writeln('|'+'1- '+name_tab(text[89],5)+' '+name_tab(mdo2.s1.name,25)+'|'+name_tab(inttostr(mdo2.s1.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s1.base_defense),6)+'|'+name_tab(inttostr(mdo2.s1.ves),4)+'|');
+if mdo2.s2.name<> 'null' then writeln('|'+'2- '+name_tab(text[89],5)+' '+name_tab(mdo2.s2.name,25)+'|'+name_tab(inttostr(mdo2.s2.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s2.base_defense),6)+'|'+name_tab(inttostr(mdo2.s2.ves),4)+'|');
+if mdo2.s3.name<> 'null' then writeln('|'+'3- '+name_tab(text[89],5)+' '+name_tab(mdo2.s3.name,25)+'|'+name_tab(inttostr(mdo2.s3.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s3.base_defense),6)+'|'+name_tab(inttostr(mdo2.s3.ves),4)+'|');
+if mdo2.s4.name<> 'null' then writeln('|'+'4- '+name_tab(text[89],5)+' '+name_tab(mdo2.s4.name,25)+'|'+name_tab(inttostr(mdo2.s4.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s4.base_defense),6)+'|'+name_tab(inttostr(mdo2.s4.ves),4)+'|');
+if mdo2.s5.name<> 'null' then writeln('|'+'5- '+name_tab(text[89],5)+' '+name_tab(mdo2.s5.name,25)+'|'+name_tab(inttostr(mdo2.s5.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s5.base_defense),6)+'|'+name_tab(inttostr(mdo2.s5.ves),4)+'|');
 
 end;//1
 writeln(text[90]);
@@ -3131,6 +3134,7 @@ unix utf-8 text.lang
 }
 //--------------------------------
 BEGIN
+Window(1,1,200,200);
 fool_log:=false;
 log_generate('log_new_generate','begin');
 Randomize;
@@ -3182,7 +3186,7 @@ map_generate('map_test_generate');
 //log_generate('log_old_generate','start mob_generate');
 mob_generate;
 mini_map_generate;
-//evolution(1);
+//evolution(5);
 if fool_log=true then log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');
 hero:=lvlup(hero);

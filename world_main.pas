@@ -1897,6 +1897,7 @@ end;
 function auto_lvlup(al:new_body):new_body;
 
 begin
+al:=hero_update(al);
 if fool_log=true then log_generate('log_old_generate','avto levelup, mob name '+al.name+' lvl '+inttostr(al.lvl));
 if al.exp>=al.lvl*5 then begin//1
 al.exp:=0;
@@ -1963,16 +1964,25 @@ end;
 function mob_battle(mb1,mb2:new_body):temp;
 
 begin
+//mb1:=hero_update(mb1);mb2:=hero_update(mb2);
 if fool_log=true then log_generate('log_old_generate','mob batle, mob1 name '+mb1.name+' , mob2 name '+mb2.name+' lvl1 '+inttostr(mb1.lvl)+' lvl2 '+inttostr(mb2.lvl));
-repeat begin//1
-if mb1.dmg>=mb2.ign_dmg then mb2.hp:=mb2.hp-abs(mb1.dmg-mb2.ign_dmg) else mb2.hp:=mb2.hp-(mb1.dmg div 4);
-
-if mb2.dmg>=mb1.ign_dmg then mb1.hp:=mb1.hp-abs(mb2.dmg-mb1.ign_dmg) else mb1.hp:=mb1.hp-(mb2.dmg div 4);
+if fool_log=true then log_generate('log_old_generate','mb1_hp- '+inttostr(mb1.hp)+' '+inttostr(mb2.hp));
+if fool_log=true then log_generate('log_old_generate','mb1_dmg- '+inttostr(mb1.dmg)+' '+inttostr(mb2.dmg));
+if fool_log=true then log_generate('log_old_generate','mb1_ign_dmg- '+inttostr(mb1.ign_dmg)+' '+inttostr(mb2.ign_dmg));
+if (mb1.hp>0)and (mb2.hp>0) then begin//0
+ repeat begin//1
+if mb1.dmg>mb2.ign_dmg then begin mb2.hp:=mb2.hp-abs(mb1.dmg-mb2.ign_dmg);mb1.hp:=mb1.hp-(mb2.dmg div 4); end;
+if mb2.dmg>mb1.ign_dmg then begin mb1.hp:=mb1.hp-abs(mb2.dmg-mb1.ign_dmg) ;mb2.hp:=mb2.hp-(mb1.dmg div 4); end;
+if (mb2.dmg<=mb1.ign_dmg) or (mb1.dmg<=mb2.ign_dmg)then begin mb1.hp:=mb1.hp-(mb2.dmg div 4);  mb2.hp:=mb2.hp-(mb1.dmg div 4); end;
+if fool_log=true then log_generate('log_old_generate','mb_x- '+inttostr(mb1.hp)+' '+inttostr(mb2.hp));
 end;//1
 until (mb2.hp<=0) or(mb1.hp<=0);
+end;//0
 if mb1.hp>0 then begin mb1.exp:=mb1.exp+10; mb1:=auto_lvlup(mb1); mob_battle.nb1:=mb1;mob_battle.nb2:=mb2;  end;
-if mb2.hp>0 then begin mb2.exp:=mb2.exp+10;  mb2:=auto_lvlup(mb2); mob_battle.nb1:=mb2; mob_battle.nb2:=mb1; end;
-
+if mb2.hp>0 then begin mb2.exp:=mb2.exp+10;  mb2:=auto_lvlup(mb2); mob_battle.nb1:=mb1; mob_battle.nb2:=mb2; end;
+if  (mb1.hp<=0) then begin {mb1:=hero_update(mb1);}  mob_battle.nb1:=mb1; mob_battle.nb2:=mb2; end;
+if (mb2.hp<=0)  then begin{ mb2:=hero_update(mb2); } mob_battle.nb1:=mb1; mob_battle.nb2:=mb2; end;
+if fool_log=true then log_generate('log_old_generate','mb2- '+inttostr(mb1.hp)+' '+inttostr(mb2.hp));
 end;
 
 
@@ -2514,6 +2524,7 @@ for bl:=0 to 99 do begin//8
 for i:=0 to 99 do begin//8.1
 temp_battle:=mob_battle(npc_generate(oz_list[bl].x,oz_list[bl].y,1,2),npc_generate(oz_list[bl].x,oz_list[bl].y,1,2));
 	mob[k0]:=temp_battle.nb1;
+	mob[k0]:=hero_update(mob[k0]);
 	//if (bl=10)and(i=10) then log_generate('log_old_generate','mob generate '+mob[k0].st1);
 	//--------------------------------------mob--------
 	map[mob[k0].x,mob[k0].y].tip:=3;
@@ -2938,7 +2949,8 @@ temp_npc1:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y,1,1);
 
 temp_npc2:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y,1,1);
 temp_battle:=mob_battle(temp_npc1,temp_npc2);
-	npc[k1]:=temp_battle.nb1;
+if temp_battle.nb1.hp>0 then npc[k1]:=temp_battle.nb1;
+if temp_battle.nb2.hp>0 then npc[k1]:=temp_battle.nb2;
 	k1:=k1+1;
 		
 	end;//6.2.2.1
@@ -3036,7 +3048,7 @@ end;
 
 procedure mini_map_generate;
 begin
-writeln	(text[72],' ',text[135]);
+writeln	(text[72],text[135]);
 for i:=0 to 204 do begin //1
 for j:=0 to 204 do begin //2
 mini_map[i,j].structure:=map[i*10,j*10].structure;
@@ -3050,17 +3062,22 @@ end;
 procedure evolution(evo:integer);
 var e_i,e_i1:integer;
 begin
-
+writeln	(text[124]);
 for e_i:=0 to evo do begin//1
 
 for e_i1:=0 to 9999 do begin//2
-ClrScr;
-writeln	(text[124],' ',inttostr(e_i),' ',inttostr(e_i1));
+//ClrScr;
+//writeln	(text[124],' ',inttostr(e_i),' ',inttostr(e_i1));
+ //log_generate('log_old_generate',text[124]+' '+inttostr(e_i)+' '+inttostr(e_i1)+' '+inttostr(mob[e_i1].hp)+' '+inttostr(mob[e_i1].hp));
 if (mob[e_i1].hp>1)and(mob[e_i1+1].hp>1) then temp_battle:=mob_battle(mob[e_i1],mob[e_i1+1]);
+
 mob[e_i1]:=temp_battle.nb1;
 mob[e_i1+1]:=temp_battle.nb2;
+// log_generate('log_old_generate','1- '+inttostr(mob[e_i1].hp)+' '+inttostr(mob[e_i1].hp));
+
 if mob[e_i1].hp<=0 then mob[e_i1]:=undead(mob[e_i1],random(100));
 if mob[e_i1+1].hp<=0 then mob[e_i1+1]:=undead(mob[e_i1+1],random(100));
+// log_generate('log_old_generate','2- '+inttostr(mob[e_i1].hp)+' '+inttostr(mob[e_i1].hp));
 
 
 end;//2
@@ -3186,7 +3203,7 @@ map_generate('map_test_generate');
 //log_generate('log_old_generate','start mob_generate');
 mob_generate;
 mini_map_generate;
-//evolution(5);
+evolution(5);
 if fool_log=true then log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');
 hero:=lvlup(hero);

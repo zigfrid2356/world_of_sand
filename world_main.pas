@@ -526,7 +526,7 @@ begin
 //log_generate('log_old_generate','name_item_generate -1- '+command);
 //if command='helm' then begin//1
 if lang_s='w_rus' then assign(item_name,'res\har\'+command);
-if lang_s='u_rus' then assign(item_name,'res/har/'+command);
+if lang_s='u_rus' then assign(item_name,'res/har/u_'+command);
 if lang_s='w_eng' then assign(item_name,'res\har\'+command+'_eng');
 if lang_s='u_eng' then assign(item_name,'res/har/'+command+'_eng');
 reset(item_name);
@@ -990,7 +990,24 @@ end;
 
 //27.02.2016
 function mob_drop_out(mdo1,mdo2:new_body;command:char):temp;
+//mdo1-hero,mdo2-mob
 begin
+repeat begin//0
+clrscr;
+if command='o' then begin//1
+writeln('|'+name_tab(text[91],28)+'|'+name_tab(text[12],6)+'|'+name_tab(text[92],6)+'|'+name_tab(text[93],4)+'|');
+if mdo2.s1.name<> 'null' then writeln('|'+'1- '+name_tab(text[89],11)+' '+name_tab(mdo2.s1.name,16)+'|'+name_tab(inttostr(mdo2.s1.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s1.base_defense),6)+'|'+name_tab(inttostr(mdo2.s1.ves),4)+'|');
+if mdo2.s2.name<> 'null' then writeln('|'+'1- '+name_tab(text[89],11)+' '+name_tab(mdo2.s2.name,16)+'|'+name_tab(inttostr(mdo2.s2.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s2.base_defense),6)+'|'+name_tab(inttostr(mdo2.s2.ves),4)+'|');
+if mdo2.s3.name<> 'null' then writeln('|'+'1- '+name_tab(text[89],11)+' '+name_tab(mdo2.s3.name,16)+'|'+name_tab(inttostr(mdo2.s3.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s3.base_defense),6)+'|'+name_tab(inttostr(mdo2.s3.ves),4)+'|');
+if mdo2.s4.name<> 'null' then writeln('|'+'1- '+name_tab(text[89],11)+' '+name_tab(mdo2.s4.name,16)+'|'+name_tab(inttostr(mdo2.s4.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s4.base_defense),6)+'|'+name_tab(inttostr(mdo2.s4.ves),4)+'|');
+if mdo2.s5.name<> 'null' then writeln('|'+'1- '+name_tab(text[89],11)+' '+name_tab(mdo2.s5.name,16)+'|'+name_tab(inttostr(mdo2.s5.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s5.base_defense),6)+'|'+name_tab(inttostr(mdo2.s5.ves),4)+'|');
+
+end;//1
+writeln(text[90]);
+menu_key:=readkey;
+end;//0
+
+until menu_key='0';
 mob_drop_out.nb1:=mdo1;
 mob_drop_out.nb2:=mdo2;
 end;

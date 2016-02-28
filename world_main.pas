@@ -1918,7 +1918,9 @@ if fool_log=true then log_generate('log_old_generate','undead, mob name '+ud.nam
 if (tim>0) and (tim<=20) then begin ud.race:=5; ud.stren:=ud.stren+5; end;
 if (tim>20) and (tim<=80) then begin ud.race:=6; ud.agility:=ud.agility+5;end;
 if (tim>80) and (tim<=100) then begin ud.race:=7; ud.intel:=ud.intel+5;end;
-undead:=hero_update(ud);
+ud:=hero_update(ud);
+undead:=ud;
+if (ud.hp<0) or (ud.hp>1000) then log_generate('log_old_generate','undead, mob name '+ud.name+' lvl '+inttostr(ud.lvl));
 end;
 
 //22.02.2016

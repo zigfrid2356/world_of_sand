@@ -997,16 +997,17 @@ function mob_drop_out_loot(mdol1,mdol2:new_body;command:char;index:word):temp;
 var
 bagi:word;
 begin
+//log_generate('log_old_generate','mob drop out loot '+command+' '+inttostr(index));
 bagi:=0;
 if (command= 'o')and(mdol2.s[index].name<> 'null' ) then begin//00.1
-while mdol2.bag[bagi].tip<>0 do bagi:=bagi+1;
-mdol2.bag[bagi]:=mdol1.s[index+1];
-mdol1.s[index+1]:=beast_inv_generate('nill');
+while mdol1.bag[bagi].tip<>0 do bagi:=bagi+1;
+mdol1.bag[bagi]:=mdol2.s[index+1];
+mdol2.s[index+1]:=beast_inv_generate('nill');
 end;//00.1
 if (command= 'e')and(mdol2.bag[0].name<> 'null' ) then begin//00.1
-while mdol2.bag[bagi].tip<>0 do bagi:=bagi+1;
-mdol2.bag[bagi]:=mdol1.bag[index];
-mdol1.bag[index]:=beast_inv_generate('nill');
+while mdol1.bag[bagi].tip<>0 do bagi:=bagi+1;
+mdol1.bag[bagi]:=mdol2.bag[index];
+mdol2.bag[index]:=beast_inv_generate('nill');
 end;//00.1
 mob_drop_out_loot.nb1:=mdol1;
 mob_drop_out_loot.nb2:=mdol2;
@@ -1022,7 +1023,7 @@ clrscr;
 if command='o' then begin//1
 writeln('|'+name_tab(text[91],35)+'|'+name_tab(text[12],6)+'|'+name_tab(text[92],6)+'|'+name_tab(text[93],4)+'|');
 for i:=1 to 5 do
-if mdo2.s[i].name<> 'null' then writeln('|'+'1- '+name_tab(text[89],5)+' '+name_tab(mdo2.s[i].name,25)+'|'+name_tab(inttostr(mdo2.s[i].base_dmg),6)+'|'+name_tab(inttostr(mdo2.s[i].base_defense),6)+'|'+name_tab(inttostr(mdo2.s[i].ves),4)+'|');
+if mdo2.s[i].name<> 'null' then writeln('|',i,'- '+name_tab(text[89],5)+' '+name_tab(mdo2.s[i].name,25)+'|'+name_tab(inttostr(mdo2.s[i].base_dmg),6)+'|'+name_tab(inttostr(mdo2.s[i].base_defense),6)+'|'+name_tab(inttostr(mdo2.s[i].ves),4)+'|');
 end;//1
 if command='e' then begin//2
 writeln('|'+name_tab(text[91],35)+'|'+name_tab(text[12],6)+'|'+name_tab(text[92],6)+'|'+name_tab(text[93],4)+'|');
@@ -1033,11 +1034,13 @@ writeln(text[90]);
 menu_key:=readkey;
 
 case menu_key of
-'1':mdot:=mob_drop_out_loot(mdo1,mdo2,command,0);
-'2':mdot:=mob_drop_out_loot(mdo1,mdo2,command,0); 
-'3':mdot:=mob_drop_out_loot(mdo1,mdo2,command,0);
-'4':mdot:=mob_drop_out_loot(mdo1,mdo2,command,0);
-'5':mdot:=mob_drop_out_loot(mdo1,mdo2,command,0);
+'1': begin mdot:=mob_drop_out_loot(mdo1,mdo2,command,0);
+//log_generate('log_old_generate','mob drop out -  '+command+' 0');
+end;
+'2':mdot:=mob_drop_out_loot(mdo1,mdo2,command,1); 
+'3':mdot:=mob_drop_out_loot(mdo1,mdo2,command,2);
+'4':mdot:=mob_drop_out_loot(mdo1,mdo2,command,3);
+'5':mdot:=mob_drop_out_loot(mdo1,mdo2,command,4);
 end;
 mdo1:=mdot.nb1;
 mdo2:=mdot.nb2;
@@ -1063,10 +1066,12 @@ writeln('2- ',text[134]);
 writeln(text[90]);
 menu_key:=readkey;
 case menu_key of
-'1': mdt:=mob_drop_out(md1,md2,'o');
-
-'2': mdt:=mob_drop_out(md1,md2,'e');
-
+'1': begin mdt:=mob_drop_out(md1,md2,'o');
+log_generate('log_old_generate','mob drop  o');
+end;
+'2': begin mdt:=mob_drop_out(md1,md2,'e');
+log_generate('log_old_generate','mob drop  e');
+end;
 end;
 end;//1
 
@@ -2558,7 +2563,7 @@ k0:=0;
 for bl:=0 to 99 do begin//8
 for i:=0 to 99 do begin//8.1
 temp_battle:=mob_battle(npc_generate(oz_list[bl].x,oz_list[bl].y,1,2),npc_generate(oz_list[bl].x,oz_list[bl].y,1,2));
-log_generate('log_old_generate','mob generate '+inttostr(k0));
+if fool_log=true then log_generate('log_old_generate','mob generate '+inttostr(k0));
 	mob[k0]:=temp_battle.nb1;
 	mob[k0]:=hero_update(mob[k0]);
 	//if (bl=10)and(i=10) then log_generate('log_old_generate','mob generate '+mob[k0].st1);

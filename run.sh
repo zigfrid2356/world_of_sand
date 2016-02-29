@@ -2,6 +2,6 @@
 git pull
 git init
 git add .
-git commit -a -m 'mob drop win'
+git commit -a -m 'борьба с отображением'
 git remote add origin git@github.com:username/reponame.git
 git push -u origin master

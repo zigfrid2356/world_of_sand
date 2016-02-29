@@ -1827,7 +1827,8 @@ if fool_log=true then log_generate('log_old_generate','hero_generate '+'-4- ');
 //+06.09.2015
 //++01.01.2016
 //
-for n:=0 to 99 do hero_generate.bag[n]:=beast_inv_generate('null');
+for n:=0 to 2 do hero_generate.bag[n]:=beast_inv_generate('ring');
+for n:=3 to 99 do hero_generate.bag[n]:=beast_inv_generate('null');
 if fool_log=true then log_generate('log_old_generate','hero_generate'+' -5- ');
 
 end;//0
@@ -2383,21 +2384,39 @@ end;
 
 procedure bag_info;
 var
-b_l,t_b_l:byte;
+b_l,t_b_l,bi:byte;
+bs:array[0..9]of char;
 begin
-b_l:=0;
+b_l:=0;bi:=0;
+bs[0]:='q';bs[1]:='w';bs[2]:='e';bs[3]:='r';bs[4]:='t';bs[5]:='y';bs[6]:='u';bs[7]:='i';bs[8]:='o';bs[9]:='p';
 if fool_log=true then log_generate('log_old_generate','bag_info');
+
 repeat begin//1.1
 clrscr;
 writeln(text[117],' (1-9)');
 writeln(text[45]);
 t_b_l:=(b_l*10)+9;
 for i:=b_l*10 to t_b_l do begin//1
-if hero.bag[i].tip <> 0 then writeln(text[44],' ',i,' ',hero.bag[i].name,' ',item_info(hero.bag[i].tip));
+if hero.bag[i].tip <> 0 then writeln(text[44],' ',i,' ',hero.bag[i].name,' ',item_info(hero.bag[i].tip),' ',text[140],bs[bi]);
+bi:=bi+1;
 end;//1
 writeln(text[90]);
 menu_key:=readkey;
 b_l:=strtoint(menu_key);
+{case menu_key of//2
+'q':
+'w':
+'e':
+'r':
+'t':
+'y':
+'u':
+'i':
+'o':
+'p':
+
+end;//2}
+
 end;//1.1
 until menu_key='0';
 end;

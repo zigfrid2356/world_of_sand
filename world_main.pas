@@ -82,7 +82,8 @@ point:byte;
 //boev
 dmg,ign_dmg:integer;
 //invent
-s1,s2,s3,s4,s5:subject;
+s:array[1..5]of subject;
+//s1,s2,s3,s4,s5:subject;
 //bag
 bag:array[0..99] of subject;
 //story
@@ -991,26 +992,58 @@ end;
 until menu_key='0';
 end;
 
+//29.02.2016
+function mob_drop_out_loot(mdol1,mdol2:new_body;command:char;index:word):temp;
+var
+bagi:word;
+begin
+bagi:=0;
+if (command= 'o')and(mdol2.s[index].name<> 'null' ) then begin//00.1
+while mdol2.bag[bagi].tip<>0 do bagi:=bagi+1;
+mdol2.bag[bagi]:=mdol1.s[index+1];
+mdol1.s[index+1]:=beast_inv_generate('nill');
+end;//00.1
+if (command= 'e')and(mdol2.bag[0].name<> 'null' ) then begin//00.1
+while mdol2.bag[bagi].tip<>0 do bagi:=bagi+1;
+mdol2.bag[bagi]:=mdol1.bag[index];
+mdol1.bag[index]:=beast_inv_generate('nill');
+end;//00.1
+mob_drop_out_loot.nb1:=mdol1;
+mob_drop_out_loot.nb2:=mdol2;
+end;
 //27.02.2016
 function mob_drop_out(mdo1,mdo2:new_body;command:char):temp;
 //mdo1-hero,mdo2-mob
+var
+mdot:temp;
 begin
 repeat begin//0
 clrscr;
 if command='o' then begin//1
 writeln('|'+name_tab(text[91],35)+'|'+name_tab(text[12],6)+'|'+name_tab(text[92],6)+'|'+name_tab(text[93],4)+'|');
-if mdo2.s1.name<> 'null' then writeln('|'+'1- '+name_tab(text[89],5)+' '+name_tab(mdo2.s1.name,25)+'|'+name_tab(inttostr(mdo2.s1.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s1.base_defense),6)+'|'+name_tab(inttostr(mdo2.s1.ves),4)+'|');
-if mdo2.s2.name<> 'null' then writeln('|'+'2- '+name_tab(text[89],5)+' '+name_tab(mdo2.s2.name,25)+'|'+name_tab(inttostr(mdo2.s2.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s2.base_defense),6)+'|'+name_tab(inttostr(mdo2.s2.ves),4)+'|');
-if mdo2.s3.name<> 'null' then writeln('|'+'3- '+name_tab(text[89],5)+' '+name_tab(mdo2.s3.name,25)+'|'+name_tab(inttostr(mdo2.s3.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s3.base_defense),6)+'|'+name_tab(inttostr(mdo2.s3.ves),4)+'|');
-if mdo2.s4.name<> 'null' then writeln('|'+'4- '+name_tab(text[89],5)+' '+name_tab(mdo2.s4.name,25)+'|'+name_tab(inttostr(mdo2.s4.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s4.base_defense),6)+'|'+name_tab(inttostr(mdo2.s4.ves),4)+'|');
-if mdo2.s5.name<> 'null' then writeln('|'+'5- '+name_tab(text[89],5)+' '+name_tab(mdo2.s5.name,25)+'|'+name_tab(inttostr(mdo2.s5.base_dmg),6)+'|'+name_tab(inttostr(mdo2.s5.base_defense),6)+'|'+name_tab(inttostr(mdo2.s5.ves),4)+'|');
-
+for i:=1 to 5 do
+if mdo2.s[i].name<> 'null' then writeln('|'+'1- '+name_tab(text[89],5)+' '+name_tab(mdo2.s[i].name,25)+'|'+name_tab(inttostr(mdo2.s[i].base_dmg),6)+'|'+name_tab(inttostr(mdo2.s[i].base_defense),6)+'|'+name_tab(inttostr(mdo2.s[i].ves),4)+'|');
 end;//1
+if command='e' then begin//2
+writeln('|'+name_tab(text[91],35)+'|'+name_tab(text[12],6)+'|'+name_tab(text[92],6)+'|'+name_tab(text[93],4)+'|');
+for i:=0 to 4 do 
+if mdo2.bag[i].name<> 'null' then writeln('|',i+1,'- '+name_tab(text[89],5)+' '+name_tab(mdo2.bag[i].name,25)+'|'+name_tab(inttostr(mdo2.bag[i].base_dmg),6)+'|'+name_tab(inttostr(mdo2.bag[i].base_defense),6)+'|'+name_tab(inttostr(mdo2.bag[i].ves),4)+'|');
+end;//2
 writeln(text[90]);
 menu_key:=readkey;
-end;//0
 
+case menu_key of
+'1':mdot:=mob_drop_out_loot(mdo1,mdo2,command,0);
+'2':mdot:=mob_drop_out_loot(mdo1,mdo2,command,0); 
+'3':mdot:=mob_drop_out_loot(mdo1,mdo2,command,0);
+'4':mdot:=mob_drop_out_loot(mdo1,mdo2,command,0);
+'5':mdot:=mob_drop_out_loot(mdo1,mdo2,command,0);
+end;
+mdo1:=mdot.nb1;
+mdo2:=mdot.nb2;
+end;//0
 until menu_key='0';
+
 mob_drop_out.nb1:=mdo1;
 mob_drop_out.nb2:=mdo2;
 end;
@@ -1207,20 +1240,20 @@ hero_update.lvl:=nb.lvl;
 hero_update.gold:=nb.gold;
 hero_update.x:=nb.x;
 hero_update.y:=nb.y;
-
-hero_update.init:=nb.init+nb.s1.init+nb.s2.init+nb.s3.init+nb.s4.init+nb.s5.init;
-hero_update.masking:=nb.masking+nb.s1.masking+nb.s2.masking+nb.s3.masking+nb.s4.masking+nb.s5.masking;
-hero_update.obser:=nb.obser+nb.s1.obser+nb.s2.obser+nb.s3.obser+nb.s4.obser+nb.s5.obser;
+nb.dmg:=nb.attak*4;
+nb.ign_dmg:=nb.defense*4;
+i:=1;
+for i:=1 to 5 do begin
+hero_update.init:=nb.init+nb.s[i].init;
+hero_update.masking:=nb.masking+nb.s[i].masking;
+hero_update.obser:=nb.obser+nb.s[i].obser;
 hero_update.point:=nb.point;
 //boev
-hero_update.dmg:=(4*nb.attak)+nb.s1.base_dmg+nb.s2.base_dmg+nb.s3.base_dmg+nb.s4.base_dmg+nb.s5.base_dmg;
-hero_update.ign_dmg:=(4*nb.defense)+nb.s1.base_defense+nb.s2.base_defense+nb.s3.base_defense+nb.s4.base_defense+nb.s5.base_defense;
+hero_update.dmg:=nb.attak+nb.s[i].base_dmg;
+hero_update.ign_dmg:=nb.defense+nb.s[i].base_defense;
 //invent
-hero_update.s1:=nb.s1;
-hero_update.s2:=nb.s2;
-hero_update.s3:=nb.s3;
-hero_update.s4:=nb.s4;
-hero_update.s5:=nb.s5;
+hero_update.s[i]:=nb.s[i];
+end;
 //story
 hero_update.st0:=nb.st0;
 hero_update.st1:=nb.st1;
@@ -1275,11 +1308,11 @@ npc_generate.point:=0;//21.12.2015
 
 //invent
 
-npc_generate.s1:=beast_inv_generate('helm');
-npc_generate.s2:=beast_inv_generate('dress');
-npc_generate.s3:=beast_inv_generate('shoes');
-npc_generate.s4:=beast_inv_generate('sword');
-npc_generate.s5:=beast_inv_generate('shield');
+npc_generate.s[1]:=beast_inv_generate('helm');
+npc_generate.s[2]:=beast_inv_generate('dress');
+npc_generate.s[3]:=beast_inv_generate('shoes');
+npc_generate.s[4]:=beast_inv_generate('sword');
+npc_generate.s[5]:=beast_inv_generate('shield');
 
 for k2:=0 to 4 do begin//bg1
 stg:=random(4);
@@ -1562,11 +1595,11 @@ hero_generate.dmg:=4*hero_generate.attak;
 hero_generate.ign_dmg:=4*hero_generate.defense;
 hero_generate.gold:=100;//-----------------------------temp!!!---delete
 hero_generate.point:=10;//22.12.2015//++23.12.2015
-hero_generate.s1:=beast_inv_generate('helm');
-hero_generate.s2:=beast_inv_generate('dress');
-hero_generate.s3:=beast_inv_generate('shoes');
-hero_generate.s4:=beast_inv_generate('sword');
-hero_generate.s5:=beast_inv_generate('shield');
+hero_generate.s[1]:=beast_inv_generate('helm');
+hero_generate.s[2]:=beast_inv_generate('dress');
+hero_generate.s[3]:=beast_inv_generate('shoes');
+hero_generate.s[4]:=beast_inv_generate('sword');
+hero_generate.s[5]:=beast_inv_generate('shield');
 if fool_log=true then log_generate('log_old_generate','hero_generate '+'-4- ');
 //+06.09.2015
 //++01.01.2016
@@ -2169,13 +2202,13 @@ writeln(text[32],' ',hero.masking ); //маскировка
 writeln(text[33],' ',hero.obser );// наблюдательность
 
 writeln('        ___');
-writeln('       |_1_|       1',text[40],' ',hero.s1.base_defense,{);writeln(}text[101]);
-writeln('  ___   ___   ___  2',text[40],' ',hero.s2.base_defense,{);writeln(}text[103]);
-writeln(' | 4 | |   | | 5 | 4',text[41],' ',hero.s4.base_dmg,text[105]);
-writeln(' |___| | 2 | |___| 5',text[40],' ',hero.s5.base_defense,text[106]);
+writeln('       |_1_|       1',text[40],' ',hero.s[1].base_defense,{);writeln(}text[101]);
+writeln('  ___   ___   ___  2',text[40],' ',hero.s[2].base_defense,{);writeln(}text[103]);
+writeln(' | 4 | |   | | 5 | 4',text[41],' ',hero.s[4].base_dmg,text[105]);
+writeln(' |___| | 2 | |___| 5',text[40],' ',hero.s[5].base_defense,text[106]);
 writeln('       |___|');
 writeln('        ___');
-writeln('       |_3_|       3',text[40],' ',hero.s3.base_defense,{);writeln(}text[104]);
+writeln('       |_3_|       3',text[40],' ',hero.s[3].base_defense,{);writeln(}text[104]);
 //+06.09.2015
 writeln(text[43]);
 writeln(text[35]);
@@ -2184,11 +2217,11 @@ menu_key:=readkey;
 
 case menu_key of
 '2':bag_info;
-'h':item_ful_info(hero.s1);
-'d':item_ful_info(hero.s2);
-'s':item_ful_info(hero.s3);
-'f':item_ful_info(hero.s4);
-'g':item_ful_info(hero.s5);
+'h':item_ful_info(hero.s[1]);
+'d':item_ful_info(hero.s[2]);
+'s':item_ful_info(hero.s[3]);
+'f':item_ful_info(hero.s[4]);
+'g':item_ful_info(hero.s[5]);
 end;//2
 end;
 until menu_key='1';
@@ -2525,6 +2558,7 @@ k0:=0;
 for bl:=0 to 99 do begin//8
 for i:=0 to 99 do begin//8.1
 temp_battle:=mob_battle(npc_generate(oz_list[bl].x,oz_list[bl].y,1,2),npc_generate(oz_list[bl].x,oz_list[bl].y,1,2));
+log_generate('log_old_generate','mob generate '+inttostr(k0));
 	mob[k0]:=temp_battle.nb1;
 	mob[k0]:=hero_update(mob[k0]);
 	//if (bl=10)and(i=10) then log_generate('log_old_generate','mob generate '+mob[k0].st1);

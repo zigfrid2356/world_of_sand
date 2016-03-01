@@ -64,7 +64,7 @@ typ,clas,podclas,podtyp:byte;
 
 end;
 subject=record//+05.11.2015
-name,type_subject:string;
+name,type_subject:string[50];
 base_dmg,base_defense,ves,cost,tip:word;{tip=1-weapon,2-armor...}
 stren,intel,agility,hp,mp:word;//+29.02.2016
 init,masking,obser:word;
@@ -2381,20 +2381,28 @@ until readkey='1';
 end;
 
 //01.03.2016
+function select(si:byte):byte;
+var
+sii:byte;
+begin
+for sii:=1 to si do writeln(text[141],' - ',sii);
+menu_key:=readkey;
+select:=strtoint(menu_key);
+end;
+
+//01.03.2016
 function hero_dressed(hd:new_body;number:byte):new_body;
 var
 bagi:byte;
 begin
-log_generate('log_old_generate','hero_dressed '+inttostr(number));
+{log_generate('log_old_generate','hero_dressed '+inttostr(number));
 log_generate('log_old_generate','hero_dressed bag tip'+inttostr(hd.bag[number].tip));
-log_generate('log_old_generate','hero_dressed s4 tip'+inttostr(hd.s[4].tip));
+log_generate('log_old_generate','hero_dressed s4 tip'+inttostr(hd.s[4].tip));}
+//weapon
 bagi:=0;
 if (hd.bag[number].tip=1)and(hd.s[4].tip= 0 ) then  begin//1
-//while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
 hd.s[4]:=hd.bag[number];
-log_generate('log_old_generate','hero_dressed! s4 tip'+inttostr(hd.s[4].tip));
 hd.bag[number]:=beast_inv_generate('nill');
-log_generate('log_old_generate','hero_dressed bag! tip'+inttostr(hd.bag[number].tip));
 hd:=hero_get_dress(hd,'o',4,'d');
 end;//1
 
@@ -2408,7 +2416,24 @@ hd.s[4]:=hd.bag[number];
 hd.bag[number]:=beast_inv_generate('nill');
 hd:=hero_get_dress(hd,'o',4,'d');
 end;//2
+//helem
+bagi:=0;
+if (hd.bag[number].tip=2)and(hd.s[1].tip= 0 )and(hd.bag[number].type_subject='helm') then  begin//1
+hd.s[1]:=hd.bag[number];
+hd.bag[number]:=beast_inv_generate('nill');
+hd:=hero_get_dress(hd,'o',1,'d');
+end;//1
 
+if (hd.bag[number].tip=2)and(hd.s[1].tip= 2 )and(hd.bag[number].type_subject='helm') then  begin//2
+while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
+hd.bag[bagi]:=hd.s[1];
+hd:=hero_get_dress(hd,'o',1,'u');
+hd.s[1]:=beast_inv_generate('nill');
+
+hd.s[1]:=hd.bag[number];
+hd.bag[number]:=beast_inv_generate('nill');
+hd:=hero_get_dress(hd,'o',1,'d');
+end;//2
 
 
 hero_dressed:=hd;
@@ -2457,35 +2482,35 @@ bag_info:=bi;
 end;
 
 
-procedure hero_output;
+function hero_output(ho:new_body):new_body;
 begin
 if fool_log=true then log_generate('log_old_generate','hero_output ');
 repeat begin//1
 clrscr;
 writeln();
-writeln(text[5],' ',hero.hp,' ',text[6],hero.mp );
+writeln(text[5],' ',ho.hp,' ',text[6],ho.mp );
 //writeln(text[6],hero.mp );
-writeln(text[7],hero.exp,' ',text[8],hero.lvl );
+writeln(text[7],ho.exp,' ',text[8],ho.lvl );
 //writeln(text[8],hero.lvl );
-writeln(text[12],hero.dmg );
-writeln(text[13],hero.ign_dmg );
-writeln(text[26],' ',hero.stren );// сила
-writeln(text[27],' ',hero.intel );// интиллект
-writeln(text[28],' ',hero.agility );// ловкость
-writeln(text[29],' ',hero.sex );// пол
-writeln(text[30],' ',race_output(hero.race) );// расса
-writeln(text[31],' ',hero.init );// инициатива
-writeln(text[32],' ',hero.masking ); //маскировка
-writeln(text[33],' ',hero.obser );// наблюдательность
+writeln(text[12],ho.dmg );
+writeln(text[13],ho.ign_dmg );
+writeln(text[26],' ',ho.stren );// сила
+writeln(text[27],' ',ho.intel );// интиллект
+writeln(text[28],' ',ho.agility );// ловкость
+writeln(text[29],' ',ho.sex );// пол
+writeln(text[30],' ',race_output(ho.race) );// расса
+writeln(text[31],' ',ho.init );// инициатива
+writeln(text[32],' ',ho.masking ); //маскировка
+writeln(text[33],' ',ho.obser );// наблюдательность
 
 writeln('        ___');
-writeln('       |_1_|       1',text[40],' ',hero.s[1].base_defense,text[101]);
-writeln('  ___   ___   ___  2',text[40],' ',hero.s[2].base_defense,text[103]);
-writeln(' | 4 | |   | | 5 | 4',text[41],' ',hero.s[4].base_dmg,text[105]);
-writeln(' |___| | 2 | |___| 5',text[40],' ',hero.s[5].base_defense,text[106]);
+writeln('       |_1_|       1',text[40],' ',ho.s[1].base_defense,text[101]);
+writeln('  ___   ___   ___  2',text[40],' ',ho.s[2].base_defense,text[103]);
+writeln(' | 4 | |   | | 5 | 4',text[41],' ',ho.s[4].base_dmg,text[105]);
+writeln(' |___| | 2 | |___| 5',text[40],' ',ho.s[5].base_defense,text[106]);
 writeln('       |___|');
 writeln('        ___');
-writeln('       |_3_|       3',text[40],' ',hero.s[3].base_defense,text[104]);
+writeln('       |_3_|       3',text[40],' ',ho.s[3].base_defense,text[104]);
 //+06.09.2015
 writeln('#(1-5)- ',text[139]);
 writeln('b- ',text[43]);
@@ -2494,21 +2519,21 @@ writeln(text[90]);
 menu_key:=readkey;
 
 case menu_key of
-'b':hero:=bag_info(hero);
-'h':item_ful_info(hero.s[1]);
-'d':item_ful_info(hero.s[2]);
-'s':item_ful_info(hero.s[3]);
-'f':item_ful_info(hero.s[4]);
-'g':item_ful_info(hero.s[5]);
-'1':item_ful_info(hero.j[0]);
-'2':item_ful_info(hero.j[1]);
-'3':item_ful_info(hero.j[2]);
-'4':item_ful_info(hero.j[3]);
-'5':item_ful_info(hero.j[4]);
+'b':ho:=bag_info(ho);
+'h':item_ful_info(ho.s[1]);
+'d':item_ful_info(ho.s[2]);
+'s':item_ful_info(ho.s[3]);
+'f':item_ful_info(ho.s[4]);
+'g':item_ful_info(ho.s[5]);
+'1':item_ful_info(ho.j[0]);
+'2':item_ful_info(ho.j[1]);
+'3':item_ful_info(ho.j[2]);
+'4':item_ful_info(ho.j[3]);
+'5':item_ful_info(ho.j[4]);
 end;//2
 end;
 until menu_key='0';
-
+hero_output:=ho;
 end;
 {
 //22.02.2016
@@ -3422,7 +3447,7 @@ writeln	('9- ',text[107]);
 menu_key:=readkey;
 case menu_key of
 '1': begin //1.1
-	hero_output;
+	hero:=hero_output(hero);
 	end;//1.1
 '2':	begin//1.2
 	map_output(hero.x,hero.y); main_menu;

@@ -2398,7 +2398,7 @@ begin
 {log_generate('log_old_generate','hero_dressed '+inttostr(number));
 log_generate('log_old_generate','hero_dressed bag tip'+inttostr(hd.bag[number].tip));
 log_generate('log_old_generate','hero_dressed s4 tip'+inttostr(hd.s[4].tip));}
-//weapon
+//weapon-------------------------------------------------------------
 bagi:=0;
 if (hd.bag[number].tip=1)and(hd.s[4].tip= 0 ) then  begin//1
 hd.s[4]:=hd.bag[number];
@@ -2416,7 +2416,7 @@ hd.s[4]:=hd.bag[number];
 hd.bag[number]:=beast_inv_generate('nill');
 hd:=hero_get_dress(hd,'o',4,'d');
 end;//2
-//helem
+//helem-------------------------------------------------------------
 bagi:=0;
 if (hd.bag[number].tip=2)and(hd.s[1].tip= 0 )and(hd.bag[number].type_subject='helm') then  begin//1
 hd.s[1]:=hd.bag[number];
@@ -2434,7 +2434,24 @@ hd.s[1]:=hd.bag[number];
 hd.bag[number]:=beast_inv_generate('nill');
 hd:=hero_get_dress(hd,'o',1,'d');
 end;//2
+//dress-------------------------------------------------------------
+bagi:=0;
+if (hd.bag[number].tip=2)and(hd.s[2].tip= 0 )and(hd.bag[number].type_subject='dress') then  begin//1
+hd.s[2]:=hd.bag[number];
+hd.bag[number]:=beast_inv_generate('nill');
+hd:=hero_get_dress(hd,'o',2,'d');
+end;//1
 
+if (hd.bag[number].tip=2)and(hd.s[2].tip= 2 )and(hd.bag[number].type_subject='dress') then  begin//2
+while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
+hd.bag[bagi]:=hd.s[2];
+hd:=hero_get_dress(hd,'o',2,'u');
+hd.s[2]:=beast_inv_generate('nill');
+
+hd.s[2]:=hd.bag[number];
+hd.bag[number]:=beast_inv_generate('nill');
+hd:=hero_get_dress(hd,'o',2,'d');
+end;//2
 
 hero_dressed:=hd;
 end;

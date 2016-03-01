@@ -2452,6 +2452,61 @@ hd.s[2]:=hd.bag[number];
 hd.bag[number]:=beast_inv_generate('nill');
 hd:=hero_get_dress(hd,'o',2,'d');
 end;//2
+//shoes-------------------------------------------------------------
+bagi:=0;
+if (hd.bag[number].tip=2)and(hd.s[3].tip= 0 )and(hd.bag[number].type_subject='shoes') then  begin//1
+hd.s[3]:=hd.bag[number];
+hd.bag[number]:=beast_inv_generate('nill');
+hd:=hero_get_dress(hd,'o',3,'d');
+end;//1
+
+if (hd.bag[number].tip=2)and(hd.s[3].tip= 2 )and(hd.bag[number].type_subject='shoes') then  begin//2
+while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
+hd.bag[bagi]:=hd.s[3];
+hd:=hero_get_dress(hd,'o',3,'u');
+hd.s[3]:=beast_inv_generate('nill');
+
+hd.s[3]:=hd.bag[number];
+hd.bag[number]:=beast_inv_generate('nill');
+hd:=hero_get_dress(hd,'o',3,'d');
+end;//2
+//shield-------------------------------------------------------------
+bagi:=0;
+if (hd.bag[number].tip=2)and(hd.s[5].tip= 0 )and(hd.bag[number].type_subject='shield') then  begin//1
+hd.s[5]:=hd.bag[number];
+hd.bag[number]:=beast_inv_generate('nill');
+hd:=hero_get_dress(hd,'o',5,'d');
+end;//1
+
+if (hd.bag[number].tip=2)and(hd.s[5].tip= 2 )and(hd.bag[number].type_subject='shield') then  begin//2
+while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
+hd.bag[bagi]:=hd.s[5];
+hd:=hero_get_dress(hd,'o',5,'u');
+hd.s[5]:=beast_inv_generate('nill');
+
+hd.s[5]:=hd.bag[number];
+hd.bag[number]:=beast_inv_generate('nill');
+hd:=hero_get_dress(hd,'o',5,'d');
+end;//2
+//amulet-------------------------------------------------------------
+bagi:=0;
+if (hd.bag[number].tip=7)and(hd.j[4].tip= 0 )then  begin//1
+hd.j[4]:=hd.bag[number];
+hd.bag[number]:=beast_inv_generate('nill');
+hd:=hero_get_dress(hd,'j',4,'d');
+end;//1
+
+if (hd.bag[number].tip=7)and(hd.j[4].tip= 7 )then  begin//2
+while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
+hd.bag[bagi]:=hd.j[4];
+hd:=hero_get_dress(hd,'j',4,'u');
+hd.j[4]:=beast_inv_generate('nill');
+
+hd.j[4]:=hd.bag[number];
+hd.bag[number]:=beast_inv_generate('nill');
+hd:=hero_get_dress(hd,'j',4,'d');
+end;//2
+
 
 hero_dressed:=hd;
 end;

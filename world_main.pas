@@ -90,7 +90,7 @@ j:array[0..4]of subject;{0,1-ring,2,3-link,4-amulet}
 //bag
 bag:array[0..99] of subject;
 //story
-st0,st1,st2,st3:string[55];
+st0,st1,st2,st3:string[100];
 end;
 beast_body=record
 hp,dmg,ign_dmg:integer;
@@ -1356,7 +1356,7 @@ function hero_get_dress(hgd:new_body;command:char;ih:word;dr:char):new_body;
 {
 * command:'o'-dress/'j'-jevel
 * ih-# slot(1,2...)
-* dr:'dr'-up har, 'un'-down har
+* dr:'d'-up har, 'u'-down har
 * }
 begin
 
@@ -2382,12 +2382,13 @@ end;
 
 
 
-procedure bag_info;
+procedure bag_info(bi:new_body);
 var
-b_l,t_b_l,bi:byte;
+b_l,t_b_l,bi1:byte;
+//bss:Set Of 'a'..'z';
 bs:array[0..9]of char;
 begin
-b_l:=0;bi:=0;
+b_l:=0;bi1:=0;
 bs[0]:='q';bs[1]:='w';bs[2]:='e';bs[3]:='r';bs[4]:='t';bs[5]:='y';bs[6]:='u';bs[7]:='i';bs[8]:='o';bs[9]:='p';
 if fool_log=true then log_generate('log_old_generate','bag_info');
 
@@ -2397,15 +2398,15 @@ writeln(text[117],' (1-9)');
 writeln(text[45]);
 t_b_l:=(b_l*10)+9;
 for i:=b_l*10 to t_b_l do begin//1
-if hero.bag[i].tip <> 0 then writeln(text[44],' ',i,' ',hero.bag[i].name,' ',item_info(hero.bag[i].tip),' ',text[140],bs[bi]);
-bi:=bi+1;
+if bi.bag[i].tip <> 0 then writeln(text[44],' ',i,' ',bi.bag[i].name,' ',item_info(bi.bag[i].tip),' ',text[140],bs[bi1]);
+bi1:=bi1+1;
 end;//1
 writeln(text[90]);
 menu_key:=readkey;
-b_l:=strtoint(menu_key);
-{case menu_key of//2
-'q':
-'w':
+
+case menu_key of//2
+'q':bi:=hero_get_dress(bi,'1',1,'d');
+{'w':
 'e':
 'r':
 't':
@@ -2413,9 +2414,9 @@ b_l:=strtoint(menu_key);
 'u':
 'i':
 'o':
-'p':
-
-end;//2}
+'p':}
+else b_l:=strtoint(menu_key);
+end;//2
 
 end;//1.1
 until menu_key='0';
@@ -2459,7 +2460,7 @@ writeln(text[90]);
 menu_key:=readkey;
 
 case menu_key of
-'b':bag_info;
+'b':bag_info(hero);
 'h':item_ful_info(hero.s[1]);
 'd':item_ful_info(hero.s[2]);
 's':item_ful_info(hero.s[3]);

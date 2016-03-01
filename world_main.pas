@@ -20,7 +20,7 @@
 
 
 }
-{v.0.3a}{23.02.2016}
+{v.0.32a}{01.03.2016}
 
 program world_of_sand;
 {//$FPUTYPE SSE2}
@@ -1117,7 +1117,7 @@ end;
 //29.02.2016
 function mob_drop_out_loot(mdol1,mdol2:new_body;command:char;index:word):temp;
 var
-bagi:word;
+bagi:byte;
 begin
 //log_generate('log_old_generate','mob drop out loot '+command+' '+inttostr(index));
 bagi:=0;
@@ -1352,7 +1352,7 @@ npc_output:=n_o;
 end;
 
 //29.02.2016
-function hero_get_dress(hgd:new_body;command:char;ih:word;dr:char):new_body;
+function hero_get_dress(hgd:new_body;command:char;ih:byte;dr:char):new_body;
 {
 * command:'o'-dress/'j'-jevel
 * ih-# slot(1,2...)
@@ -1360,7 +1360,7 @@ function hero_get_dress(hgd:new_body;command:char;ih:word;dr:char):new_body;
 * }
 begin
 
-if (command='j')and(dr='dr') then begin
+if (command='j')and(dr='d') then begin
 hgd.stren:=hgd.stren+hgd.j[ih].stren;
 hgd.intel:=hgd.intel+hgd.j[ih].intel;
 hgd.agility:=hgd.agility+hgd.j[ih].agility;
@@ -1368,7 +1368,7 @@ hgd.hp:=hgd.hp+hgd.j[ih].hp;
 hgd.mp:=hgd.mp+hgd.j[ih].mp;
 end;
 
-if (command='o')and(dr='dr')  then begin
+if (command='o')and(dr='d')  then begin
 hgd.init:=hgd.init+hgd.s[ih].init;
 hgd.masking:=hgd.masking+hgd.s[ih].masking;
 hgd.obser:=hgd.obser+hgd.s[ih].obser;
@@ -1376,7 +1376,7 @@ hgd.dmg:=hgd.attak+hgd.s[ih].base_dmg;
 hgd.ign_dmg:=hgd.defense+hgd.s[ih].base_defense;
 end;
 
-if (command='j')and(dr='un') then begin
+if (command='j')and(dr='u') then begin
 hgd.stren:=hgd.stren-hgd.j[ih].stren;
 hgd.intel:=hgd.intel-hgd.j[ih].intel;
 hgd.agility:=hgd.agility-hgd.j[ih].agility;
@@ -1384,7 +1384,7 @@ hgd.hp:=hgd.hp-hgd.j[ih].hp;
 hgd.mp:=hgd.mp-hgd.j[ih].mp;
 end;
 
-if (command='o')and(dr='un')  then begin
+if (command='o')and(dr='u')  then begin
 hgd.init:=hgd.init-hgd.s[ih].init;
 hgd.masking:=hgd.masking-hgd.s[ih].masking;
 hgd.obser:=hgd.obser-hgd.s[ih].obser;
@@ -2380,11 +2380,43 @@ end;//0
 until readkey='1';
 end;
 
-
-
-procedure bag_info(bi:new_body);
+//01.03.2016
+function hero_dressed(hd:new_body;number:byte):new_body;
 var
-b_l,t_b_l,bi1:byte;
+bagi:byte;
+begin
+log_generate('log_old_generate','hero_dressed '+inttostr(number));
+log_generate('log_old_generate','hero_dressed bag tip'+inttostr(hd.bag[number].tip));
+log_generate('log_old_generate','hero_dressed s4 tip'+inttostr(hd.s[4].tip));
+bagi:=0;
+if (hd.bag[number].tip=1)and(hd.s[4].tip= 0 ) then  begin//1
+//while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
+hd.s[4]:=hd.bag[number];
+log_generate('log_old_generate','hero_dressed! s4 tip'+inttostr(hd.s[4].tip));
+hd.bag[number]:=beast_inv_generate('nill');
+log_generate('log_old_generate','hero_dressed bag! tip'+inttostr(hd.bag[number].tip));
+hd:=hero_get_dress(hd,'o',4,'d');
+end;//1
+
+if (hd.bag[number].tip=1)and(hd.s[4].tip= 1 ) then  begin//2
+while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
+hd.bag[bagi]:=hd.s[4];
+hd:=hero_get_dress(hd,'o',4,'u');
+hd.s[4]:=beast_inv_generate('nill');
+
+hd.s[4]:=hd.bag[number];
+hd.bag[number]:=beast_inv_generate('nill');
+hd:=hero_get_dress(hd,'o',4,'d');
+end;//2
+
+
+
+hero_dressed:=hd;
+end;
+
+function bag_info(bi:new_body):new_body;
+var
+b_l,t_b_l,bi1,bk:byte;
 //bss:Set Of 'a'..'z';
 bs:array[0..9]of char;
 begin
@@ -2397,6 +2429,7 @@ clrscr;
 writeln(text[117],' (1-9)');
 writeln(text[45]);
 t_b_l:=(b_l*10)+9;
+bk:=b_l*10;
 for i:=b_l*10 to t_b_l do begin//1
 if bi.bag[i].tip <> 0 then writeln(text[44],' ',i,' ',bi.bag[i].name,' ',item_info(bi.bag[i].tip),' ',text[140],bs[bi1]);
 bi1:=bi1+1;
@@ -2405,21 +2438,22 @@ writeln(text[90]);
 menu_key:=readkey;
 
 case menu_key of//2
-'q':bi:=hero_get_dress(bi,'1',1,'d');
-{'w':
-'e':
-'r':
-'t':
-'y':
-'u':
-'i':
-'o':
-'p':}
+'q':bi:=hero_dressed(bi,bk);
+'w':bi:=hero_dressed(bi,bk+1);
+'e':bi:=hero_dressed(bi,bk+2);
+'r':bi:=hero_dressed(bi,bk+3);
+'t':bi:=hero_dressed(bi,bk+4);
+'y':bi:=hero_dressed(bi,bk+5);
+'u':bi:=hero_dressed(bi,bk+6);
+'i':bi:=hero_dressed(bi,bk+7);
+'o':bi:=hero_dressed(bi,bk+8);
+'p':bi:=hero_dressed(bi,bk+9);
 else b_l:=strtoint(menu_key);
 end;//2
 
 end;//1.1
 until menu_key='0';
+bag_info:=bi;
 end;
 
 
@@ -2460,7 +2494,7 @@ writeln(text[90]);
 menu_key:=readkey;
 
 case menu_key of
-'b':bag_info(hero);
+'b':hero:=bag_info(hero);
 'h':item_ful_info(hero.s[1]);
 'd':item_ful_info(hero.s[2]);
 's':item_ful_info(hero.s[3]);
@@ -3488,7 +3522,7 @@ map_generate('map_test_generate');
 //log_generate('log_old_generate','start mob_generate');
 mob_generate;
 mini_map_generate;
-evolution(5);
+//evolution(5);
 if fool_log=true then log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');
 //hero:=lvlup(hero);

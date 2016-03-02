@@ -24,7 +24,7 @@
 
 program world_of_sand;
 {//$FPUTYPE SSE2}
- {//$IFDEF WIN64}
+ {//$IFDEF WIN32}
 //{$APPTYPE Console}
 
 {//$SMARTLINK+}
@@ -1688,9 +1688,97 @@ close(f_typ);
 //typ_generate:='';
 end;
 
+
+//21.02.2016
+function auto_lvlup(al:new_body):new_body;
+
+begin
+//al:=hero_update(al);
+if fool_log=true then log_generate('log_old_generate','avto levelup, mob name '+al.name+' lvl '+inttostr(al.lvl));
+if al.exp>=al.lvl*5 then begin//1
+al.exp:=0;
+al.lvl:=al.lvl+1;
+
+if (al.stren>=al.intel)and(al.stren>=al.agility) then al.stren:=al.stren+1;
+if (al.intel>=al.stren)and(al.intel>=al.agility) then al.intel:=al.intel+1;
+if (al.agility>=al.intel)and(al.agility>=al.stren) then al.agility:=al.agility+1;
+end;//1
+al:=hero_update(al);
+auto_lvlup:=al;
+end;
+
+
+//08.02.2016
+//++21.02.2016
+function mob_battle(mb1,mb2:new_body):temp;
+
+begin
+//mb1:=hero_update(mb1);mb2:=hero_update(mb2);
+if fool_log=true then log_generate('log_old_generate','mob batle, mob1 name '+mb1.name+' , mob2 name '+mb2.name+' lvl1 '+inttostr(mb1.lvl)+' lvl2 '+inttostr(mb2.lvl));
+if fool_log=true then log_generate('log_old_generate','mb1_hp- '+inttostr(mb1.hp)+' '+inttostr(mb2.hp));
+if fool_log=true then log_generate('log_old_generate','mb1_dmg- '+inttostr(mb1.dmg)+' '+inttostr(mb2.dmg));
+if fool_log=true then log_generate('log_old_generate','mb1_ign_dmg- '+inttostr(mb1.ign_dmg)+' '+inttostr(mb2.ign_dmg));
+if (mb1.hp>0)and (mb2.hp>0) then begin//0
+ repeat begin//1
+if mb1.dmg>mb2.ign_dmg then begin mb2.hp:=mb2.hp-abs(mb1.dmg-mb2.ign_dmg);mb1.hp:=mb1.hp-(mb2.dmg div 4); end;
+if mb2.dmg>mb1.ign_dmg then begin mb1.hp:=mb1.hp-abs(mb2.dmg-mb1.ign_dmg) ;mb2.hp:=mb2.hp-(mb1.dmg div 4); end;
+if (mb2.dmg<=mb1.ign_dmg) or (mb1.dmg<=mb2.ign_dmg)then begin mb1.hp:=mb1.hp-(mb2.dmg div 4);  mb2.hp:=mb2.hp-(mb1.dmg div 4); end;
+if fool_log=true then log_generate('log_old_generate','mb_x- '+inttostr(mb1.hp)+' '+inttostr(mb2.hp));
+end;//1
+until (mb2.hp<=0) or(mb1.hp<=0);
+end;//0
+if mb1.hp>0 then begin mb1.exp:=mb1.exp+10; mb1:=auto_lvlup(mb1); mob_battle.nb1:=mb1;mob_battle.nb2:=mb2;  end;
+if mb2.hp>0 then begin mb2.exp:=mb2.exp+10;  mb2:=auto_lvlup(mb2); mob_battle.nb1:=mb1; mob_battle.nb2:=mb2; end;
+if  (mb1.hp<=0) then begin {mb1:=hero_update(mb1);}  mob_battle.nb1:=mb1; mob_battle.nb2:=mb2; end;
+if (mb2.hp<=0)  then begin{ mb2:=hero_update(mb2); } mob_battle.nb1:=mb1; mob_battle.nb2:=mb2; end;
+if fool_log=true then log_generate('log_old_generate','mb2- '+inttostr(mb1.hp)+' '+inttostr(mb2.hp));
+end;
+
+
+//21.02.2016
+function undead(ud:new_body;tim:byte):new_body;
+begin
+if fool_log=true then log_generate('log_old_generate','undead, mob name '+ud.name+' lvl '+inttostr(ud.lvl));
+if (tim>0) and (tim<=20) then begin ud.race:=5; ud.stren:=ud.stren+5; end;
+if (tim>20) and (tim<=80) then begin ud.race:=6; ud.agility:=ud.agility+5;end;
+if (tim>80) and (tim<=100) then begin ud.race:=7; ud.intel:=ud.intel+5;end;
+ud:=hero_update(ud);
+undead:=ud;
+if (ud.hp<0) or (ud.hp>1000) then log_generate('log_old_generate','undead, mob name '+ud.name+' lvl '+inttostr(ud.lvl));
+end;
+
+
+
+procedure evolution(evo:integer);
+var e_i,e_i1:integer;
+begin
+writeln	(text[124]);
+for e_i:=0 to evo do begin//1
+
+for e_i1:=0 to 9999 do begin//2
+//ClrScr;
+//writeln	(text[124],' ',inttostr(e_i),' ',inttostr(e_i1));
+ //log_generate('log_old_generate',text[124]+' '+inttostr(e_i)+' '+inttostr(e_i1)+' '+inttostr(mob[e_i1].hp)+' '+inttostr(mob[e_i1].hp));
+if (mob[e_i1].hp>1)and(mob[e_i1+1].hp>1) then temp_battle:=mob_battle(mob[e_i1],mob[e_i1+1]);
+
+mob[e_i1]:=temp_battle.nb1;
+mob[e_i1+1]:=temp_battle.nb2;
+// log_generate('log_old_generate','1- '+inttostr(mob[e_i1].hp)+' '+inttostr(mob[e_i1].hp));
+
+if mob[e_i1].hp<=0 then mob[e_i1]:=undead(mob[e_i1],random(100));
+if mob[e_i1+1].hp<=0 then mob[e_i1+1]:=undead(mob[e_i1+1],random(100));
+// log_generate('log_old_generate','2- '+inttostr(mob[e_i1].hp)+' '+inttostr(mob[e_i1].hp));
+
+
+end;//2
+end;//1
+end;
+
+
+
 function lvlup(ll:new_body):new_body;
 begin
-
+if ll.point>0 then evolution(1);
 if ll.exp>=ll.lvl*5 then begin//1
 ll.exp:=0;
 ll.lvl:=ll.lvl+1;
@@ -2148,35 +2236,7 @@ readln();
 end;
 
 
-//21.02.2016
-function auto_lvlup(al:new_body):new_body;
 
-begin
-//al:=hero_update(al);
-if fool_log=true then log_generate('log_old_generate','avto levelup, mob name '+al.name+' lvl '+inttostr(al.lvl));
-if al.exp>=al.lvl*5 then begin//1
-al.exp:=0;
-al.lvl:=al.lvl+1;
-
-if (al.stren>=al.intel)and(al.stren>=al.agility) then al.stren:=al.stren+1;
-if (al.intel>=al.stren)and(al.intel>=al.agility) then al.intel:=al.intel+1;
-if (al.agility>=al.intel)and(al.agility>=al.stren) then al.agility:=al.agility+1;
-end;//1
-al:=hero_update(al);
-auto_lvlup:=al;
-end;
-
-//21.02.2016
-function undead(ud:new_body;tim:byte):new_body;
-begin
-if fool_log=true then log_generate('log_old_generate','undead, mob name '+ud.name+' lvl '+inttostr(ud.lvl));
-if (tim>0) and (tim<=20) then begin ud.race:=5; ud.stren:=ud.stren+5; end;
-if (tim>20) and (tim<=80) then begin ud.race:=6; ud.agility:=ud.agility+5;end;
-if (tim>80) and (tim<=100) then begin ud.race:=7; ud.intel:=ud.intel+5;end;
-ud:=hero_update(ud);
-undead:=ud;
-if (ud.hp<0) or (ud.hp>1000) then log_generate('log_old_generate','undead, mob name '+ud.name+' lvl '+inttostr(ud.lvl));
-end;
 
 //22.02.2016
 function hero_battle(hb1,hb2:new_body):temp;
@@ -2217,32 +2277,6 @@ if hb1.hp<=0 then begin clrscr; writeln(text[132]); halt; end;
 end;
 
 
-
-//08.02.2016
-//++21.02.2016
-function mob_battle(mb1,mb2:new_body):temp;
-
-begin
-//mb1:=hero_update(mb1);mb2:=hero_update(mb2);
-if fool_log=true then log_generate('log_old_generate','mob batle, mob1 name '+mb1.name+' , mob2 name '+mb2.name+' lvl1 '+inttostr(mb1.lvl)+' lvl2 '+inttostr(mb2.lvl));
-if fool_log=true then log_generate('log_old_generate','mb1_hp- '+inttostr(mb1.hp)+' '+inttostr(mb2.hp));
-if fool_log=true then log_generate('log_old_generate','mb1_dmg- '+inttostr(mb1.dmg)+' '+inttostr(mb2.dmg));
-if fool_log=true then log_generate('log_old_generate','mb1_ign_dmg- '+inttostr(mb1.ign_dmg)+' '+inttostr(mb2.ign_dmg));
-if (mb1.hp>0)and (mb2.hp>0) then begin//0
- repeat begin//1
-if mb1.dmg>mb2.ign_dmg then begin mb2.hp:=mb2.hp-abs(mb1.dmg-mb2.ign_dmg);mb1.hp:=mb1.hp-(mb2.dmg div 4); end;
-if mb2.dmg>mb1.ign_dmg then begin mb1.hp:=mb1.hp-abs(mb2.dmg-mb1.ign_dmg) ;mb2.hp:=mb2.hp-(mb1.dmg div 4); end;
-if (mb2.dmg<=mb1.ign_dmg) or (mb1.dmg<=mb2.ign_dmg)then begin mb1.hp:=mb1.hp-(mb2.dmg div 4);  mb2.hp:=mb2.hp-(mb1.dmg div 4); end;
-if fool_log=true then log_generate('log_old_generate','mb_x- '+inttostr(mb1.hp)+' '+inttostr(mb2.hp));
-end;//1
-until (mb2.hp<=0) or(mb1.hp<=0);
-end;//0
-if mb1.hp>0 then begin mb1.exp:=mb1.exp+10; mb1:=auto_lvlup(mb1); mob_battle.nb1:=mb1;mob_battle.nb2:=mb2;  end;
-if mb2.hp>0 then begin mb2.exp:=mb2.exp+10;  mb2:=auto_lvlup(mb2); mob_battle.nb1:=mb1; mob_battle.nb2:=mb2; end;
-if  (mb1.hp<=0) then begin {mb1:=hero_update(mb1);}  mob_battle.nb1:=mb1; mob_battle.nb2:=mb2; end;
-if (mb2.hp<=0)  then begin{ mb2:=hero_update(mb2); } mob_battle.nb1:=mb1; mob_battle.nb2:=mb2; end;
-if fool_log=true then log_generate('log_old_generate','mb2- '+inttostr(mb1.hp)+' '+inttostr(mb2.hp));
-end;
 
 
 //29.11.2015
@@ -2604,16 +2638,17 @@ writeln(text[32],' ',ho.masking ); //маскировка
 writeln(text[33],' ',ho.obser );// наблюдательность
 
 writeln('        ___');
-writeln('       |_1_|       1',text[40],' ',ho.s[1].base_defense,text[101]);
-writeln('  ___   ___   ___  2',text[40],' ',ho.s[2].base_defense,text[103]);
-writeln(' | 4 | |   | | 5 | 4',text[41],' ',ho.s[4].base_dmg,text[105]);
-writeln(' |___| | 2 | |___| 5',text[40],' ',ho.s[5].base_defense,text[106]);
+writeln('       |_1_|       1',text[40],' ',ho.s[1].base_defense,' h- ',text[101]);
+writeln('  ___   ___   ___  2',text[40],' ',ho.s[2].base_defense,' d- ',text[103]);
+writeln(' | 4 | |   | | 5 | 4',text[41],' ',ho.s[4].base_dmg,' f- ',text[105]);
+writeln(' |___| | 2 | |___| 5',text[40],' ',ho.s[5].base_defense,' g- ',text[106]);
 writeln('       |___|');
 writeln('        ___');
-writeln('       |_3_|       3',text[40],' ',ho.s[3].base_defense,text[104]);
+writeln('       |_3_|       3',text[40],' ',ho.s[3].base_defense,' s- ',text[104]);
 //+06.09.2015
 writeln('#(1-5)- ',text[139]);
 writeln('b- ',text[43]);
+if ho.point>0 then writeln('l- ',text[8]);
 writeln(text[90]);
 
 menu_key:=readkey;
@@ -2630,6 +2665,7 @@ case menu_key of
 '3':item_ful_info(ho.j[2]);
 '4':item_ful_info(ho.j[3]);
 '5':item_ful_info(ho.j[4]);
+'l':begin if ho.point>0 then ho:=lvlup(ho); end;
 end;//2
 end;
 until menu_key='0';
@@ -3502,31 +3538,6 @@ end;//2
 end;//1
 end;
 
-
-procedure evolution(evo:integer);
-var e_i,e_i1:integer;
-begin
-writeln	(text[124]);
-for e_i:=0 to evo do begin//1
-
-for e_i1:=0 to 9999 do begin//2
-//ClrScr;
-//writeln	(text[124],' ',inttostr(e_i),' ',inttostr(e_i1));
- //log_generate('log_old_generate',text[124]+' '+inttostr(e_i)+' '+inttostr(e_i1)+' '+inttostr(mob[e_i1].hp)+' '+inttostr(mob[e_i1].hp));
-if (mob[e_i1].hp>1)and(mob[e_i1+1].hp>1) then temp_battle:=mob_battle(mob[e_i1],mob[e_i1+1]);
-
-mob[e_i1]:=temp_battle.nb1;
-mob[e_i1+1]:=temp_battle.nb2;
-// log_generate('log_old_generate','1- '+inttostr(mob[e_i1].hp)+' '+inttostr(mob[e_i1].hp));
-
-if mob[e_i1].hp<=0 then mob[e_i1]:=undead(mob[e_i1],random(100));
-if mob[e_i1+1].hp<=0 then mob[e_i1+1]:=undead(mob[e_i1+1],random(100));
-// log_generate('log_old_generate','2- '+inttostr(mob[e_i1].hp)+' '+inttostr(mob[e_i1].hp));
-
-
-end;//2
-end;//1
-end;
 
 
 procedure main_menu;

@@ -2520,8 +2520,20 @@ hd.j[hdi-1]:=hd.bag[number];
 hd.bag[number]:=beast_inv_generate('nill');
 hd:=hero_get_dress(hd,'j',hdi-1,'d');
 end;//2
-//link
-
+//link-------------------------------------------------------------
+bagi:=0;
+if (hd.bag[number].tip=6)then  begin//2
+while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
+hdi:=select(2);
+if hd.j[hdi+1].tip<>0 then begin//3
+hd.bag[bagi]:=hd.j[hdi+1];
+hd:=hero_get_dress(hd,'j',hdi+1,'u');
+hd.j[hdi+1]:=beast_inv_generate('nill');
+end;//3
+hd.j[hdi+1]:=hd.bag[number];
+hd.bag[number]:=beast_inv_generate('nill');
+hd:=hero_get_dress(hd,'j',hdi+1,'d');
+end;//2
 
 for i:=0 to 99 do begin if hd.bag[i].tip>10 then hd.bag[i]:=beast_inv_generate('nill');  end;
 hero_dressed:=hd;

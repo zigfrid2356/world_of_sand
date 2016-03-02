@@ -2508,25 +2508,22 @@ hd:=hero_get_dress(hd,'j',4,'d');
 end;//2
 //ring-------------------------------------------------------------
 bagi:=0;
-if (hd.bag[number].tip=5)and(hd.j[0].tip= 0 )and (hd.j[1].tip= 0)then  begin//1
+if (hd.bag[number].tip=5)then  begin//2
+while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
 hdi:=select(2);
+if hd.j[hdi-1].tip<>0 then begin//3
+hd.bag[bagi]:=hd.j[hdi-1];
+hd:=hero_get_dress(hd,'j',hdi-1,'u');
+hd.j[hdi-1]:=beast_inv_generate('nill');
+end;//3
 hd.j[hdi-1]:=hd.bag[number];
 hd.bag[number]:=beast_inv_generate('nill');
 hd:=hero_get_dress(hd,'j',hdi-1,'d');
-end;//1
-{
-if (hd.bag[number].tip=5)then  begin//2
-if (hd.j[0].tip= 5 ) or(hd.j[0].tip= 5 ) 
-while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
-hd.bag[bagi]:=hd.j[4];
-hd:=hero_get_dress(hd,'j',4,'u');
-hd.j[4]:=beast_inv_generate('nill');
-
-hd.j[4]:=hd.bag[number];
-hd.bag[number]:=beast_inv_generate('nill');
-hd:=hero_get_dress(hd,'j',4,'d');
 end;//2
-}
+//link
+
+
+for i:=0 to 99 do begin if hd.bag[i].tip>10 then hd.bag[i]:=beast_inv_generate('nill');  end;
 hero_dressed:=hd;
 end;
 

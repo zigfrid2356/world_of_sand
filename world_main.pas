@@ -125,6 +125,10 @@ end;
 temp=record
 nb1,nb2:new_body;
 end;
+quest=record
+red:byte;
+st:array[0..5]of string[100];
+end;
 var
 map:array[0..2048,0..2048] of erath;
 mini_map:array[0..204,0..204]of mini_erath;
@@ -147,13 +151,15 @@ color,har,item_name:text;
 f_log:text;
 f_typ:text;//+25.10.2015
 prof:text;//21.02.2016
-text:array[0..200] of string[50];
-text_name:array[0..100] of string;
+text:array[0..200] of string[100];
+text_name:array[0..100] of string[100];
 //+31.08.2015
-color_name:array[0..1002] of string;
-har_name:array[0..1000] of string;
+color_name:array[0..1002] of string[100];
+har_name:array[0..1000] of string[100];
 //+03.11.2015
-map_name:array[0..1000] of string;
+map_name:array[0..1000] of string[100];
+//+03.03.2016
+quest_st:quest;
 //+08.11.2015
 oz_list:array [0..100] of oz_index;
 //+19.11.2015
@@ -191,6 +197,18 @@ function dialog(s_in:string):string;
 begin
 
 end;}
+
+//03.03.2016
+function quest_story(qs:byte):quest;
+begin
+quest_story.red:=qs;
+quest_story.st[0]:='';
+quest_story.st[1]:='';
+quest_story.st[2]:='';
+quest_story.st[3]:='';
+quest_story.st[4]:='';
+quest_story.st[5]:='';
+end;
 
 //31.12.2015
 procedure story;
@@ -1805,9 +1823,9 @@ writeln(text[90]);
 
 menu_key:=readkey;
 case menu_key of
-'1':begin if ll.point>0 then begin ll.stren:=ll.stren+1;ll.point:=ll.point-1; end; log_generate('log_old_generate','lvlup 1 '+inttostr(ll.point));end;
-'2':begin if ll.point>0 then begin ll.intel:=ll.intel+1;ll.point:=ll.point-1;end;log_generate('log_old_generate','lvlup 2 '+inttostr(ll.point));end;
-'3':begin if ll.point>0 then begin ll.agility:=ll.agility+1;ll.point:=ll.point-1;end;log_generate('log_old_generate','lvlup 2 '+inttostr(ll.point));end;
+'1':begin if ll.point>0 then begin ll.stren:=ll.stren+1;ll.point:=ll.point-1; end; end;
+'2':begin if ll.point>0 then begin ll.intel:=ll.intel+1;ll.point:=ll.point-1;end;end;
+'3':begin if ll.point>0 then begin ll.agility:=ll.agility+1;ll.point:=ll.point-1;end;end;
 end;end;
 until menu_key='0';
 end;//1
@@ -1896,7 +1914,7 @@ hero_generate.defense:=4+hero_generate.agility;
 hero_generate.dmg:=4*hero_generate.attak;
 hero_generate.ign_dmg:=4*hero_generate.defense;
 hero_generate.gold:=100;//-----------------------------temp!!!---delete
-hero_generate.point:=10;//22.12.2015//++23.12.2015
+hero_generate.point:=0;//22.12.2015//++23.12.2015//++02.03.2016
 for i:=0 to 4 do hero_generate.j[i]:=beast_inv_generate('null');
 for i:=1 to 5 do hero_generate.s[i]:=beast_inv_generate('null');
 {
@@ -2263,9 +2281,9 @@ writeln(text[90]);
 menu_key:=readkey;
 case menu_key of
 '1':begin //1.0
- if hb1.dmg>=hb2.ign_dmg then hb2.hp:=hb2.hp-abs(hb1.dmg-hb2.ign_dmg) else hb2.hp:=hb2.hp-(hb1.dmg div 4);
+ if hb1.dmg>=hb2.ign_dmg then hb2.hp:=hb2.hp-abs(hb1.dmg-hb2.ign_dmg) else hb2.hp:=hb2.hp-((hb1.dmg div 4)+1);
 
-if hb2.dmg>=hb1.ign_dmg then hb1.hp:=hb1.hp-abs(hb2.dmg-hb1.ign_dmg) else hb1.hp:=hb1.hp-(hb2.dmg div 4);
+if hb2.dmg>=hb1.ign_dmg then hb1.hp:=hb1.hp-abs(hb2.dmg-hb1.ign_dmg) else hb1.hp:=hb1.hp-((hb2.dmg div 4)+1);
 end;//1.0
 '2':begin hb1.hp:=hb1.hp+100; end;
 '0':begin flag:=false; hero_battle.nb1:=hb1; hero_battle.nb2:=hb2; end;

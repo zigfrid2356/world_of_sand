@@ -2,6 +2,6 @@
 git pull
 git init
 git add .
-git commit -a -m 'борьба с предметами'
+git commit -a -m 'quests'
 git remote add origin git@github.com:username/reponame.git
 git push -u origin master

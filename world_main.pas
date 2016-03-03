@@ -113,6 +113,7 @@ x,y:word;
 structure:char;
 color:byte;
 name:string[2];
+ver:byte;
 end;
 oz_index=record
 x,y:word;
@@ -128,10 +129,11 @@ end;
 quest=record
 red:byte;
 st:array[0..5]of string[100];
+x,y:word;
 end;
 var
 map:array[0..2048,0..2048] of erath;
-mini_map:array[0..204,0..204]of mini_erath;
+mini_map,dungeons:array[0..204,0..204]of mini_erath;
 //out_map:array[0..9,0..19]of char;
 hero:new_body;
 //super:new_body;
@@ -198,6 +200,10 @@ begin
 
 end;}
 
+
+
+
+
 //03.03.2016
 function quest_story(qs:byte):quest;
 begin
@@ -208,6 +214,19 @@ quest_story.st[2]:='';
 quest_story.st[3]:='';
 quest_story.st[4]:='';
 quest_story.st[5]:='';
+end;
+
+//03.03.2016
+procedure dungeon_generate(dg:byte);
+begin
+for i:=0 to 204 do begin//1
+for j:=0 to 204 do begin//2
+dungeons[i,j].x:=i;
+dungeons[i,j].y:=j;
+
+end;//1
+end;//2
+
 end;
 
 //31.12.2015
@@ -3551,7 +3570,8 @@ for i:=0 to 204 do begin //1
 for j:=0 to 204 do begin //2
 mini_map[i,j].structure:=map[i*10,j*10].structure;
 mini_map[i,j].color:=map[i*10,j*10].color;
-if map[i*10,j*10].name<>' ' then mini_map[i,j].name:=map[i*10,j*10].name else mini_map[i,j].name:=' '
+if map[i*10,j*10].name<>' ' then mini_map[i,j].name:=map[i*10,j*10].name else mini_map[i,j].name:=' ';
+mini_map[i,j].ver:=0;
 end;//2
 end;//1
 end;

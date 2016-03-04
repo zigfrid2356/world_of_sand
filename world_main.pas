@@ -166,6 +166,8 @@ quest_st:quest;
 oz_list:array [0..100] of oz_index;
 //+19.11.2015
 pyst_list:array[0..1000] of pyst_index;
+//04.03.2016
+poom_list:array[0..9] of pyst_index;
 //+16.11.2015
 beast_list:array[0..10000]of beast_body;
 hero_save:file of new_body;
@@ -216,18 +218,108 @@ quest_story.st[4]:='';
 quest_story.st[5]:='';
 end;
 
+//04.03.2016
+procedure dungeon_generate_pass;
+begin
+{for i:=0 to 9 do begin
+ while rool_list[i]}
+
+end;
+
+//04.03.2016
+procedure dungeon_generate_room(dgri,dgrj:byte);
+var
+ii,jj:byte;
+begin
+for ii:=dgri-5 to dgri+5 do begin//1
+for jj:=dgrj-5 to dgrj+5 do begin//2
+dungeons[ii,jj].x:=ii;
+dungeons[ii,jj].y:=jj;
+dungeons[ii,jj].color:=14;
+dungeons[ii,jj].structure:='.';
+dungeons[ii,jj].ver:=0;
+
+end;//2
+end;//1
+
+end;
+
 //03.03.2016
 procedure dungeon_generate(dg:byte);
+var
+dgi,dgj:byte;
 begin
+//zapol
 for i:=0 to 204 do begin//1
 for j:=0 to 204 do begin//2
 dungeons[i,j].x:=i;
 dungeons[i,j].y:=j;
-
+dungeons[i,j].color:=14;
+dungeons[i,j].structure:='#';
+dungeons[i,j].ver:=0;
 end;//1
 end;//2
 
+for i:=0 to dg do begin//3
+
+dgi:=0;dgj:=0;
+while (dgi<6)and(dgi>198)and(dgj<6)and(dgj>198) do begin//1.1
+dgi:=random(200);dgj:=random(200);
+end;//1.1
+poom_list[i].x:=dgi;
+poom_list[i].y:=dgj;
+dungeon_generate_room(dgi,dgj);
+end;//3
 end;
+
+//04.03.2016
+procedure dungeon_output(doi,doj:byte);
+var
+temp_char:char;
+temp_color:byte;
+begin
+{if x-1<6 then x:=6;
+if x+1>198 then x:=198;
+if y-1<11 then y:=11;
+if y+1>193 then y:=193;
+if (x-1>=6) and(x+1<=198) and (y-1>=11) and (y+1<=204-11) then begin//2.00}
+repeat begin//2.0
+ClrScr;
+temp_char:=dungeons[doi,doj].structure;
+temp_color:=dungeons[doi,doj].color;
+dungeons[doi,doj].structure:='@';
+dungeons[doi,doj].color:=4;
+clrscr;
+textcolor(white);
+
+writeln(' _____________________');//top
+
+
+for i:=doi-5 to doi+5 do begin//2.1//5
+write('|');//left
+ for j:=doj-10 to doj+10 do begin//2.2//10
+
+ textcolor(dungeons[i,j].color);
+ write(dungeons[i,j].structure);
+ 
+ textcolor(white);
+ 
+ end;//2.2
+ writeln('|');//right
+end;//2.1
+
+ writeln(' ---------------------');
+// writeln(x,' ',y);
+dungeons[doi,doj].structure:=temp_char;//+16.08.2015
+dungeons[doi,doj].color:=temp_color;//+16.09.2015
+
+writeln	(text[90]);
+menu_key:=readkey;
+end;//2.0
+until menu_key='0';
+//end;//2.00 
+end;
+
 
 //31.12.2015
 procedure story;
@@ -2956,7 +3048,7 @@ hero.x:=x;
 //log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
 muve(x,y,'test');
 
- end;//3.3
+ end;//3.3while
 '2':begin//3.4
 if x+1<={249}2042 then x:=x+1 else x:=x;
 y:=y;
@@ -3686,6 +3778,7 @@ writeln	(text[3]);
 writeln	('1-',text[4]);
 writeln	('2-',text[16]);
 writeln	('3-',text[2]);
+writeln	('4- dungeons');
 
 menu_key:=readkey;
 case menu_key of
@@ -3705,7 +3798,11 @@ story;
 main_menu;
 end;
 '2':begin load; main_menu; end;
-'3': exit
+'3': exit;
+'4': begin//4
+dungeon_generate(9);
+dungeon_output(100,100);
+end;//4
 end;
 END.
 

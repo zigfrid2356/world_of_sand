@@ -221,8 +221,8 @@ end;
 //04.03.2016
 procedure dungeon_generate_pass;
 begin
-{for i:=0 to 9 do begin
- while rool_list[i]}
+for i:=0 to 9 do begin
+ while rool_list[i]
 
 end;
 

@@ -76,7 +76,7 @@ x,y:word;
 end;
 new_body =record//+05.11.2015
 //ocnov
-name:string;
+name:string[100];
 stren,intel,agility,sex,race:word;
 {race= 1-human,2-ork,3-elf,4-dwarf,5-undead,6-skeleton,7-ghost}
 //vichisl
@@ -143,6 +143,7 @@ hero:new_body;
 //super:new_body;
 monster:body;
 npc:array[0..17000] of new_body;
+max_npc:word;
 //28.01.2016
 mob:array[0..10000] of new_body;
 //21.02.2016
@@ -235,12 +236,13 @@ end;
 function quest_generate(qs:byte):quest;
 var 
 qss,qss1:string[100];
-qsi:byte;
+qsi,qsj:byte;
 qsr:word;
 begin
+quest_generate.x:=0;quest_generate.y:=0;
 if qs=100 then begin //1
 for qsi:=0 to 5 do quest_generate.st[qsi]:='';
-quest_generate.x:=0;quest_generate.y:=0;
+
 end{1} else begin//2
 if lang_s='w_rus' then assign(qst,'res\quest\r_u_quest');
 if lang_s='u_rus' then assign(qst,'res/quest/r_u_quest');
@@ -257,14 +259,17 @@ quest_generate.st[qsi]:=qss1;
 end;//3
 end;//2
 if qs=0 then begin //1.1
-quest_generate.st[0]:=quest_generate.st[0]+npc[random(17000)].name;
+quest_generate.st[0]:=quest_generate.st[0]+npc[random(max_npc)].name;
 quest_generate.st[2]:=oz_list[random(100)].oz_name+' '+oz_list[random(100)].oz_name;
-quest_generate.x:=random(x_map);
-quest_generate.y:=random(y_map);
+repeat
+qsi:=random(x_map);qsj:=random(y_map);
+until (qsi>20)and(qsi<x_map-20)and(qsj>20)and(qsj<y_map-20);
+quest_generate.x:=qsi;
+quest_generate.y:=qsj;
 end;//1.1
 if qs=1 then begin //1.2
-qsr:=random(10000);
-quest_generate.st[0]:=quest_generate.st[0]+oz_list[random(100)].oz_name;
+qsr:=random(100);
+quest_generate.st[0]:=quest_generate.st[0]+oz_list[qsr].oz_name;
 quest_generate.st[2]:=beast_list[qsr].name;
 quest_generate.x:=beast_list[qsr].x;
 quest_generate.y:=beast_list[qsr].y;
@@ -280,7 +285,8 @@ end;//1
 close(qst);
 end;//2
 quest_generate.red:=qs;
-
+//log_generate('log_old_generate','qg_qs '+inttostr(qs));
+//log_generate('log_old_generate','qg_s[0] '+quest_generate.st[0]);
 end;
 
 //05.03.2016
@@ -1591,15 +1597,17 @@ case menu_key of//2.0
 '1': n_o:=trade_out(n_o,'trade');
 '2': n_o:=trade_out(n_o,'cell');
 '3': begin//3
-
-if n_o.quest_flag=true then  quest_output(n_o.quest_activ.red); 
+log_generate('log_old_generate','hero quest 0-1 '+ho.quest_activ.st[0]);
+log_generate('log_old_generate','npc quest 0-1 '+n_o.quest_activ.st[0]);
+if n_o.quest_flag=true then  quest_output_activ(n_o.quest_activ); 
 if ho.quest_flag=false then begin//4
  noi:=select(2,145);
  if noi=1 then begin //5
  ho.quest_flag:=true;
  ho.quest_activ:=n_o.quest_activ;
- n_o.quest_activ:=quest_generate(100);
  n_o.quest_flag:=false;
+ n_o.quest_activ:=quest_generate(100);
+ 
  end;//5
  end;//4
   end;//3
@@ -1607,6 +1615,8 @@ end;//2.0
 until menu_key='0';
 npc_output.nb1:=n_o;
 npc_output.nb2:=ho;
+log_generate('log_old_generate','hero quest 0-2 '+ho.quest_activ.st[0]);
+log_generate('log_old_generate','npc quest 0-2 '+n_o.quest_activ.st[0]);
 end;
 
 //29.02.2016
@@ -1805,8 +1815,8 @@ npc_generate.st1:=story_npc('1');
 npc_generate.st2:=story_npc('2');
 npc_generate.st3:=story_npc('3');
 //qest
-npc_generate.quest_activ:=quest_generate(random(3));
-npc_generate.quest_flag:=true;
+npc_generate.quest_activ:=quest_generate(100);
+npc_generate.quest_flag:=false;
 
 npc_generate:=hero_update(npc_generate);
 end;
@@ -3792,13 +3802,16 @@ for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
 	map[i_oz,j_oz].y:=j_oz;
 	//-----------------------------------------------------------------------------------------
 	if fool_log=true then log_generate('log_old_generate','start nps generate -6- '+inttostr(k1));
-
+repeat
 temp_npc1:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y,1,1);
 
 temp_npc2:=npc_generate(map[i_oz,j_oz].x,map[i_oz,j_oz].y,1,1);
 temp_battle:=mob_battle(temp_npc1,temp_npc2);
-if temp_battle.nb1.hp>0 then npc[k1]:=temp_battle.nb1;
-if temp_battle.nb2.hp>0 then npc[k1]:=temp_battle.nb2;
+until temp_battle.nb1.hp>0;
+max_npc:=k1;
+ npc[k1]:=temp_battle.nb1;
+//if temp_battle.nb1.hp>0 then npc[k1]:=temp_battle.nb1;
+//if temp_battle.nb2.hp>0 then npc[k1]:=temp_battle.nb2;
 	k1:=k1+1;
 		
 	end;//6.2.2.1
@@ -3848,6 +3861,12 @@ l:=0;
 n:=0;m:=0;
 if fool_log=true then log_generate('log_old_generate','start beast -10- '+inttostr(bl));
 writeln(text[72],text[109]);
+
+for i:=0 to max_npc do begin//8.1
+npc[i].quest_activ:=quest_generate(random(3));
+npc[i].quest_flag:=true;
+end;//8.1
+
 for bl:=0 to 1000 do begin//7
 for i:=0 to 9 do begin//7.1
 {st1:=inttostr(bl);
@@ -3861,7 +3880,12 @@ j:=strtoint(st0}
 	k0:=k0+1;
 end;//7.1
 end;//7
+i:=0;j:=0;
 
+for i:=0 to max_npc do begin//8.1
+npc[i].quest_activ:=quest_generate(random(3));
+npc[i].quest_flag:=true;
+end;//8.1
 
 end;//2
 if command='map_story_generate' then begin//3

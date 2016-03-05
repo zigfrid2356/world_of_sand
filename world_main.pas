@@ -69,6 +69,11 @@ base_dmg,base_defense,ves,cost,tip:word;{tip=1-weapon,2-armor...}
 stren,intel,agility,hp,mp:word;//+29.02.2016
 init,masking,obser:word;
 end;
+quest=record
+red:byte;
+st:array[0..5]of string[100];
+x,y:word;
+end;
 new_body =record//+05.11.2015
 //ocnov
 name:string;
@@ -91,6 +96,9 @@ j:array[0..4]of subject;{0,1-ring,2,3-link,4-amulet}
 bag:array[0..99] of subject;
 //story
 st0,st1,st2,st3:string[100];
+//quest
+quest_activ:quest;
+quest_flag:boolean;
 end;
 beast_body=record
 hp,dmg,ign_dmg:integer;
@@ -126,11 +134,7 @@ end;
 temp=record
 nb1,nb2:new_body;
 end;
-quest=record
-red:byte;
-st:array[0..5]of string[100];
-x,y:word;
-end;
+
 var
 map:array[0..2048,0..2048] of erath;
 mini_map,dungeons:array[0..204,0..204]of mini_erath;
@@ -147,7 +151,7 @@ menu_key:char;
 i,j,n,m,l,k,k0,k1,k2,k_oz,i_oz,j_oz,n_oz,m_oz:integer;//áçñâç¨ª¨{счётчики}
 s:string;//temp
 lang,lang_f: text;
-hf,st:text;
+hf,st,qst:text;
 monster_name,map_oz:text;
 color,har,item_name:text;
 f_log:text;
@@ -226,16 +230,83 @@ end;//3}
 end;
 
 
+
 //03.03.2016
-function quest_story(qs:byte):quest;
+function quest_generate(qs:byte):quest;
+var 
+qss,qss1:string[100];
+qsi:byte;
+qsr:word;
 begin
-quest_story.red:=qs;
-quest_story.st[0]:='';
-quest_story.st[1]:='';
-quest_story.st[2]:='';
-quest_story.st[3]:='';
-quest_story.st[4]:='';
-quest_story.st[5]:='';
+if qs=100 then begin //1
+for qsi:=0 to 5 do quest_generate.st[qsi]:='';
+quest_generate.x:=0;quest_generate.y:=0;
+end{1} else begin//2
+if lang_s='w_rus' then assign(qst,'res\quest\r_u_quest');
+if lang_s='u_rus' then assign(qst,'res/quest/r_u_quest');
+if lang_s='w_eng' then assign(qst,'res\quest\r_u_quest');
+if lang_s='u_eng' then assign(qst,'res/quest/r_u_quest');
+reset(qst);
+qsi:=0;
+while not eof(qst) do begin//1
+readln(qst,qss);
+if qss=inttostr(qs) then  begin//2
+for qsi:=0 to 5 do begin//
+readln(qst,qss1);
+quest_generate.st[qsi]:=qss1;
+end;//3
+end;//2
+if qs=0 then begin //1.1
+quest_generate.st[0]:=quest_generate.st[0]+npc[random(17000)].name;
+quest_generate.st[2]:=oz_list[random(100)].oz_name+' '+oz_list[random(100)].oz_name;
+quest_generate.x:=random(x_map);
+quest_generate.y:=random(y_map);
+end;//1.1
+if qs=1 then begin //1.2
+qsr:=random(10000);
+quest_generate.st[0]:=quest_generate.st[0]+oz_list[random(100)].oz_name;
+quest_generate.st[2]:=beast_list[qsr].name;
+quest_generate.x:=beast_list[qsr].x;
+quest_generate.y:=beast_list[qsr].y;
+end;//1.2
+if qs=2 then begin //1.3
+qsr:=random(100);
+quest_generate.st[0]:=quest_generate.st[0]+oz_list[qsr].oz_name;
+quest_generate.st[2]:=oz_list[qsr].oz_name+' '+text[142];
+quest_generate.x:=oz_list[qsr].x;
+quest_generate.y:=oz_list[qsr].y;
+end;//1.3
+end;//1
+close(qst);
+end;//2
+quest_generate.red:=qs;
+
+end;
+
+//05.03.2016
+procedure quest_output(qo:byte);
+begin
+//if qo=100 then writeln(text[50]) else begin//1
+quest_st:=quest_generate(qo);
+clrscr;
+for i:=0 to 5 do
+writeln(quest_st.st[i]);
+//end;//1
+writeln('');
+writeln(text[96]);
+readln();
+end;
+
+procedure quest_output_activ(qoa:quest);
+begin
+clrscr;
+for i:=0 to 5 do
+writeln(qoa.st[i]);
+writeln(qoa.x,' ',qoa.y);
+
+writeln('');
+writeln(text[96]);
+readln();
 end;
 
 //04.03.2016
@@ -1476,10 +1547,29 @@ if r_o=4 then race_output:=text[115];
 if r_o=5 then race_output:=text[121];
 if r_o=6 then race_output:=text[122];
 if r_o=7 then race_output:=text[123];
+
+end;
+
+//01.03.2016
+function select(si,namber_str:byte):byte;
+var
+sii,ns:byte;
+begin
+
+ns:=namber_str;
+for sii:=1 to si do begin//1
+writeln(text[141],' - ',sii);
+if namber_str<>0 then writeln(' - ',text[ns]);
+if namber_str<>0 then ns:=ns+1;
+end;//1
+menu_key:=readkey;
+select:=strtoint(menu_key);
 end;
 
 //09.01.2016
-function npc_output(n_o:new_body):new_body;
+function npc_output(n_o,ho:new_body):temp;
+var
+noi:byte;
 begin
 repeat begin//1.0
 clrscr;
@@ -1492,19 +1582,31 @@ writeln(n_o.st3);
 writeln('');
 writeln('1- '+text[69]);
 writeln('2- '+text[68]);
+if n_o.quest_flag=true then writeln('3- '+text[143]);
 writeln(text[90]);
-
-
-
 menu_key:=readkey;
 end;//1.0
 
 case menu_key of//2.0
 '1': n_o:=trade_out(n_o,'trade');
 '2': n_o:=trade_out(n_o,'cell');
+'3': begin//3
+
+if n_o.quest_flag=true then  quest_output(n_o.quest_activ.red); 
+if ho.quest_flag=false then begin//4
+ noi:=select(2,145);
+ if noi=1 then begin //5
+ ho.quest_flag:=true;
+ ho.quest_activ:=n_o.quest_activ;
+ n_o.quest_activ:=quest_generate(100);
+ n_o.quest_flag:=false;
+ end;//5
+ end;//4
+  end;//3
 end;//2.0
 until menu_key='0';
-npc_output:=n_o;
+npc_output.nb1:=n_o;
+npc_output.nb2:=ho;
 end;
 
 //29.02.2016
@@ -1702,6 +1804,10 @@ npc_generate.st0:=story_npc('0');
 npc_generate.st1:=story_npc('1');
 npc_generate.st2:=story_npc('2');
 npc_generate.st3:=story_npc('3');
+//qest
+npc_generate.quest_activ:=quest_generate(random(3));
+npc_generate.quest_flag:=true;
+
 npc_generate:=hero_update(npc_generate);
 end;
 
@@ -2074,7 +2180,9 @@ if fool_log=true then log_generate('log_old_generate','hero_generate '+'-4- ');
 for n:=0 to 2 do hero_generate.bag[n]:=beast_inv_generate('ring');
 for n:=3 to 99 do hero_generate.bag[n]:=beast_inv_generate('null');
 if fool_log=true then log_generate('log_old_generate','hero_generate'+' -5- ');
-
+//qest
+hero_generate.quest_activ:=quest_generate(100);
+hero_generate.quest_flag:=false;
 end;//0
 
 if h='monster_human' then begin//2
@@ -2570,15 +2678,7 @@ end;//0
 until readkey='1';
 end;
 
-//01.03.2016
-function select(si:byte):byte;
-var
-sii:byte;
-begin
-for sii:=1 to si do writeln(text[141],' - ',sii);
-menu_key:=readkey;
-select:=strtoint(menu_key);
-end;
+
 
 //01.03.2016
 function hero_dressed(hd:new_body;number:byte):new_body;
@@ -2700,7 +2800,7 @@ end;//2
 bagi:=0;
 if (hd.bag[number].tip=5)then  begin//2
 while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
-hdi:=select(2);
+hdi:=select(2,0);
 if hd.j[hdi-1].tip<>0 then begin//3
 hd.bag[bagi]:=hd.j[hdi-1];
 hd:=hero_get_dress(hd,'j',hdi-1,'u');
@@ -2714,7 +2814,7 @@ end;//2
 bagi:=0;
 if (hd.bag[number].tip=6)then  begin//2
 while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
-hdi:=select(2);
+hdi:=select(2,0);
 if hd.j[hdi+1].tip<>0 then begin//3
 hd.bag[bagi]:=hd.j[hdi+1];
 hd:=hero_get_dress(hd,'j',hdi+1,'u');
@@ -2779,19 +2879,16 @@ repeat begin//1
 clrscr;
 writeln();
 writeln(text[5],' ',ho.hp,' ',text[6],ho.mp );
-//writeln(text[6],hero.mp );
 writeln(text[7],ho.exp,' ',text[8],ho.lvl );
-//writeln(text[8],hero.lvl );
-writeln(text[12],ho.dmg );
-writeln(text[13],ho.ign_dmg );
-writeln(text[26],' ',ho.stren );// сила
-writeln(text[27],' ',ho.intel );// интиллект
-writeln(text[28],' ',ho.agility );// ловкость
-writeln(text[29],' ',ho.sex );// пол
-writeln(text[30],' ',race_output(ho.race) );// расса
-writeln(text[31],' ',ho.init );// инициатива
-writeln(text[32],' ',ho.masking ); //маскировка
-writeln(text[33],' ',ho.obser );// наблюдательность
+writeln(text[12],ho.dmg,' ',text[13],ho.ign_dmg  );
+writeln(text[26],' ',ho.stren );
+writeln(text[27],' ',ho.intel );
+writeln(text[28],' ',ho.agility );
+writeln(text[29],' ',ho.sex );
+writeln(text[30],' ',race_output(ho.race) );
+writeln(text[31],' ',ho.init );
+writeln(text[32],' ',ho.masking ); 
+writeln(text[33],' ',ho.obser );
 
 writeln('        ___');
 writeln('       |_1_|       1',text[40],' ',ho.s[1].base_defense,' h- ',text[101]);
@@ -2804,6 +2901,7 @@ writeln('       |_3_|       3',text[40],' ',ho.s[3].base_defense,' s- ',text[104
 //+06.09.2015
 writeln('#(1-5)- ',text[139]);
 writeln('b- ',text[43]);
+if ho.quest_flag=true then writeln('q- ',text[144]);
 if ho.point>0 then writeln('l- ',text[8]);
 writeln(text[90]);
 
@@ -2822,6 +2920,7 @@ case menu_key of
 '4':item_ful_info(ho.j[3]);
 '5':item_ful_info(ho.j[4]);
 'l':begin if ho.point>0 then ho:=lvlup(ho); end;
+'q':begin if ho.quest_flag=true then quest_output_activ(ho.quest_activ);  end;
 end;//2
 end;
 until menu_key='0';
@@ -3047,6 +3146,7 @@ procedure map_output(x,y:word);
 var
 temp_char:char;
 temp_color:integer;
+mot:temp;
 begin
 if (x-1>=6) and(x+1<=x_map-6) and (y-1>=11) and (y+1<=y_map-11) then begin//2.00
 
@@ -3178,7 +3278,9 @@ muve(x,y,'test');
 
 '9':begin//3.5//+09.11.2015
 if map[x,y].npc_index<>0 then begin//3.5.1
-npc[map[x,y].npc_index]:=npc_output(npc[map[x,y].npc_index]);
+mot:=npc_output(npc[map[x,y].npc_index],hero);
+npc[map[x,y].npc_index]:=mot.nb1;//npc_output(npc[map[x,y].npc_index]);
+hero:=mot.nb2;
 map_output(x,y);
 end;//3.5.1
 if (map[x,y].mob_index<>0)and(map[x,y].tip<>6) then begin//3.5.1
@@ -3910,12 +4012,13 @@ textcolor(yellow);
 writeln	(text[1]);
 textcolor(white);
 readln();
+repeat
  ClrScr;
 writeln	(text[3]);
 writeln	('1-',text[4]);
 writeln	('2-',text[16]);
 writeln	('3-',text[2]);
-//writeln	('4- dungeons');
+//writeln	('4- qest');
 
 menu_key:=readkey;
 case menu_key of
@@ -3935,11 +4038,13 @@ story;
 main_menu;
 end;
 '2':begin load; main_menu; end;
-'3': exit;
+//'3': exit;
 {'4': begin//4
-dungeon_generate(9);
-dungeon_output(room_list[0].x,room_list[0].y);
+quest_output(random(3));
+//dungeon_generate(9);
+//dungeon_output(room_list[0].x,room_list[0].y);
 end;//4}
 end;
+until menu_key='3'
 END.
 

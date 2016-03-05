@@ -167,7 +167,7 @@ oz_list:array [0..100] of oz_index;
 //+19.11.2015
 pyst_list:array[0..1000] of pyst_index;
 //04.03.2016
-poom_list:array[0..9] of pyst_index;
+room_list:array[0..9] of pyst_index;
 //+16.11.2015
 beast_list:array[0..10000]of beast_body;
 hero_save:file of new_body;
@@ -203,7 +203,27 @@ begin
 end;}
 
 
+procedure log_generate(command:string;text:string);
+begin;
+if command='log_new_generate' then begin//1
+assign(f_log,'./log.log');
+rewrite(f_log);
+writeln(f_log,formatdatetime(fmt,now)+' '+text);
+close(f_log);
+end;//1
+if command='log_old_generate' then begin//2
+assign(f_log,'./log.log');
+append(f_log);
+writeln(f_log,formatdatetime(fmt,now)+' '+text);
+close(f_log);
+end;//2
+{
+if command='log_drop_generate' then begin//3
+assign(f_log,'log.txt');
+erase(f_log);
 
+end;//3}
+end;
 
 
 //03.03.2016
@@ -220,10 +240,61 @@ end;
 
 //04.03.2016
 procedure dungeon_generate_pass;
+var
+tx1,tx2,ty1,ty2:byte;
 begin
-for i:=0 to 9 do begin
- while rool_list[i]
+for i:=0 to 8 do begin//0
 
+ if room_list[i].x>room_list[i+1].x then begin//1
+// log_generate('log_old_generate','pass >- '+inttostr(room_list[i].x)+' '+inttostr(room_list[i+1].x));
+ tx1:=room_list[i].x;tx2:=room_list[i+1].x;
+ ty1:=room_list[i].y;ty2:=room_list[i+1].y;
+ while tx1>tx2 do begin//1.1
+dungeons[tx1,ty1].color:=14;
+dungeons[tx1,ty1].structure:='.';
+dungeons[tx1,ty1].ver:=0;
+tx1:=tx1-1;
+ end;//1.1
+ end;//1
+ 
+ if room_list[i].x<room_list[i+1].x then begin//2
+ // log_generate('log_old_generate','pass <- '+inttostr(room_list[i].x)+' '+inttostr(room_list[i+1].x));
+ tx1:=room_list[i].x;tx2:=room_list[i+1].x;
+ ty1:=room_list[i].y;ty2:=room_list[i+1].y;
+ while tx1<tx2 do begin//2.1
+dungeons[tx1,ty1].color:=14;
+dungeons[tx1,ty1].structure:='.';
+dungeons[tx1,ty1].ver:=0;
+tx1:=tx1+1;
+ end;//2.1
+ end;//2
+ /////------------------------------------------------------------
+ 
+  if room_list[i].y>room_list[i+1].y then begin//1
+// log_generate('log_old_generate','pass >- '+inttostr(room_list[i].x)+' '+inttostr(room_list[i+1].x));
+ tx1:=room_list[i].x;tx2:=room_list[i+1].x;
+ ty1:=room_list[i].y;ty2:=room_list[i+1].y;
+ while ty1>ty2 do begin//1.1
+dungeons[tx2,ty1].color:=14;
+dungeons[tx2,ty1].structure:='.';
+dungeons[tx2,ty1].ver:=0;
+ty1:=ty1-1;
+ end;//1.1
+ end;//1
+ 
+ if room_list[i].y<room_list[i+1].y then begin//2
+ // log_generate('log_old_generate','pass <- '+inttostr(room_list[i].x)+' '+inttostr(room_list[i+1].x));
+ tx1:=room_list[i].x;tx2:=room_list[i+1].x;
+ ty1:=room_list[i].y;ty2:=room_list[i+1].y;
+ while ty1<ty2 do begin//2.1
+dungeons[tx2,ty1].color:=14;
+dungeons[tx2,ty1].structure:='.';
+dungeons[tx2,ty1].ver:=0;
+ty1:=ty1+1;
+ end;//2.1
+ end;//2
+  
+end;//0
 end;
 
 //04.03.2016
@@ -233,8 +304,8 @@ ii,jj:byte;
 begin
 for ii:=dgri-5 to dgri+5 do begin//1
 for jj:=dgrj-5 to dgrj+5 do begin//2
-dungeons[ii,jj].x:=ii;
-dungeons[ii,jj].y:=jj;
+//dungeons[ii,jj].x:=ii;
+//dungeons[ii,jj].y:=jj;
 dungeons[ii,jj].color:=14;
 dungeons[ii,jj].structure:='.';
 dungeons[ii,jj].ver:=0;
@@ -263,13 +334,19 @@ end;//2
 for i:=0 to dg do begin//3
 
 dgi:=0;dgj:=0;
-while (dgi<6)and(dgi>198)and(dgj<6)and(dgj>198) do begin//1.1
+//while (dgi<6)and(dgi>198)and(dgj<6)and(dgj>198) do begin//1.1
 dgi:=random(200);dgj:=random(200);
-end;//1.1
-poom_list[i].x:=dgi;
-poom_list[i].y:=dgj;
+if dgi<11 then dgi:=dgi+11;
+if dgi>188 then dgi:=dgi-11;
+if dgj<11 then dgj:=dgj+11;
+if dgj>188 then dgj:=dgi-11;
+//end;//1.1
+room_list[i].x:=dgi;
+room_list[i].y:=dgj;
+log_generate('log_old_generate','room- '+inttostr(dgi)+' '+inttostr(dgj));
 dungeon_generate_room(dgi,dgj);
 end;//3
+dungeon_generate_pass;
 end;
 
 //04.03.2016
@@ -309,13 +386,35 @@ write('|');//left
 end;//2.1
 
  writeln(' ---------------------');
-// writeln(x,' ',y);
+ writeln(doi,' ',doj);
 dungeons[doi,doj].structure:=temp_char;//+16.08.2015
 dungeons[doi,doj].color:=temp_color;//+16.09.2015
 
 writeln	(text[90]);
 menu_key:=readkey;
 end;//2.0
+case menu_key of//3.0
+'6':begin//3.1
+doi:=doi;
+if( doj+1<=198)and(dungeons[doi,doj+1].structure='.') then doj:=doj+1 else doj:=doj;
+//hero.y:=y;
+end;//3.1
+'4':begin//3.2
+doi:=doi;
+if (doj-1>=11)and(dungeons[doi,doj-1].structure='.') then doj:=doj-1 else doj:=doj;
+//hero.y:=y;
+ end;//3.2
+'8':begin//3.3
+if (doi-1>=6)and(dungeons[doi-1,doj].structure='.') then doi:=doi-1 else doi:=doi;
+doj:=doj;
+//hero.x:=x;
+ end;//3.3while
+'2':begin//3.4
+if (doi+1<=198)and(dungeons[doi+1,doj].structure='.') then doi:=doi+1 else doi:=doi;
+doj:=doj;
+//hero.x:=x;
+ end;//3.4
+end;
 until menu_key='0';
 //end;//2.00 
 end;
@@ -450,27 +549,7 @@ if command='3' then story_npc:=text[128]+' '+live[random(il)];
 
 end;
 
-procedure log_generate(command:string;text:string);
-begin;
-if command='log_new_generate' then begin//1
-assign(f_log,'./log.log');
-rewrite(f_log);
-writeln(f_log,formatdatetime(fmt,now)+' '+text);
-close(f_log);
-end;//1
-if command='log_old_generate' then begin//2
-assign(f_log,'./log.log');
-append(f_log);
-writeln(f_log,formatdatetime(fmt,now)+' '+text);
-close(f_log);
-end;//2
-{
-if command='log_drop_generate' then begin//3
-assign(f_log,'log.txt');
-erase(f_log);
 
-end;//3}
-end;
 
 //22.11.2015
 function beast_muve(bb:beast_body;command:string;bi:word):beast_body;
@@ -3801,7 +3880,7 @@ end;
 '3': exit;
 '4': begin//4
 dungeon_generate(9);
-dungeon_output(100,100);
+dungeon_output(room_list[1].x,room_list[1].y);
 end;//4
 end;
 END.

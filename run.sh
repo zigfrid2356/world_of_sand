@@ -2,6 +2,6 @@
 git pull
 git init
 git add .
-git commit -a -m 'dungeons wins!'
+git commit -a -m 'dungeons & mobs wins!'
 git remote add origin git@github.com:username/reponame.git
 git push -u origin master

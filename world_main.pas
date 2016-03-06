@@ -71,7 +71,7 @@ init,masking,obser:word;
 end;
 quest=record
 red:byte;
-st:array[0..5]of string[100];
+st:array[0..5]of string[75];
 x,y:word;
 end;
 new_body =record//+05.11.2015
@@ -230,12 +230,27 @@ erase(f_log);
 end;//3}
 end;
 
+//11.12.2015
+function name_tab(s:string;i:byte):string;
+begin
+if (lang_s='w_rus') or (lang_s='w_eng')then begin //1
+while length(s)<i do begin//1.1
+s:=s+' ';
+end;//1.1
+end;//1
+if (lang_s='u_rus') or (lang_s='u_eng')then begin //2
+while length(Utf8ToAnsi(s))<i do begin//2.1
+s:=s+' ';
+end;//2.1
+end;//2
+name_tab:=s;
+end;
 
 
 //03.03.2016
 function quest_generate(qs:byte):quest;
 var 
-qss,qss1:string[100];
+qss,qss1:string[50];
 qsi,qsj:byte;
 qsr:word;
 begin
@@ -260,6 +275,7 @@ end;//3
 end;//2
 if qs=0 then begin //1.1
 quest_generate.st[0]:=quest_generate.st[0]+npc[random(max_npc)].name;
+quest_generate.st[0]:=name_tab(quest_generate.st[0],75);
 quest_generate.st[2]:=oz_list[random(100)].oz_name+' '+oz_list[random(100)].oz_name;
 repeat
 qsi:=random(x_map);qsj:=random(y_map);
@@ -270,6 +286,7 @@ end;//1.1
 if qs=1 then begin //1.2
 qsr:=random(100);
 quest_generate.st[0]:=quest_generate.st[0]+oz_list[qsr].oz_name;
+quest_generate.st[0]:=name_tab(quest_generate.st[0],75);
 quest_generate.st[2]:=beast_list[qsr].name;
 quest_generate.x:=beast_list[qsr].x;
 quest_generate.y:=beast_list[qsr].y;
@@ -277,6 +294,7 @@ end;//1.2
 if qs=2 then begin //1.3
 qsr:=random(100);
 quest_generate.st[0]:=quest_generate.st[0]+oz_list[qsr].oz_name;
+quest_generate.st[0]:=name_tab(quest_generate.st[0],75);
 quest_generate.st[2]:=oz_list[qsr].oz_name+' '+text[142];
 quest_generate.x:=oz_list[qsr].x;
 quest_generate.y:=oz_list[qsr].y;
@@ -284,6 +302,7 @@ end;//1.3
 end;//1
 close(qst);
 end;//2
+//for qsi:=0 to 5 do quest_generate.st[qsi]:=name_tab(quest_generate.st[qsi],100);
 quest_generate.red:=qs;
 //log_generate('log_old_generate','qg_qs '+inttostr(qs));
 //log_generate('log_old_generate','qg_s[0] '+quest_generate.st[0]);
@@ -857,21 +876,6 @@ close(har);
 name_generate:={har_name[random(i)]+' '+}text_name[random(m)]{+' '+color_name[random(n)]};
 end;
 
-//11.12.2015
-function name_tab(s:string;i:byte):string;
-begin
-if (lang_s='w_rus') or (lang_s='w_eng')then begin //1
-while length(s)<i do begin//1.1
-s:=s+' ';
-end;//1.1
-end;//1
-if (lang_s='u_rus') or (lang_s='u_eng')then begin //2
-while length(Utf8ToAnsi(s))<i do begin//2.1
-s:=s+' ';
-end;//2.1
-end;//2
-name_tab:=s;
-end;
 
 
 

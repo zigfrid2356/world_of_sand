@@ -190,7 +190,7 @@ s_podtyp:array[0..50]of string;
 lang_s:string[5];
 //20.02.2016
 fool_log:boolean;
-
+dangeons_flag:boolean;
 
 
 //+24.09.2015
@@ -3073,7 +3073,7 @@ end;
 
 
 //04.03.2016
-procedure dungeon_output(doi,doj:byte);
+function dungeon_output(doi,doj:byte;don:new_body):new_body;
 var
 temp_char:char;
 temp_color:byte;
@@ -3127,26 +3127,26 @@ case menu_key of//3.0
 '6':begin//3.1
 doi:=doi;
 if( doj+1<=198)and(dungeons[doi,doj+1].structure='.') then doj:=doj+1 else doj:=doj;
-hero.yd:=doj;
+don.yd:=doj;
 end;//3.1
 '4':begin//3.2
 doi:=doi;
 if (doj-1>=11)and(dungeons[doi,doj-1].structure='.') then doj:=doj-1 else doj:=doj;
-hero.yd:=doj;
+don.yd:=doj;
  end;//3.2
 '8':begin//3.3
 if (doi-1>=6)and(dungeons[doi-1,doj].structure='.') then doi:=doi-1 else doi:=doi;
 doj:=doj;
-hero.xd:=doi;
+don.xd:=doi;
  end;//3.3while
 '2':begin//3.4
 if (doi+1<=198)and(dungeons[doi+1,doj].structure='.') then doi:=doi+1 else doi:=doi;
 doj:=doj;
-hero.xd:=doi;
+don.xd:=doi;
  end;//3.4
  
 '9':begin//3.5
-hero:=hero_battle(hero,npc_generate(1,1,1,1)).nb1;
+don:=hero_battle(don,npc_generate(1,1,1,1)).nb1;
 if dungeons[doi+1,doj].structure='@'then dungeons[doi+1,doj].structure:='.';
 if dungeons[doi-1,doj].structure='@'then dungeons[doi-1,doj].structure:='.';
 if dungeons[doi,doj+1].structure='@'then dungeons[doi,doj+1].structure:='.';
@@ -3157,13 +3157,15 @@ if dungeons[doi,doj-1].structure='@'then dungeons[doi,doj-1].structure:='.';
 if (dungeons[doi+1,doj].structure='/')or(dungeons[doi-1,doj].structure='/')
 or(dungeons[doi,doj+1].structure='/')or(dungeons[doi,doj-1].structure='/') then
 begin//3.6.1
-hero.xd:=0;
-hero.yd:=0;
+don.xd:=0;
+don.yd:=0;
+dangeons_flag:=true;
 menu_key:='0';
 end;//3.6.1
 
 end; //3.6
 end;
+dungeon_output:=don;
 until {(}menu_key='0'{)and((dungeons[doi+1,doj].structure='/')or(dungeons[doi-1,doj].structure='/')
 or(dungeons[doi,doj+1].structure='/')or(dungeons[doi,doj-1].structure='/'))};
 //end;//2.00 
@@ -3171,7 +3173,7 @@ end;
 
 
 
-procedure map_output(x,y:word);
+function map_output(x,y:word;mo:new_body):new_body;
 var
 temp_char:char;
 temp_color:integer;
@@ -3272,7 +3274,7 @@ case menu_key of//3.0
 '6':begin//3.1
 x:=x;
 if y+1<={244}2037 then y:=y+1 else y:=y;
-hero.y:=y;
+mo.y:=y;
 //log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
 muve(x,y,'test');
 
@@ -3283,7 +3285,7 @@ end;//3.1
 x:=x;
 if y-1>=11 then y:=y-1 else y:=y;
 
-hero.y:=y;
+mo.y:=y;
 //log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
 muve(x,y,'test');
 
@@ -3291,7 +3293,7 @@ muve(x,y,'test');
 '8':begin//3.3
 if x-1>=6 then x:=x-1 else x:=x;
 y:=y;
-hero.x:=x;
+mo.x:=x;
 //log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
 muve(x,y,'test');
 
@@ -3299,7 +3301,7 @@ muve(x,y,'test');
 '2':begin//3.4
 if x+1<={249}2042 then x:=x+1 else x:=x;
 y:=y;
-hero.x:=x;
+mo.x:=x;
 //log_generate('log_old_generate','map_output - x - '+inttostr(x)+' - y - '+inttostr(y));
 muve(x,y,'test');
 
@@ -3307,14 +3309,14 @@ muve(x,y,'test');
 
 '9':begin//3.5//+09.11.2015
 if map[x,y].npc_index<>0 then begin//3.5.1
-mot:=npc_output(npc[map[x,y].npc_index],hero);
+mot:=npc_output(npc[map[x,y].npc_index],mo);
 npc[map[x,y].npc_index]:=mot.nb1;//npc_output(npc[map[x,y].npc_index]);
-hero:=mot.nb2;
-map_output(x,y);
+mo:=mot.nb2;
+hero:=map_output(x,y,hero);
 end;//3.5.1
 if (map[x,y].mob_index<>0)and(map[x,y].tip<>6) then begin//3.5.1
 mob[map[x,y].mob_index]:=mob_output(mob[map[x,y].mob_index]);
-map_output(x,y);
+hero:=map_output(x,y,hero);
 end;//3.5.1
  end;//3.5
 
@@ -3330,7 +3332,7 @@ if (map[x,y].tip<>0)and (map[x,y].tip<>3)then beast_list[map[x,y].beast_index]:=
 if (map[x,y].tip=5)then beast_list[map[x,y].beast_index]:=beast_drop(beast_list[map[x,y].beast_index]);
 if (map[x,y].tip=6)then  begin 
 mob_temp:=mob_drop(hero,mob[map[x,y].mob_index]); 
-hero:=mob_temp.nb1; 
+mo:=mob_temp.nb1; 
 mob[map[x,y].mob_index]:=mob_temp.nb2;
 end;
  end;//3.7
@@ -3342,19 +3344,24 @@ mini_map_output(x div 10,y div 10);
  'd':begin//3.9
 if (map[x,y].structure='=')or(map[x,y].structure='_')or(map[x,y].structure='-')then
 begin//3.9.1
-if (hero.xd=0)and(hero.yd=0) then begin//3.9.2
+if (mo.xd=0)and(mo.yd=0) then begin//3.9.2
 dungeon_generate(9);
-hero.xd:=room_list[0].x;
-hero.yd:=room_list[0].y;
+mo.xd:=room_list[0].x;
+mo.yd:=room_list[0].y;
 end;//3.9.2
-dungeon_output(hero.xd,hero.yd);
+mo:=dungeon_output(mo.xd,mo.yd,mo);
+map_output:=mo;
 menu_key:='5';
-//map[x,y].structure:='.';
-//map[x,y].color:=14;
+if dangeons_flag=true then begin//3.9.3
+map[x,y].structure:='.';
+map[x,y].color:=14;
+dangeons_flag:=false;
+end;//3.9.3
 end;//3.9.1
  end;//3.9
  
 end;//3.0
+map_output:=mo;
 until menu_key='5';
 end;//2.00 else mapgenerate(new,'/\')
 end;
@@ -3416,6 +3423,7 @@ bl:integer;
 temp_npc1,temp_npc2:new_body;
 begin
 clrscr;
+dangeons_flag:=false;
 if fool_log=true then log_generate('log_old_generate','start map generate -1.0');
 //+03.11.2015
 k_oz:=0;
@@ -3957,64 +3965,35 @@ end;
 
 
 
-procedure main_menu;
+function main_menu(mm:new_body):new_body;
 begin
 
 repeat begin//1
 ClrScr;
 writeln	('1- ',text[10]);
 writeln	('2- ',text[9]);
-//writeln	('3- ',text[11]);
 writeln	('4- ',text[17]);
 writeln	('5- ',text[2]);
 writeln	('9- ',text[107]);
-//writeln	('6- ',text[42]);
-//writeln	('7- ',text[70]);
-//writeln	('8- ',text[81]);
-//readln(menu_key);
+
 menu_key:=readkey;
 case menu_key of
 '1': begin //1.1
-	hero:=hero_output(hero);
+	mm:=hero_output(mm);
 	end;//1.1
 '2':	begin//1.2
-if (hero.xd<>0)and(hero.yd<>0) then dungeon_output(hero.xd,hero.yd);
-	map_output(hero.x,hero.y); 
-	main_menu;
+if (mm.xd<>0)and(mm.yd<>0) then mm:=dungeon_output(mm.xd,mm.yd,mm);
+	mm:=map_output(mm.x,mm.y,mm); 
+	mm:=main_menu(mm);
 	end;//1.2
-{'3':begin //1.3
-battle;
-end;//1.3}
 '4': begin//1.4
 save;
 end;//1.4
 '9':help;
-{'6':begin//1.5
-//+30.08.2015
-hero.slot_1:=inventory_generation('armor','',hero.lvl);
-hero.slot_2:=inventory_generation('armor','',hero.lvl);
-hero.slot_3:=inventory_generation('armor','',hero.lvl);
-hero.slot_4:=inventory_generation('veapon','',hero.lvl);
-hero.slot_5:=inventory_generation('armor','',hero.lvl);
-
-equip ('slot_1',hero.slot_1);
-equip ('slot_2',hero.slot_2);
-equip ('slot_3',hero.slot_3);
-equip ('slot_4',hero.slot_4);
-equip ('slot_5',hero.slot_5);
-end;//1.5}
-{'7': begin//1.4
-trade;
-end;//1.4}
-{'8': begin//1.5
-for i:=0 to 10 do muve(128,126,'test')
-end;//1.5}
 end;
 end;//2
+main_menu:=mm;
 until menu_key='5';
-
-
-
 
 end;
 //-------------------------
@@ -4086,15 +4065,11 @@ hero:=hero_generate('hero_new');
 //hero:=lvlup(hero);
 //31.12.2015
 story;
-main_menu;
+hero:=main_menu(hero);
 end;
-'2':begin load; main_menu; end;
+'2':begin load; hero:=main_menu(hero); end;
 //'3': exit;
-{'4': begin//4
-quest_output(random(3));
-//dungeon_generate(9);
-//dungeon_output(room_list[0].x,room_list[0].y);
-end;//4}
+
 end;
 until menu_key='3'
 END.

@@ -83,7 +83,7 @@ stren,intel,agility,sex,race:word;
 hp,mp:smallint;
 attak,defense,ves:word;
 //obnov
-exp,lvl,gold,x,y:word;
+exp,lvl,gold,x,y,xd,yd:word;
 init,masking,obser:word;
 point:byte;
 //boev
@@ -1761,6 +1761,8 @@ npc_generate.ves:=random(50)+1;
 //obnov
 npc_generate.exp:=random(50)+1;
 
+npc_generate.xd:=0;
+npc_generate.yd:=0;
 npc_generate.gold:=random(100)+50;
 if tip=1 then npc_generate.x:=i_n;
 if tip=1 then npc_generate.y:=j_n;
@@ -2149,6 +2151,8 @@ if fool_log=true then log_generate('log_old_generate','hero_generate '+'-2- ');
 //+16.11.2015
 hero_generate.x:=oz_list[1].x+10;
 hero_generate.y:=oz_list[1].y;
+hero_generate.xd:=0;
+hero_generate.yd:=0;
 
 {
 hero_generate.stren:=1;
@@ -3111,34 +3115,34 @@ dungeons[doi,doj].color:=temp_color;//+16.09.2015
 
 if (dungeons[doi+1,doj].structure='/')or(dungeons[doi-1,doj].structure='/')
 or(dungeons[doi,doj+1].structure='/')or(dungeons[doi,doj-1].structure='/')then 
-writeln	(text[90]);
+writeln	('5- ',text[147]);
 
 if (dungeons[doi+1,doj].structure='@')or(dungeons[doi-1,doj].structure='@')
 or(dungeons[doi,doj+1].structure='@')or(dungeons[doi,doj-1].structure='@')then 
 writeln	('9- ',text[11]);
-
+writeln	(text[90]);
 menu_key:=readkey;
 end;//2.0
 case menu_key of//3.0
 '6':begin//3.1
 doi:=doi;
 if( doj+1<=198)and(dungeons[doi,doj+1].structure='.') then doj:=doj+1 else doj:=doj;
-//hero.y:=y;
+hero.yd:=doj;
 end;//3.1
 '4':begin//3.2
 doi:=doi;
 if (doj-1>=11)and(dungeons[doi,doj-1].structure='.') then doj:=doj-1 else doj:=doj;
-//hero.y:=y;
+hero.yd:=doj;
  end;//3.2
 '8':begin//3.3
 if (doi-1>=6)and(dungeons[doi-1,doj].structure='.') then doi:=doi-1 else doi:=doi;
 doj:=doj;
-//hero.x:=x;
+hero.xd:=doi;
  end;//3.3while
 '2':begin//3.4
 if (doi+1<=198)and(dungeons[doi+1,doj].structure='.') then doi:=doi+1 else doi:=doi;
 doj:=doj;
-//hero.x:=x;
+hero.xd:=doi;
  end;//3.4
  
 '9':begin//3.5
@@ -3148,9 +3152,20 @@ if dungeons[doi-1,doj].structure='@'then dungeons[doi-1,doj].structure:='.';
 if dungeons[doi,doj+1].structure='@'then dungeons[doi,doj+1].structure:='.';
 if dungeons[doi,doj-1].structure='@'then dungeons[doi,doj-1].structure:='.';
  end;//3.5
+ 
+'5': begin//3.6
+if (dungeons[doi+1,doj].structure='/')or(dungeons[doi-1,doj].structure='/')
+or(dungeons[doi,doj+1].structure='/')or(dungeons[doi,doj-1].structure='/') then
+begin//3.6.1
+hero.xd:=0;
+hero.yd:=0;
+menu_key:='0';
+end;//3.6.1
+
+end; //3.6
 end;
-until (menu_key='0')and((dungeons[doi+1,doj].structure='/')or(dungeons[doi-1,doj].structure='/')
-or(dungeons[doi,doj+1].structure='/')or(dungeons[doi,doj-1].structure='/'));
+until {(}menu_key='0'{)and((dungeons[doi+1,doj].structure='/')or(dungeons[doi-1,doj].structure='/')
+or(dungeons[doi,doj+1].structure='/')or(dungeons[doi,doj-1].structure='/'))};
 //end;//2.00 
 end;
 
@@ -3327,10 +3342,15 @@ mini_map_output(x div 10,y div 10);
  'd':begin//3.9
 if (map[x,y].structure='=')or(map[x,y].structure='_')or(map[x,y].structure='-')then
 begin//3.9.1
+if (hero.xd=0)and(hero.yd=0) then begin//3.9.2
 dungeon_generate(9);
-dungeon_output(room_list[0].x,room_list[0].y);
-map[x,y].structure:='.';
-map[x,y].color:=14;
+hero.xd:=room_list[0].x;
+hero.yd:=room_list[0].y;
+end;//3.9.2
+dungeon_output(hero.xd,hero.yd);
+menu_key:='5';
+//map[x,y].structure:='.';
+//map[x,y].color:=14;
 end;//3.9.1
  end;//3.9
  
@@ -3958,7 +3978,9 @@ case menu_key of
 	hero:=hero_output(hero);
 	end;//1.1
 '2':	begin//1.2
-	map_output(hero.x,hero.y); main_menu;
+if (hero.xd<>0)and(hero.yd<>0) then dungeon_output(hero.xd,hero.yd);
+	map_output(hero.x,hero.y); 
+	main_menu;
 	end;//1.2
 {'3':begin //1.3
 battle;
@@ -4052,11 +4074,12 @@ menu_key:=readkey;
 case menu_key of
 '1': begin
 //map_generate('map_new_generate');
-if fool_log=true then log_generate('log_old_generate','start map_generate');
+log_generate('log_old_generate','start generate');
 map_generate('map_test_generate');
 //log_generate('log_old_generate','start mob_generate');
 mob_generate;
 mini_map_generate;
+log_generate('log_old_generate','stop generate');
 //evolution(5);
 if fool_log=true then log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');

@@ -623,8 +623,8 @@ end;
 
 //04.02.2016
 function mob_muve(mm:new_body;command:string;mi:byte):new_body;
-{var
-tt:byte;}
+var
+mmf:boolean;
 begin
 mob_muve:=mm;
 
@@ -632,11 +632,19 @@ if (command='start') and (map[mm.x,mm.y].tip=3)
 and(mm.x+2<x_map)and(mm.x>2)and(mm.y+2<y_map)and(mm.y>2) 
 and (hero.xd=0)and(hero.yd=0)
 then begin//00
+mmf:=true;
+if (mob_muve.x<mob_muve.quest_activ.x)and(mmf=true) then begin
+mob_muve.x:=mob_muve.x+1; mmf:=false;end;
+if (mob_muve.x>mob_muve.quest_activ.x)and(mmf=true)  then begin
+ mob_muve.x:=mob_muve.x-1; mmf:=false;end;
 
-if mob_muve.x<mob_muve.quest_activ.x then mob_muve.x:=mob_muve.x+1;
-if mob_muve.x>mob_muve.quest_activ.x then mob_muve.x:=mob_muve.x-1;
-if mob_muve.y<mob_muve.quest_activ.y then mob_muve.y:=mob_muve.y+1;
-if mob_muve.y>mob_muve.quest_activ.y then mob_muve.y:=mob_muve.y-1;
+if (mob_muve.y<mob_muve.quest_activ.y)and(mmf=true)  then  begin
+mob_muve.y:=mob_muve.y+1; mmf:=false;end;
+if (mob_muve.y>mob_muve.quest_activ.y)and(mmf=true)  then  begin
+mob_muve.y:=mob_muve.y-1; mmf:=false;end;
+
+if (mob_muve.y=mob_muve.quest_activ.y)and(mob_muve.x=mob_muve.quest_activ.x) then
+ mob_muve.quest_activ:=quest_generate(random(3));
 {
 tt:=random(4);
 if tt=0 then mob_muve.x:=mob_muve.x+1;
@@ -3185,6 +3193,10 @@ temp_char:char;
 temp_color:integer;
 mot:temp;
 begin
+if  (mo.x=mo.quest_activ.x) and (mo.y=mo.quest_activ.y) then begin//00
+ mo.quest_flag:=false;
+ mo.quest_activ:=quest_generate(100);
+end;//00
 if (x-1>=6) and(x+1<=x_map-6) and (y-1>=11) and (y+1<=y_map-11) then begin//2.00
 
 repeat begin//2.0
@@ -3412,7 +3424,7 @@ temp_battle:=mob_battle(npc_generate(oz_list[bl].x,oz_list[bl].y,1,2),npc_genera
 if fool_log=true then log_generate('log_old_generate','mob generate '+inttostr(k0));
 	mob[k0]:=temp_battle.nb1;
 	mob[k0].quest_activ:=quest_generate(random(3));
-	log_generate('log_old_generate','mob generate quest '+inttostr(mob[k0].quest_activ.x)+' '+inttostr(mob[k0].quest_activ.y));
+	//log_generate('log_old_generate','mob generate quest '+inttostr(mob[k0].quest_activ.x)+' '+inttostr(mob[k0].quest_activ.y));
 	mob[k0].quest_flag:=true;
 	mob[k0]:=hero_update(mob[k0]);
 	//if (bl=10)and(i=10) then log_generate('log_old_generate','mob generate '+mob[k0].st1);

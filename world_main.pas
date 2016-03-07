@@ -3983,7 +3983,7 @@ case menu_key of
 	end;//1.1
 '2':	begin//1.2
 if (mm.xd<>0)and(mm.yd<>0) then mm:=dungeon_output(mm.xd,mm.yd,mm);
-	mm:=map_output(mm.x,mm.y,mm); 
+if (mm.xd=0)and(mm.yd=0) then	mm:=map_output(mm.x,mm.y,mm); 
 	mm:=main_menu(mm);
 	end;//1.2
 '4': begin//1.4

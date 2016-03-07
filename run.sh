@@ -2,6 +2,6 @@
 git pull
 git init
 git add .
-git commit -a -m 'победа над подземельями'
+git commit -a -m 'смысл жизни мобов'
 git remote add origin git@github.com:username/reponame.git
 git push -u origin master

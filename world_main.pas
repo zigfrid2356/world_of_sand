@@ -623,21 +623,27 @@ end;
 
 //04.02.2016
 function mob_muve(mm:new_body;command:string;mi:byte):new_body;
-var
-tt:byte;
+{var
+tt:byte;}
 begin
 mob_muve:=mm;
 
 if (command='start') and (map[mm.x,mm.y].tip=3) 
 and(mm.x+2<x_map)and(mm.x>2)and(mm.y+2<y_map)and(mm.y>2) 
+and (hero.xd=0)and(hero.yd=0)
 then begin//00
 
+if mob_muve.x<mob_muve.quest_activ.x then mob_muve.x:=mob_muve.x+1;
+if mob_muve.x>mob_muve.quest_activ.x then mob_muve.x:=mob_muve.x-1;
+if mob_muve.y<mob_muve.quest_activ.y then mob_muve.y:=mob_muve.y+1;
+if mob_muve.y>mob_muve.quest_activ.y then mob_muve.y:=mob_muve.y-1;
+{
 tt:=random(4);
 if tt=0 then mob_muve.x:=mob_muve.x+1;
 if tt=1 then mob_muve.x:=mob_muve.x-1;
 if tt=2 then mob_muve.y:=mob_muve.y+1;
 if tt=3 then mob_muve.y:=mob_muve.y-1;
-
+}
 end;//00
 map[mm.x,mm.y].tip:=0;
 map[mob_muve.x,mob_muve.y].tip:=3;
@@ -651,7 +657,7 @@ end;
 procedure muve(i_m,j_m:word; command:string);
 var
 i_muv,j_muv,rr:word;
-//bm_i:integer;
+bm_i:word;
 begin
 if command='start' then begin//00
 for i_muv:=i_m-5 to i_m+5 do begin//0.1
@@ -779,13 +785,13 @@ end;//1
 if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
 end;end;//0.1//0.2
 //log_generate('log_old_generate','start_muve_beast ');
-{
+
 for bm_i:=0 to 10000 do begin //2
 
-beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
-mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
+//beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
+if mob[bm_i].hp>0 then mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
 end;//2
-}
+
 end;//000
 end;
 
@@ -3405,6 +3411,9 @@ for i:=0 to 99 do begin//8.1
 temp_battle:=mob_battle(npc_generate(oz_list[bl].x,oz_list[bl].y,1,2),npc_generate(oz_list[bl].x,oz_list[bl].y,1,2));
 if fool_log=true then log_generate('log_old_generate','mob generate '+inttostr(k0));
 	mob[k0]:=temp_battle.nb1;
+	mob[k0].quest_activ:=quest_generate(random(3));
+	log_generate('log_old_generate','mob generate quest '+inttostr(mob[k0].quest_activ.x)+' '+inttostr(mob[k0].quest_activ.y));
+	mob[k0].quest_flag:=true;
 	mob[k0]:=hero_update(mob[k0]);
 	//if (bl=10)and(i=10) then log_generate('log_old_generate','mob generate '+mob[k0].st1);
 	//--------------------------------------mob--------
@@ -4047,22 +4056,18 @@ writeln	(text[3]);
 writeln	('1-',text[4]);
 writeln	('2-',text[16]);
 writeln	('3-',text[2]);
-//writeln	('4- qest');
 
 menu_key:=readkey;
 case menu_key of
 '1': begin
-//map_generate('map_new_generate');
-log_generate('log_old_generate','start generate');
+{---log---}log_generate('log_old_generate','start generate');
 map_generate('map_test_generate');
-//log_generate('log_old_generate','start mob_generate');
 mob_generate;
 mini_map_generate;
-log_generate('log_old_generate','stop generate');
+{---log---}log_generate('log_old_generate','stop generate');
 //evolution(5);
 if fool_log=true then log_generate('log_old_generate','start hero_generate');
 hero:=hero_generate('hero_new');
-//hero:=lvlup(hero);
 //31.12.2015
 story;
 hero:=main_menu(hero);

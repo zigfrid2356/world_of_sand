@@ -644,7 +644,10 @@ if (mob_muve.y>mob_muve.quest_activ.y)and(mmf=true)  then  begin
 mob_muve.y:=mob_muve.y-1; mmf:=false;end;
 
 if (mob_muve.y=mob_muve.quest_activ.y)and(mob_muve.x=mob_muve.quest_activ.x) then
+begin//1
  mob_muve.quest_activ:=quest_generate(random(3));
+ log_generate('log_old_generate','mob_muve quest complit '+inttostr(mi));
+ end;//1
 {
 tt:=random(4);
 if tt=0 then mob_muve.x:=mob_muve.x+1;
@@ -2872,6 +2875,7 @@ bs[0]:='q';bs[1]:='w';bs[2]:='e';bs[3]:='r';bs[4]:='t';bs[5]:='y';bs[6]:='u';bs[
 if fool_log=true then log_generate('log_old_generate','bag_info');
 
 repeat begin//1.1
+b_l:=0;bi1:=0;
 clrscr;
 writeln(text[117],' (1-9)');
 writeln(text[45]);

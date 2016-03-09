@@ -23,6 +23,7 @@
 {v.0.32a}{01.03.2016}
 
 program world_of_sand;
+{//$O+}
 {//$FPUTYPE SSE2}
  {//$IFDEF WIN32}
 //{$APPTYPE Console}
@@ -621,6 +622,21 @@ end;//00
 
 end;
 
+//08.03.2016
+function mob_dress_up(mdu:new_body):new_body;
+var
+mdui:byte;
+begin
+mob_dress_up:=mdu;
+for mdui:=0 to 4 do begin//1
+if mdu.bag[mdui].tip<>0 then begin//2
+//while mdu.s[mdui+1].tip
+end;//2
+end//1
+end;
+
+
+
 //04.02.2016
 function mob_muve(mm:new_body;command:string;mi:byte):new_body;
 var
@@ -663,6 +679,8 @@ map[mob_muve.x,mob_muve.y].mob_index:=mi;
 
 //log_generate('log_old_generate','mob_muve 33 '+inttostr(mi)+' '+inttostr(mob_muve.x)+':'+inttostr(mob_muve.y));
 end;
+
+
 
 //+11.11.2015
 procedure muve(i_m,j_m:word; command:string);

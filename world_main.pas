@@ -622,17 +622,87 @@ end;//00
 
 end;
 
+//29.02.2016
+function hero_get_dress(hgd:new_body;command:char;ih:byte;dr:char):new_body;
+{
+* command:'o'-dress/'j'-jevel
+* ih-# slot(1,2...)
+* dr:'d'-up har, 'u'-down har
+* }
+begin
+
+if (command='j')and(dr='d') then begin
+hgd.stren:=hgd.stren+hgd.j[ih].stren;
+hgd.intel:=hgd.intel+hgd.j[ih].intel;
+hgd.agility:=hgd.agility+hgd.j[ih].agility;
+hgd.hp:=hgd.hp+hgd.j[ih].hp;
+hgd.mp:=hgd.mp+hgd.j[ih].mp;
+end;
+
+if (command='o')and(dr='d')  then begin
+hgd.init:=hgd.init+hgd.s[ih].init;
+hgd.masking:=hgd.masking+hgd.s[ih].masking;
+hgd.obser:=hgd.obser+hgd.s[ih].obser;
+hgd.dmg:=hgd.attak+hgd.s[ih].base_dmg;
+hgd.ign_dmg:=hgd.defense+hgd.s[ih].base_defense;
+end;
+
+if (command='j')and(dr='u') then begin
+hgd.stren:=hgd.stren-hgd.j[ih].stren;
+hgd.intel:=hgd.intel-hgd.j[ih].intel;
+hgd.agility:=hgd.agility-hgd.j[ih].agility;
+hgd.hp:=hgd.hp-hgd.j[ih].hp;
+hgd.mp:=hgd.mp-hgd.j[ih].mp;
+end;
+
+if (command='o')and(dr='u')  then begin
+hgd.init:=hgd.init-hgd.s[ih].init;
+hgd.masking:=hgd.masking-hgd.s[ih].masking;
+hgd.obser:=hgd.obser-hgd.s[ih].obser;
+hgd.dmg:=hgd.attak-hgd.s[ih].base_dmg;
+hgd.ign_dmg:=hgd.defense-hgd.s[ih].base_defense;
+end;
+
+
+hero_get_dress:=hgd;
+end;
+
+
+
 //08.03.2016
 function mob_dress_up(mdu:new_body):new_body;
 var
-mdui:byte;
+mdui,mi:byte;
 begin
-mob_dress_up:=mdu;
+//log_generate('log_old_generate','mob dress up start 0 ');
 for mdui:=0 to 4 do begin//1
-if mdu.bag[mdui].tip<>0 then begin//2
-//while mdu.s[mdui+1].tip
+//log_generate('log_old_generate','mob dress up start 1 ');
+mi:=0;
+if mdu.s[mdui].tip=0 then begin //2
+//log_generate('log_old_generate','mob dress up start 3 ');
+{-------------------------------------}
+for mi:=0 to 5 do begin//3
+//while (mdu.bag[mi].type_subject<>'helm')or(mi<50) do begin //3
+//log_generate('log_old_generate','mob dress up 1 '+inttostr(mi)+' '+mdu.bag[mi].type_subject);
+if( mdu.s[mdui].tip=0)and( mdu.bag[mi].type_subject='helm')then mdu:=hero_get_dress(mdu,'o',1,'d');
+if( mdu.s[mdui].tip=0)and( mdu.bag[mi].type_subject='dress')then mdu:=hero_get_dress(mdu,'o',2,'d');
+if( mdu.s[mdui].tip=0)and( mdu.bag[mi].type_subject='shoes')then mdu:=hero_get_dress(mdu,'o',3,'d');
+if( mdu.s[mdui].tip=0)and( mdu.bag[mi].type_subject='sword')then mdu:=hero_get_dress(mdu,'o',4,'d');
+
+//mi:=mi+1;
+
+end;//3
+//if mdu.bag[mi].type_subject='helm'then mdu:=hero_get_dress(mdu,'d',1,'d');
+//mi:=0;
+
+{------------------------------------}
+{while (mdu.bag[mi].type_subject<>'dress')or(mi<50)  do mi:=mi+1;
+if mdu.bag[mi].type_subject='dress'then mdu:=hero_get_dress(mdu,'d',2,'d');
+mi:=0;}
+{------------------------------------}
 end;//2
-end//1
+end;//1
+mob_dress_up:=mdu;
 end;
 
 
@@ -1658,50 +1728,6 @@ log_generate('log_old_generate','hero quest 0-2 '+ho.quest_activ.st[0]);
 log_generate('log_old_generate','npc quest 0-2 '+n_o.quest_activ.st[0]);
 end;
 
-//29.02.2016
-function hero_get_dress(hgd:new_body;command:char;ih:byte;dr:char):new_body;
-{
-* command:'o'-dress/'j'-jevel
-* ih-# slot(1,2...)
-* dr:'d'-up har, 'u'-down har
-* }
-begin
-
-if (command='j')and(dr='d') then begin
-hgd.stren:=hgd.stren+hgd.j[ih].stren;
-hgd.intel:=hgd.intel+hgd.j[ih].intel;
-hgd.agility:=hgd.agility+hgd.j[ih].agility;
-hgd.hp:=hgd.hp+hgd.j[ih].hp;
-hgd.mp:=hgd.mp+hgd.j[ih].mp;
-end;
-
-if (command='o')and(dr='d')  then begin
-hgd.init:=hgd.init+hgd.s[ih].init;
-hgd.masking:=hgd.masking+hgd.s[ih].masking;
-hgd.obser:=hgd.obser+hgd.s[ih].obser;
-hgd.dmg:=hgd.attak+hgd.s[ih].base_dmg;
-hgd.ign_dmg:=hgd.defense+hgd.s[ih].base_defense;
-end;
-
-if (command='j')and(dr='u') then begin
-hgd.stren:=hgd.stren-hgd.j[ih].stren;
-hgd.intel:=hgd.intel-hgd.j[ih].intel;
-hgd.agility:=hgd.agility-hgd.j[ih].agility;
-hgd.hp:=hgd.hp-hgd.j[ih].hp;
-hgd.mp:=hgd.mp-hgd.j[ih].mp;
-end;
-
-if (command='o')and(dr='u')  then begin
-hgd.init:=hgd.init-hgd.s[ih].init;
-hgd.masking:=hgd.masking-hgd.s[ih].masking;
-hgd.obser:=hgd.obser-hgd.s[ih].obser;
-hgd.dmg:=hgd.attak-hgd.s[ih].base_dmg;
-hgd.ign_dmg:=hgd.defense-hgd.s[ih].base_defense;
-end;
-
-
-hero_get_dress:=hgd;
-end;
 
 //27.12.2015
 function hero_update(nb:new_body):new_body;
@@ -3449,7 +3475,9 @@ if fool_log=true then log_generate('log_old_generate','mob generate '+inttostr(k
 	//log_generate('log_old_generate','mob generate quest '+inttostr(mob[k0].quest_activ.x)+' '+inttostr(mob[k0].quest_activ.y));
 	mob[k0].quest_flag:=true;
 	mob[k0]:=hero_update(mob[k0]);
-	//if (bl=10)and(i=10) then log_generate('log_old_generate','mob generate '+mob[k0].st1);
+	if (bl=10)and((i=10)or(i=20)or(i=30)or(i=40))then log_generate('log_old_generate','mob generate1 '+mob[k0].s[1].name+' '+mob[k0].s[2].name);
+	mob[k0]:=mob_dress_up(mob[k0]);
+	if (bl=10)and(((i=10)or(i=20)or(i=30)or(i=40))) then log_generate('log_old_generate','mob generate2 '+mob[k0].s[1].name+' '+mob[k0].s[2].name);
 	//--------------------------------------mob--------
 	map[mob[k0].x,mob[k0].y].tip:=3;
 	map[mob[k0].x,mob[k0].y].mob_index:=k0;

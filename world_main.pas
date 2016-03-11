@@ -667,233 +667,6 @@ end;
 hero_get_dress:=hgd;
 end;
 
-
-
-//08.03.2016
-function mob_dress_up(mdu:new_body):new_body;
-var
-mdui,mi:byte;
-begin
-//log_generate('log_old_generate','mob dress up start 0 ');
-for mdui:=0 to 4 do begin//1
-//log_generate('log_old_generate','mob dress up start 1 ');
-mi:=0;
-if mdu.s[mdui].tip=0 then begin //2
-//log_generate('log_old_generate','mob dress up start 3 ');
-{-------------------------------------}
-for mi:=0 to 5 do begin//3
-//while (mdu.bag[mi].type_subject<>'helm')or(mi<50) do begin //3
-//log_generate('log_old_generate','mob dress up 1 '+inttostr(mi)+' '+mdu.bag[mi].type_subject);
-if( mdu.s[mdui].tip=0)and( mdu.bag[mi].type_subject='helm')then mdu:=hero_get_dress(mdu,'o',1,'d');
-if( mdu.s[mdui].tip=0)and( mdu.bag[mi].type_subject='dress')then mdu:=hero_get_dress(mdu,'o',2,'d');
-if( mdu.s[mdui].tip=0)and( mdu.bag[mi].type_subject='shoes')then mdu:=hero_get_dress(mdu,'o',3,'d');
-if( mdu.s[mdui].tip=0)and( mdu.bag[mi].type_subject='sword')then mdu:=hero_get_dress(mdu,'o',4,'d');
-
-//mi:=mi+1;
-
-end;//3
-//if mdu.bag[mi].type_subject='helm'then mdu:=hero_get_dress(mdu,'d',1,'d');
-//mi:=0;
-
-{------------------------------------}
-{while (mdu.bag[mi].type_subject<>'dress')or(mi<50)  do mi:=mi+1;
-if mdu.bag[mi].type_subject='dress'then mdu:=hero_get_dress(mdu,'d',2,'d');
-mi:=0;}
-{------------------------------------}
-end;//2
-end;//1
-mob_dress_up:=mdu;
-end;
-
-
-
-//04.02.2016
-function mob_muve(mm:new_body;command:string;mi:byte):new_body;
-var
-mmf:boolean;
-begin
-mob_muve:=mm;
-
-if (command='start') and (map[mm.x,mm.y].tip=3) 
-and(mm.x+2<x_map)and(mm.x>2)and(mm.y+2<y_map)and(mm.y>2) 
-and (hero.xd=0)and(hero.yd=0)
-then begin//00
-mmf:=true;
-if (mob_muve.x<mob_muve.quest_activ.x)and(mmf=true) then begin
-mob_muve.x:=mob_muve.x+1; mmf:=false;end;
-if (mob_muve.x>mob_muve.quest_activ.x)and(mmf=true)  then begin
- mob_muve.x:=mob_muve.x-1; mmf:=false;end;
-
-if (mob_muve.y<mob_muve.quest_activ.y)and(mmf=true)  then  begin
-mob_muve.y:=mob_muve.y+1; mmf:=false;end;
-if (mob_muve.y>mob_muve.quest_activ.y)and(mmf=true)  then  begin
-mob_muve.y:=mob_muve.y-1; mmf:=false;end;
-
-if (mob_muve.y=mob_muve.quest_activ.y)and(mob_muve.x=mob_muve.quest_activ.x) then
-begin//1
- mob_muve.quest_activ:=quest_generate(random(3));
- log_generate('log_old_generate','mob_muve quest complit '+inttostr(mi));
- end;//1
-{
-tt:=random(4);
-if tt=0 then mob_muve.x:=mob_muve.x+1;
-if tt=1 then mob_muve.x:=mob_muve.x-1;
-if tt=2 then mob_muve.y:=mob_muve.y+1;
-if tt=3 then mob_muve.y:=mob_muve.y-1;
-}
-end;//00
-map[mm.x,mm.y].tip:=0;
-map[mob_muve.x,mob_muve.y].tip:=3;
-map[mm.x,mm.y].mob_index:=0;
-map[mob_muve.x,mob_muve.y].mob_index:=mi;
-
-//log_generate('log_old_generate','mob_muve 33 '+inttostr(mi)+' '+inttostr(mob_muve.x)+':'+inttostr(mob_muve.y));
-end;
-
-
-
-//+11.11.2015
-procedure muve(i_m,j_m:word; command:string);
-var
-i_muv,j_muv,rr:word;
-bm_i:word;
-begin
-if command='start' then begin//00
-for i_muv:=i_m-5 to i_m+5 do begin//0.1
-	for j_muv:=j_m-10 to j_m+10 do begin//0.2
-	
-if map[i_muv,j_muv].progress>=progress_max then begin//1
-
-if map[i_muv,j_muv].structure='/' then begin//1.2
- map[i_muv,j_muv].structure:='.';
- map[i_muv,j_muv].color:=14;
- map[i_muv,j_muv].progress:=0;
-
-end;//1.2
-
-if map[i_muv,j_muv].structure='"' then begin//1.1
-rr:=random(4);
-if (rr=0)and (i_muv<x_map-1) then begin //1.1.1
-map[i_muv+1,j_muv].structure:='"';
-map[i_muv+1,j_muv].color:=2;
-map[i_muv+1,j_muv].progress:=0;
-end;//1.1.1
-if (rr=1)and (i_muv>0) then begin //1.1.2
-map[i_muv-1,j_muv].structure:='"';
-map[i_muv-1,j_muv].color:=2;
-map[i_muv-1,j_muv].progress:=0;
-end;//1.1.2
-if (rr=2)and (j_muv<y_map-1) then begin//1.1.3
- map[i_muv,j_muv+1].structure:='"';
- map[i_muv,j_muv+1].color:=2;
- map[i_muv,j_muv+1].progress:=0;
- end;//1.1.3
-if (rr=3)and (j_muv>0) then begin //1.1.4
-map[i_muv,j_muv-1].structure:='"';
-map[i_muv,j_muv-1].color:=2;
-map[i_muv,j_muv-1].progress:=0;
-end;//1.1.4
-
- map[i_muv,j_muv].structure:='/';
- map[i_muv,j_muv].color:=6;
- map[i_muv,j_muv].progress:=0;
-
-end;//1.1	
-	
-
-
-end;//1
-if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
-end;end;//0.1//0.2
-end;//00
-
-if command='test' then begin//000------------------------000-----------------
-
-//log_generate('log_old_generate','start_muve_');
-for i_muv:=10 to x_map-10 do begin//0.1
-	for j_muv:=10 to y_map-10 do begin//0.2
-	
-//if map[i_muv,j_muv].tip =3 then mob[map[i_muv,j_muv].mob_index]:=mob_muve(mob[map[i_muv,j_muv].mob_index],'start',map[i_muv,j_muv].mob_index);
-	
-//mob[map[i_muv,j_muv].mob_index]:=mob_muve(mob[map[i_muv,j_muv].mob_index],'start');	
-if map[i_muv,j_muv].progress>=100 then begin//1--------------!!!!2->100!!!!--------------
-
-if map[i_muv,j_muv].structure='/' then begin//1.2
- map[i_muv,j_muv].structure:='.';
- map[i_muv,j_muv].color:=14;
- map[i_muv,j_muv].progress:=0;
-
-end;//1.2
-
-if map[i_muv,j_muv].structure='"' then begin//1.1
-rr:=random(4);
-if (rr=0)and (i_muv<x_map-1) and(map[i_muv+1,j_muv].structure='.') then begin //1.1.1
-//log_generate('log_old_generate','muve 0');
-map[i_muv+1,j_muv].structure:='"';
-map[i_muv+1,j_muv].color:=2;
-map[i_muv+1,j_muv].progress:=0;
-
- map[i_muv,j_muv].structure:='/';
- map[i_muv,j_muv].color:=6;
- map[i_muv,j_muv].progress:=0;
-
-end;//1.1.1
-if (rr=1)and (i_muv>0) and(map[i_muv-1,j_muv].structure='.')then begin //1.1.2
-//log_generate('log_old_generate','muve 1');
-map[i_muv-1,j_muv].structure:='"';
-map[i_muv-1,j_muv].color:=2;
-map[i_muv-1,j_muv].progress:=0;
-
- map[i_muv,j_muv].structure:='/';
- map[i_muv,j_muv].color:=6;
- map[i_muv,j_muv].progress:=0;
-
-end;//1.1.2
-if (rr=2)and (j_muv<y_map-1)and(map[i_muv,j_muv+1].structure='.') then begin//1.1.3
-//log_generate('log_old_generate','muve 2');
- map[i_muv,j_muv+1].structure:='"';
- map[i_muv,j_muv+1].color:=2;
- map[i_muv,j_muv+1].progress:=0;
-
-  map[i_muv,j_muv].structure:='/';
- map[i_muv,j_muv].color:=6;
- map[i_muv,j_muv].progress:=0;
-
- end;//1.1.3
-if (rr=3)and (j_muv>0)and(map[i_muv,j_muv-1].structure='.') then begin //1.1.4
-//log_generate('log_old_generate','muve 3');
-map[i_muv,j_muv-1].structure:='"';
-map[i_muv,j_muv-1].color:=2;
-map[i_muv,j_muv-1].progress:=0;
-
- map[i_muv,j_muv].structure:='/';
- map[i_muv,j_muv].color:=6;
- map[i_muv,j_muv].progress:=0;
-
-end;//1.1.4
-
- {map[i_muv,j_muv].structure:='/';
- map[i_muv,j_muv].color:=6;
- map[i_muv,j_muv].progress:=0;}
-
-end;//1.1	
-	
-
-
-end;//1
-if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
-end;end;//0.1//0.2
-//log_generate('log_old_generate','start_muve_beast ');
-
-for bm_i:=0 to 10000 do begin //2
-
-//beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
-if mob[bm_i].hp>0 then mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
-end;//2
-
-end;//000
-end;
-
 function name_item_generate(command:string):string;//+09.12.2015
 var
 nig,r:byte;
@@ -937,51 +710,6 @@ end;//1.1
 close(color);
 color_generate:=color_name[random(n)];
 end;
-
-
-function name_generate(command:string):string;//+12.08.2015
-var
-s:string;
-begin
-if lang_s='w_rus' then s:='res\mob\monster_'+command+'_win.name';//+01.09.2015
-if lang_s='u_rus' then s:='res/mob/monster_'+command+'_unix.name';//19.02.2016
-assign(monster_name,s);
-reset(monster_name);
-m:=1;
-while not eof(monster_name) do begin//1.1
-readln(monster_name,text_name[m]);
-m:=m+1;
-end;//1.1
-close(monster_name);
-//+31.08.2015
-if lang_s='w_rus' then assign(color,'res\har\color');
-if lang_s='u_rus' then assign(color,'res/har/u_color');
-if lang_s='w_eng' then assign(color,'res\har\color_eng');
-if lang_s='u_eng' then assign(color,'res/har/color_eng');
-reset(color);
-n:=1;
-while not eof(color) do begin//1.1
-readln(color,color_name[n]);
-n:=n+1;
-end;//1.1
-close(color);
-//
-if lang_s='w_rus' then assign(har,'res\har\har');
-if lang_s='u_rus' then assign(har,'res/har/u_har');
-if lang_s='w_eng' then assign(har,'res\har\har_eng');
-if lang_s='u_eng' then assign(har,'res/har/har_eng');
-reset(har);
-i:=1;
-while not eof(har) do begin//1.1
-readln(har,har_name[i]);
-i:=i+1;
-end;//1.1
-close(har);
-
-name_generate:={har_name[random(i)]+' '+}text_name[random(m)]{+' '+color_name[random(n)]};
-end;
-
-
 
 
 //23.11.2015
@@ -1232,6 +960,297 @@ beast_inv_generate.hp:=random(5);
 beast_inv_generate.mp:=random(5);
 end;//1
 end;
+
+
+//11.03.2016
+function mob_dressed(md:new_body;command:char;slot_bag,slot_dress:byte):new_body;
+{
+* command: 'o'-dress;'j'-jevel
+* }
+begin
+if command='o' then begin//1
+md.s[slot_dress]:=md.bag[slot_bag];
+md.bag[slot_bag]:=beast_inv_generate('null');
+md:=hero_get_dress(md,'o',slot_dress,'d');
+end;//1
+if command='j' then begin//2
+md.j[slot_dress]:=md.bag[slot_bag];
+md.bag[slot_bag]:=beast_inv_generate('null');
+md:=hero_get_dress(md,'j',slot_dress,'d');
+end;//2
+mob_dressed:=md;
+end;
+
+//08.03.2016
+function mob_dress_up(mdu:new_body):new_body;
+var
+mi:byte;
+fl:boolean;
+begin
+//1
+mi:=0;
+fl:=false;
+{-------------------------------------}
+for mi:=0 to 5 do begin//3
+
+if( mdu.s[1].tip=0)and( mdu.bag[mi].type_subject='helm') then begin//3.1
+mdu:=mob_dressed(mdu,'o',mi,1);
+//log_generate('log_old_generate','mob_dress_up '+mdu.s[1].name);
+end; //3.1
+if( mdu.s[2].tip=0)and( mdu.bag[mi].type_subject='dress')then mdu:=mob_dressed(mdu,'o',mi,2);
+if( mdu.s[3].tip=0)and( mdu.bag[mi].type_subject='shoes')then mdu:=mob_dressed(mdu,'o',mi,3);
+if( mdu.s[4].tip=0)and( mdu.bag[mi].type_subject='sword')then mdu:=mob_dressed(mdu,'o',mi,4);
+if( mdu.s[5].tip=0)and( mdu.bag[mi].type_subject='shield')then mdu:=mob_dressed(mdu,'o',mi,5);
+
+if( mdu.j[0].tip=0)and( mdu.bag[mi].tip=5)then begin mdu:=mob_dressed(mdu,'j',mi,0); fl:=true;end;
+if( mdu.j[1].tip=0)and( mdu.bag[mi].tip=5) and (fl=false)then  mdu:=mob_dressed(mdu,'j',mi,1);
+fl:=false;
+if( mdu.j[2].tip=0)and( mdu.bag[mi].tip=6)then begin mdu:=mob_dressed(mdu,'j',mi,2); fl:=true;end;
+if( mdu.j[3].tip=0)and( mdu.bag[mi].tip=6) and (fl=false)then  mdu:=mob_dressed(mdu,'j',mi,3);
+fl:=false;
+if( mdu.j[4].tip=0)and( mdu.bag[mi].tip=7)then  mdu:=mob_dressed(mdu,'j',mi,4); 
+end;//3
+
+
+
+mob_dress_up:=mdu;
+end;
+
+
+
+//04.02.2016
+function mob_muve(mm:new_body;command:string;mi:byte):new_body;
+var
+mmf:boolean;
+begin
+mob_muve:=mm;
+
+if (command='start') and (map[mm.x,mm.y].tip=3) 
+and(mm.x+2<x_map)and(mm.x>2)and(mm.y+2<y_map)and(mm.y>2) 
+and (hero.xd=0)and(hero.yd=0)
+then begin//00
+mmf:=true;
+if (mob_muve.x<mob_muve.quest_activ.x)and(mmf=true) then begin
+mob_muve.x:=mob_muve.x+1; mmf:=false;end;
+if (mob_muve.x>mob_muve.quest_activ.x)and(mmf=true)  then begin
+ mob_muve.x:=mob_muve.x-1; mmf:=false;end;
+
+if (mob_muve.y<mob_muve.quest_activ.y)and(mmf=true)  then  begin
+mob_muve.y:=mob_muve.y+1; mmf:=false;end;
+if (mob_muve.y>mob_muve.quest_activ.y)and(mmf=true)  then  begin
+mob_muve.y:=mob_muve.y-1; mmf:=false;end;
+
+if (mob_muve.y=mob_muve.quest_activ.y)and(mob_muve.x=mob_muve.quest_activ.x) then
+begin//1
+ mob_muve.quest_activ:=quest_generate(random(3));
+ log_generate('log_old_generate','mob_muve quest complit '+inttostr(mi));
+ end;//1
+{
+tt:=random(4);
+if tt=0 then mob_muve.x:=mob_muve.x+1;
+if tt=1 then mob_muve.x:=mob_muve.x-1;
+if tt=2 then mob_muve.y:=mob_muve.y+1;
+if tt=3 then mob_muve.y:=mob_muve.y-1;
+}
+end;//00
+map[mm.x,mm.y].tip:=0;
+map[mob_muve.x,mob_muve.y].tip:=3;
+map[mm.x,mm.y].mob_index:=0;
+map[mob_muve.x,mob_muve.y].mob_index:=mi;
+
+//log_generate('log_old_generate','mob_muve 33 '+inttostr(mi)+' '+inttostr(mob_muve.x)+':'+inttostr(mob_muve.y));
+end;
+
+
+
+//+11.11.2015
+procedure muve(i_m,j_m:word; command:string);
+var
+i_muv,j_muv,rr:word;
+bm_i:word;
+begin
+if command='start' then begin//00
+for i_muv:=i_m-5 to i_m+5 do begin//0.1
+	for j_muv:=j_m-10 to j_m+10 do begin//0.2
+	
+if map[i_muv,j_muv].progress>=progress_max then begin//1
+
+if map[i_muv,j_muv].structure='/' then begin//1.2
+ map[i_muv,j_muv].structure:='.';
+ map[i_muv,j_muv].color:=14;
+ map[i_muv,j_muv].progress:=0;
+
+end;//1.2
+
+if map[i_muv,j_muv].structure='"' then begin//1.1
+rr:=random(4);
+if (rr=0)and (i_muv<x_map-1) then begin //1.1.1
+map[i_muv+1,j_muv].structure:='"';
+map[i_muv+1,j_muv].color:=2;
+map[i_muv+1,j_muv].progress:=0;
+end;//1.1.1
+if (rr=1)and (i_muv>0) then begin //1.1.2
+map[i_muv-1,j_muv].structure:='"';
+map[i_muv-1,j_muv].color:=2;
+map[i_muv-1,j_muv].progress:=0;
+end;//1.1.2
+if (rr=2)and (j_muv<y_map-1) then begin//1.1.3
+ map[i_muv,j_muv+1].structure:='"';
+ map[i_muv,j_muv+1].color:=2;
+ map[i_muv,j_muv+1].progress:=0;
+ end;//1.1.3
+if (rr=3)and (j_muv>0) then begin //1.1.4
+map[i_muv,j_muv-1].structure:='"';
+map[i_muv,j_muv-1].color:=2;
+map[i_muv,j_muv-1].progress:=0;
+end;//1.1.4
+
+ map[i_muv,j_muv].structure:='/';
+ map[i_muv,j_muv].color:=6;
+ map[i_muv,j_muv].progress:=0;
+
+end;//1.1	
+	
+
+
+end;//1
+if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
+end;end;//0.1//0.2
+end;//00
+
+if command='test' then begin//000------------------------000-----------------
+
+//log_generate('log_old_generate','start_muve_');
+for i_muv:=10 to x_map-10 do begin//0.1
+	for j_muv:=10 to y_map-10 do begin//0.2
+	
+//if map[i_muv,j_muv].tip =3 then mob[map[i_muv,j_muv].mob_index]:=mob_muve(mob[map[i_muv,j_muv].mob_index],'start',map[i_muv,j_muv].mob_index);
+	
+//mob[map[i_muv,j_muv].mob_index]:=mob_muve(mob[map[i_muv,j_muv].mob_index],'start');	
+if map[i_muv,j_muv].progress>=100 then begin//1--------------!!!!2->100!!!!--------------
+
+if map[i_muv,j_muv].structure='/' then begin//1.2
+ map[i_muv,j_muv].structure:='.';
+ map[i_muv,j_muv].color:=14;
+ map[i_muv,j_muv].progress:=0;
+
+end;//1.2
+
+if map[i_muv,j_muv].structure='"' then begin//1.1
+rr:=random(4);
+if (rr=0)and (i_muv<x_map-1) and(map[i_muv+1,j_muv].structure='.') then begin //1.1.1
+//log_generate('log_old_generate','muve 0');
+map[i_muv+1,j_muv].structure:='"';
+map[i_muv+1,j_muv].color:=2;
+map[i_muv+1,j_muv].progress:=0;
+
+ map[i_muv,j_muv].structure:='/';
+ map[i_muv,j_muv].color:=6;
+ map[i_muv,j_muv].progress:=0;
+
+end;//1.1.1
+if (rr=1)and (i_muv>0) and(map[i_muv-1,j_muv].structure='.')then begin //1.1.2
+//log_generate('log_old_generate','muve 1');
+map[i_muv-1,j_muv].structure:='"';
+map[i_muv-1,j_muv].color:=2;
+map[i_muv-1,j_muv].progress:=0;
+
+ map[i_muv,j_muv].structure:='/';
+ map[i_muv,j_muv].color:=6;
+ map[i_muv,j_muv].progress:=0;
+
+end;//1.1.2
+if (rr=2)and (j_muv<y_map-1)and(map[i_muv,j_muv+1].structure='.') then begin//1.1.3
+//log_generate('log_old_generate','muve 2');
+ map[i_muv,j_muv+1].structure:='"';
+ map[i_muv,j_muv+1].color:=2;
+ map[i_muv,j_muv+1].progress:=0;
+
+  map[i_muv,j_muv].structure:='/';
+ map[i_muv,j_muv].color:=6;
+ map[i_muv,j_muv].progress:=0;
+
+ end;//1.1.3
+if (rr=3)and (j_muv>0)and(map[i_muv,j_muv-1].structure='.') then begin //1.1.4
+//log_generate('log_old_generate','muve 3');
+map[i_muv,j_muv-1].structure:='"';
+map[i_muv,j_muv-1].color:=2;
+map[i_muv,j_muv-1].progress:=0;
+
+ map[i_muv,j_muv].structure:='/';
+ map[i_muv,j_muv].color:=6;
+ map[i_muv,j_muv].progress:=0;
+
+end;//1.1.4
+
+ {map[i_muv,j_muv].structure:='/';
+ map[i_muv,j_muv].color:=6;
+ map[i_muv,j_muv].progress:=0;}
+
+end;//1.1	
+	
+
+
+end;//1
+if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[i_muv,j_muv].progress:=map[i_muv,j_muv].progress+1;
+end;end;//0.1//0.2
+//log_generate('log_old_generate','start_muve_beast ');
+
+//for bm_i:=0 to 10000 do begin //2
+
+//beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
+//if mob[bm_i].hp>0 then mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
+//end;//2
+
+end;//000
+end;
+
+
+
+function name_generate(command:string):string;//+12.08.2015
+var
+s:string;
+begin
+if lang_s='w_rus' then s:='res\mob\monster_'+command+'_win.name';//+01.09.2015
+if lang_s='u_rus' then s:='res/mob/monster_'+command+'_unix.name';//19.02.2016
+assign(monster_name,s);
+reset(monster_name);
+m:=1;
+while not eof(monster_name) do begin//1.1
+readln(monster_name,text_name[m]);
+m:=m+1;
+end;//1.1
+close(monster_name);
+//+31.08.2015
+if lang_s='w_rus' then assign(color,'res\har\color');
+if lang_s='u_rus' then assign(color,'res/har/u_color');
+if lang_s='w_eng' then assign(color,'res\har\color_eng');
+if lang_s='u_eng' then assign(color,'res/har/color_eng');
+reset(color);
+n:=1;
+while not eof(color) do begin//1.1
+readln(color,color_name[n]);
+n:=n+1;
+end;//1.1
+close(color);
+//
+if lang_s='w_rus' then assign(har,'res\har\har');
+if lang_s='u_rus' then assign(har,'res/har/u_har');
+if lang_s='w_eng' then assign(har,'res\har\har_eng');
+if lang_s='u_eng' then assign(har,'res/har/har_eng');
+reset(har);
+i:=1;
+while not eof(har) do begin//1.1
+readln(har,har_name[i]);
+i:=i+1;
+end;//1.1
+close(har);
+
+name_generate:={har_name[random(i)]+' '+}text_name[random(m)]{+' '+color_name[random(n)]};
+end;
+
+
+
 
 //01.01.2016
 procedure beast_drop_out(bdo:beast_body);
@@ -3234,7 +3253,6 @@ or(dungeons[doi,doj+1].structure='/')or(dungeons[doi,doj-1].structure='/'))};
 end;
 
 
-
 function map_output(x,y:word;mo:new_body):new_body;
 var
 temp_char:char;
@@ -3316,6 +3334,7 @@ writeln();
 writeln	('5- ',text[2]);
 writeln	('m- ',text[135]);
 if map[x,y].npc_index<>0 then writeln	('9- ',text[111]);
+//mob!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 if( map[x,y].mob_index<>0)and(map[x,y].tip<>6) then writeln	('9- ',text[126]);
 if (map[x,y].structure='=')or(map[x,y].structure='_')or(map[x,y].structure='-')then writeln	('d- ',text[142]);
 

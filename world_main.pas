@@ -1290,8 +1290,8 @@ if fool_log=true then log_generate('log_old_generate','trade_out '+command);
 repeat begin//0
 clrscr;
 bagi:=0;
-if command= 'trade' then begin {tr:=text[69];} trader:=he; end;
-if command= 'cell' then begin {tr:=text[68];} trader:= t_o; end;
+if command= 'trade' then trader:=he; 
+if command= 'cell' then  trader:= t_o; 
 writeln('--------------------------------------------------------');
 writeln('|'+name_tab(text[91],30)+'|'+name_tab(text[110],11)+'|'+name_tab(text[12],6)+'|'
 +name_tab(text[92],6)+'|'+name_tab(text[102],10)+'|'
@@ -1310,12 +1310,15 @@ menu_key:=readkey;
 
 
 //begin //00
-if (command= 'cell')and(trader.bag[strtoint(menu_key)-1].cost<=he.gold) and (strtoint(menu_key)>0)then begin//00.1
+if (command= 'cell')and(t_o.bag[strtoint(menu_key)-1].cost<=he.gold) and (strtoint(menu_key)>0)then begin//00.1
 while he.bag[bagi].tip<>0 do bagi:=bagi+1;
-he.bag[bagi]:=trader.bag[strtoint(menu_key)-1];
-he.gold:=he.gold-trader.bag[strtoint(menu_key)-1].cost;
-trader.bag[strtoint(menu_key)-1]:=beast_inv_generate('nill');
-menu_key:='0';
+he.bag[bagi]:=t_o.bag[strtoint(menu_key)-1];
+he.gold:=he.gold-t_o.bag[strtoint(menu_key)-1].cost;
+t_o.bag[strtoint(menu_key)-1]:=beast_inv_generate('nill');
+
+trade_out.nb1:=he;
+trade_out.nb2:=t_o;
+//menu_key:='0';
 end;//00.1
 if (command= 'trade')and (hero.bag[strtoint(menu_key)-1].cost<=t_o.gold) and (strtoint(menu_key)>0)then begin//00.2
 while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
@@ -1325,7 +1328,7 @@ he.gold:=he.gold+he.bag[strtoint(menu_key)-1].cost;
 trade_out.nb1:=he;
 trade_out.nb2:=t_o;
 he.bag[strtoint(menu_key)-1]:=beast_inv_generate('nill');
-menu_key:='0';
+//menu_key:='0';
 end;//00.2
 end;//00
 

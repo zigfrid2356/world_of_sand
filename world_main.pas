@@ -1067,7 +1067,7 @@ end;
 procedure muve(i_m,j_m:word; command:string);
 var
 i_muv,j_muv,rr:word;
-bm_i:word;
+//bm_i:word;
 begin
 if command='start' then begin//00
 for i_muv:=i_m-5 to i_m+5 do begin//0.1
@@ -1279,19 +1279,19 @@ if i_t= 7 then  item_info:=text[138];
 end;
 
 //09.01.2016
-function trade_out(t_o:new_body;command:string):new_body;
+function trade_out(t_o,he:new_body;command:string):temp;
 var
 //tr:string;
 toi,bagi:byte;
 trader:new_body;
 begin
 if fool_log=true then log_generate('log_old_generate','trade_out '+command);
-trade_out:=t_o;
+
 repeat begin//0
 clrscr;
 bagi:=0;
-if command= 'trade' then begin {tr:=text[69];} trader:=hero end;
-if command= 'cell' then begin {tr:=text[68];} trader:= t_o end;
+if command= 'trade' then begin {tr:=text[69];} trader:=he; end;
+if command= 'cell' then begin {tr:=text[68];} trader:= t_o; end;
 writeln('--------------------------------------------------------');
 writeln('|'+name_tab(text[91],30)+'|'+name_tab(text[110],11)+'|'+name_tab(text[12],6)+'|'
 +name_tab(text[92],6)+'|'+name_tab(text[102],10)+'|'
@@ -1302,11 +1302,34 @@ if trader.bag[toi].tip<>0 then writeln('|'+name_tab(trader.bag[toi].name,30)+'|'
 +'|'+name_tab(inttostr(trader.bag[toi].ves),4)+'|'+'-'+inttostr(toi+1));
 end;//1
 writeln('--------------------------------------------------------');
-{if command= 'cell' then} writeln(hero.name,' ',text[116],':',hero.gold,' | ',t_o.name,' ',text[116],':',t_o.gold,' |');
+writeln(he.name,' ',text[116],':',he.gold,' | ',t_o.name,' ',text[116],':',t_o.gold,' |');
 
 writeln(text[90]);
 menu_key:=readkey;
-end;//0
+//end;//0
+
+
+//begin //00
+if (command= 'cell')and(trader.bag[strtoint(menu_key)-1].cost<=he.gold) and (strtoint(menu_key)>0)then begin//00.1
+while he.bag[bagi].tip<>0 do bagi:=bagi+1;
+he.bag[bagi]:=trader.bag[strtoint(menu_key)-1];
+he.gold:=he.gold-trader.bag[strtoint(menu_key)-1].cost;
+trader.bag[strtoint(menu_key)-1]:=beast_inv_generate('nill');
+menu_key:='0';
+end;//00.1
+if (command= 'trade')and (hero.bag[strtoint(menu_key)-1].cost<=t_o.gold) and (strtoint(menu_key)>0)then begin//00.2
+while t_o.bag[bagi].tip<>0 do bagi:=bagi+1;
+t_o.bag[bagi]:=he.bag[strtoint(menu_key)-1];
+t_o.gold:=t_o.gold-he.bag[strtoint(menu_key)-1].cost;
+he.gold:=he.gold+he.bag[strtoint(menu_key)-1].cost;
+trade_out.nb1:=he;
+trade_out.nb2:=t_o;
+he.bag[strtoint(menu_key)-1]:=beast_inv_generate('nill');
+menu_key:='0';
+end;//00.2
+end;//00
+
+{
 case menu_key of
 '1':begin //00
 if (command= 'cell')and(trader.bag[0].cost<=hero.gold) then begin//00.1
@@ -1471,8 +1494,10 @@ menu_key:='0';
 end;//00.2
 end;
 
-end;
+end;}
 until menu_key='0';
+trade_out.nb1:=he;
+trade_out.nb2:=t_o;
 end;
 
 //29.02.2016
@@ -1704,6 +1729,7 @@ end;
 function npc_output(n_o,ho:new_body):temp;
 var
 noi:byte;
+n_ot:temp;
 begin
 repeat begin//1.0
 clrscr;
@@ -1722,8 +1748,8 @@ menu_key:=readkey;
 end;//1.0
 
 case menu_key of//2.0
-'1': n_o:=trade_out(n_o,'trade');
-'2': n_o:=trade_out(n_o,'cell');
+'1':begin n_ot:=trade_out(n_o,ho,'trade');ho:=n_ot.nb1;n_o:=n_ot.nb2;end;
+'2':begin n_ot:=trade_out(n_o,ho,'cell');ho:=n_ot.nb1;n_o:=n_ot.nb2;end;
 '3': begin//3
 log_generate('log_old_generate','hero quest 0-1 '+ho.quest_activ.st[0]);
 log_generate('log_old_generate','npc quest 0-1 '+n_o.quest_activ.st[0]);

@@ -2,6 +2,6 @@
 git pull
 git init
 git add .
-git commit -a -m 'одевалка'
+git commit -a -m 'борьба с торговлей'
 git remote add origin git@github.com:username/reponame.git
 git push -u origin master

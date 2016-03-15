@@ -2957,10 +2957,10 @@ temp_char:char;
 temp_color:integer;
 begin
 if x-1<6 then x:=6;
-if x+1>198 then x:=198;
+if x+1>197 then x:=197;
 if y-1<11 then y:=11;
-if y+1>193 then y:=193;
-if (x-1>=6) and(x+1<=198) and (y-1>=11) and (y+1<=204-11) then begin//2.00
+if y+1>192 then y:=192;
+if (x-1>=7) and(x+1<=198) and (y-1>=12) and (y+1<=193) then begin//2.00
 repeat begin//2.0
 ClrScr;
 temp_char:=mini_map[x,y].structure;
@@ -2984,7 +2984,7 @@ write('|');//left
  if mini_map[i,j].tip=0 then begin//2.4}
  textcolor(mini_map[i,j].color);
  if mini_map[i,j].name=' ' then write(mini_map[i,j].structure);
- if mini_map[i,j].name<>' ' then begin textcolor(white); write(mini_map[i,j].name); end;
+ if mini_map[i,j].name<>' ' then begin textcolor(white); write(mini_map[i,j].name[1]); end;
  textcolor(white);
  
 { end;//2.4

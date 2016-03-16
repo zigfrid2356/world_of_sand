@@ -260,7 +260,7 @@ if qs=100 then begin //1
 for qsi:=0 to 5 do quest_generate.st[qsi]:='';
 
 end{1} else begin//2
-if lang_s='w_rus' then assign(qst,'res\quest\r_u_quest');
+if lang_s='w_rus' then assign(qst,'res\quest\r_w_quest');
 if lang_s='u_rus' then assign(qst,'res/quest/r_u_quest');
 if lang_s='w_eng' then assign(qst,'res\quest\r_u_quest');
 if lang_s='u_eng' then assign(qst,'res/quest/r_u_quest');

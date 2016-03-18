@@ -573,8 +573,8 @@ begin
 ib:=0;iss:=0;iw:=0;il:=0;
 if lang_s='u_rus' then assign(prof,'res/har/u_prof_rus');
 if lang_s='u_eng' then assign(prof,'res/har/u_prof_rus');
-if lang_s='w_rus' then assign(prof,'res\har\u_prof_rus');
-if lang_s='w_eng' then assign(prof,'res\har\u_prof_rus');
+if lang_s='w_rus' then assign(prof,'res\har\w_prof_rus');
+if lang_s='w_eng' then assign(prof,'res\har\w_prof_rus');
 reset(prof);
 while not eof(prof) do begin
 

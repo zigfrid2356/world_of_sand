@@ -1314,7 +1314,7 @@ if (command= 'cell')and(t_o.bag[strtoint(menu_key)-1].cost<=he.gold) and (strtoi
 while he.bag[bagi].tip<>0 do bagi:=bagi+1;
 he.bag[bagi]:=t_o.bag[strtoint(menu_key)-1];
 he.gold:=he.gold-t_o.bag[strtoint(menu_key)-1].cost;
-t_o.bag[strtoint(menu_key)-1]:=beast_inv_generate('nill');
+t_o.bag[strtoint(menu_key)-1]:=beast_inv_generate('null');
 
 trade_out.nb1:=he;
 trade_out.nb2:=t_o;
@@ -1327,7 +1327,7 @@ t_o.gold:=t_o.gold-he.bag[strtoint(menu_key)-1].cost;
 he.gold:=he.gold+he.bag[strtoint(menu_key)-1].cost;
 trade_out.nb1:=he;
 trade_out.nb2:=t_o;
-he.bag[strtoint(menu_key)-1]:=beast_inv_generate('nill');
+he.bag[strtoint(menu_key)-1]:=beast_inv_generate('null');
 //menu_key:='0';
 end;//00.2
 end;//00
@@ -1347,17 +1347,17 @@ bagi:=0;
 if (command= 'o')and(mdol2.s[index+1].tip<> 0 ) then begin//00.1
 while mdol1.bag[bagi].tip<>0 do bagi:=bagi+1;
 mdol1.bag[bagi]:=mdol2.s[index+1];
-mdol2.s[index+1]:=beast_inv_generate('nill');
+mdol2.s[index+1]:=beast_inv_generate('null');
 end;//00.1
 if (command= 'e')and(mdol2.bag[index].tip<> 0 ) then begin//00.1
 while mdol1.bag[bagi].tip<>0 do bagi:=bagi+1;
 mdol1.bag[bagi]:=mdol2.bag[index];
-mdol2.bag[index]:=beast_inv_generate('nill');
+mdol2.bag[index]:=beast_inv_generate('null');
 end;//00.1
 if (command= 'j')and(mdol2.j[index].tip<> 0 ) then begin//00.1
 while mdol1.bag[bagi].tip<>0 do bagi:=bagi+1;
 mdol1.bag[bagi]:=mdol2.j[index];
-mdol2.j[index]:=beast_inv_generate('nill');
+mdol2.j[index]:=beast_inv_generate('null');
 end;//00.1
 mob_drop_out_loot.nb1:=mdol1;
 mob_drop_out_loot.nb2:=mdol2;
@@ -2640,17 +2640,18 @@ function hero_dressed(hd:new_body;number:byte):new_body;
 var
 bagi,hdi:byte;
 begin
+hero_dressed:=hd;
 
-for i:=0 to 99 do begin if hd.bag[i].tip>10 then hd.bag[i]:=beast_inv_generate('nill');  end;
 
 log_generate('log_old_generate','hero_dressed '+inttostr(number));
 log_generate('log_old_generate','hero_dressed bag tip'+inttostr(hd.bag[number].tip));
-log_generate('log_old_generate','hero_dressed s4 tip'+inttostr(hd.s[4].tip));
+log_generate('log_old_generate','hero_dressed j1 tip'+inttostr(hd.j[1].tip));
+log_generate('log_old_generate','hero_dressed j0 tip'+inttostr(hd.j[0].tip));
 //weapon-------------------------------------------------------------
 bagi:=0;
 if (hd.bag[number].tip=1)and(hd.s[4].tip= 0 ) then  begin//1
 hd.s[4]:=hd.bag[number];
-hd.bag[number]:=beast_inv_generate('nill');
+hd.bag[number]:=beast_inv_generate('null');
 hd:=hero_get_dress(hd,'o',4,'d');
 end;//1
 
@@ -2658,17 +2659,17 @@ if (hd.bag[number].tip=1)and(hd.s[4].tip= 1 ) then  begin//2
 while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
 hd.bag[bagi]:=hd.s[4];
 hd:=hero_get_dress(hd,'o',4,'u');
-hd.s[4]:=beast_inv_generate('nill');
+hd.s[4]:=beast_inv_generate('null');
 
 hd.s[4]:=hd.bag[number];
-hd.bag[number]:=beast_inv_generate('nill');
+hd.bag[number]:=beast_inv_generate('null');
 hd:=hero_get_dress(hd,'o',4,'d');
 end;//2
 //helem-------------------------------------------------------------
 bagi:=0;
 if (hd.bag[number].tip=2)and(hd.s[1].tip= 0 )and(hd.bag[number].type_subject='helm') then  begin//1
 hd.s[1]:=hd.bag[number];
-hd.bag[number]:=beast_inv_generate('nill');
+hd.bag[number]:=beast_inv_generate('null');
 hd:=hero_get_dress(hd,'o',1,'d');
 end;//1
 
@@ -2676,17 +2677,17 @@ if (hd.bag[number].tip=2)and(hd.s[1].tip= 2 )and(hd.bag[number].type_subject='he
 while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
 hd.bag[bagi]:=hd.s[1];
 hd:=hero_get_dress(hd,'o',1,'u');
-hd.s[1]:=beast_inv_generate('nill');
+hd.s[1]:=beast_inv_generate('null');
 
 hd.s[1]:=hd.bag[number];
-hd.bag[number]:=beast_inv_generate('nill');
+hd.bag[number]:=beast_inv_generate('null');
 hd:=hero_get_dress(hd,'o',1,'d');
 end;//2
 //dress-------------------------------------------------------------
 bagi:=0;
 if (hd.bag[number].tip=2)and(hd.s[2].tip= 0 )and(hd.bag[number].type_subject='dress') then  begin//1
 hd.s[2]:=hd.bag[number];
-hd.bag[number]:=beast_inv_generate('nill');
+hd.bag[number]:=beast_inv_generate('null');
 hd:=hero_get_dress(hd,'o',2,'d');
 end;//1
 
@@ -2694,17 +2695,17 @@ if (hd.bag[number].tip=2)and(hd.s[2].tip= 2 )and(hd.bag[number].type_subject='dr
 while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
 hd.bag[bagi]:=hd.s[2];
 hd:=hero_get_dress(hd,'o',2,'u');
-hd.s[2]:=beast_inv_generate('nill');
+hd.s[2]:=beast_inv_generate('null');
 
 hd.s[2]:=hd.bag[number];
-hd.bag[number]:=beast_inv_generate('nill');
+hd.bag[number]:=beast_inv_generate('null');
 hd:=hero_get_dress(hd,'o',2,'d');
 end;//2
 //shoes-------------------------------------------------------------
 bagi:=0;
 if (hd.bag[number].tip=2)and(hd.s[3].tip= 0 )and(hd.bag[number].type_subject='shoes') then  begin//1
 hd.s[3]:=hd.bag[number];
-hd.bag[number]:=beast_inv_generate('nill');
+hd.bag[number]:=beast_inv_generate('null');
 hd:=hero_get_dress(hd,'o',3,'d');
 end;//1
 
@@ -2712,17 +2713,17 @@ if (hd.bag[number].tip=2)and(hd.s[3].tip= 2 )and(hd.bag[number].type_subject='sh
 while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
 hd.bag[bagi]:=hd.s[3];
 hd:=hero_get_dress(hd,'o',3,'u');
-hd.s[3]:=beast_inv_generate('nill');
+hd.s[3]:=beast_inv_generate('null');
 
 hd.s[3]:=hd.bag[number];
-hd.bag[number]:=beast_inv_generate('nill');
+hd.bag[number]:=beast_inv_generate('null');
 hd:=hero_get_dress(hd,'o',3,'d');
 end;//2
 //shield-------------------------------------------------------------
 bagi:=0;
 if (hd.bag[number].tip=2)and(hd.s[5].tip= 0 )and(hd.bag[number].type_subject='shield') then  begin//1
 hd.s[5]:=hd.bag[number];
-hd.bag[number]:=beast_inv_generate('nill');
+hd.bag[number]:=beast_inv_generate('null');
 hd:=hero_get_dress(hd,'o',5,'d');
 end;//1
 
@@ -2730,17 +2731,17 @@ if (hd.bag[number].tip=2)and(hd.s[5].tip= 2 )and(hd.bag[number].type_subject='sh
 while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
 hd.bag[bagi]:=hd.s[5];
 hd:=hero_get_dress(hd,'o',5,'u');
-hd.s[5]:=beast_inv_generate('nill');
+hd.s[5]:=beast_inv_generate('null');
 
 hd.s[5]:=hd.bag[number];
-hd.bag[number]:=beast_inv_generate('nill');
+hd.bag[number]:=beast_inv_generate('null');
 hd:=hero_get_dress(hd,'o',5,'d');
 end;//2
 //amulet-------------------------------------------------------------
 bagi:=0;
 if (hd.bag[number].tip=7)and(hd.j[4].tip= 0 )then  begin//1
 hd.j[4]:=hd.bag[number];
-hd.bag[number]:=beast_inv_generate('nill');
+hd.bag[number]:=beast_inv_generate('null');
 hd:=hero_get_dress(hd,'j',4,'d');
 end;//1
 
@@ -2748,10 +2749,10 @@ if (hd.bag[number].tip=7)and(hd.j[4].tip= 7 )then  begin//2
 while hd.bag[bagi].tip<>0 do bagi:=bagi+1;
 hd.bag[bagi]:=hd.j[4];
 hd:=hero_get_dress(hd,'j',4,'u');
-hd.j[4]:=beast_inv_generate('nill');
+hd.j[4]:=beast_inv_generate('null');
 
 hd.j[4]:=hd.bag[number];
-hd.bag[number]:=beast_inv_generate('nill');
+hd.bag[number]:=beast_inv_generate('null');
 hd:=hero_get_dress(hd,'j',4,'d');
 end;//2
 //ring-------------------------------------------------------------
@@ -2762,10 +2763,10 @@ hdi:=select(2,0);
 if hd.j[hdi-1].tip<>0 then begin//3
 hd.bag[bagi]:=hd.j[hdi-1];
 hd:=hero_get_dress(hd,'j',hdi-1,'u');
-hd.j[hdi-1]:=beast_inv_generate('nill');
+hd.j[hdi-1]:=beast_inv_generate('null');
 end;//3
 hd.j[hdi-1]:=hd.bag[number];
-hd.bag[number]:=beast_inv_generate('nill');
+hd.bag[number]:=beast_inv_generate('null');
 hd:=hero_get_dress(hd,'j',hdi-1,'d');
 end;//2
 //link-------------------------------------------------------------
@@ -2776,14 +2777,12 @@ hdi:=select(2,0);
 if hd.j[hdi+1].tip<>0 then begin//3
 hd.bag[bagi]:=hd.j[hdi+1];
 hd:=hero_get_dress(hd,'j',hdi+1,'u');
-hd.j[hdi+1]:=beast_inv_generate('nill');
+hd.j[hdi+1]:=beast_inv_generate('null');
 end;//3
 hd.j[hdi+1]:=hd.bag[number];
-hd.bag[number]:=beast_inv_generate('nill');
+hd.bag[number]:=beast_inv_generate('null');
 hd:=hero_get_dress(hd,'j',hdi+1,'d');
 end;//2
-
-for i:=0 to 99 do begin if hd.bag[i].tip>10 then hd.bag[i]:=beast_inv_generate('nill');  end;
 hero_dressed:=hd;
 end;
 
@@ -2813,15 +2812,15 @@ menu_key:=readkey;
 
 case menu_key of//2
 'q':bi:=hero_dressed(bi,bk);
-'w':bi:=hero_dressed(bi,bk+1);
-'e':bi:=hero_dressed(bi,bk+2);
-'r':bi:=hero_dressed(bi,bk+3);
-'t':bi:=hero_dressed(bi,bk+4);
-'y':bi:=hero_dressed(bi,bk+5);
-'u':bi:=hero_dressed(bi,bk+6);
-'i':bi:=hero_dressed(bi,bk+7);
-'o':bi:=hero_dressed(bi,bk+8);
-'p':bi:=hero_dressed(bi,bk+9);
+'w':bi:=hero_dressed(bi,bk+1); 
+'e':bi:=hero_dressed(bi,bk+2); 
+'r':bi:=hero_dressed(bi,bk+3); 
+'t':bi:=hero_dressed(bi,bk+4); 
+'y':bi:=hero_dressed(bi,bk+5); 
+'u':bi:=hero_dressed(bi,bk+6); 
+'i':bi:=hero_dressed(bi,bk+7); 
+'o':bi:=hero_dressed(bi,bk+8); 
+'p':bi:=hero_dressed(bi,bk+9); 
 else b_l:=strtoint(menu_key);
 end;//2
 

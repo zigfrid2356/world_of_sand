@@ -2226,14 +2226,14 @@ F:TZipFileEntries;
 begin
 ClrScr;
 writeln(text[17],' ',hero.name);
-if lang_s='w_rus' then assign(hero_save,'res\save\hero.save');
+if (lang_s='w_rus')or(lang_s='w_eng') then assign(hero_save,'res\save\hero.save');
 if lang_s='u_rus' then assign(hero_save,'res/save/hero.save');
 rewrite(hero_save);
 write(hero_save,hero);
 close(hero_save);
 writeln(text[17],' ',text[76]);
 {NPC}
-if lang_s='w_rus' then assign(npc_save,'res\save\npc.save');
+if (lang_s='w_rus')or(lang_s='w_eng') then assign(npc_save,'res\save\npc.save');
 if lang_s='u_rus' then assign(npc_save,'res/save/npc.save');
 rewrite(npc_save);
 for i:=0 to 17000 do begin//1.1
@@ -2244,7 +2244,7 @@ close(npc_save);
 
 {MOB}
 writeln(text[17],' ',text[118]);
-if lang_s='w_rus' then assign(mob_save,'res\save\mob.save');
+if (lang_s='w_rus')or(lang_s='w_eng') then assign(mob_save,'res\save\mob.save');
 if lang_s='u_rus' then assign(mob_save,'res/save/mob.save');
 rewrite(mob_save);
 for i:=0 to 10000 do begin//1.1
@@ -2254,7 +2254,7 @@ close(mob_save);
 
 {BEAST}
 writeln(text[17],' ',text[119]);
-if lang_s='w_rus' then assign(beast_save,'res\save\beast.save');
+if (lang_s='w_rus')or(lang_s='w_eng') then assign(beast_save,'res\save\beast.save');
 if lang_s='u_rus' then assign(beast_save,'res/save/beast.save');
 rewrite(beast_save);
 for i:=0 to 10000 do begin//1.1
@@ -2264,7 +2264,7 @@ close(beast_save);
 
 {OZ}
 writeln(text[17],' ',text[75]);
-if lang_s='w_rus' then assign(oz_save,'res\save\oz.save');
+if (lang_s='w_rus')or(lang_s='w_eng') then assign(oz_save,'res\save\oz.save');
 if lang_s='u_rus' then assign(oz_save,'res/save/oz.save');
 rewrite(oz_save);
 for i:=0 to 100 do begin//1.1
@@ -2275,7 +2275,7 @@ close(oz_save);
 
 {PYST}
 writeln(text[17],' ',text[74]);
-if lang_s='w_rus' then assign(pyst_save,'res\save\pyst.save');
+if (lang_s='w_rus')or(lang_s='w_eng') then assign(pyst_save,'res\save\pyst.save');
 if lang_s='u_rus' then assign(pyst_save,'res/save/pyst.save');
 rewrite(pyst_save);
 for i:=0 to 1000 do begin//1.1
@@ -2285,7 +2285,7 @@ close(pyst_save);
 
 
 writeln(text[17],' ',text[9]);
-if lang_s='w_rus' then assign(map_save,'res\save\map.save');
+if (lang_s='w_rus')or(lang_s='w_eng') then assign(map_save,'res\save\map.save');
 if lang_s='u_rus' then assign(map_save,'res/save/map.save');
 rewrite(map_save);
 for i:=0 to x_map do begin//1.1
@@ -2296,7 +2296,7 @@ close(map_save);
 writeln(text[18]);
 writeln(text[94]);
  F:=TZipFileEntries.Create(TZipFileEntry);
-if lang_s='w_rus' then  begin
+if (lang_s='w_rus')or(lang_s='w_eng') then  begin
    F.AddFileEntry('res\save\hero.save','hero.save');
    F.AddFileEntry('res\save\npc.save','npc.save');
    F.AddFileEntry('res\save\map.save','map.save');
@@ -2315,7 +2315,7 @@ if lang_s='u_rus' then  begin
    F.AddFileEntry('res/save/pyst.save','pyst.save');
 end;
  zip:=TZipper.Create;
-if lang_s='w_rus' then   zip.FileName:='res\save\save.zip';
+if (lang_s='w_rus')or(lang_s='w_eng') then   zip.FileName:='res\save\save.zip';
 if lang_s='u_rus' then   zip.FileName:='res/save/save.zip';
  zip.ZipFiles(F);
  Zip.Free;
@@ -2366,27 +2366,25 @@ if fool_log=true then log_generate('log_old_generate','start UnZip');
     UnZipper.Free;
 if fool_log=true then  log_generate('log_old_generate','stop UnZip');
 if fool_log=true then log_generate('log_old_generate','start hero.save');
-if lang_s='w_rus' then  assign(hero_save,'res\save\hero.save');
+if (lang_s='w_rus')or(lang_s='w_eng') then  assign(hero_save,'res\save\hero.save');
 if lang_s='u_rus' then  assign(hero_save,'res/save/hero.save');
 if lang_s='u_eng' then  assign(hero_save,'res/save/hero.save');
-if lang_s='w_eng' then  assign(hero_save,'res/save/hero.save');
 reset(hero_save);
 read(hero_save,hero);
 close(hero_save);
 
-if lang_s='w_rus' then  assign(npc_save,'res\save\npc.save');
+if (lang_s='w_rus')or(lang_s='w_eng') then  assign(npc_save,'res\save\npc.save');
 if lang_s='u_rus' then  assign(npc_save,'res/save/npc.save');
 if lang_s='u_eng' then  assign(npc_save,'res/save/npc.save');
-if lang_s='w_eng' then  assign(npc_save,'res/save/npc.save');
+
 reset(npc_save);
 for i:=0 to 17000 do begin//1.1
 read(npc_save,npc[i]);
 end;//1.1
 close(npc_save);
 
-if lang_s='w_rus' then  assign(mob_save,'res\save\mob.save');
+if (lang_s='w_rus')or(lang_s='w_eng') then  assign(mob_save,'res\save\mob.save');
 if lang_s='u_rus' then  assign(mob_save,'res/save/mob.save');
-if lang_s='w_eng' then  assign(mob_save,'res\save\mob.save');
 if lang_s='u_eng' then  assign(mob_save,'res/save/mob.save');
 reset(mob_save);
 for i:=0 to 10000 do begin//1.1
@@ -2395,9 +2393,8 @@ end;//1.1
 close(mob_save);
 
 
-if lang_s='w_rus' then  assign(beast_save,'res\save\beast.save');
+if (lang_s='w_rus')or(lang_s='w_eng') then  assign(beast_save,'res\save\beast.save');
 if lang_s='u_rus' then  assign(beast_save,'res/save/beast.save');
-if lang_s='w_eng' then  assign(beast_save,'res\save\beast.save');
 if lang_s='u_eng' then  assign(beast_save,'res/save/beast.save');
 reset(beast_save);
 for i:=0 to 10000 do begin//1.1
@@ -2405,9 +2402,8 @@ read(beast_save,beast_list[i]);
 end;//1.1
 close(beast_save);
 
-if lang_s='w_rus' then  assign(oz_save,'res\save\oz.save');
+if (lang_s='w_rus')or(lang_s='w_eng') then  assign(oz_save,'res\save\oz.save');
 if lang_s='u_rus' then  assign(oz_save,'res/save/oz.save');
-if lang_s='w_eng' then  assign(oz_save,'res\save\oz.save');
 if lang_s='u_eng' then  assign(oz_save,'res/save/oz.save');
 reset(oz_save);
 for i:=0 to 100 do begin//1.1
@@ -2416,9 +2412,8 @@ end;//1.1
 close(oz_save);
 
 
-if lang_s='w_rus' then  assign(pyst_save,'res\save\pyst.save');
+if (lang_s='w_rus')or(lang_s='w_eng') then  assign(pyst_save,'res\save\pyst.save');
 if lang_s='u_rus' then  assign(pyst_save,'res/save/pyst.save');
-if lang_s='w_eng' then  assign(pyst_save,'res\save\pyst.save');
 if lang_s='u_eng' then  assign(pyst_save,'res/save/pyst.save');
 reset(pyst_save);
 for i:=0 to 1000 do begin//1.1
@@ -2426,9 +2421,8 @@ read(pyst_save,pyst_list[i]);
 end;//1.1
 close(pyst_save);
 
-if lang_s='w_rus' then  assign(map_save,'res\save\map.save');
+if (lang_s='w_rus')or(lang_s='w_eng') then  assign(map_save,'res\save\map.save');
 if lang_s='u_rus' then  assign(map_save,'res/save/map.save');
-if lang_s='w_eng' then  assign(map_save,'res\save\map.save');
 if lang_s='u_eng' then  assign(map_save,'res/save/map.save');
 reset(map_save);
 for i:=0 to x_map do begin//1.1
@@ -2646,9 +2640,12 @@ function hero_dressed(hd:new_body;number:byte):new_body;
 var
 bagi,hdi:byte;
 begin
-{log_generate('log_old_generate','hero_dressed '+inttostr(number));
+
+for i:=0 to 99 do begin if hd.bag[i].tip>10 then hd.bag[i]:=beast_inv_generate('nill');  end;
+
+log_generate('log_old_generate','hero_dressed '+inttostr(number));
 log_generate('log_old_generate','hero_dressed bag tip'+inttostr(hd.bag[number].tip));
-log_generate('log_old_generate','hero_dressed s4 tip'+inttostr(hd.s[4].tip));}
+log_generate('log_old_generate','hero_dressed s4 tip'+inttostr(hd.s[4].tip));
 //weapon-------------------------------------------------------------
 bagi:=0;
 if (hd.bag[number].tip=1)and(hd.s[4].tip= 0 ) then  begin//1

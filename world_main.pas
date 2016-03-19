@@ -2787,7 +2787,7 @@ end;//2
 hero_dressed:=hd;
 end;
 
-function bag_info(bi:new_body):new_body;
+function bag_info(bi:new_body):new_body;//correction 19.03.2016
 var
 b_l,t_b_l,bi1,bk:byte;
 //bss:Set Of 'a'..'z';

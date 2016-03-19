@@ -8,12 +8,14 @@
 * Вопросы и предложения/Support can be obtained via [Email](mailto:89090652702@yandex.ru)
 
 * компилировать/compile: 
-- для системы "windows" закомментировать модуль "linux";
-- для системы "linux" закомментировать модуль "windows";
-- For a system "windows" to comment out the module "linux";
-- For the system "linux" comment out the module "windows";
+
++ для системы "windows" закомментировать модуль "linux";
+(For a system "windows" to comment out the module "linux";)
++ для системы "linux" закомментировать модуль "windows";
+(For the system "linux" comment out the module "windows";)
 
 * запустить/run:
+
 - для системы "windows", русский язык - записать в файле "lang_f" строку "w_rus";
 - для системы "windows", английский язык - записать в файле "lang_f" строку "w_eng";
 - для системы "linux", русский язык - записать в файле "lang_f" строку "u_rus";

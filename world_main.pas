@@ -1022,10 +1022,11 @@ end;
 function mob_muve(mm:new_body;command:string;mi:byte):new_body;
 var
 mmf:boolean;
+mmt:byte;
 begin
 mob_muve:=mm;
-
-if (command='start') and (map[mm.x,mm.y].tip=3) 
+mmt:=random(3);
+if (command='start') and (map[mm.x,mm.y].tip=3) and(mmt=2) 
 and(mm.x+2<x_map)and(mm.x>2)and(mm.y+2<y_map)and(mm.y>2) 
 and (hero.xd=0)and(hero.yd=0)
 then begin//00
@@ -1067,7 +1068,7 @@ end;
 procedure muve(i_m,j_m:word; command:string);
 var
 i_muv,j_muv,rr:word;
-//bm_i:word;
+bm_i:word;
 begin
 if command='start' then begin//00
 for i_muv:=i_m-5 to i_m+5 do begin//0.1
@@ -1196,11 +1197,11 @@ if (map[i_muv,j_muv].structure='"')or (map[i_muv,j_muv].structure='/') then map[
 end;end;//0.1//0.2
 //log_generate('log_old_generate','start_muve_beast ');
 
-//for bm_i:=0 to 10000 do begin //2
+for bm_i:=0 to 10000 do begin //2
 
-//beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
-//if mob[bm_i].hp>0 then mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
-//end;//2
+beast_list[bm_i]:=beast_muve(beast_list[bm_i],'start',bm_i);
+if mob[bm_i].hp>0 then mob[bm_i]:=mob_muve(mob[bm_i],'start',bm_i);
+end;//2
 
 end;//000
 end;

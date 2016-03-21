@@ -8,9 +8,9 @@
 4. Вопросы и предложения/Support can be obtained via [Email](mailto:89090652702@yandex.ru)
 
 #### компилировать/compile: 
-1. для системы "windows" закомментировать модуль "linux";
+5.1 для системы "windows" закомментировать модуль "linux";
 (For a system "windows" to comment out the module "linux";)
-2. для системы "linux" закомментировать модуль "windows";
+5.2 для системы "linux" закомментировать модуль "windows";
 (For the system "linux" comment out the module "windows";)
 
 #### запустить/run:
@@ -23,14 +23,14 @@
 * For "linux" system, the Russian language - written in "lang_f" string "u_rus" file;
 * For "linux" system, English language - written in "lang_f" string "u_eng" file;
 
-5. What is supported?
+6. What is supported?
 
-6. Compilers:
-* FPC 2.6.2 and up
-* Delphi 7
+##### Compilers:
+- FPC 2.6.2 and up
+- Delphi 7
 
-7. Platforms:
-* Windows
-* Linux
+##### Platforms:
+- Windows
+- Linux
 
 

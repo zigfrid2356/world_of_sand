@@ -1043,6 +1043,7 @@ mob_muve.y:=mob_muve.y-1; mmf:=false;end;
 
 if (mob_muve.y=mob_muve.quest_activ.y)and(mob_muve.x=mob_muve.quest_activ.x) then
 begin//1
+ mob_muve.exp:=mm.exp+10;
  mob_muve.quest_activ:=quest_generate(random(3));
  log_generate('log_old_generate','mob_muve quest complit '+inttostr(mi));
  end;//1
@@ -2227,13 +2228,14 @@ F:TZipFileEntries;
 begin
 ClrScr;
 writeln(text[17],' ',hero.name);
+log_generate('log_old_generate','start save hero');
 if (lang_s='w_rus')or(lang_s='w_eng') then assign(hero_save,'res\save\hero.save');
 if lang_s='u_rus' then assign(hero_save,'res/save/hero.save');
 rewrite(hero_save);
 write(hero_save,hero);
 close(hero_save);
 writeln(text[17],' ',text[76]);
-{NPC}
+{NPC}log_generate('log_old_generate','start save npc');
 if (lang_s='w_rus')or(lang_s='w_eng') then assign(npc_save,'res\save\npc.save');
 if lang_s='u_rus' then assign(npc_save,'res/save/npc.save');
 rewrite(npc_save);
@@ -2243,7 +2245,7 @@ end;//1.1
 close(npc_save);
 
 
-{MOB}
+{MOB}log_generate('log_old_generate','start save mob');
 writeln(text[17],' ',text[118]);
 if (lang_s='w_rus')or(lang_s='w_eng') then assign(mob_save,'res\save\mob.save');
 if lang_s='u_rus' then assign(mob_save,'res/save/mob.save');
@@ -2253,7 +2255,7 @@ write(mob_save,mob[i]);
 end;//1.1
 close(mob_save);
 
-{BEAST}
+{BEAST}log_generate('log_old_generate','start save beast');
 writeln(text[17],' ',text[119]);
 if (lang_s='w_rus')or(lang_s='w_eng') then assign(beast_save,'res\save\beast.save');
 if lang_s='u_rus' then assign(beast_save,'res/save/beast.save');
@@ -2263,7 +2265,7 @@ write(beast_save,beast_list[i]);
 end;//1.1
 close(beast_save);
 
-{OZ}
+{OZ}log_generate('log_old_generate','start save oz');
 writeln(text[17],' ',text[75]);
 if (lang_s='w_rus')or(lang_s='w_eng') then assign(oz_save,'res\save\oz.save');
 if lang_s='u_rus' then assign(oz_save,'res/save/oz.save');
@@ -2274,7 +2276,7 @@ end;//1.1
 close(oz_save);
 
 
-{PYST}
+{PYST}log_generate('log_old_generate','start save pyst');
 writeln(text[17],' ',text[74]);
 if (lang_s='w_rus')or(lang_s='w_eng') then assign(pyst_save,'res\save\pyst.save');
 if lang_s='u_rus' then assign(pyst_save,'res/save/pyst.save');

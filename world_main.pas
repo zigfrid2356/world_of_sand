@@ -1344,25 +1344,30 @@ function mob_drop_out_loot(mdol1,mdol2:new_body;command:char;index:word):temp;
 var
 bagi:byte;
 begin
-//log_generate('log_old_generate','mob drop out loot '+command+' '+inttostr(index));
+log_generate('log_old_generate','mob_drop_out_loot '+command+' '+inttostr(index));
+log_generate('log_old_generate','mob_drop_out_loot start mob.name '+mdol2.name);
 bagi:=0;
 if (command= 'o')and(mdol2.s[index+1].tip<> 0 ) then begin//00.1
 while mdol1.bag[bagi].tip<>0 do bagi:=bagi+1;
 mdol1.bag[bagi]:=mdol2.s[index+1];
 mdol2.s[index+1]:=beast_inv_generate('null');
 end;//00.1
+bagi:=0;
 if (command= 'e')and(mdol2.bag[index].tip<> 0 ) then begin//00.1
 while mdol1.bag[bagi].tip<>0 do bagi:=bagi+1;
 mdol1.bag[bagi]:=mdol2.bag[index];
 mdol2.bag[index]:=beast_inv_generate('null');
 end;//00.1
+bagi:=0;
 if (command= 'j')and(mdol2.j[index].tip<> 0 ) then begin//00.1
 while mdol1.bag[bagi].tip<>0 do bagi:=bagi+1;
 mdol1.bag[bagi]:=mdol2.j[index];
 mdol2.j[index]:=beast_inv_generate('null');
 end;//00.1
+bagi:=0;
 mob_drop_out_loot.nb1:=mdol1;
 mob_drop_out_loot.nb2:=mdol2;
+log_generate('log_old_generate','mob_drop_out_loot finish mob.name '+mdol2.name);
 end;
 //27.02.2016
 function mob_drop_out(mdo1,mdo2:new_body;command:char):temp;
@@ -1370,6 +1375,8 @@ function mob_drop_out(mdo1,mdo2:new_body;command:char):temp;
 var
 mdot:temp;
 begin
+log_generate('log_old_generate','mob drop_out '+command);
+log_generate('log_old_generate','mob_drop_out start mob.name '+mdo2.name);
 repeat begin//0
 clrscr;
 if command='o' then begin//1
@@ -1400,11 +1407,14 @@ case menu_key of
 end;
 mdo1:=mdot.nb1;
 mdo2:=mdot.nb2;
+mob_drop_out.nb1:=mdo1;
+mob_drop_out.nb2:=mdo2;
 end;//0
 until menu_key='0';
 
 mob_drop_out.nb1:=mdo1;
 mob_drop_out.nb2:=mdo2;
+log_generate('log_old_generate','mob_drop_out finish mob.name '+mdo2.name);
 end;
 
 
@@ -1414,6 +1424,7 @@ function mob_drop(md1,md2:new_body):temp;
 var
 mdt:temp;
 begin
+log_generate('log_old_generate','mob_drop start mob.name '+md2.name);
 repeat begin//1
 clrscr;
 writeln(text[89]+' '+text[88]+' '+md2.name);
@@ -1423,9 +1434,9 @@ writeln('3- ',text[139]);
 writeln(text[90]);
 menu_key:=readkey;
 case menu_key of
-'1':mdt:=mob_drop_out(md1,md2,'o');
-'2': mdt:=mob_drop_out(md1,md2,'e');
-'3': mdt:=mob_drop_out(md1,md2,'j');
+'1': begin mdt:=mob_drop_out(md1,md2,'o');mob_drop.nb1:=mdt.nb1;mob_drop.nb2:=mdt.nb2; end;
+'2': begin mdt:=mob_drop_out(md1,md2,'e');mob_drop.nb1:=mdt.nb1;mob_drop.nb2:=mdt.nb2; end;
+'3': begin mdt:=mob_drop_out(md1,md2,'j');mob_drop.nb1:=mdt.nb1;mob_drop.nb2:=mdt.nb2; end;
 
 end;
 end;//1
@@ -1433,6 +1444,7 @@ end;//1
 until menu_key='0';
 mob_drop.nb1:=mdt.nb1;
 mob_drop.nb2:=mdt.nb2;
+log_generate('log_old_generate','mob_drop finish mob.name '+mdt.nb2.name);
 end;
 
 
@@ -2286,7 +2298,7 @@ write(pyst_save,pyst_list[i]);
 end;//1.1
 close(pyst_save);
 
-
+log_generate('log_old_generate','start save map');
 writeln(text[17],' ',text[9]);
 if (lang_s='w_rus')or(lang_s='w_eng') then assign(map_save,'res\save\map.save');
 if lang_s='u_rus' then assign(map_save,'res/save/map.save');
@@ -2298,6 +2310,7 @@ end;end;//1.1//1.2
 close(map_save);
 writeln(text[18]);
 writeln(text[94]);
+log_generate('log_old_generate','start zip');
  F:=TZipFileEntries.Create(TZipFileEntry);
 if (lang_s='w_rus')or(lang_s='w_eng') then  begin
    F.AddFileEntry('res\save\hero.save','hero.save');
@@ -2323,6 +2336,7 @@ if lang_s='u_rus' then   zip.FileName:='res/save/save.zip';
  zip.ZipFiles(F);
  Zip.Free;
  F.Free;
+ log_generate('log_old_generate','stop zip');
 writeln(text[94],' ',text[2]);
 if (lang_s='w_rus')or(lang_s='w_eng') then  begin
 DeleteFile('res\save\hero.save');
@@ -3278,7 +3292,7 @@ if (map[x,y].tip<>0)and (map[x,y].tip<>3)then beast_list[map[x,y].beast_index]:=
 '3':begin//3.7
 if (map[x,y].tip=5)then beast_list[map[x,y].beast_index]:=beast_drop(beast_list[map[x,y].beast_index]);
 if (map[x,y].tip=6)then  begin 
-mob_temp:=mob_drop(hero,mob[map[x,y].mob_index]); 
+mob_temp:=mob_drop(mo,mob[map[x,y].mob_index]); 
 mo:=mob_temp.nb1; 
 mob[map[x,y].mob_index]:=mob_temp.nb2;
 end;

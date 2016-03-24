@@ -1,16 +1,16 @@
 ### Мир Песка ( World of Sand )
-1. Блог/Blog: [Game World of Sand](http://gameworldofsand.blogspot.ru)
+* Блог/Blog: [Game World of Sand](http://gameworldofsand.blogspot.ru)
 
-2.1 Мир песка — кросс платформенная игра с открытым миром в сеттинге техно магического пост апокалипсис РПГ.
-2.2 World of sand - a cross-platform open world game in the setting of techno magic post apocalyptic RPG.
+* Мир песка — кросс платформенная игра с открытым миром в сеттинге техно магического пост апокалипсис РПГ.
+* World of sand - a cross-platform open world game in the setting of techno magic post apocalyptic RPG.
 
-3. Автор/Author: [Zigfrid2356](https://github.com/zigfrid2356)
-4. Вопросы и предложения/Support can be obtained via [Email](mailto:89090652702@yandex.ru)
+* Автор/Author: [Zigfrid2356](https://github.com/zigfrid2356)
+* Вопросы и предложения/Support can be obtained via [Email](mailto:89090652702@yandex.ru)
 
 #### компилировать/compile: 
-5.1 для системы "windows" закомментировать модуль "linux";
+* для системы "windows" закомментировать модуль "linux";
 (For a system "windows" to comment out the module "linux";)
-5.2 для системы "linux" закомментировать модуль "windows";
+* для системы "linux" закомментировать модуль "windows";
 (For the system "linux" comment out the module "windows";)
 
 #### запустить/run:
@@ -23,14 +23,14 @@
 * For "linux" system, the Russian language - written in "lang_f" string "u_rus" file;
 * For "linux" system, English language - written in "lang_f" string "u_eng" file;
 
-6. What is supported?
+#### What is supported?
 
 ##### Compilers:
-- FPC 2.6.2 and up
-- Delphi 7
+* FPC 2.6.2 and up
+* Delphi 7
 
 ##### Platforms:
-- Windows
-- Linux
+* Windows
+* Linux
 
 

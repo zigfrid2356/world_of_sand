@@ -1375,8 +1375,8 @@ function mob_drop_out(mdo1,mdo2:new_body;command:char):temp;
 var
 mdot:temp;
 begin
-mob_drop_out.nb1:=mdo1;
-mob_drop_out.nb2:=mdo2;
+mdot.nb1:=mdo1;
+mdot.nb2:=mdo2;
 log_generate('log_old_generate','mob drop_out '+command);
 log_generate('log_old_generate','mob_drop_out start mob.name '+mdo2.name);
 repeat begin//0
@@ -1407,15 +1407,14 @@ case menu_key of
 '4':mdot:=mob_drop_out_loot(mdo1,mdo2,command,3);
 '5':mdot:=mob_drop_out_loot(mdo1,mdo2,command,4);
 end;
-{mdo1:=mdot.nb1;
-mdo2:=mdot.nb2;}
+mdo1:=mdot.nb1;
+mdo2:=mdot.nb2;
+end;//0
 mob_drop_out.nb1:=mdot.nb1;
 mob_drop_out.nb2:=mdot.nb2;
-end;//0
 until menu_key='0';
 
-mob_drop_out.nb1:=mdot.nb1;
-mob_drop_out.nb2:=mdot.nb2;
+
 log_generate('log_old_generate','mob_drop_out finish mob.name '+mdo2.name);
 end;
 
@@ -1426,6 +1425,8 @@ function mob_drop(md1,md2:new_body):temp;
 var
 mdt:temp;
 begin
+mdt.nb1:=md1;
+mdt.nb2:=md2;
 log_generate('log_old_generate','mob_drop start mob.name '+md2.name);
 repeat begin//1
 clrscr;

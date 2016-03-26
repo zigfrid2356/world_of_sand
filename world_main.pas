@@ -1343,7 +1343,10 @@ end;
 function mob_drop_out_loot(mdol1,mdol2:new_body;command:char;index:word):temp;
 var
 bagi:byte;
+
 begin
+mob_drop_out_loot.nb1:=mdol1;
+mob_drop_out_loot.nb2:=mdol2;
 log_generate('log_old_generate','mob_drop_out_loot '+command+' '+inttostr(index));
 log_generate('log_old_generate','mob_drop_out_loot start mob.name '+mdol2.name);
 bagi:=0;
@@ -1365,6 +1368,7 @@ mdol1.bag[bagi]:=mdol2.j[index];
 mdol2.j[index]:=beast_inv_generate('null');
 end;//00.1
 bagi:=0;
+
 mob_drop_out_loot.nb1:=mdol1;
 mob_drop_out_loot.nb2:=mdol2;
 log_generate('log_old_generate','mob_drop_out_loot finish mob.name '+mdol2.name);
@@ -3293,6 +3297,7 @@ if (map[x,y].tip<>0)and (map[x,y].tip<>3)then beast_list[map[x,y].beast_index]:=
  end;//3.6
 
 '3':begin//3.7
+mob_temp.nb1:=mo;
 if (map[x,y].tip=5)then beast_list[map[x,y].beast_index]:=beast_drop(beast_list[map[x,y].beast_index]);
 if (map[x,y].tip=6)then  begin 
 mob_temp:=mob_drop(mo,mob[map[x,y].mob_index]); 
@@ -3963,8 +3968,57 @@ end;
 end;//2
 main_menu:=mm;
 until menu_key='5';
+end;
+
+
+function zero_generate(command:string):new_body;
+var
+zg:new_body;
+begin
+if command='start' then begin//0
+{---log---}log_generate('log_old_generate','start generate');
+map_generate('map_test_generate');
+mob_generate;
+mini_map_generate;
+{---log---}log_generate('log_old_generate','stop generate');
+//evolution(5);
+if fool_log=true then log_generate('log_old_generate','start hero_generate');
+zg:=hero_generate('hero_new');
+zero_generate:=zg;
+end;//0
+end;
+
+function zero_menu(zmc:char):new_body;
+var
+zm:new_body;
+begin
+repeat
+ ClrScr;
+writeln	(text[3]);
+writeln	('1-',text[4]);
+writeln	('2-',text[16]);
+writeln	('3-',text[2]);
+
+menu_key:=readkey;
+case menu_key of
+'1': begin
+zm:=zero_generate('start');
+zero_menu:=zm;
+//31.12.2015
+story;
+menu_key:='3';
+end;
+'2':begin load;
+zero_menu:=zm;
+menu_key:='3';
+ {hero:=main_menu(hero);} end;
+//'3': exit;
 
 end;
+until menu_key='3'
+end;
+
+
 //-------------------------
 //+20.08.2015
 {
@@ -4010,32 +4064,10 @@ textcolor(yellow);
 writeln	(text[1]);
 textcolor(white);
 readln();
-repeat
- ClrScr;
-writeln	(text[3]);
-writeln	('1-',text[4]);
-writeln	('2-',text[16]);
-writeln	('3-',text[2]);
 
-menu_key:=readkey;
-case menu_key of
-'1': begin
-{---log---}log_generate('log_old_generate','start generate');
-map_generate('map_test_generate');
-mob_generate;
-mini_map_generate;
-{---log---}log_generate('log_old_generate','stop generate');
-//evolution(5);
-if fool_log=true then log_generate('log_old_generate','start hero_generate');
-hero:=hero_generate('hero_new');
-//31.12.2015
-story;
+hero:=zero_menu('h');
 hero:=main_menu(hero);
-end;
-'2':begin load; hero:=main_menu(hero); end;
-//'3': exit;
 
-end;
-until menu_key='3'
+
 END.
 

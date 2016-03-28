@@ -92,7 +92,7 @@ dmg,ign_dmg:integer;
 //invent
 s:array[1..5]of subject;
 j:array[0..4]of subject;{0,1-ring,2,3-link,4-amulet}
-//s1,s2,s3,s4,s5:subject;
+
 //bag
 bag:array[0..99] of subject;
 //story
@@ -100,6 +100,8 @@ st0,st1,st2,st3:string[100];
 //quest
 quest_activ:quest;
 quest_flag:boolean;
+//prof
+prof:array[0..9]of byte;
 end;
 beast_body=record
 hp,dmg,ign_dmg:integer;
@@ -1787,6 +1789,8 @@ npc_generate.st3:=story_npc('3');
 //qest
 npc_generate.quest_activ:=quest_generate(100);
 npc_generate.quest_flag:=false;
+//prof
+for i:=0 to 9 do npc_generate.prof[i]:=0;
 
 npc_generate:=hero_update(npc_generate);
 end;
@@ -2165,6 +2169,8 @@ if fool_log=true then log_generate('log_old_generate','hero_generate'+' -5- ');
 //qest
 hero_generate.quest_activ:=quest_generate(100);
 hero_generate.quest_flag:=false;
+//prof
+for i:=0 to 9 do hero_generate.prof[i]:=0;
 end;//0
 
 if h='monster_human' then begin//2

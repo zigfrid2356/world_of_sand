@@ -566,7 +566,7 @@ end;
 
 
 //+08.11.2015
-function story_npc(command:char):string;
+function story_npc(command:char;lvl:byte):string;
 var
 born,stud,work,live:array[0..10]of string[55];
 ts:string;
@@ -581,19 +581,23 @@ reset(prof);
 while not eof(prof) do begin
 
 readln(prof,ts);
-if ts[2]='b' then begin delete(ts,1,6);born[ib]:=ts; ib:=ib+1; end;
-if ts[2]='s' then begin  delete(ts,1,6);stud[iss]:=ts; iss:=iss+1; end;
-if ts[2]='w' then begin delete(ts,1,6);work[iw]:=ts; iw:=iw+1; end;
-if ts[2]='l' then begin delete(ts,1,6);live[il]:=ts; il:=il+1; end;
+if ts[2]='b' then begin delete(ts,1,7);born[ib]:=ts; ib:=ib+1; end;
+if ts[2]='s' then begin  delete(ts,1,7);stud[iss]:=ts; iss:=iss+1; end;
+if ts[2]='w' then begin delete(ts,1,7);work[iw]:=ts; iw:=iw+1; end;
+if ts[2]='l' then begin delete(ts,1,7);live[il]:=ts; il:=il+1; end;
 
 end;
 close(prof);
 
-if command='0' then story_npc:=text[77]+' '+born[random(ib)]+oz_list[random(100)].oz_name;
-if command='1' then story_npc:=text[127]+' '+stud[random(iss)];
-if command='2' then story_npc:=text[78]+' '+work[random(iw)];
-if command='3' then story_npc:=text[128]+' '+live[random(il)];
+if (command='b')and(lvl=0) then story_npc:=text[77]+' '+born[random(ib)]+oz_list[random(100)].oz_name;
+if (command='s')and(lvl=0) then story_npc:=text[127]+' '+stud[random(iss)];
+if (command='w')and(lvl=0) then story_npc:=text[78]+' '+work[random(iw)];
+if (command='l')and(lvl=0) then story_npc:=text[128]+' '+live[random(il)];
+//prof
 
+if (command='s')and(lvl>0) then story_npc:=text[127]+' '+stud[lvl];
+if (command='w')and(lvl>0) then story_npc:=text[78]+' '+work[lvl];
+if (command='l')and(lvl>0) then story_npc:=text[128]+' '+live[lvl];
 end;
 
 
@@ -1599,6 +1603,9 @@ writeln(n_o.st0);
 writeln(n_o.st1);
 writeln(n_o.st2);
 writeln(n_o.st3);
+for i:=0 to 9 do 
+if n_o.prof[i]>0 then writeln(text[148],' ',story_npc('l',n_o.prof[i]));
+
 writeln('');
 writeln('1- '+text[69]);
 writeln('2- '+text[68]);
@@ -1782,16 +1789,17 @@ for k2:=5 to 99 do begin//bg2
 npc_generate.bag[k2]:=beast_inv_generate('null');
 end;//bg2
 //story
-npc_generate.st0:=story_npc('0');
-npc_generate.st1:=story_npc('1');
-npc_generate.st2:=story_npc('2');
-npc_generate.st3:=story_npc('3');
+npc_generate.st0:=story_npc('b',0);
+npc_generate.st1:=story_npc('s',0);
+npc_generate.st2:=story_npc('w',0);
+k0:=random(9);
+npc_generate.st3:=story_npc('l',k0);
 //qest
 npc_generate.quest_activ:=quest_generate(100);
 npc_generate.quest_flag:=false;
 //prof
 for i:=0 to 9 do npc_generate.prof[i]:=0;
-
+if k0>0 then npc_generate.prof[k0]:=1;
 npc_generate:=hero_update(npc_generate);
 end;
 

@@ -595,9 +595,9 @@ if (command='w')and(lvl=0) then story_npc:=text[78]+' '+work[random(iw)];
 if (command='l')and(lvl=0) then story_npc:=text[128]+' '+live[random(il)];
 //prof
 
-if (command='s')and(lvl>0) then story_npc:=text[127]+' '+stud[lvl];
-if (command='w')and(lvl>0) then story_npc:=text[78]+' '+work[lvl];
-if (command='l')and(lvl>0) then story_npc:=text[128]+' '+live[lvl];
+if (command='s')and(lvl>0) then story_npc:=stud[lvl];
+if (command='w')and(lvl>0) then story_npc:=work[lvl];
+if (command='l')and(lvl>0) then story_npc:=live[lvl];
 end;
 
 
@@ -1603,9 +1603,10 @@ writeln(n_o.st0);
 writeln(n_o.st1);
 writeln(n_o.st2);
 writeln(n_o.st3);
-for i:=0 to 9 do 
-if n_o.prof[i]>0 then writeln(text[148],' ',story_npc('l',n_o.prof[i]));
-
+for l:=0 to 9 do begin//1.1
+if n_o.prof[l]>0 then writeln(text[148],' ',story_npc('l',n_o.prof[l]));
+log_generate('log_old_generate','nps prof '+inttostr(l)+' '+inttostr(n_o.prof[l]));
+end;//1.1
 writeln('');
 writeln('1- '+text[69]);
 writeln('2- '+text[68]);
@@ -1792,14 +1793,15 @@ end;//bg2
 npc_generate.st0:=story_npc('b',0);
 npc_generate.st1:=story_npc('s',0);
 npc_generate.st2:=story_npc('w',0);
-k0:=random(9);
-npc_generate.st3:=story_npc('l',k0);
+repeat k:=random(5); until k>0;
+//log_generate('log_old_generate','nps generate '+inttostr(k0)+' '+story_npc('l',k0));
+npc_generate.st3:=text[128]+' '+story_npc('l',k);
 //qest
 npc_generate.quest_activ:=quest_generate(100);
 npc_generate.quest_flag:=false;
 //prof
-for i:=0 to 9 do npc_generate.prof[i]:=0;
-if k0>0 then npc_generate.prof[k0]:=1;
+for k0:=0 to 9 do npc_generate.prof[k0]:=0;
+npc_generate.prof[k]:=1;
 npc_generate:=hero_update(npc_generate);
 end;
 
@@ -3392,9 +3394,9 @@ if fool_log=true then log_generate('log_old_generate','mob generate '+inttostr(k
 	//log_generate('log_old_generate','mob generate quest '+inttostr(mob[k0].quest_activ.x)+' '+inttostr(mob[k0].quest_activ.y));
 	mob[k0].quest_flag:=true;
 	mob[k0]:=hero_update(mob[k0]);
-	if (bl=10)and((i=10)or(i=20)or(i=30)or(i=40))then log_generate('log_old_generate','mob generate1 '+mob[k0].s[1].name+' '+mob[k0].s[2].name);
+	{if (bl=10)and((i=10)or(i=20)or(i=30)or(i=40))then log_generate('log_old_generate','mob generate1 '+mob[k0].s[1].name+' '+mob[k0].s[2].name);}
 	mob[k0]:=mob_dress_up(mob[k0]);
-	if (bl=10)and(((i=10)or(i=20)or(i=30)or(i=40))) then log_generate('log_old_generate','mob generate2 '+mob[k0].s[1].name+' '+mob[k0].s[2].name);
+	{if (bl=10)and(((i=10)or(i=20)or(i=30)or(i=40))) then log_generate('log_old_generate','mob generate2 '+mob[k0].s[1].name+' '+mob[k0].s[2].name);}
 	//--------------------------------------mob--------
 	map[mob[k0].x,mob[k0].y].tip:=3;
 	map[mob[k0].x,mob[k0].y].mob_index:=k0;
@@ -3412,7 +3414,7 @@ temp_npc1,temp_npc2:new_body;
 begin
 clrscr;
 dangeons_flag:=false;
-if fool_log=true then log_generate('log_old_generate','start map generate -1.0');
+{if fool_log=true then }log_generate('log_old_generate','start map generate -1.0');
 //+03.11.2015
 k_oz:=0;
 //+16.11.2015
@@ -3427,7 +3429,7 @@ readln(map_oz,map_name[k_oz]);
 k_oz:=k_oz+1;
 end;
 close(map_oz);
-if fool_log=true then log_generate('log_old_generate','start map generate -1.1');
+{if fool_log=true then} log_generate('log_old_generate','start map generate -1.1');
 
 simbol[0]:='.';//colore[0]:=1;colore[13]:=13;
 simbol[1]:=':';//colore[1]:=1;colore[14]:=14;
@@ -3459,7 +3461,7 @@ for i:=0 to x_map do begin//1.1
 end;//1.1
 end;//1
 if command='map_test_generate' then begin//2
-if fool_log=true then log_generate('log_old_generate','start sand full -2');
+{if fool_log=true then} log_generate('log_old_generate','start sand full -2');
 //+17.09.2015
 
 //---------------
@@ -3475,7 +3477,7 @@ for i:=0 to x_map do begin//2.1
 		end;//2.2
 end;//2.1
 //---------------
-if fool_log=true then log_generate('log_old_generate','start col -3');
+{if fool_log=true then} log_generate('log_old_generate','start col -3');
 writeln(text[72],text[73]);
 for i:=0 to 1000 do begin//3
 //+18.09.2015
@@ -3631,7 +3633,7 @@ end;//4.4.3
 end;//4.4
 end;//3
 writeln(text[72],text[74]);//---------------------------------------------
-if fool_log=true then log_generate('log_old_generate','start raw -4');
+{if fool_log=true then} log_generate('log_old_generate','start raw -4');
 for l:=0 to 1000 do begin//5
 //+22.10.2015
 
@@ -3698,7 +3700,7 @@ map[n,m].color:=2;
 map[n,m].progress:=random(progress_max);
 end;//5
 writeln(text[72],text[75]);
-if fool_log=true then log_generate('log_old_generate','start oaz -5');
+{if fool_log=true then} log_generate('log_old_generate','start oaz -5');
 //+31.10.2015
 //-------------------------------------------------------
 k1:=1;k0:=0;
@@ -3796,7 +3798,7 @@ for i:=n-8 to n+8 do begin//6.1
 	end;//6.2.2.1
 	end;//6.1
 	end;//6.2
-//	log_generate('log_old_generate','start oaz -!!!!- '+inttostr(l));	
+	//log_generate('log_old_generate','start oaz -!!!!- '+inttostr(l));	
 //------------(3)
 for i_oz:=n_oz-6 to n_oz+6 do begin//6.1
 	for j_oz:=m_oz-6 to m_oz+6 do begin//6.2
@@ -3879,7 +3881,7 @@ k1:=1;k0:=0;
 i:=0;j:=0;
 l:=0;
 n:=0;m:=0;
-if fool_log=true then log_generate('log_old_generate','start beast -10- '+inttostr(bl));
+{if fool_log=true then} log_generate('log_old_generate','start beast -10- '+inttostr(bl));
 writeln(text[72],text[109]);
 
 for i:=0 to max_npc do begin//8.1

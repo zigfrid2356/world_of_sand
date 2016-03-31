@@ -568,7 +568,7 @@ end;
 //+08.11.2015
 function story_npc(command:char;lvl:byte):string;
 var
-born,stud,work,live:array[0..10]of string[55];
+born,stud,work,live:array[0..20]of string[55];
 ts:string;
 ib,iss,iw,il:byte;
 begin
@@ -581,10 +581,10 @@ reset(prof);
 while not eof(prof) do begin
 
 readln(prof,ts);
-if ts[2]='b' then begin delete(ts,1,7);born[ib]:=ts; ib:=ib+1; end;
-if ts[2]='s' then begin  delete(ts,1,7);stud[iss]:=ts; iss:=iss+1; end;
-if ts[2]='w' then begin delete(ts,1,7);work[iw]:=ts; iw:=iw+1; end;
-if ts[2]='l' then begin delete(ts,1,7);live[il]:=ts; il:=il+1; end;
+if ts[2]='b' then begin delete(ts,1,9);born[ib]:=ts; ib:=ib+1; end;
+if ts[2]='s' then begin  delete(ts,1,9);stud[iss]:=ts; iss:=iss+1; end;
+if ts[2]='w' then begin delete(ts,1,9);work[iw]:=ts; iw:=iw+1; end;
+if ts[2]='l' then begin delete(ts,1,9);live[il]:=ts; il:=il+1; end;
 
 end;
 close(prof);
@@ -1604,8 +1604,8 @@ writeln(n_o.st1);
 writeln(n_o.st2);
 writeln(n_o.st3);
 for l:=0 to 9 do begin//1.1
-if n_o.prof[l]>0 then writeln(text[148],' ',story_npc('l',n_o.prof[l]));
-log_generate('log_old_generate','nps prof '+inttostr(l)+' '+inttostr(n_o.prof[l]));
+if n_o.prof[l]>0 then writeln(text[148],' ',story_npc('l',l));
+log_generate('log_old_generate','nps prof '+inttostr(l)+' '+inttostr(n_o.prof[l])+' '+story_npc('l',l));
 end;//1.1
 writeln('');
 writeln('1- '+text[69]);
@@ -1793,7 +1793,7 @@ end;//bg2
 npc_generate.st0:=story_npc('b',0);
 npc_generate.st1:=story_npc('s',0);
 npc_generate.st2:=story_npc('w',0);
-repeat k:=random(5); until k>0;
+repeat k:=random(9); until k>0;
 //log_generate('log_old_generate','nps generate '+inttostr(k0)+' '+story_npc('l',k0));
 npc_generate.st3:=text[128]+' '+story_npc('l',k);
 //qest

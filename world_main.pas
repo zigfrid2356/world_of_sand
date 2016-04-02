@@ -264,8 +264,8 @@ for qsi:=0 to 5 do quest_generate.st[qsi]:='';
 end{1} else begin//2
 if lang_s='w_rus' then assign(qst,'res\quest\r_w_quest');
 if lang_s='u_rus' then assign(qst,'res/quest/r_u_quest');
-if lang_s='w_eng' then assign(qst,'res\quest\r_u_quest');
-if lang_s='u_eng' then assign(qst,'res/quest/r_u_quest');
+if lang_s='w_eng' then assign(qst,'res\quest\e_w_quest');
+if lang_s='u_eng' then assign(qst,'res/quest/e_u_quest');
 reset(qst);
 qsi:=0;
 while not eof(qst) do begin//1
@@ -574,9 +574,9 @@ ib,iss,iw,il:byte;
 begin
 ib:=0;iss:=0;iw:=0;il:=0;
 if lang_s='u_rus' then assign(prof,'res/har/u_prof_rus');
-if lang_s='u_eng' then assign(prof,'res/har/u_prof_rus');
+if lang_s='u_eng' then assign(prof,'res/har/u_prof_eng');
 if lang_s='w_rus' then assign(prof,'res\har\w_prof_rus');
-if lang_s='w_eng' then assign(prof,'res\har\w_prof_rus');
+if lang_s='w_eng' then assign(prof,'res\har\w_prof_eng');
 reset(prof);
 while not eof(prof) do begin
 
@@ -1219,6 +1219,9 @@ function name_generate(command:string):string;//+12.08.2015
 var
 s:string;
 begin
+//02.04.2016
+if lang_s='w_eng' then s:='res\mob\monster_'+command+'_win_eng.name';
+if lang_s='u_eng' then s:='res/mob/monster_'+command+'_unix_eng.name';
 if lang_s='w_rus' then s:='res\mob\monster_'+command+'_win.name';//+01.09.2015
 if lang_s='u_rus' then s:='res/mob/monster_'+command+'_unix.name';//19.02.2016
 assign(monster_name,s);

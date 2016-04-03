@@ -4036,7 +4036,11 @@ menu_key:='3';
 end;
 until menu_key='3'
 end;
-
+//03.04.2016
+function hero_study(hs:new_body;command:char):new_body;
+begin
+hero_study:=hs;
+end;
 
 //-------------------------
 //+20.08.2015

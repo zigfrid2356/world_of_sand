@@ -4037,8 +4037,9 @@ end;
 until menu_key='3'
 end;
 //03.04.2016
-function hero_study(hs:new_body;command:char):new_body;
+function hero_study(hs:new_body;command:byte):new_body;
 begin
+ hs.prof[command]:=hs.prof[command]+1;
 hero_study:=hs;
 end;
 

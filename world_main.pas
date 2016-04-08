@@ -424,7 +424,7 @@ dgmx:=random(200);
 dgmy:=random(200);
 if dungeons[dgmx,dgmy].structure='.' then begin//2
 dungeons[dgmx,dgmy].structure:='@';
-dungeons[dgmx,dgmy].color:=16;
+dungeons[dgmx,dgmy].color:=5;
 end;//2
 end;//1
 end;
@@ -2525,7 +2525,8 @@ writeln(text[90]);
 menu_key:=readkey;
 case menu_key of
 '1':begin //1.0
- if hb1.dmg>=hb2.ign_dmg then hb2.hp:=hb2.hp-abs(hb1.dmg-hb2.ign_dmg) else hb2.hp:=hb2.hp-((hb1.dmg div 4)+1);
+ if hb1.dmg>=hb2.ign_dmg then hb2.hp:=hb2.hp-abs(hb1.dmg-hb2.ign_dmg); 
+ if hb1.dmg<hb2.ign_dmg then hb2.hp:=hb2.hp-((hb1.dmg div 4)+1);
 
 if hb2.dmg>=hb1.ign_dmg then hb1.hp:=hb1.hp-abs(hb2.dmg-hb1.ign_dmg) else hb1.hp:=hb1.hp-((hb2.dmg div 4)+1);
 end;//1.0

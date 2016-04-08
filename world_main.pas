@@ -3061,6 +3061,7 @@ var
 temp_char:char;
 temp_color:byte;
 begin
+dungeon_output:=don;
 {if x-1<6 then x:=6;
 if x+1>198 then x:=198;
 if y-1<11 then y:=11;
@@ -3152,6 +3153,7 @@ dungeon_output:=don;
 until {(}menu_key='0'{)and((dungeons[doi+1,doj].structure='/')or(dungeons[doi-1,doj].structure='/')
 or(dungeons[doi,doj+1].structure='/')or(dungeons[doi,doj-1].structure='/'))};
 //end;//2.00 
+dungeon_output:=don;
 end;
 
 

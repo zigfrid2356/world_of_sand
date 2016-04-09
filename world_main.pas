@@ -3302,12 +3302,13 @@ if map[x,y].npc_index<>0 then begin//3.5.1
 mot:=npc_output(npc[map[x,y].npc_index],mo);
 npc[map[x,y].npc_index]:=mot.nb1;//npc_output(npc[map[x,y].npc_index]);
 mo:=mot.nb2;
-hero:=map_output(x,y,hero);
+mo:=map_output(x,y,mo);
 end;//3.5.1
 if (map[x,y].mob_index<>0)and(map[x,y].tip<>6) then begin//3.5.1
 mob[map[x,y].mob_index]:=mob_output(mob[map[x,y].mob_index]);
-hero:=map_output(x,y,hero);
+mo:=map_output(x,y,mo);
 end;//3.5.1
+map_output:=mo;
  end;//3.5
 
 '7':begin//3.6
@@ -3349,6 +3350,7 @@ map[x,y].color:=14;
 dangeons_flag:=false;
 end;//3.9.3
 end;//3.9.1
+map_output:=mo;
  end;//3.9
  
 end;//3.0

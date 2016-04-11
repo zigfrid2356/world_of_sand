@@ -1897,7 +1897,7 @@ inventory_generation.i_attak:=0;
 inventory_generation.i_defense:=0;
  end;//4
  //+06.09.2015
- if command='nul' then begin//4
+ if command='null' then begin//4
 inventory_generation.equip:=0;
 inventory_generation.types:=0;
 inventory_generation.name:='';

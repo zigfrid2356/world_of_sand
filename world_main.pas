@@ -625,6 +625,23 @@ map[bb.x,bb.y].beast_index:=0;
 map[beast_muve.x,beast_muve.y].beast_index:=bi;
 
 end;//00
+if (command='life')and (bb.x<x_map-2)and (bb.y<y_map-2)and(bb.flag_life<>0)and(bb.flag_life<>5)and (bb.x>2)and (bb.y>2) then begin//1
+
+r_bm:=random(4);
+if r_bm=0 then beast_muve.x:=bb.x+1;
+if r_bm=1 then beast_muve.x:=bb.x-1;
+if r_bm=2 then beast_muve.y:=bb.y+1;
+if r_bm=3 then beast_muve.y:=bb.y-1;
+
+if bb.flag_hishn=1 then begin//1.1
+//while map
+end;//1.1
+map[bb.x,bb.y].tip:=0;
+map[beast_muve.x,beast_muve.y].tip:=1;
+map[bb.x,bb.y].beast_index:=0;
+map[beast_muve.x,beast_muve.y].beast_index:=bi;
+
+end;//1
 
 end;
 

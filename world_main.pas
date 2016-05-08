@@ -3978,7 +3978,10 @@ end;//2
 end;//1
 end;
 
-
+function mob_live(ml:new_body):new_body;
+begin
+mob_live:=ml;
+end;
 
 function main_menu(mm:new_body):new_body;
 begin

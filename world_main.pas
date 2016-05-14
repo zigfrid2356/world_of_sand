@@ -3978,9 +3978,12 @@ end;//2
 end;//1
 end;
 
-function mob_live(ml:new_body):new_body;
+function beast_live(bl:beast_body):beast_body;
 begin
-mob_live:=ml;
+beast_live:=mbl;
+if bl.flag_hishn=1{travoed}then begin//1
+
+end;//1
 end;
 
 function main_menu(mm:new_body):new_body;

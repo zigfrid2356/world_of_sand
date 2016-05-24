@@ -32,7 +32,7 @@ program world_of_sand;
 {//$S+}
 {//$STACKFRAMES+}
 {//$MEMORY 524288,524288}
-uses sysutils{,linux},crt,windows,dateutils,Zipper,gen;
+uses sysutils,linux,crt{,windows},dateutils,Zipper,gen;
 {//$mmx+}
 type//+21.08.2015
 inventory =record
@@ -137,7 +137,11 @@ end;
 temp=record
 nb1,nb2:new_body;
 end;
-
+spell=record
+name:string;
+k0,k1,k2,k3:byte;
+min_mana:word;
+end;
 var
 map:array[0..2048,0..2048] of erath;
 mini_map,dungeons:array[0..204,0..204]of mini_erath;
@@ -3980,7 +3984,7 @@ end;
 
 function beast_live(bl:beast_body):beast_body;
 begin
-beast_live:=mbl;
+beast_live:=bl;
 if bl.flag_hishn=1{travoed}then begin//1
 
 end;//1

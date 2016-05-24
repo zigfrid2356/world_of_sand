@@ -143,6 +143,7 @@ k0,k1,k2,k3:byte;
 min_mana:word;
 end;
 var
+magic:array[0..99]of spell;
 map:array[0..2048,0..2048] of erath;
 mini_map,dungeons:array[0..204,0..204]of mini_erath;
 //out_map:array[0..9,0..19]of char;

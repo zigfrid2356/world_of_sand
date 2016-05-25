@@ -162,7 +162,7 @@ s:string;//temp
 lang,lang_f: text;
 hf,st,qst:text;
 monster_name,map_oz:text;
-color,har,item_name:text;
+color,har,item_name,spell_f:text;
 f_log:text;
 f_typ:text;//+25.10.2015
 prof:text;//21.02.2016
@@ -215,6 +215,32 @@ begin
 
 end;}
 
+//25.05.2016
+procedure magic_load;
+var mls:string;
+begin
+if lang_s='w_rus' then assign(spell_f,'res\maic\magic_w_rus');
+if lang_s='u_rus' then assign(spell_f,'res/maic/magic_u_rus');
+if lang_s='w_eng' then assign(spell_f,'res\maic\magic_w_eng');
+if lang_s='u_eng' then assign(spell_f,'res/maic/magic_u_eng');
+reset(spell_f);
+n:=0;
+while not eof(spell_f) do begin//1.1
+readln(spell_f,magic[n].name);
+readln(spell_f,mls);
+magic[n].k0:=strtoint(mls);
+readln(spell_f,mls);
+magic[n].k1:=strtoint(mls);
+readln(spell_f,mls);
+magic[n].k2:=strtoint(mls);
+readln(spell_f,mls);
+magic[n].k3:=strtoint(mls);
+readln(spell_f,mls);
+magic[n].min_mana:=strtoint(mls);
+n:=n+1;
+end;//1.1
+close(spell_f);
+end;
 
 procedure log_generate(command:string;text:string);
 begin;

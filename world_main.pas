@@ -242,6 +242,11 @@ end;//1.1
 close(spell_f);
 end;
 
+function magic_out_info(no:word):string;
+begin
+magic_out_info:=magic[no].name;
+end;
+
 procedure log_generate(command:string;text:string);
 begin;
 if command='log_new_generate' then begin//1

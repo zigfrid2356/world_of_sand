@@ -219,10 +219,10 @@ end;}
 procedure magic_load;
 var mls:string;
 begin
-if lang_s='w_rus' then assign(spell_f,'res\maic\magic_w_rus');
-if lang_s='u_rus' then assign(spell_f,'res/maic/magic_u_rus');
-if lang_s='w_eng' then assign(spell_f,'res\maic\magic_w_eng');
-if lang_s='u_eng' then assign(spell_f,'res/maic/magic_u_eng');
+if lang_s='w_rus' then assign(spell_f,'res\magic\magic_w_rus');
+if lang_s='u_rus' then assign(spell_f,'res/magic/magic_u_rus');
+if lang_s='w_eng' then assign(spell_f,'res\magic\magic_w_eng');
+if lang_s='u_eng' then assign(spell_f,'res/magic/magic_u_eng');
 reset(spell_f);
 n:=0;
 while not eof(spell_f) do begin//1.1
@@ -4147,6 +4147,7 @@ delete(text[i],1,3);
 i:=i+1;
 end;
 close(lang);
+magic_load;
 if log='full' then log_generate('log_old_generate','close lang');
 
 textcolor(yellow);

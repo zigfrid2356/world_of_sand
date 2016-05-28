@@ -20,7 +20,7 @@
 
 
 }
-{v.0.32a}{24.05.2016}
+{v.0.33a}{28.05.2016}
 
 program world_of_sand;
 {//$O+}
@@ -2944,7 +2944,7 @@ writeln(text[30],' ',race_output(ho.race) );
 writeln(text[31],' ',ho.init );
 writeln(text[32],' ',ho.masking ); 
 writeln(text[33],' ',ho.obser );
-writeln(magic_out_info(0) );
+//writeln(magic_out_info(0) );
 writeln('        ___');
 writeln('       |_1_|       1',text[40],' ',ho.s[1].base_defense,' h- ',text[101]);
 writeln('  ___   ___   ___  2',text[40],' ',ho.s[2].base_defense,' d- ',text[103]);

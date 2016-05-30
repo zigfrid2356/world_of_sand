@@ -102,6 +102,9 @@ quest_activ:quest;
 quest_flag:boolean;
 //prof
 prof:array[0..9]of byte;
+//magic
+//+ 30.05.2016
+magic:array[0..3]of byte;
 end;
 beast_body=record
 hp,dmg,ign_dmg:integer;
@@ -2237,6 +2240,8 @@ hero_generate.quest_activ:=quest_generate(100);
 hero_generate.quest_flag:=false;
 //prof
 for i:=0 to 9 do hero_generate.prof[i]:=0;
+//magic
+for i:=0 to 3 do hero_generate.magic[i]:=0;
 end;//0
 
 if h='monster_human' then begin//2

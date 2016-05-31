@@ -250,6 +250,12 @@ begin
 magic_out_info:=magic[no].name;
 end;
 
+function magic_use_spell(mus:temp):temp;
+begin
+magic_use_spell.nb1:=mus.nb1;
+magic_use_spell.nb2:=mus.nb2;
+end;
+
 procedure log_generate(command:string;text:string);
 begin;
 if command='log_new_generate' then begin//1

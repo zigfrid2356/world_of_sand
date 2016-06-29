@@ -20,7 +20,7 @@
 
 
 }
-{v.0.32a}{24.05.2016}
+{v.0.33a}{28.05.2016}
 
 program world_of_sand;
 {//$O+}
@@ -102,6 +102,9 @@ quest_activ:quest;
 quest_flag:boolean;
 //prof
 prof:array[0..9]of byte;
+//magic
+//+ 30.05.2016
+magic:array[0..3]of byte;
 end;
 beast_body=record
 hp,dmg,ign_dmg:integer;
@@ -245,6 +248,12 @@ end;
 function magic_out_info(no:word):string;
 begin
 magic_out_info:=magic[no].name;
+end;
+
+function magic_use_spell(mus:temp):temp;
+begin
+magic_use_spell.nb1:=mus.nb1;
+magic_use_spell.nb2:=mus.nb2;
 end;
 
 procedure log_generate(command:string;text:string);
@@ -2237,6 +2246,8 @@ hero_generate.quest_activ:=quest_generate(100);
 hero_generate.quest_flag:=false;
 //prof
 for i:=0 to 9 do hero_generate.prof[i]:=0;
+//magic
+for i:=0 to 3 do hero_generate.magic[i]:=0;
 end;//0
 
 if h='monster_human' then begin//2
@@ -2944,7 +2955,7 @@ writeln(text[30],' ',race_output(ho.race) );
 writeln(text[31],' ',ho.init );
 writeln(text[32],' ',ho.masking ); 
 writeln(text[33],' ',ho.obser );
-writeln(magic_out_info(0) );
+//writeln(magic_out_info(0) );
 writeln('        ___');
 writeln('       |_1_|       1',text[40],' ',ho.s[1].base_defense,' h- ',text[101]);
 writeln('  ___   ___   ___  2',text[40],' ',ho.s[2].base_defense,' d- ',text[103]);

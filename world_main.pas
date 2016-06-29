@@ -32,7 +32,7 @@ program world_of_sand;
 {//$S+}
 {//$STACKFRAMES+}
 {//$MEMORY 524288,524288}
-uses sysutils,linux,crt{,windows},dateutils,Zipper,gen;
+uses sysutils,{linux,}crt,windows,dateutils,Zipper,gen;
 {//$mmx+}
 type//+21.08.2015
 inventory =record

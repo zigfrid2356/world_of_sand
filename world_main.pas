@@ -4148,7 +4148,7 @@ if lang_s='w_rus' then assign(lang,'res\lang\rus\text_win.lang');
 if lang_s='w_eng' then assign(lang,'res\lang\eng\text_win.lang');
 if lang_s='u_eng' then assign(lang,'res/lang/eng/text_win.lang');
 if lang_s='u_rus' then assign(lang,'res/lang/rus/text_unix.lang');
-
+if log='full' then log_generate('log_old_generate','off lang'+' '+lang_s);
 reset(lang);
 while not eof(lang) do begin
 readln(lang,text[i]);

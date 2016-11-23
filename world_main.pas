@@ -32,7 +32,7 @@ program world_of_sand;
 {//$S+}
 {//$STACKFRAMES+}
 {//$MEMORY 524288,524288}
-uses sysutils,linux,crt{,windows},dateutils,Zipper,gen;
+uses sysutils,{linux,}crt,windows,dateutils,Zipper,gen;
 {//$mmx+}
 type//+21.08.2015
 inventory =record
@@ -2459,14 +2459,14 @@ ClrScr;
 if log='full' then log_generate('log_old_generate','start UnZip');
  UnZipper := TUnZipper.Create;
  // try
-  if lang_s='w_rus' then    UnZipper.FileName := 'res\save\save.zip';
-  if lang_s='w_rus' then    UnZipper.OutputPath := 'res\save\';
-  if lang_s='u_rus' then    UnZipper.FileName := 'res/save/save.zip';
-  if lang_s='u_rus' then    UnZipper.OutputPath := 'res/save/';
-  if lang_s='u_eng' then    UnZipper.FileName := 'res/save/save.zip';
-  if lang_s='u_eng' then    UnZipper.OutputPath := 'res/save/';
-  if lang_s='w_eng' then    UnZipper.FileName := 'res/save/save.zip';
-  if lang_s='w_eng' then    UnZipper.OutputPath := 'res/save/';
+  if (lang_s='w_rus')or (lang_s='w_eng') then    UnZipper.FileName := 'res\save\save.zip';
+  if (lang_s='w_rus')or (lang_s='w_eng') then    UnZipper.OutputPath := 'res\save\';
+  if (lang_s='u_rus')or(lang_s='u_eng') then    UnZipper.FileName := 'res/save/save.zip';
+  if (lang_s='u_rus')or(lang_s='u_eng')  then    UnZipper.OutputPath := 'res/save/';
+ // if lang_s='u_eng' then    UnZipper.FileName := 'res/save/save.zip';
+//  if lang_s='u_eng' then    UnZipper.OutputPath := 'res/save/';
+ // if lang_s='w_eng' then    UnZipper.FileName := 'res\save\save.zip';
+ // if lang_s='w_eng' then    UnZipper.OutputPath := 'res\save\';
     UnZipper.Examine;
     UnZipper.UnZipAllFiles;
  // finally
@@ -4143,12 +4143,12 @@ if log='full' then log_generate('log_old_generate','lang = '+lang_s);
 //if (lang_s<>'w_rus')or (lang_s<>'u_rus')or (lang_s<>'w_eng')or (lang_s<>'u_eng') then begin writeln	('error file lang_f'); exit; end;
 if log='full' then log_generate('log_old_generate','close lang_f');
 //log_generate('log_new_generate','1-1');
-if log='full' then log_generate('log_old_generate','start lang');
-if lang_s='w_rus' then assign(lang,'res/lang/rus/text_win.lang');
-if lang_s='w_eng' then assign(lang,'res/lang/eng/text_win.lang');
+if log='full' then log_generate('log_old_generate','start lang'+' '+lang_s);
+if lang_s='w_rus' then assign(lang,'res\lang\rus\text_win.lang');
+if lang_s='w_eng' then assign(lang,'res\lang\eng\text_win.lang');
 if lang_s='u_eng' then assign(lang,'res/lang/eng/text_win.lang');
 if lang_s='u_rus' then assign(lang,'res/lang/rus/text_unix.lang');
-
+if log='full' then log_generate('log_old_generate','off lang'+' '+lang_s);
 reset(lang);
 while not eof(lang) do begin
 readln(lang,text[i]);

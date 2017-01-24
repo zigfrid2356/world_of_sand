@@ -20,7 +20,7 @@
 
 
 }
-{v.0.33a}{25.11.2016}
+{v.0.33a}{24.01.2017}
 
 program world_of_sand;
 {//$O+}
@@ -2411,7 +2411,7 @@ if (lang_s='w_rus')or(lang_s='w_eng') then  begin
    F.AddFileEntry('res\save\oz.save','oz.save');
    F.AddFileEntry('res\save\pyst.save','pyst.save');
 end;
-if lang_s='u_rus' then  begin
+if (lang_s='u_rus')or(lang_s='u_eng') then  begin
    F.AddFileEntry('res/save/hero.save','hero.save');
    F.AddFileEntry('res/save/npc.save','npc.save');
    F.AddFileEntry('res/save/map.save','map.save');
@@ -2422,7 +2422,7 @@ if lang_s='u_rus' then  begin
 end;
  zip:=TZipper.Create;
 if (lang_s='w_rus')or(lang_s='w_eng') then   zip.FileName:='res\save\save.zip';
-if lang_s='u_rus' then   zip.FileName:='res/save/save.zip';
+if (lang_s='u_rus')or(lang_s='w_eng') then   zip.FileName:='res/save/save.zip';
  zip.ZipFiles(F);
  Zip.Free;
  F.Free;

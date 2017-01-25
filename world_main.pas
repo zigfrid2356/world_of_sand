@@ -2332,14 +2332,14 @@ ClrScr;
 writeln(text[17],' ',hero.name);
 log_generate('log_old_generate','start save hero');
 if (lang_s='w_rus')or(lang_s='w_eng') then assign(hero_save,'res\save\hero.save');
-if lang_s='u_rus' then assign(hero_save,'res/save/hero.save');
+if (lang_s='u_rus')or(lang_s='u_eng') then assign(hero_save,'res/save/hero.save');
 rewrite(hero_save);
 write(hero_save,hero);
 close(hero_save);
 writeln(text[17],' ',text[76]);
 {NPC}log_generate('log_old_generate','start save npc');
 if (lang_s='w_rus')or(lang_s='w_eng') then assign(npc_save,'res\save\npc.save');
-if lang_s='u_rus' then assign(npc_save,'res/save/npc.save');
+if (lang_s='u_rus')or(lang_s='u_eng') then assign(npc_save,'res/save/npc.save');
 rewrite(npc_save);
 for i:=0 to 17000 do begin//1.1
 write(npc_save,npc[i]);
@@ -2350,7 +2350,7 @@ close(npc_save);
 {MOB}log_generate('log_old_generate','start save mob');
 writeln(text[17],' ',text[118]);
 if (lang_s='w_rus')or(lang_s='w_eng') then assign(mob_save,'res\save\mob.save');
-if lang_s='u_rus' then assign(mob_save,'res/save/mob.save');
+if (lang_s='u_rus')or(lang_s='u_eng') then assign(mob_save,'res/save/mob.save');
 rewrite(mob_save);
 for i:=0 to 10000 do begin//1.1
 write(mob_save,mob[i]);
@@ -2360,7 +2360,7 @@ close(mob_save);
 {BEAST}log_generate('log_old_generate','start save beast');
 writeln(text[17],' ',text[119]);
 if (lang_s='w_rus')or(lang_s='w_eng') then assign(beast_save,'res\save\beast.save');
-if lang_s='u_rus' then assign(beast_save,'res/save/beast.save');
+if (lang_s='u_rus')or(lang_s='u_eng') then assign(beast_save,'res/save/beast.save');
 rewrite(beast_save);
 for i:=0 to 10000 do begin//1.1
 write(beast_save,beast_list[i]);
@@ -2370,7 +2370,7 @@ close(beast_save);
 {OZ}log_generate('log_old_generate','start save oz');
 writeln(text[17],' ',text[75]);
 if (lang_s='w_rus')or(lang_s='w_eng') then assign(oz_save,'res\save\oz.save');
-if lang_s='u_rus' then assign(oz_save,'res/save/oz.save');
+if (lang_s='u_rus')or(lang_s='u_eng') then assign(oz_save,'res/save/oz.save');
 rewrite(oz_save);
 for i:=0 to 100 do begin//1.1
 write(oz_save,oz_list[i]);
@@ -2381,7 +2381,7 @@ close(oz_save);
 {PYST}log_generate('log_old_generate','start save pyst');
 writeln(text[17],' ',text[74]);
 if (lang_s='w_rus')or(lang_s='w_eng') then assign(pyst_save,'res\save\pyst.save');
-if lang_s='u_rus' then assign(pyst_save,'res/save/pyst.save');
+if (lang_s='u_rus')or(lang_s='u_eng') then assign(pyst_save,'res/save/pyst.save');
 rewrite(pyst_save);
 for i:=0 to 1000 do begin//1.1
 write(pyst_save,pyst_list[i]);
@@ -2391,7 +2391,7 @@ close(pyst_save);
 log_generate('log_old_generate','start save map');
 writeln(text[17],' ',text[9]);
 if (lang_s='w_rus')or(lang_s='w_eng') then assign(map_save,'res\save\map.save');
-if lang_s='u_rus' then assign(map_save,'res/save/map.save');
+if (lang_s='u_rus')or(lang_s='u_eng') then assign(map_save,'res/save/map.save');
 rewrite(map_save);
 for i:=0 to x_map do begin//1.1
 	for j:=0 to y_map do begin//1.2
@@ -3540,8 +3540,11 @@ if command='map_test_generate' then begin//2
 for i:=0 to x_map do begin//2.1
 	for j:=0 to y_map do begin//2.2
 	map[i,j].x:=i;
-	map[i,j].y:=j;	
-	map[i,j].structure:=simbol[0];
+	map[i,j].y:=j;
+	n:=random(5);
+	if (n=4) or (n=2) or (n=3) then n:=0;		
+	map[i,j].structure:=simbol[n];	
+	{map[i,j].structure:=simbol[0];}
 	map[i,j].color:=14;
 	map[i,j].progress:=0;
 	map[i,j].tip:=0;
@@ -4146,7 +4149,7 @@ if log='full' then log_generate('log_old_generate','close lang_f');
 if log='full' then log_generate('log_old_generate','start lang'+' '+lang_s);
 if lang_s='w_rus' then assign(lang,'res\lang\rus\text_win.lang');
 if lang_s='w_eng' then assign(lang,'res\lang\eng\text_win.lang');
-if lang_s='u_eng' then assign(lang,'res/lang/eng/text_win.lang');
+if lang_s='u_eng' then assign(lang,'res/lang/eng/text_unix.lang');
 if lang_s='u_rus' then assign(lang,'res/lang/rus/text_unix.lang');
 if log='full' then log_generate('log_old_generate','off lang'+' '+lang_s);
 reset(lang);

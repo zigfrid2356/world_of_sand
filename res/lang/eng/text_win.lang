@@ -46,7 +46,7 @@
 045 inventory
 046 weapon
 047 Armour
-decoration 048
+048 decoration
 049 ingredient
 050 empty
 051 sand
@@ -88,7 +88,7 @@ decoration 048
 087 hunt
 088 corpse
 089 take
-090, press '0' to exit
+090 press '0' to exit
 091 name
 092 Armour
 093 weight

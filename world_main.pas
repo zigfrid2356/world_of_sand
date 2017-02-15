@@ -3952,6 +3952,43 @@ map[n_oz,m_oz].structure:=simbol[7];
 map[n_oz,m_oz].color:=1;
 end;//6
 
+//+15.02.2017---------------------------------15.02.2017-----------
+k1:=1;k0:=0;
+i:=0;j:=0;
+l:=0;
+n:=0;m:=0;
+
+repeat
+begin
+n:=random(x_map);
+m:=random(y_map);
+{*
+*simbol[0]:='.';//colore[0]:=1;colore[13]:=13;
+simbol[1]:=':';//colore[1]:=1;colore[14]:=14;
+simbol[2]:=';';//colore[2]:=2;
+simbol[3]:='#';//colore[3]:=3;
+simbol[4]:='/';//colore[4]:=4;
+simbol[5]:='"';//colore[5]:=5;
+simbol[6]:='0';//colore[6]:=6;
+simbol[7]:='~';//colore[7]:=7;
+simbol[8]:='!';//colore[8]:=8;
+simbol[9]:='_';//colore[9]:=9;
+simbol[10]:='-';
+simbol[11]:='=';
+simbol[12]:='^';
+*}
+end;
+//---------(6)
+until (n>10)and(n<x_map-10)and(m>10)and(m<y_map-10);
+	for l:=m-4 to m+5 do begin//7.1
+	for i:=n-4 to n+5 do begin//7.2
+	map[n,m].structure:=simbol[3];
+	map[n.m].color:=14;
+	end;end;//7.1,7.2
+	
+
+//
+
 k1:=1;k0:=0;
 i:=0;j:=0;
 l:=0;

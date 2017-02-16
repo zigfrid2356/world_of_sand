@@ -20,7 +20,7 @@
 
 
 }
-{v.0.33a}{24.01.2017}
+{v.0.33a}{16.02.2017}
 
 program world_of_sand;
 {//$O+}
@@ -3478,6 +3478,10 @@ end;//8.1
 end;//8
 end;
 
+function map_art_load(command:string):erath;
+begin
+
+end;
 
 procedure map_generate(command:string);
 var
@@ -3951,7 +3955,7 @@ for i_oz:=n_oz-2 to n_oz+2 do begin//6.1
 map[n_oz,m_oz].structure:=simbol[7];
 map[n_oz,m_oz].color:=1;
 end;//6
-
+{
 //+15.02.2017---------------------------------15.02.2017-----------
 k1:=1;k0:=0;
 i:=0;j:=0;
@@ -3962,7 +3966,7 @@ repeat
 begin
 n:=random(x_map);
 m:=random(y_map);
-{*
+
 *simbol[0]:='.';//colore[0]:=1;colore[13]:=13;
 simbol[1]:=':';//colore[1]:=1;colore[14]:=14;
 simbol[2]:=';';//colore[2]:=2;
@@ -3976,7 +3980,7 @@ simbol[9]:='_';//colore[9]:=9;
 simbol[10]:='-';
 simbol[11]:='=';
 simbol[12]:='^';
-*}
+*
 end;
 //---------(6)
 until (n>10)and(n<x_map-10)and(m>10)and(m<y_map-10);
@@ -3985,7 +3989,7 @@ until (n>10)and(n<x_map-10)and(m>10)and(m<y_map-10);
 	map[n,m].structure:=simbol[3];
 	map[n.m].color:=14;
 	end;end;//7.1,7.2
-	
+}	
 
 //
 

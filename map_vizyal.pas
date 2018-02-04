@@ -24,7 +24,7 @@
 
 program GetMax;
  
-uses {graph}ptcGraph,crt,sysutils,linux{windows},dateutils;
+uses {graph}ptcGraph,crt,sysutils,{linux}windows,dateutils;
 type
 erath =record
 x,y,npc_index,beast_index,mob_index:word;
@@ -149,7 +149,7 @@ for i:=0 to 800 do begin//1.1
 	for j:=0 to 600 do begin//1.2
 if map[i,j].structure='#' then putpixel(i,j,15) else putpixel(i,j,map[i,j].color);
 end;end;//1.1//1.2
-for iii:=0 to 100 do muve(128,128,'test');
+//for iii:=0 to 100 do muve(128,128,'test');
 end;//00----------------------------------------00---------------
 readln();
  
